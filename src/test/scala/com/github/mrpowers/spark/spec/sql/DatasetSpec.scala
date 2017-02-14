@@ -468,16 +468,16 @@ class DatasetSpec extends FunSpec with ShouldMatchers with DataFrameSuiteBase {
 
     it("replaces explode and provides flexibility") {
 
-      // HACK - can't figure out how this works :(
+//       HACK - can't figure out how this works :(
 
 //      val wordsDf = Seq(
 //        ("the people like to do the stuff"),
 //        ("farmers like the rain")
 //      ).toDF("sentence")
-
+//
 //      wordsDf.flatMap(_.sentence.split(" "))
 //      wordsDf.flatMap(_.size)
-
+//
 //      case class Sentence(words: String)
 //
 //      val ds = Seq(
@@ -518,6 +518,10 @@ class DatasetSpec extends FunSpec with ShouldMatchers with DataFrameSuiteBase {
 
     }
 
+  }
+
+  describe("#foreach") {
+    // HACK - come back
   }
 
   describe("#foreach") {

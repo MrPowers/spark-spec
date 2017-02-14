@@ -546,8 +546,8 @@ class DatasetSpec extends FunSpec with ShouldMatchers with DataFrameSuiteBase {
       val actualDf = playersDf.groupBy("team").sum("score")
 
       val expectedData = List(
-        ("boston", 5.toLong),
-        ("detroit", 50.toLong)
+        Row("boston", 5.toLong),
+        Row("detroit", 50.toLong)
       )
 
       val expectedSchema = List(

@@ -10,24 +10,6 @@ class DatasetSpec extends FunSpec with ShouldMatchers with DataFrameSuiteBase {
 
   import spark.implicits._
 
-  describe("#methodsMissing") {
-
-    it("lists out the methods not included in this file") {
-      // cache - hard to demonstrate
-      // checkpoint - don't know what it means, think it's for streaming
-      // classTag - not sure what this is for, maybe Java?
-      // coalesce - not well suited for test file
-      // col - shown as part of other examples
-      // collectAsList - seems like a Java thing
-      // createGlobalTempView
-      // createOrReplaceTempView
-      // createTempView
-      // cube - http://stackoverflow.com/questions/37975227/what-is-the-difference-between-cube-and-groupby-for-operating-on-dataframes
-
-    }
-
-  }
-
   describe("#agg") {
 
     it("HACK - don't know what this does") {
@@ -71,6 +53,8 @@ class DatasetSpec extends FunSpec with ShouldMatchers with DataFrameSuiteBase {
 
   }
 
+  // MISSING - #apply
+
   describe("#as") {
 
     it("does the same thing as alias") {
@@ -94,6 +78,12 @@ class DatasetSpec extends FunSpec with ShouldMatchers with DataFrameSuiteBase {
     }
 
   }
+
+  // MISSING - cache
+  // MISSING - checkpoint
+  // MISSING - classTag
+  // MISSING - coalesce
+  // MISSING - col
 
   describe("#collect") {
 
@@ -123,6 +113,8 @@ class DatasetSpec extends FunSpec with ShouldMatchers with DataFrameSuiteBase {
     }
 
   }
+
+  // MISSING - collectAsList
 
   describe("#columns") {
 
@@ -156,6 +148,10 @@ class DatasetSpec extends FunSpec with ShouldMatchers with DataFrameSuiteBase {
 
   }
 
+  // MISSING - createGlobalTempView
+  // MISSING - createOrReplaceTempView
+  // MISSING - createTempView
+
   describe("#crossJoin") {
 
     it("returns a count of all the rows in a DataFrame") {
@@ -184,6 +180,8 @@ class DatasetSpec extends FunSpec with ShouldMatchers with DataFrameSuiteBase {
     }
 
   }
+
+  // MISSING - cube
 
   describe("#describe") {
 
@@ -392,6 +390,8 @@ class DatasetSpec extends FunSpec with ShouldMatchers with DataFrameSuiteBase {
 
   }
 
+  // MISSING - explain
+
   describe("#filter") {
 
     it("filters rows based on a given condition") {
@@ -491,46 +491,8 @@ class DatasetSpec extends FunSpec with ShouldMatchers with DataFrameSuiteBase {
 
   }
 
-  // MISSING - groupByKey
-
-  describe("#head") {
-
-    it("returns the first row") {
-
-      val row1 = Row("doug")
-      val row2 = Row("patty")
-
-      val sourceData = List(
-        row1,
-        row2
-      )
-
-      val sourceSchema = List(
-        StructField("character", StringType, true)
-      )
-
-      val sourceDf = spark.createDataFrame(
-        spark.sparkContext.parallelize(sourceData),
-        StructType(sourceSchema)
-      )
-
-      sourceDf.head() should equal(row1)
-
-    }
-
-  }
-
-  describe("#foreach") {
-    // HACK - come back
-  }
-
-  describe("#foreach") {
-    // HACK - come back
-  }
-
-  describe("#foreachPartition") {
-    // HACK - come back
-  }
+  // MISSING - foreach
+  // MISSING - foreachPartition
 
   describe("#groupBy") {
 
@@ -565,5 +527,36 @@ class DatasetSpec extends FunSpec with ShouldMatchers with DataFrameSuiteBase {
     }
 
   }
+
+  // MISSING - groupByKey
+
+  describe("#head") {
+
+    it("returns the first row") {
+
+      val row1 = Row("doug")
+      val row2 = Row("patty")
+
+      val sourceData = List(
+        row1,
+        row2
+      )
+
+      val sourceSchema = List(
+        StructField("character", StringType, true)
+      )
+
+      val sourceDf = spark.createDataFrame(
+        spark.sparkContext.parallelize(sourceData),
+        StructType(sourceSchema)
+      )
+
+      sourceDf.head() should equal(row1)
+
+    }
+
+  }
+
+  // MISSING - inputFiles
 
 }

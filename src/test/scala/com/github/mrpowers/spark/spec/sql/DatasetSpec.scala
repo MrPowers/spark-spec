@@ -154,7 +154,7 @@ class DatasetSpec extends FunSpec with ShouldMatchers with DataFrameSuiteBase {
 
   describe("#crossJoin") {
 
-    it("returns a count of all the rows in a DataFrame") {
+    it("cross joins two DataFrames") {
 
       val letterDf = Seq(
         ("a"),
@@ -558,5 +558,41 @@ class DatasetSpec extends FunSpec with ShouldMatchers with DataFrameSuiteBase {
   }
 
   // MISSING - inputFiles
+
+  describe("#intersect") {
+
+    it("returns a DataFrames that contains the rows in both the DataFrames") {
+
+      val numbersDf = Seq(
+        (1, 2),
+        (4, 5),
+        (8, 9)
+      ).toDF("num1", "num2")
+
+      val moreDf = Seq(
+        (100, 200),
+        (4, 5),
+        (800, 900),
+        (1, 2)
+      ).toDF("num1", "num2")
+
+      val actualDf = numbersDf.intersect(moreDf)
+
+      val expectedDf = Seq(
+        (1, 2),
+        (4, 5)
+      ).toDF("num1", "num2")
+
+      assertDataFrameEquals(actualDf, expectedDf)
+
+    }
+
+  }
+
+  // MISSING - isLocal
+  // MISSING - isStreaming
+  // MISSING - javaRDD
+
+
 
 }

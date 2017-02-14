@@ -4,7 +4,7 @@ import com.holdenkarau.spark.testing.DataFrameSuiteBase
 import org.scalatest._
 import org.apache.spark.sql.functions._
 import org.apache.spark.sql.Row
-import org.apache.spark.sql.types.{IntegerType, StringType, StructField, StructType}
+import org.apache.spark.sql.types._
 
 class DatasetSpec extends FunSpec with ShouldMatchers with DataFrameSuiteBase {
 
@@ -515,6 +515,48 @@ class DatasetSpec extends FunSpec with ShouldMatchers with DataFrameSuiteBase {
       )
 
       sourceDf.head() should equal(row1)
+
+    }
+
+  }
+
+  describe("#foreach") {
+    // HACK - come back
+  }
+
+  describe("#foreachPartition") {
+    // HACK - come back
+  }
+
+  describe("#groupBy") {
+
+    it("groups columns for aggregations") {
+
+      val playersDf = Seq(
+        (1, "boston"),
+        (4, "boston"),
+        (8, "detroit"),
+        (42, "detroit")
+      ).toDF("score", "team")
+
+      val actualDf = playersDf.groupBy("team").sum("score")
+
+      val expectedData = List(
+        ("boston", 5.toLong),
+        ("detroit", 50.toLong)
+      )
+
+      val expectedSchema = List(
+        StructField("team", StringType, true),
+        StructField("sum(score)", LongType, true)
+      )
+
+      val expectedDf = spark.createDataFrame(
+        spark.sparkContext.parallelize(expectedData),
+        StructType(expectedSchema)
+      )
+
+      assertDataFrameEquals(actualDf, expectedDf)
 
     }
 

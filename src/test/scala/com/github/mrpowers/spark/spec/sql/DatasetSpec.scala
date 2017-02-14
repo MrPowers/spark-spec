@@ -491,4 +491,33 @@ class DatasetSpec extends FunSpec with ShouldMatchers with DataFrameSuiteBase {
 
   }
 
+  // MISSING - groupByKey
+
+  describe("#head") {
+
+    it("returns the first row") {
+
+      val row1 = Row("doug")
+      val row2 = Row("patty")
+
+      val sourceData = List(
+        row1,
+        row2
+      )
+
+      val sourceSchema = List(
+        StructField("character", StringType, true)
+      )
+
+      val sourceDf = spark.createDataFrame(
+        spark.sparkContext.parallelize(sourceData),
+        StructType(sourceSchema)
+      )
+
+      sourceDf.head() should equal(row1)
+
+    }
+
+  }
+
 }

@@ -555,6 +555,30 @@ class DatasetSpec extends FunSpec with ShouldMatchers with DataFrameSuiteBase {
 
     }
 
+    it("returns the first n rows") {
+
+      val row1 = Row("doug")
+      val row2 = Row("patty")
+      val row3 = Row("frank")
+
+      val sourceData = List(
+        row1,
+        row2
+      )
+
+      val sourceSchema = List(
+        StructField("character", StringType, true)
+      )
+
+      val sourceDf = spark.createDataFrame(
+        spark.sparkContext.parallelize(sourceData),
+        StructType(sourceSchema)
+      )
+
+      sourceDf.head(2) should equal(Array(row1, row2))
+
+    }
+
   }
 
   // MISSING - inputFiles

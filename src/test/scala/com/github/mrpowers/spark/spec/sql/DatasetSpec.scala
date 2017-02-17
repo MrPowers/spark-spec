@@ -617,6 +617,37 @@ class DatasetSpec extends FunSpec with ShouldMatchers with DataFrameSuiteBase {
   // MISSING - isStreaming
   // MISSING - javaRDD
 
+  describe("#join") {
+
+    it("joins two DataFrames") {
+
+      val peopleDf = Seq(
+        ("larry", "1"),
+        ("jeff", "2"),
+        ("susy", "3")
+      ).toDF("person", "id")
+
+      val birthplaceDf = Seq(
+        ("new york", "1"),
+        ("ohio", "2"),
+        ("los angeles", "3")
+      ).toDF("city", "person_id")
+
+      val actualDf = peopleDf.join(
+        birthplaceDf, peopleDf("id") <=> birthplaceDf("person_id")
+      )
+
+      val expectedDf = Seq(
+        ("larry", "1", "new york", "1"),
+        ("jeff", "2", "ohio", "2"),
+        ("susy", "3", "los angeles", "3")
+      ).toDF("person", "id", "city", "person_id")
+
+      assertDataFrameEquals(actualDf, expectedDf)
+
+    }
+
+  }
 
 
 }

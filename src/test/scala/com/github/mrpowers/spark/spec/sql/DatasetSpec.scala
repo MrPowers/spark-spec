@@ -851,4 +851,25 @@ class DatasetSpec extends FunSpec with ShouldMatchers with DataFrameSuiteBase wi
 
   }
 
+  // reduce
+
+  describe("#repartition") {
+
+    it("changes the number of partitions in a DataFrame") {
+
+      val stuffDf = Seq(
+        "bag",
+        "shirt"
+      ).toDF("thing")
+
+      stuffDf.rdd.partitions.length shouldNot equal(1)
+
+      val processedDf = stuffDf.repartition(1)
+
+      processedDf.rdd.partitions.length should equal(1)
+
+    }
+
+  }
+
 }

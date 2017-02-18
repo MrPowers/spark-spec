@@ -776,4 +776,32 @@ class DatasetSpec extends FunSpec with ShouldMatchers with DataFrameSuiteBase {
 
   }
 
+  // ofRows - I have no idea what this meathos is for, looks weird
+
+  describe("#orderBy") {
+
+    it("orders the numbers in a DataFrame") {
+
+      val numbersDf = Seq(
+        99,
+        4,
+        55,
+        42
+      ).toDF("num1")
+
+      val actualDf = numbersDf.orderBy("num1")
+
+      val expectedDf = Seq(
+        4,
+        42,
+        55,
+        99
+      ).toDF("num1")
+
+      assertDataFrameEquals(actualDf, expectedDf)
+
+    }
+
+  }
+
 }

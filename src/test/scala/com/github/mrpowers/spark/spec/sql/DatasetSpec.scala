@@ -804,4 +804,27 @@ class DatasetSpec extends FunSpec with ShouldMatchers with DataFrameSuiteBase {
 
   }
 
+  // persist
+  // printSchema
+  // queryExecution - don't think we'll be able to write a test, but looks like this would make for an interesting blog post
+
+  describe("#randomSplit") {
+
+    it("splits a DataFrame into n different DataFrames with specified weights") {
+
+      val numbersDf = Seq(
+        99,
+        4,
+        55,
+        42
+      ).toDF("num1")
+
+      val actual = numbersDf.randomSplit(Array(0.5, 0.5))
+
+      actual.size should equal(2)
+
+    }
+
+  }
+
 }

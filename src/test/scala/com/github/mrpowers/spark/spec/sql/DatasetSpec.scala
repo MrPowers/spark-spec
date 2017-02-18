@@ -705,5 +705,28 @@ class DatasetSpec extends FunSpec with ShouldMatchers with DataFrameSuiteBase {
 
   }
 
+  describe("#limit") {
+
+    it("takes the first n rows of a Dataset") {
+
+      val citiesDf = Seq(
+        (true, "boston"),
+        (true, "bangalore"),
+        (true, "bogota"),
+        (false, "dubai")
+      ).toDF("have_visited", "city")
+
+      val actualDf = citiesDf.limit(2)
+
+      val expectedDf = Seq(
+        (true, "boston"),
+        (true, "bangalore")
+      ).toDF("have_visited", "city")
+
+      assertDataFrameEquals(actualDf, expectedDf)
+
+    }
+
+  }
 
 }

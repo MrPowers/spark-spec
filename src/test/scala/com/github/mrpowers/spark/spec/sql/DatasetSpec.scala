@@ -1,12 +1,12 @@
 package com.github.mrpowers.spark.spec.sql
 
-import com.holdenkarau.spark.testing.DataFrameSuiteBase
+import com.holdenkarau.spark.testing.{DataFrameSuiteBase, RDDComparisons}
 import org.scalatest._
 import org.apache.spark.sql.functions._
 import org.apache.spark.sql.Row
 import org.apache.spark.sql.types.{StructType, _}
 
-class DatasetSpec extends FunSpec with ShouldMatchers with DataFrameSuiteBase {
+class DatasetSpec extends FunSpec with ShouldMatchers with DataFrameSuiteBase with RDDComparisons {
 
   import spark.implicits._
 
@@ -822,6 +822,30 @@ class DatasetSpec extends FunSpec with ShouldMatchers with DataFrameSuiteBase {
       val actual = numbersDf.randomSplit(Array(0.5, 0.5))
 
       actual.size should equal(2)
+
+    }
+
+  }
+
+  describe("#rdd") {
+
+    it("converts a DataFrame to a RDD") {
+
+      val stuffDf = Seq(
+        "bag",
+        "shirt"
+      ).toDF("thing")
+
+      val stuffRdd = stuffDf.rdd
+
+      val l: List[org.apache.spark.sql.Row] = List(
+        Row("bag"),
+        Row("shirt")
+      )
+
+      val expectedRdd = sc.parallelize(l)
+
+      assertRDDEquals(stuffRdd, expectedRdd)
 
     }
 

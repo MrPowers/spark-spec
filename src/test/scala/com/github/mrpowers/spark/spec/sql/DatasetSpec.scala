@@ -649,5 +649,61 @@ class DatasetSpec extends FunSpec with ShouldMatchers with DataFrameSuiteBase {
 
   }
 
+  describe("#joinWith") {
+
+    it("joins two DataFrames") {
+
+      val peopleDf = Seq(
+        ("larry", "1"),
+        ("jeff", "2"),
+        ("susy", "3")
+      ).toDF("person", "id")
+
+      val birthplaceDf = Seq(
+        ("new york", "1"),
+        ("ohio", "2"),
+        ("los angeles", "3")
+      ).toDF("city", "person_id")
+
+      val actualDf = peopleDf.joinWith(
+        birthplaceDf, peopleDf("id") <=> birthplaceDf("person_id")
+      )
+
+//      val sourceData = List(
+//        Row(("larry", "1"),("new york", "1")),
+//        Row(("jeff", "2"),("ohio", "2")),
+//        Row(("susy", "3"),("los angeles", "3"))
+//      )
+//
+//      val peopleSchema = List(
+//        StructField("person", StringType, true),
+//        StructField("id", StringType, true)
+//      )
+//
+//      val birthplaceSchema = List(
+//        StructField("city", StringType, true),
+//        StructField("person_id", StringType, true)
+//      )
+//
+//      val sourceSchema = List(
+//        StructType(peopleSchema),
+//        StructType(birthplaceSchema)
+//      )
+//
+//
+//      val sourceDf = spark.createDataFrame(
+//        spark.sparkContext.parallelize(sourceData),
+//        StructType(sourceSchema)
+//      )
+//
+//      sourceDf.show()
+
+      // HACK - FAIL
+      // This Stackoverflow question might help: http://stackoverflow.com/questions/36731674/re-using-a-schema-from-json-within-a-spark-dataframe-using-scala
+
+    }
+
+  }
+
 
 }

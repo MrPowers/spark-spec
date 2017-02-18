@@ -4,7 +4,7 @@ import com.holdenkarau.spark.testing.DataFrameSuiteBase
 import org.scalatest._
 import org.apache.spark.sql.functions._
 import org.apache.spark.sql.Row
-import org.apache.spark.sql.types._
+import org.apache.spark.sql.types.{StructType, _}
 
 class DatasetSpec extends FunSpec with ShouldMatchers with DataFrameSuiteBase {
 
@@ -722,6 +722,53 @@ class DatasetSpec extends FunSpec with ShouldMatchers with DataFrameSuiteBase {
         (true, "boston"),
         (true, "bangalore")
       ).toDF("have_visited", "city")
+
+      assertDataFrameEquals(actualDf, expectedDf)
+
+    }
+
+  }
+
+  // #map
+  // #mapPartitions
+
+  describe("#na") {
+
+    it("provides functionality for working with missing data") {
+
+      val sourceData = List(
+        Row(null, "boston"),
+        Row(null, null),
+        Row(true, "bogota"),
+        Row(false, "dubai")
+      )
+
+      val sourceSchema = List(
+        StructField("have_visited", BooleanType, true),
+        StructField("city", StringType, true)
+      )
+
+      val sourceDf = spark.createDataFrame(
+        spark.sparkContext.parallelize(sourceData),
+        StructType(sourceSchema)
+      )
+
+      val actualDf = sourceDf.na.drop()
+
+      val expectedData = List(
+        Row(true, "bogota"),
+        Row(false, "dubai")
+      )
+
+      val expectedSchema = List(
+        StructField("have_visited", BooleanType, true),
+        StructField("city", StringType, true)
+      )
+
+      val expectedDf = spark.createDataFrame(
+        spark.sparkContext.parallelize(expectedData),
+        StructType(expectedSchema)
+      )
 
       assertDataFrameEquals(actualDf, expectedDf)
 

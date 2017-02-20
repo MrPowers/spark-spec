@@ -872,4 +872,45 @@ class DatasetSpec extends FunSpec with ShouldMatchers with DataFrameSuiteBase wi
 
   }
 
+  describe("#rollup") {
+
+    it("creates a multi-dimensional rollup") {
+
+      // stole example from this question: http://stackoverflow.com/questions/37975227/what-is-the-difference-between-cube-and-groupby-for-operating-on-dataframes
+
+      val df = Seq(
+        ("foo", 1),
+        ("foo", 2),
+        ("bar", 2),
+        ("bar", 2)
+      ).toDF("x", "y")
+
+      val actualDf = df.rollup($"x", $"y").count()
+
+      val expectedData = List(
+        Row("bar", 2, 2L),
+        Row(null, null, 4L),
+        Row("foo", 1, 1L),
+        Row("foo", 2, 1L),
+        Row("foo", null, 2L),
+        Row("bar", null, 2L)
+      )
+
+      val expectedSchema = List(
+        StructField("x", StringType, true),
+        StructField("y", IntegerType, true),
+        StructField("count", LongType, false)
+      )
+
+      val expectedDf = spark.createDataFrame(
+        spark.sparkContext.parallelize(expectedData),
+        StructType(expectedSchema)
+      )
+
+      assertDataFrameEquals(actualDf, expectedDf)
+
+    }
+
+  }
+
 }

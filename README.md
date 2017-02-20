@@ -18,6 +18,27 @@ You can run the entire test suite with the `sbt test`command.
 
 You can run a single tests file with `sbt "test-only *DatasetSpec"`.
 
+## Example
+
+Here's a simple example that documents the behvior of the `Dataset#count` method:
+
+```scala
+describe("#count") {
+
+  it("returns a count of all the rows in a DataFrame") {
+
+    val sourceDf = Seq(
+      ("jets"),
+      ("barcelona")
+    ).toDF("team")
+
+    sourceDf.count should equal(2)
+
+  }
+
+}
+```
+
 ## Contribution
 
 We are actively looking for contributors to add tests for new methods and augment existing tests to cover edge cases.

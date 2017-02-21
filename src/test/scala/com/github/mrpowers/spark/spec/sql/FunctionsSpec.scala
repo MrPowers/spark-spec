@@ -66,4 +66,40 @@ class FunctionsSpec extends FunSpec with ShouldMatchers with DataFrameSuiteBase 
 
   }
 
+  describe("#concat_ws") {
+
+    it("concatenates multiple input string columns with separator") {
+
+      val wordsDf = Seq(
+        ("banh", "mi"),
+        ("pho", "ga"),
+        (null, "cheese"),
+        ("pizza", null),
+        (null, null)
+      ).toDF("word1", "word2")
+
+      val actualDf = wordsDf.withColumn(
+        "yummy",
+        concat_ws(
+          "_",
+          col("word1"),
+          col("word2")
+        )
+      )
+
+      val expectedDf = Seq(
+        ("banh", "mi", "banh_mi"),
+        ("pho", "ga", "pho_ga"),
+        (null, "cheese", "cheese"), // null column will be omitted
+        ("pizza", null, "pizza"), // null column will be omitted
+        (null, null, "") // all null columns give ""
+      ).toDF("word1", "word2", "yummy")
+
+      // assertDataFrameEquals(actualDf, expectedDf) // the assertDataFrameEquals has bug here
+      assert(actualDf.select("yummy").collect.deep == expectedDf.select("yummy").collect.deep)
+
+    }
+
+  }
+
 }

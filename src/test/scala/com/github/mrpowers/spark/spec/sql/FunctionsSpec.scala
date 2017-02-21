@@ -3,6 +3,8 @@ package com.github.mrpowers.spark.spec.sql
 import com.holdenkarau.spark.testing.DataFrameSuiteBase
 import org.scalatest._
 import org.apache.spark.sql.functions._
+import org.apache.spark.sql.Row
+import org.apache.spark.sql.types.{StructType, _}
 
 class FunctionsSpec extends FunSpec with ShouldMatchers with DataFrameSuiteBase {
 
@@ -87,16 +89,26 @@ class FunctionsSpec extends FunSpec with ShouldMatchers with DataFrameSuiteBase 
         )
       )
 
-      val expectedDf = Seq(
-        ("banh", "mi", "banh_mi"),
-        ("pho", "ga", "pho_ga"),
-        (null, "cheese", "cheese"), // null column will be omitted
-        ("pizza", null, "pizza"), // null column will be omitted
-        (null, null, "") // all null columns give ""
-      ).toDF("word1", "word2", "yummy")
+      val expectedData = List(
+        Row("banh", "mi", "banh_mi"),
+        Row("pho", "ga", "pho_ga"),
+        Row(null, "cheese", "cheese"), // null column will be omitted
+        Row("pizza", null, "pizza"), // null column will be omitted
+        Row(null, null, "") // all null columns give ""
+      )
 
-      // assertDataFrameEquals(actualDf, expectedDf) // the assertDataFrameEquals has bug here
-      assert(actualDf.select("yummy").collect.deep == expectedDf.select("yummy").collect.deep)
+      val expectedSchema = List(
+        StructField("word1", StringType, true),
+        StructField("word2", StringType, true),
+        StructField("yummy", StringType, false)
+      )
+
+      val expectedDf = spark.createDataFrame(
+        spark.sparkContext.parallelize(expectedData),
+        StructType(expectedSchema)
+      )
+
+      assertDataFrameEquals(actualDf, expectedDf)
 
     }
 

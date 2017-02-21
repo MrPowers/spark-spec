@@ -913,4 +913,23 @@ class DatasetSpec extends FunSpec with ShouldMatchers with DataFrameSuiteBase wi
 
   }
 
+  describe("#sample") {
+
+    it("returns a sample of the new Dataset") {
+
+      val df = Seq(
+        ("foo", 1),
+        ("foo", 2),
+        ("bar", 2),
+        ("bar", 2)
+      ).toDF("x", "y")
+
+      val actualDf = df.sample(true, 0.25)
+
+      assert(actualDf.count < 4)
+
+    }
+
+  }
+
 }

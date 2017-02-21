@@ -932,4 +932,26 @@ class DatasetSpec extends FunSpec with ShouldMatchers with DataFrameSuiteBase wi
 
   }
 
+  describe("#schema") {
+
+    it("returns the schema of a Dataset") {
+
+      val df = Seq(
+        ("foo", 1),
+        ("foo", 2)
+      ).toDF("x", "y")
+
+      val expectedSchema = StructType(
+        List(
+          StructField("x", StringType, true),
+          StructField("y", IntegerType, false)
+        )
+      )
+
+      df.schema should equal(expectedSchema)
+
+    }
+
+  }
+
 }

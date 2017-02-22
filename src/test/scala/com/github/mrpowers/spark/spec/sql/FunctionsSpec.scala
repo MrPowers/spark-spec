@@ -159,7 +159,8 @@ class FunctionsSpec extends FunSpec with ShouldMatchers with DataFrameSuiteBase 
       )
 
       val inputDf = spark.createDataFrame(
-        spark.sparkContext.parallelize(inputData),StructType(inputSchema)
+        spark.sparkContext.parallelize(inputData),
+        StructType(inputSchema)
       )
 
       val expectedSchema = List(
@@ -167,7 +168,7 @@ class FunctionsSpec extends FunSpec with ShouldMatchers with DataFrameSuiteBase 
         StructField("result",LongType,true)
       )
 
-      val expectedData =List(
+      val expectedData = List(
         Row(0,1L),
         Row(1,1L),
         Row(2,2L),
@@ -182,7 +183,7 @@ class FunctionsSpec extends FunSpec with ShouldMatchers with DataFrameSuiteBase 
         StructType(expectedSchema)
       )
 
-      val actualDf =inputDf.withColumn("result",factorial(col("number")))
+      val actualDf = inputDf.withColumn("result", factorial(col("number")))
 
       assertDataFrameEquals(actualDf,expectedDf)
 

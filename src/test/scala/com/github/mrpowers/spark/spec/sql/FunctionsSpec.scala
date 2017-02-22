@@ -34,6 +34,40 @@ class FunctionsSpec extends FunSpec with ShouldMatchers with DataFrameSuiteBase 
 
   }
 
+  describe("#coalesce") {
+
+    it("returns the first column that is not null, or null if all inputs are null.") {
+
+      val wordsDf = Seq(
+        ("banh", "mi"),
+        ("pho", "ga"),
+        (null, "cheese"),
+        ("pizza", null),
+        (null, null)
+      ).toDF("word1", "word2")
+
+      val actualDf = wordsDf.withColumn(
+        "yummy",
+        coalesce(
+          col("word1"),
+          col("word2")
+        )
+      )
+
+      val expectedDf = Seq(
+        ("banh", "mi", "banh"),
+        ("pho", "ga", "pho"),
+        (null, "cheese", "cheese"),
+        ("pizza", null, "pizza"),
+        (null, null, null)
+      ).toDF("word1", "word2", "yummy")
+
+      assertDataFrameEquals(actualDf, expectedDf)
+
+    }
+
+  }
+
   describe("#concat") {
 
     it("concatenates multiple input string columns together into a single string column") {

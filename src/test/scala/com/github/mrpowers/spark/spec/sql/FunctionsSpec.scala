@@ -148,4 +148,46 @@ class FunctionsSpec extends FunSpec with ShouldMatchers with DataFrameSuiteBase 
 
   }
 
+  describe("#factorial"){
+
+    it("calculates the product of an integer and all the integers below"){
+
+      val inputSchema = List(StructField("number",IntegerType,false))
+
+      val inputData = List(
+        Row(0),Row(1),Row(2),Row(3),Row(4),Row(5),Row(6)
+      )
+
+      val inputDf = spark.createDataFrame(
+        spark.sparkContext.parallelize(inputData),StructType(inputSchema)
+      )
+
+      val expectedSchema = List(
+        StructField("number",IntegerType,false),
+        StructField("result",LongType,true)
+      )
+
+      val expectedData =List(
+        Row(0,1L),
+        Row(1,1L),
+        Row(2,2L),
+        Row(3,6L),
+        Row(4,24L),
+        Row(5,120L),
+        Row(6,720L)
+      )
+
+      val expectedDf = spark.createDataFrame(
+        spark.sparkContext.parallelize(expectedData),
+        StructType(expectedSchema)
+      )
+
+      val actualDf =inputDf.withColumn("result",factorial(col("number")))
+
+      assertDataFrameEquals(actualDf,expectedDf)
+
+    }
+
+  }
+
 }

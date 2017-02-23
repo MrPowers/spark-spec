@@ -34,6 +34,40 @@ class FunctionsSpec extends FunSpec with ShouldMatchers with DataFrameSuiteBase 
 
   }
 
+  describe("#ceil") {
+
+    it("calculates the absolute value") {
+
+      val numbersDf = Seq(
+        (1.5),
+        (-8.1),
+        (5.9)
+      ).toDF("num1")
+
+      val actualDf = numbersDf.withColumn("upper", ceil(col("num1")))
+
+      val expectedData = List(
+        Row(1.5, 2L),
+        Row(-8.1, -8L),
+        Row(5.9, 6L)
+      )
+
+      val expectedSchema = List(
+        StructField("num1", DoubleType, false),
+        StructField("upper", LongType, true)
+      )
+
+      val expectedDf = spark.createDataFrame(
+        spark.sparkContext.parallelize(expectedData),
+        StructType(expectedSchema)
+      )
+
+      assertDataFrameEquals(actualDf, expectedDf)
+
+    }
+
+  }
+
   describe("#coalesce") {
 
     it("returns the first column that is not null, or null if all inputs are null.") {

@@ -225,4 +225,28 @@ class FunctionsSpec extends FunSpec with ShouldMatchers with DataFrameSuiteBase 
 
   }
 
+  describe("#lower") {
+
+    it("converts a string to lower case") {
+
+      val wordsDf = Seq(
+        ("Batman"),
+        ("CATWOMAN"),
+        ("pikachu")
+      ).toDF("word")
+
+      val actualDf = wordsDf.withColumn("lower_word", lower(col("word")))
+
+      val expectedDf = Seq(
+        ("Batman", "batman"),
+        ("CATWOMAN", "catwoman"),
+        ("pikachu", "pikachu")
+      ).toDF("word", "lower_word")
+
+      assertDataFrameEquals(actualDf, expectedDf)
+
+    }
+
+  }
+
 }

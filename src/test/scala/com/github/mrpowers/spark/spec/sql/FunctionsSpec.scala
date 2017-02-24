@@ -190,5 +190,34 @@ class FunctionsSpec extends FunSpec with ShouldMatchers with DataFrameSuiteBase 
     }
 
   }
+   
+   describe("#rpad") { 
+
+    it("Right-padded with pad to a length of len") {
+      
+     val wordsDf = Seq(
+        ("banh"),
+        ("delilah"),
+        (null),
+        ("c")
+      ).toDF("word1")
+
+
+     val actualDf = wordsDf.withColumn("rpad_column", rpad(col("word1"), 5, "x"))
+
+     val expectedDf = Seq(
+        ("banh", "banhx"),
+        ("delilah", "delil"),
+        (null, null),
+        ("c", "cxxxx")
+      ).toDF("word1", "rpad_column")
+
+     assertDataFrameEquals(actualDf, expectedDf)
+
+
+    }
+
+  }
+   
 
 }

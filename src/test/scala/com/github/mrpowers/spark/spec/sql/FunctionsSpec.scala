@@ -299,4 +299,26 @@ class FunctionsSpec extends FunSpec with ShouldMatchers with DataFrameSuiteBase 
 
   }
 
+  describe("#upper") {
+
+    it("converts a string to upper case") {
+
+      val wordsDf = Seq(
+        ("BatmaN"),
+        ("boO"),
+        ("piKachu")
+      ).toDF("word")
+
+      val actualDf = wordsDf.withColumn("upper_word", upper(col("word")))
+
+      val expectedDf = Seq(
+        ("BatmaN", "BATMAN"),
+        ("boO", "BOO"),
+        ("piKachu", "PIKACHU")
+      ).toDF("word", "upper_word")
+
+      assertDataFrameEquals(actualDf, expectedDf)
+
+    }
+  }
 }

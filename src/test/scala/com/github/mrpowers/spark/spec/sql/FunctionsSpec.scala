@@ -225,35 +225,6 @@ class FunctionsSpec extends FunSpec with ShouldMatchers with DataFrameSuiteBase 
 
   }
    
-   describe("#rpad") { 
-
-    it("Right-padded with pad to a length of len") {
-      
-     val wordsDf = Seq(
-        ("banh"),
-        ("delilah"),
-        (null),
-        ("c")
-      ).toDF("word1")
-
-
-     val actualDf = wordsDf.withColumn("rpad_column", rpad(col("word1"), 5, "x"))
-
-     val expectedDf = Seq(
-        ("banh", "banhx"),
-        ("delilah", "delil"),
-        (null, null),
-        ("c", "cxxxx")
-      ).toDF("word1", "rpad_column")
-
-     assertDataFrameEquals(actualDf, expectedDf)
-
-
-    }
-
-  }
-   
-
   describe("#lower") {
 
     it("converts a string to lower case") {
@@ -271,6 +242,56 @@ class FunctionsSpec extends FunSpec with ShouldMatchers with DataFrameSuiteBase 
         ("CATWOMAN", "catwoman"),
         ("pikachu", "pikachu")
       ).toDF("word", "lower_word")
+
+      assertDataFrameEquals(actualDf, expectedDf)
+
+    }
+
+  }
+
+  describe("#rpad") {
+
+    it("Right-padded with pad to a length of len") {
+
+      val wordsDf = Seq(
+        ("banh"),
+        ("delilah"),
+        (null),
+        ("c")
+      ).toDF("word1")
+
+
+      val actualDf = wordsDf.withColumn("rpad_column", rpad(col("word1"), 5, "x"))
+
+      val expectedDf = Seq(
+        ("banh", "banhx"),
+        ("delilah", "delil"),
+        (null, null),
+        ("c", "cxxxx")
+      ).toDF("word1", "rpad_column")
+
+      assertDataFrameEquals(actualDf, expectedDf)
+
+
+    }
+
+  }
+
+  describe("#trim") {
+
+    it("converts a string to lower case") {
+
+      val wordsDf = Seq(
+        ("bat  "),
+        ("  cat")
+      ).toDF("word")
+
+      val actualDf = wordsDf.withColumn("short_word", trim(col("word")))
+
+      val expectedDf = Seq(
+        ("bat  ", "bat"),
+        ("  cat", "cat")
+      ).toDF("word", "short_word")
 
       assertDataFrameEquals(actualDf, expectedDf)
 

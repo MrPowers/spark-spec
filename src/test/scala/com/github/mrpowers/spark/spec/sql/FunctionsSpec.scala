@@ -237,8 +237,6 @@ class FunctionsSpec extends FunSpec with ShouldMatchers with DataFrameSuiteBase 
 
       val actualDf = wordsDf.withColumn("lower_word", lower(col("word")))
 
-      actualDf.show()
-
       val expectedDf = Seq(
         ("Batman", "batman"),
         ("CATWOMAN", "catwoman"),

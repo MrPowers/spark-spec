@@ -237,11 +237,35 @@ class FunctionsSpec extends FunSpec with ShouldMatchers with DataFrameSuiteBase 
 
       val actualDf = wordsDf.withColumn("lower_word", lower(col("word")))
 
+      actualDf.show()
+
       val expectedDf = Seq(
         ("Batman", "batman"),
         ("CATWOMAN", "catwoman"),
         ("pikachu", "pikachu")
       ).toDF("word", "lower_word")
+
+      assertDataFrameEquals(actualDf, expectedDf)
+
+    }
+
+  }
+
+  describe("#length") {
+
+    it("returns the length of the column") {
+
+      val wordsDf = Seq(
+        ("banh"),
+        ("delilah")
+      ).toDF("word")
+
+      val actualDf = wordsDf.withColumn("something", length(col("word")))
+
+      val expectedDf = Seq(
+        ("banh", 4),
+        ("delilah", 7)
+      ).toDF("word", "something")
 
       assertDataFrameEquals(actualDf, expectedDf)
 

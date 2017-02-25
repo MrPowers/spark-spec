@@ -320,11 +320,12 @@ class FunctionsSpec extends FunSpec with ShouldMatchers with DataFrameSuiteBase 
       assertDataFrameEquals(actualDf, expectedDf)
 
     }
+
   }
 
   describe("#initcap") {
 
-    it("converts a the first letter of each word to upper case, returns a new column") {
+    it("converts the first letter of each word to upper case, returns a new column") {
 
       val wordsDf = Seq(
         ("bat man"),
@@ -345,4 +346,5 @@ class FunctionsSpec extends FunSpec with ShouldMatchers with DataFrameSuiteBase 
     }
 
   }
+
 }

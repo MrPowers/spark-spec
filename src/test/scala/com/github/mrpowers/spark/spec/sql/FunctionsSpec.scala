@@ -321,4 +321,28 @@ class FunctionsSpec extends FunSpec with ShouldMatchers with DataFrameSuiteBase 
 
     }
   }
+
+  describe("#initcap") {
+
+    it("converts a the first letter of each word to upper case, returns a new column") {
+
+      val wordsDf = Seq(
+        ("bat man"),
+        ("cat woman"),
+        ("spider man")
+      ).toDF("no_upper_words")
+
+      val actualDf = wordsDf.withColumn("first_upper", initcap(col("no_upper_words")))
+
+      val expectedDf = Seq(
+        ("bat man", "Bat Man"),
+        ("cat woman", "Cat Woman"),
+        ("spider man", "Spider Man")
+      ).toDF("no_upper_words", "first_upper")
+
+      assertDataFrameEquals(actualDf, expectedDf)
+
+    }
+
+  }
 }

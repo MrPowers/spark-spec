@@ -347,19 +347,19 @@ class FunctionsSpec extends FunSpec with ShouldMatchers with DataFrameSuiteBase 
 
   }
   
-  describe("#sqrt") { 
+  describe("#sqrt") {
+
     it("Computes the square root of the specified float value") { 
       
       val numsDF = Seq (
-          (49), 
-          (144), 
-          (89)
-          ).toDF("num1")
+        (49),
+        (144),
+        (89)
+      ).toDF("num1")
     
-    
-    val sqrt_DF = numsDF.withColumn("sqrt_num", sqrt(col("num1")))
-        
-    val expectedData = List(
+      val sqrtDF = numsDF.withColumn("sqrt_num", sqrt(col("num1")))
+
+      val expectedData = List(
         Row(49, 7.0),
         Row(144, 12.0),
         Row(89, 9.4339)
@@ -373,11 +373,12 @@ class FunctionsSpec extends FunSpec with ShouldMatchers with DataFrameSuiteBase 
       val expectedDf = spark.createDataFrame(
         spark.sparkContext.parallelize(expectedData),
         StructType(expectedSchema)
-      )  
-      
-   assertDataFrameApproximateEquals(sqrt_DF, expectedDf, 0.01)
-    
+      )
+
+      assertDataFrameApproximateEquals(sqrtDF, expectedDf, 0.01)
+
     }
+
   }
 
 }

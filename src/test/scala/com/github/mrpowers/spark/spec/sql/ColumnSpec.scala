@@ -4,7 +4,7 @@ import com.holdenkarau.spark.testing.DataFrameSuiteBase
 import org.scalatest._
 import org.apache.spark.sql.functions._
 
-class ColumnSpec extends FunSpec with ShouldMatchers with DataFrameSuiteBase {
+class ColumnSpec extends FunSpec with DataFrameSuiteBase {
 
   import spark.implicits._
 
@@ -33,7 +33,32 @@ class ColumnSpec extends FunSpec with ShouldMatchers with DataFrameSuiteBase {
       assertDataFrameEquals(actualDf, expectedDf)
 
     }
-
+    
   }
+  
+  describe("#gt") { 
+    
+    it("Greater than") { 
+      
+      val sourceDf = Seq(
+        (45),
+        (79),
+        (124),
+        (196),
+        (257)
+      ).toDF("some_date")
+      
+      val actualDf = sourceDf.where(col("some_date").gt(124))
+      
+      val expectedDf = Seq(
+        (196),
+        (257)
+      ).toDF("some_date")
+      
+      assertDataFrameEquals(actualDf, expectedDf)
+      
+    }
+    
+  } 
 
 }

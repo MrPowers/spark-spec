@@ -38,4 +38,14 @@ class SparkSessionSpec extends FunSpec with ShouldMatchers with DataFrameSuiteBa
 
   }
 
+  describe("version") {
+
+    it("returns the version of Spark on which this application is running") {
+
+      assert(spark.version === "2.1.0")
+
+    }
+
+  }
+
 }

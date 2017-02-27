@@ -38,7 +38,7 @@ class ColumnSpec extends FunSpec with DataFrameSuiteBase {
   
   describe("#gt") { 
     
-    it("Greater than") { 
+    it("keeps rows greater than a certain number") {
       
       val sourceDf = Seq(
         (45),

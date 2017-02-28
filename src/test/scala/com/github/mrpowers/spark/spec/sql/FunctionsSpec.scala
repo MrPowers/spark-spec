@@ -402,7 +402,6 @@ class FunctionsSpec extends FunSpec with DataFrameSuiteBase {
 
   }
 
-
   describe("#pow") {
 
     it("returns the value of the first argument raised to the power of the second argument") {
@@ -413,7 +412,7 @@ class FunctionsSpec extends FunSpec with DataFrameSuiteBase {
         (1)
       ).toDF("num")
 
-      val actualDF = numsDF.withColumn("power", pow(col("num"),3))
+      val actualDF = numsDF.withColumn("power", pow(col("num"), 3))
 
       val expectedData = List(
         Row(2, 8.0),

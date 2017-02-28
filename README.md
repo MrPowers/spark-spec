@@ -32,7 +32,7 @@ describe("#count") {
       ("barcelona")
     ).toDF("team")
 
-    sourceDf.count should equal(2)
+    assert(sourceDf.count === 2)
 
   }
 

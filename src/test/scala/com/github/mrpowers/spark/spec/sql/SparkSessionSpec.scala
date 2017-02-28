@@ -5,7 +5,7 @@ import org.apache.spark.sql.Row
 import org.apache.spark.sql.types.{StringType, StructField, StructType}
 import org.scalatest._
 
-class SparkSessionSpec extends FunSpec with ShouldMatchers with DataFrameSuiteBase {
+class SparkSessionSpec extends FunSpec with DataFrameSuiteBase {
 
   describe("#read") {
 

@@ -32,12 +32,22 @@ class FunctionsSpec extends FunSpec with DataFrameSuiteBase {
 
       val actualDf = sourceDf.withColumn("num1abs", abs(col("num1")))
 
-      val expectedDf = Seq(
-        (1, 1),
-        (-8, 8),
-        (-5, 5),
-        (null, null)
-      ).toDF("num1", "num1abs")
+      val expectedData = List(
+        Row(1, 1),
+        Row(-8, 8),
+        Row(-5, 5),
+        Row(null, null)
+      )
+
+      val expectedSchema = List(
+        StructField("num1", IntegerType, true),
+        StructField("num1abs", IntegerType, true)
+      )
+
+      val expectedDf = spark.createDataFrame(
+        spark.sparkContext.parallelize(expectedData),
+        StructType(expectedSchema)
+      )
 
       assertDataFrameEquals(actualDf, expectedDf)
 

@@ -3,6 +3,8 @@ package com.github.mrpowers.spark.spec.sql
 import com.holdenkarau.spark.testing.DataFrameSuiteBase
 import org.scalatest._
 import org.apache.spark.sql.functions._
+import org.apache.spark.sql.Row
+import org.apache.spark.sql.types.{StructType, _}
 
 class ColumnSpec extends FunSpec with DataFrameSuiteBase {
 
@@ -38,7 +40,7 @@ class ColumnSpec extends FunSpec with DataFrameSuiteBase {
   
   describe("#gt") { 
     
-    it("keeps rows greater than a certain number") {
+    it("keeps rows greater than a certain number") { 
       
       val sourceDf = Seq(
         (45),
@@ -46,19 +48,60 @@ class ColumnSpec extends FunSpec with DataFrameSuiteBase {
         (124),
         (196),
         (257)
-      ).toDF("some_date")
+      ).toDF("num1")
       
-      val actualDf = sourceDf.where(col("some_date").gt(124))
+      val actualDf = sourceDf.where(col("num1").gt(124))
       
       val expectedDf = Seq(
         (196),
         (257)
-      ).toDF("some_date")
+      ).toDF("num1")
       
       assertDataFrameEquals(actualDf, expectedDf)
       
     }
     
-  } 
+  }
+  
+  describe("#plus") {
+    
+    it("Sum of this expression and another expression") { 
+      
+      val sourceDf = Seq(
+        (45),
+        (79),
+        (0),
+        (124)
+      ).toDF("num1")
+      
+      val actualDf = sourceDf.
+        select(sourceDf.
+            col("num1"), 
+            sourceDf.col("num1").
+            plus(55).as("num2")
+            )
+      
+      val expectedData = List(
+          Row(45, 100),
+          Row(79, 134), 
+          Row(0, 55), 
+          Row(124, 179)
+          )
+
+      val expectedSchema = List(
+        StructField("num1", IntegerType, false),
+        StructField("num2", IntegerType, false)
+      )
+
+      val expectedDf = spark.createDataFrame(
+        spark.sparkContext.parallelize(expectedData),
+        StructType(expectedSchema)
+      )
+      
+      assertDataFrameEquals(actualDf, expectedDf)
+           
+    }
+    
+  }
 
 }

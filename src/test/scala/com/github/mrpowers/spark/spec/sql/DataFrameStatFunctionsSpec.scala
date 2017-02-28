@@ -2,7 +2,6 @@ package com.github.mrpowers.spark.spec.sql
 
 import com.holdenkarau.spark.testing.DataFrameSuiteBase
 import org.scalatest._
-import org.apache.spark.sql.functions._
 
 class DataFrameStatFunctionsSpec extends FunSpec with DataFrameSuiteBase {
 

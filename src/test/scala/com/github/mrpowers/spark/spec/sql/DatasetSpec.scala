@@ -6,7 +6,7 @@ import org.apache.spark.sql.functions._
 import org.apache.spark.sql.Row
 import org.apache.spark.sql.types.{StructType, _}
 
-class DatasetSpec extends FunSpec with ShouldMatchers with DataFrameSuiteBase with RDDComparisons {
+class DatasetSpec extends FunSpec with DataFrameSuiteBase with RDDComparisons {
 
   import spark.implicits._
 
@@ -108,7 +108,7 @@ class DatasetSpec extends FunSpec with ShouldMatchers with DataFrameSuiteBase wi
 
       val s = sourceDf.collect()
 
-      s should equal(Array(row1, row2))
+      assert(s === Array(row1, row2))
 
     }
 
@@ -127,7 +127,7 @@ class DatasetSpec extends FunSpec with ShouldMatchers with DataFrameSuiteBase wi
 
       val expected = Array("team", "sport")
 
-      sourceDf.columns should equal(expected)
+      assert(sourceDf.columns === expected)
 
     }
 
@@ -142,7 +142,7 @@ class DatasetSpec extends FunSpec with ShouldMatchers with DataFrameSuiteBase wi
         ("barcelona")
       ).toDF("team")
 
-      sourceDf.count should equal(2)
+      assert(sourceDf.count === 2)
 
     }
 
@@ -458,7 +458,7 @@ class DatasetSpec extends FunSpec with ShouldMatchers with DataFrameSuiteBase wi
         StructType(sourceSchema)
       )
 
-      sourceDf.first() should equal(row1)
+      assert(sourceDf.first() === row1)
 
     }
 
@@ -551,7 +551,7 @@ class DatasetSpec extends FunSpec with ShouldMatchers with DataFrameSuiteBase wi
         StructType(sourceSchema)
       )
 
-      sourceDf.head() should equal(row1)
+      assert(sourceDf.head() === row1)
 
     }
 
@@ -575,7 +575,7 @@ class DatasetSpec extends FunSpec with ShouldMatchers with DataFrameSuiteBase wi
         StructType(sourceSchema)
       )
 
-      sourceDf.head(2) should equal(Array(row1, row2))
+      assert(sourceDf.head(2) === Array(row1, row2))
 
     }
 
@@ -821,7 +821,7 @@ class DatasetSpec extends FunSpec with ShouldMatchers with DataFrameSuiteBase wi
 
       val actual = numbersDf.randomSplit(Array(0.5, 0.5))
 
-      actual.size should equal(2)
+      assert(actual.size === 2)
 
     }
 
@@ -862,11 +862,11 @@ class DatasetSpec extends FunSpec with ShouldMatchers with DataFrameSuiteBase wi
         "shirt"
       ).toDF("thing")
 
-      stuffDf.rdd.partitions.length shouldNot equal(1)
+      assert(stuffDf.rdd.partitions.length != 1)
 
       val processedDf = stuffDf.repartition(1)
 
-      processedDf.rdd.partitions.length should equal(1)
+      assert(processedDf.rdd.partitions.length === 1)
 
     }
 
@@ -948,7 +948,7 @@ class DatasetSpec extends FunSpec with ShouldMatchers with DataFrameSuiteBase wi
         )
       )
 
-      df.schema should equal(expectedSchema)
+      assert(df.schema === expectedSchema)
 
     }
 

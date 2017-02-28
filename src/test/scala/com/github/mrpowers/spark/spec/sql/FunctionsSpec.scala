@@ -6,7 +6,7 @@ import org.apache.spark.sql.functions._
 import org.apache.spark.sql.Row
 import org.apache.spark.sql.types.{StructType, _}
 
-class FunctionsSpec extends FunSpec with ShouldMatchers with DataFrameSuiteBase {
+class FunctionsSpec extends FunSpec with DataFrameSuiteBase {
 
   import spark.implicits._
 
@@ -14,18 +14,29 @@ class FunctionsSpec extends FunSpec with ShouldMatchers with DataFrameSuiteBase 
 
     it("calculates the absolute value") {
 
-      val numbersDf = Seq(
-        (1),
-        (-8),
-        (-5)
-      ).toDF("num1")
+      val sourceData = List(
+        Row(1),
+        Row(-8),
+        Row(-5),
+        Row(null)
+      )
 
-      val actualDf = numbersDf.withColumn("num1abs", abs(col("num1")))
+      val sourceSchema = List(
+        StructField("num1", IntegerType, true)
+      )
+
+      val sourceDf = spark.createDataFrame(
+        spark.sparkContext.parallelize(sourceData),
+        StructType(sourceSchema)
+      )
+
+      val actualDf = sourceDf.withColumn("num1abs", abs(col("num1")))
 
       val expectedDf = Seq(
         (1, 1),
         (-8, 8),
-        (-5, 5)
+        (-5, 5),
+        (null, null)
       ).toDF("num1", "num1abs")
 
       assertDataFrameEquals(actualDf, expectedDf)

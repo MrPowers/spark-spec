@@ -402,4 +402,40 @@ class FunctionsSpec extends FunSpec with DataFrameSuiteBase {
 
   }
 
+
+  describe("#pow") {
+
+    it("returns the value of the first argument raised to the power of the second argument") {
+
+      val numsDF = Seq (
+        (2),
+        (3),
+        (1)
+      ).toDF("num")
+
+      val actualDF = numsDF.withColumn("power", pow(col("num"),3))
+
+      val expectedData = List(
+        Row(2, 8.0),
+        Row(3, 27.0),
+        Row(1, 1.0)
+      )
+
+      val expectedSchema = List(
+        StructField("num", IntegerType, false),
+        StructField("power", DoubleType, false)
+      )
+
+      val expectedDf = spark.createDataFrame(
+        spark.sparkContext.parallelize(expectedData),
+        StructType(expectedSchema)
+      )
+
+      assertDataFrameEquals(actualDF, expectedDf)
+
+    }
+
+  }
+
+
 }

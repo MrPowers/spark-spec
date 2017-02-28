@@ -65,7 +65,7 @@ class ColumnSpec extends FunSpec with DataFrameSuiteBase {
   
   describe("#plus") {
     
-    it("Sum of this expression and another expression") { 
+    it("sum of this expression and another expression") {
       
       val sourceDf = Seq(
         (45),
@@ -74,19 +74,17 @@ class ColumnSpec extends FunSpec with DataFrameSuiteBase {
         (124)
       ).toDF("num1")
       
-      val actualDf = sourceDf.
-        select(sourceDf.
-            col("num1"), 
-            sourceDf.col("num1").
-            plus(55).as("num2")
-            )
+      val actualDf = sourceDf.select(
+        sourceDf.col("num1"),
+        sourceDf.col("num1").plus(55).as("num2")
+      )
       
       val expectedData = List(
-          Row(45, 100),
-          Row(79, 134), 
-          Row(0, 55), 
-          Row(124, 179)
-          )
+        Row(45, 100),
+        Row(79, 134),
+        Row(0, 55),
+        Row(124, 179)
+      )
 
       val expectedSchema = List(
         StructField("num1", IntegerType, false),

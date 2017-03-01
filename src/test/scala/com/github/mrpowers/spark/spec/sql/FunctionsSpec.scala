@@ -55,9 +55,51 @@ class FunctionsSpec extends FunSpec with DataFrameSuiteBase {
 
   }
 
+  describe("asc") {
+
+    it("sorts a DataFrame in ascending order") {
+
+      val sourceData = List(
+        Row(1),
+        Row(-8),
+        Row(-5)
+      )
+
+      val sourceSchema = List(
+        StructField("num1", IntegerType, true)
+      )
+
+      val sourceDf = spark.createDataFrame(
+        spark.sparkContext.parallelize(sourceData),
+        StructType(sourceSchema)
+      )
+
+      val actualDf = sourceDf.sort(asc("num1"))
+
+      val expectedData = List(
+        Row(-8),
+        Row(-5),
+        Row(1)
+      )
+
+      val expectedSchema = List(
+        StructField("num1", IntegerType, true)
+      )
+
+      val expectedDf = spark.createDataFrame(
+        spark.sparkContext.parallelize(expectedData),
+        StructType(expectedSchema)
+      )
+
+      assertDataFrameEquals(actualDf, expectedDf)
+
+    }
+
+  }
+
   describe("#ceil") {
 
-    it("calculates the absolute value") {
+    it("rounds the number up to the nearest integer") {
 
       val numbersDf = Seq(
         (1.5),

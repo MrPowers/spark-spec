@@ -102,4 +102,29 @@ class ColumnSpec extends FunSpec with DataFrameSuiteBase {
     
   }
 
+  describe("#isin") {
+
+    it("A boolean expression that is evaluated to true if the value of this expression is contained by the evaluated values of the arguments") {
+
+      val sourceDf = Seq(
+        ("nate"),
+        ("tim"),
+        ("Tim"),
+        ("miller"),
+        ("jackson"),
+        ("andrew")
+      ).toDF("some_name")
+
+      val actualDf = sourceDf.where(col("some_name").isin("tim","andrew","noname"))
+
+      val expectedDf = Seq(
+        ("tim"),
+        ("andrew")
+      ).toDF("some_name")
+
+      assertDataFrameEquals(actualDf, expectedDf)
+
+    }
+
+  }
 }

@@ -17,6 +17,22 @@ class RDDSpec extends FunSpec with DataFrameSuiteBase with RDDComparisons {
 
   }
 
+  describe("#intersection") {
+
+    it("returns the intersection of this RDD and another one") {
+
+      val xs1 = (1 to 5).toList
+      val rdd1 = sc.parallelize(xs1)
+
+      val xs2 = (4 to 8).toList
+      val rdd2 = sc.parallelize(xs2)
+
+      assert(xs1.intersect(xs2) === List(4, 5))
+
+    }
+
+  }
+
   describe("#max") {
 
     it("returns the max of this RDD as defined by the implicit Ordering[T]") {

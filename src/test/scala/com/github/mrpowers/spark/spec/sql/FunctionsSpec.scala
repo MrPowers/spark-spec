@@ -55,7 +55,7 @@ class FunctionsSpec extends FunSpec with DataFrameSuiteBase {
 
   }
 
-  describe("asc") {
+  describe("#asc") {
 
     it("sorts a DataFrame in ascending order") {
 
@@ -241,6 +241,47 @@ class FunctionsSpec extends FunSpec with DataFrameSuiteBase {
 
       assertDataFrameEquals(actualDf, expectedDf)
 
+    }
+
+  }
+
+  describe("#desc") {
+
+    it("sorts a column in descending order") {
+
+      val sourceData = List(
+        Row(1),
+        Row(-8),
+        Row(-5)
+      )
+
+      val sourceSchema = List(
+        StructField("num1", IntegerType, true)
+      )
+
+      val sourceDf = spark.createDataFrame(
+        spark.sparkContext.parallelize(sourceData),
+        StructType(sourceSchema)
+      )
+
+      val actualDf = sourceDf.sort(desc("num1"))
+
+      val expectedData = List(
+        Row(1),
+        Row(-5),
+        Row(-8)
+      )
+
+      val expectedSchema = List(
+        StructField("num1", IntegerType, true)
+      )
+
+      val expectedDf = spark.createDataFrame(
+        spark.sparkContext.parallelize(expectedData),
+        StructType(expectedSchema)
+      )
+
+      assertDataFrameEquals(actualDf, expectedDf)
     }
 
   }

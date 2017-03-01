@@ -328,7 +328,32 @@ class FunctionsSpec extends FunSpec with DataFrameSuiteBase {
     }
 
   }
-   
+
+  describe("#isnull") {
+    it("checks column values for null") {
+
+      val wordsDf = Seq(
+        (null),
+        ("hello"),
+        (null),
+        (null),
+        ("football")
+      ).toDF("word")
+
+      val actualDf = wordsDf.withColumn("nullCheck", isnull(col("word")))
+
+      val expectedDf = Seq(
+        (null, true),
+        ("hello", false),
+        (null, true),
+        (null, true),
+        ("football", false)
+      ).toDF("word", "nullCheck")
+
+      assertDataFrameEquals(actualDf, expectedDf)
+    }
+  }
+
   describe("#lower") {
 
     it("converts a string to lower case") {
@@ -450,17 +475,17 @@ class FunctionsSpec extends FunSpec with DataFrameSuiteBase {
     }
 
   }
-  
+
   describe("#sqrt") {
 
-    it("Computes the square root of the specified float value") { 
-      
+    it("Computes the square root of the specified float value") {
+
       val numsDF = Seq (
         (49),
         (144),
         (89)
       ).toDF("num1")
-    
+
       val sqrtDF = numsDF.withColumn("sqrt_num", sqrt(col("num1")))
 
       val expectedData = List(

@@ -330,6 +330,7 @@ class FunctionsSpec extends FunSpec with DataFrameSuiteBase {
   }
 
   describe("#isnull") {
+
     it("checks column values for null") {
 
       val wordsDf = Seq(
@@ -352,6 +353,7 @@ class FunctionsSpec extends FunSpec with DataFrameSuiteBase {
 
       assertDataFrameEquals(actualDf, expectedDf)
     }
+
   }
 
   describe("#lower") {

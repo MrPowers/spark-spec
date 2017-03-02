@@ -37,6 +37,24 @@ class RDDSpec extends FunSpec with DataFrameSuiteBase with RDDComparisons {
 
   }
 
+  describe("flatMap") {
+
+    it("return a new RDD by first applying a function to all elements of this RDD, and then flattening the results") {
+
+      val xs = List("this is something long")
+      val sourceRdd = sc.parallelize(xs)
+      val actualRdd = sourceRdd.flatMap{ l => l.split(" ") }
+
+      val expectedRdd = sc.parallelize(
+        List("this", "is", "something", "long")
+      )
+
+      assertRDDEquals(actualRdd, expectedRdd)
+
+    }
+
+  }
+
   describe("#intersect") {
 
     it("returns the intersection of this RDD and another one") {

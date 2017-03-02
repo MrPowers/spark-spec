@@ -2,6 +2,8 @@ package com.github.mrpowers.spark.spec.rdd
 
 import com.holdenkarau.spark.testing.{DataFrameSuiteBase, RDDComparisons}
 import org.scalatest.FunSpec
+import org.apache.spark.sql.Row
+import org.apache.spark.rdd.RDD
 
 class RDDSpec extends FunSpec with DataFrameSuiteBase with RDDComparisons {
 
@@ -17,7 +19,7 @@ class RDDSpec extends FunSpec with DataFrameSuiteBase with RDDComparisons {
 
   }
 
-  describe("#intersection") {
+  describe("#intersect") {
 
     it("returns the intersection of this RDD and another one") {
 
@@ -29,6 +31,31 @@ class RDDSpec extends FunSpec with DataFrameSuiteBase with RDDComparisons {
 
       assert(xs1.intersect(xs2) === List(4, 5))
 
+    }
+
+  }
+
+  describe("#map") {
+
+    it("returns a new RDD by applying a function to all elements of this RDD") {
+
+      val sourceData = List(
+        ("cat"),
+        ("dog"),
+        ("frog")
+      )
+      val sourceRdd: RDD[String] = sc.parallelize(sourceData)
+
+      val actualRdd: RDD[Int] = sourceRdd.map{ l => l.length }
+
+      val expectedData = List(
+        (3),
+        (3),
+        (4)
+      )
+      val expectedRdd: RDD[Int] = sc.parallelize(expectedData)
+
+      assertRDDEquals(actualRdd, expectedRdd)
     }
 
   }

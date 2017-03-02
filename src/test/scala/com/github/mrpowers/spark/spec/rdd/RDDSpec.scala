@@ -19,6 +19,24 @@ class RDDSpec extends FunSpec with DataFrameSuiteBase with RDDComparisons {
 
   }
 
+  describe("#filter") {
+
+    it("returns a new RDD containing only the elements that satisfy a predicate") {
+
+      val xs = (1 to 5).toList
+      val sourceRdd = sc.parallelize(xs)
+      val actualRdd = sourceRdd.filter{ n => n >= 3}
+
+      val expectedRdd = sc.parallelize(
+        (3 to 5).toList
+      )
+
+      assertRDDEquals(actualRdd, expectedRdd)
+
+    }
+
+  }
+
   describe("#intersect") {
 
     it("returns the intersection of this RDD and another one") {

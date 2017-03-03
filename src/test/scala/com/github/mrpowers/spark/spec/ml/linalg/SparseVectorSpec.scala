@@ -22,4 +22,15 @@ class SparseVectorSpec extends FunSpec with DataFrameSuiteBase {
 
   }
 
+  describe("#size") {
+
+    it("returns the size of the vector") {
+
+      val s = new SparseVector(50, Array(3, 10, 40), Array(8, -14, 32))
+      assert(s.size === 50)
+
+    }
+
+  }
+
 }

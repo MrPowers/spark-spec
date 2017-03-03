@@ -63,6 +63,45 @@ class ColumnSpec extends FunSpec with DataFrameSuiteBase {
     
   }
   
+  describe("#minus") {
+    
+    it("Subtraction. Subtract the other expression from this expression.") {
+      
+      val sourceDf = Seq(
+        (45),
+        (79),
+        (55),
+        (124)
+      ).toDF("num1")
+      
+      val actualDf = sourceDf.select(
+        sourceDf.col("num1"),
+        sourceDf.col("num1").minus(55).as("num2")
+      )
+      
+      val expectedData = List(
+        Row(45, -10),
+        Row(79, 24),
+        Row(55, 0),
+        Row(124, 69)
+      )
+
+      val expectedSchema = List(
+        StructField("num1", IntegerType, false),
+        StructField("num2", IntegerType, false)
+      )
+
+      val expectedDf = spark.createDataFrame(
+        spark.sparkContext.parallelize(expectedData),
+        StructType(expectedSchema)
+      )
+      
+      assertDataFrameEquals(actualDf, expectedDf)
+           
+    }
+    
+  }
+ 
   describe("#plus") {
     
     it("sum of this expression and another expression") {

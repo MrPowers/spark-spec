@@ -30,4 +30,30 @@ class DenseMatrixSpec extends FunSpec with DataFrameSuiteBase {
 
   }
 
+  describe("#copy") {
+
+    it("copies the matrix") {
+
+      val m = new DenseMatrix(4, 3, Array(1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0, 10.0, 11.0, 12.0))
+      val actual = m.copy
+      val expected = new DenseMatrix(4, 3, Array(1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0, 10.0, 11.0, 12.0))
+      assert(actual === expected)
+
+    }
+
+  }
+
+  describe("#apply") {
+
+    it("gets the (i,j)th element of a matrix") {
+
+    val m = new DenseMatrix(4, 3, Array(1.0, 3.0, 5.0, 2.0, 4.0, 6.0, 7.0, 8.0, 9.0, 10.0, 11.0, 12.0))
+    val actual = m.apply(2,2)
+    val expected = 11.0
+    assert(actual === expected)
+
+  }
+
+}
+
 }

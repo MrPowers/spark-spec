@@ -286,6 +286,36 @@ class FunctionsSpec extends FunSpec with DataFrameSuiteBase {
 
   }
 
+  describe("#explode") {
+
+    it("returns a new DataFrame where each row has been expanded to zero or more rows by the provided function") {
+
+      val df = Seq(
+        ("A", Seq("a", "b", "c"), Seq(1, 2, 3)),
+        ("B", Seq("a", "b", "c"), Seq(5, 6, 7))
+      ).toDF("id", "class", "num")
+
+      val actualDf = df.select(
+        df("id"),
+        explode(df("class")).alias("class"),
+        df("num")
+      )
+
+      val expectedDf = Seq(
+        ("A", "a", Seq(1, 2, 3)),
+        ("A", "b", Seq(1, 2, 3)),
+        ("A", "c", Seq(1, 2, 3)),
+        ("B", "a", Seq(5, 6, 7)),
+        ("B", "b", Seq(5, 6, 7)),
+        ("B", "c", Seq(5, 6, 7))
+      ).toDF("id", "class", "num")
+
+      assertDataFrameEquals(actualDf, expectedDf)
+
+    }
+
+  }
+
   describe("#factorial"){
 
     it("calculates the product of an integer and all the integers below"){

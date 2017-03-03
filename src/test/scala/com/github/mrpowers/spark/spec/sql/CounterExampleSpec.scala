@@ -20,15 +20,15 @@ class CounterExampleSpec extends FunSpec with ShouldMatchers with DataFrameSuite
       // So spark-testing-base may not be suitable for testing complicated transformation.
 
       val firstDf = Seq(
-        ("TOM","CAT","1234567890"),
-        ("JERRY","MOUSE","1324567890")
-      ).toDF("first_name","last_name","phone")
+        ("TOM","CAT"),
+        ("JERRY","MOUSE")
+      ).toDF("first_name","last_name")
 
       // secondDf has same content, but rows are swapped
       val secondDf = Seq(
-        ("JERRY","MOUSE","1324567890"),
-        ("TOM","CAT","1234567890")
-      ).toDF("first_name","last_name","phone")
+        ("JERRY","MOUSE"),
+        ("TOM","CAT")
+      ).toDF("first_name","last_name")
 
       var good = 0
       try {

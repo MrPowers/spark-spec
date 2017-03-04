@@ -179,6 +179,45 @@ class ColumnSpec extends FunSpec with DataFrameSuiteBase {
     }
     
   }
+  
+  describe("#substr") {
+    
+    it("An expression that returns a substring. substr(startPos: Int, len: Int): Column") {
+      
+      val sourceDf = Seq(
+        ("mayflower"),
+        ("nightshift"),
+        (null),
+        ("lamplight")
+      ).toDF("num1")
+      
+      val actualDf = sourceDf.select(
+        sourceDf.col("num1"),
+        sourceDf.col("num1").substr(4, 3).as("num2")
+      )
+      
+      val expectedData = List(
+        Row("mayflower", "flo"),
+        Row("nightshift", "hts"),
+        Row(null, null),
+        Row("lamplight", "pli")
+      )
+
+      val expectedSchema = List(
+        StructField("num1", StringType, true),
+        StructField("num2", StringType, true)
+      )
+
+      val expectedDf = spark.createDataFrame(
+        spark.sparkContext.parallelize(expectedData),
+        StructType(expectedSchema)
+      )
+      
+      assertDataFrameEquals(actualDf, expectedDf)
+           
+    }
+    
+  }
 
   describe("#isin") {
 

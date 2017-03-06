@@ -435,7 +435,31 @@ class DatasetSpec extends FunSpec with DataFrameSuiteBase with RDDComparisons {
 
     }
 
+    it("Returns a new Dataset that only contains elements where func returns true."){
+
+      val numbersDf = Seq(
+        (1),
+        (4),
+        (8),
+        (42)
+      ).toDF("num1")
+
+      val x : Row => Boolean = (dr: Row) => dr(0) !=8
+
+      val actualDf = numbersDf.filter(x)
+
+      val expectedDf = Seq(
+        (1),
+        (4),
+        (42)
+      ).toDF("num1")
+
+      assertDataFrameEquals(actualDf,expectedDf)
+
+    }
+
   }
+
 
   describe("#first") {
 

@@ -4,11 +4,13 @@ import com.holdenkarau.spark.testing.DataFrameSuiteBase
 import org.scalatest.FunSpec
 import org.apache.spark.ml.linalg.DenseMatrix
 
-class DenseMatrixSpec extends FunSpec with DataFrameSuiteBase {
+class DenseMatrixSpec extends FunSpec {
 
   describe("new") {
 
     it("creates a DenseMatrix") {
+
+      // new DenseMatrix(numRows: Int, numCols: Int, values: Array[Double])
 
       val m = new DenseMatrix(3, 2, Array(1.0, 3.0, 5.0, 2.0, 4.0, 6.0))
       assert(m.getClass().getName() === "org.apache.spark.ml.linalg.DenseMatrix")
@@ -61,21 +63,18 @@ class DenseMatrixSpec extends FunSpec with DataFrameSuiteBase {
     it("gets the number of columns") {
 
       val m = new DenseMatrix(4, 3, Array(1.0, 3.0, 5.0, 2.0, 4.0, 6.0, 7.0, 8.0, 9.0, 10.0, 11.0, 12.0))
-      val actual = m.numCols
-      val expected = 3.0
-      assert(actual === expected)
+      assert(m.numCols === 3)
 
     }
 
   }
+
   describe("#numRows") {
 
     it("gets the number of rows") {
 
       val m = new DenseMatrix(4, 3, Array(1.0, 3.0, 5.0, 2.0, 4.0, 6.0, 7.0, 8.0, 9.0, 10.0, 11.0, 12.0))
-      val actual = m.numRows
-      val expected = 4.0
-      assert(actual === expected)
+      assert(m.numRows === 4)
 
     }
 
@@ -86,9 +85,7 @@ class DenseMatrixSpec extends FunSpec with DataFrameSuiteBase {
     it("gets the number of values stored explicitly") {
 
       val m = new DenseMatrix(4, 3, Array(0.0, 3.0, 5.0, 2.0, 4.0, 6.0, 7.0, 8.0, 9.0, 10.0, 11.0, 12.0))
-      val actual = m.numActives
-      val expected = 12.0
-      assert(actual === expected)
+      assert(m.numActives === 12)
 
     }
 
@@ -101,11 +98,12 @@ class DenseMatrixSpec extends FunSpec with DataFrameSuiteBase {
       val m = new DenseMatrix(2, 2, Array(1.0, 2.0, 3.0, 4.0))
       val n = new DenseMatrix(2, 1, Array(1.0, 10.0))
 
-      val actual = m.multiply(y = n )
+      val actual = m.multiply(n)
       val expected = new DenseMatrix(2, 1, Array(31.0, 42.0))
       assert(actual === expected)
 
     }
 
   }
+
 }

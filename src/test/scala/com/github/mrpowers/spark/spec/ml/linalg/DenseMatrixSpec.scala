@@ -1,8 +1,7 @@
 package com.github.mrpowers.spark.spec.ml.linalg
 
-import com.holdenkarau.spark.testing.DataFrameSuiteBase
+import org.apache.spark.ml.linalg.{DenseMatrix, DenseVector}
 import org.scalatest.FunSpec
-import org.apache.spark.ml.linalg.DenseMatrix
 
 class DenseMatrixSpec extends FunSpec {
 
@@ -106,4 +105,18 @@ class DenseMatrixSpec extends FunSpec {
 
   }
 
+  describe("#multiply vector") {
+
+    it("multiplies matrix a with vector b") {
+
+      val a = new DenseMatrix(2, 2, Array(1.0, 2.0, 3.0, 4.0))
+      val b = new DenseVector(Array(1.0, 100.0))
+
+      val actual = a.multiply(b)
+      val expected = new DenseVector(Array(301.0, 402.0))
+      assert(actual === expected)
+
+    }
+
+  }
 }

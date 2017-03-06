@@ -189,11 +189,11 @@ class ColumnSpec extends FunSpec with DataFrameSuiteBase {
         ("nightshift"),
         (null),
         ("lamplight")
-      ).toDF("num1")
+      ).toDF("word")
       
       val actualDf = sourceDf.select(
-        sourceDf.col("num1"),
-        sourceDf.col("num1").substr(4, 3).as("num2")
+        sourceDf.col("word"),
+        sourceDf.col("word").substr(4, 3).as("word_part")
       )
       
       val expectedData = List(
@@ -204,8 +204,8 @@ class ColumnSpec extends FunSpec with DataFrameSuiteBase {
       )
 
       val expectedSchema = List(
-        StructField("num1", StringType, true),
-        StructField("num2", StringType, true)
+        StructField("word", StringType, true),
+        StructField("word_part", StringType, true)
       )
 
       val expectedDf = spark.createDataFrame(

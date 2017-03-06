@@ -576,5 +576,36 @@ class FunctionsSpec extends FunSpec with DataFrameSuiteBase {
 
   }
 
+  describe("#length") {
+
+    it("returns the length of the column") {
+
+      val expectedSchema = List(
+        StructField("word", StringType, true),
+        StructField("length", IntegerType, true)
+      )
+
+      val expectedData = List(
+        Row("banh", 4),
+        Row("delilah", 7)
+      )
+
+      val expectedDf = spark.createDataFrame(
+        spark.sparkContext.parallelize(expectedData),
+        StructType(expectedSchema)
+      )
+
+      val wordsDf = Seq(
+        ("banh"),
+        ("delilah")
+      ).toDF("word")
+
+      val actualDf = wordsDf.withColumn("length", org.apache.spark.sql.functions.length(col("word")))
+
+      assertDataFrameEquals(actualDf, expectedDf)
+
+    }
+
+  }
 
 }

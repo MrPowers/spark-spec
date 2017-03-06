@@ -244,4 +244,32 @@ class ColumnSpec extends FunSpec with DataFrameSuiteBase {
     }
 
   }
+
+  describe("#endsWith") {
+
+    it("string ends with") {
+
+      val sourceDf = Seq(
+          ("A","1970"),
+          ("B","1986"),
+          ("C","1990"),
+          ("D","2000"),
+          ("E","2012"))
+        .toDF("id", "year")
+
+
+      val actualDf = sourceDf.where(col("year").endsWith("0"))
+
+      val expectedDf = Seq(
+        ("A","1970"),
+        ("C","1990"),
+        ("D","2000"))
+        .toDF("id", "year")
+
+      assertDataFrameEquals(actualDf, expectedDf)
+
+    }
+
+  }
+
 }

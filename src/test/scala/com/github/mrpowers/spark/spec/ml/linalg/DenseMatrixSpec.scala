@@ -93,4 +93,19 @@ class DenseMatrixSpec extends FunSpec with DataFrameSuiteBase {
     }
 
   }
+
+  describe("#multiply") {
+
+    it("multiplies matrix a*b") {
+
+      val m = new DenseMatrix(2, 2, Array(1.0, 2.0, 3.0, 4.0))
+      val n = new DenseMatrix(2, 1, Array(1.0, 10.0))
+
+      val actual = m.multiply(y = n )
+      val expected = new DenseMatrix(2, 1, Array(31.0, 42.0))
+      assert(actual === expected)
+
+    }
+
+  }
 }

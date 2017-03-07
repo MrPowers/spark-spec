@@ -92,7 +92,7 @@ class DenseMatrixSpec extends FunSpec {
 
   describe("#multiply") {
 
-    it("multiplies matrix a*b") {
+    it("multiplies two dense matrices") {
 
       val m = new DenseMatrix(2, 2, Array(1.0, 2.0, 3.0, 4.0))
       val n = new DenseMatrix(2, 1, Array(1.0, 10.0))
@@ -103,11 +103,7 @@ class DenseMatrixSpec extends FunSpec {
 
     }
 
-  }
-
-  describe("#multiply vector") {
-
-    it("multiplies matrix a with vector b") {
+    it("multiplies a matrix with a vector") {
 
       val a = new DenseMatrix(2, 2, Array(1.0, 2.0, 3.0, 4.0))
       val b = new DenseVector(Array(1.0, 100.0))
@@ -119,4 +115,5 @@ class DenseMatrixSpec extends FunSpec {
     }
 
   }
+
 }

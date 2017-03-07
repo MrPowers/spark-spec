@@ -610,4 +610,40 @@ class FunctionsSpec extends FunSpec with DataFrameSuiteBase {
 
   }
 
+  describe("#countDistinct") {
+
+    it("aggregate function: returns the number of distinct items in a group") {
+
+      val sourceDf = Seq(
+        ("A", 1),
+        ("B", 1),
+        ("A", 2),
+        ("A", 2),
+        ("B", 3),
+        ("A", 3)
+      ).toDF("id", "foo")
+
+      val actualDf = sourceDf.groupBy($"id").agg(countDistinct($"foo") as "distinctCountFoo").orderBy($"id")
+
+      val expectedData = List(
+        Row("A", 3L),
+        Row("B", 2L)
+      )
+
+      val expectedSchema = List(
+        StructField("id", StringType, true),
+        StructField("distinctCountFoo", LongType, false)
+      )
+
+      val expectedDf = spark.createDataFrame(
+        spark.sparkContext.parallelize(expectedData),
+        StructType(expectedSchema)
+      )
+
+      assertDataFrameEquals(actualDf, expectedDf)
+
+    }
+
+  }
+
 }

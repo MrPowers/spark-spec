@@ -272,4 +272,34 @@ class ColumnSpec extends FunSpec with DataFrameSuiteBase {
 
   }
 
+  describe("#getItem") {
+
+    it("An expression that gets an item at position ordinal out of an array, or gets a value by key key in a MapType") {
+
+      val sourceDf = Seq(
+        ("A","1970-10-02"),
+        ("B","1986-12-30"),
+        ("C","1990-12-03"),
+        ("D","2000-04-22"),
+        ("E","2012-09-09"))
+        .toDF("id", "birthday")
+
+
+      val actualDf = sourceDf.withColumn("month", split(col("birthday"), "-").getItem(1))
+
+      val expectedDf = Seq(
+        ("A","1970-10-02", "10"),
+        ("B","1986-12-30", "12"),
+        ("C","1990-12-03", "12"),
+        ("D","2000-04-22", "04"),
+        ("E","2012-09-09", "09"))
+        .toDF("id", "birthday", "month")
+
+      assertDataFrameEquals(actualDf, expectedDf)
+
+    }
+
+  }
+
+
 }

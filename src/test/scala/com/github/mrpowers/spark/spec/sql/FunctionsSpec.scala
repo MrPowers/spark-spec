@@ -587,7 +587,8 @@ class FunctionsSpec extends FunSpec with DataFrameSuiteBase {
 
       val expectedData = List(
         Row("banh", 4),
-        Row("delilah", 7)
+        Row("delilah", 7),
+        Row(null, null)
       )
 
       val expectedDf = spark.createDataFrame(
@@ -597,7 +598,8 @@ class FunctionsSpec extends FunSpec with DataFrameSuiteBase {
 
       val wordsDf = Seq(
         ("banh"),
-        ("delilah")
+        ("delilah"),
+        (null)
       ).toDF("word")
 
       val actualDf = wordsDf.withColumn("length", length(col("word")))

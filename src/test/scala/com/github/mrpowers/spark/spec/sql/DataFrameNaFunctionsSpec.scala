@@ -52,5 +52,51 @@ class DataFrameNaFunctionsSpec extends FunSpec with DataFrameSuiteBase {
     }
 
   }
+  
+  describe("#fill") {
 
+    it("Returns a new DataFrame that replaces null or NaN values in numeric columns with value") {
+
+      val sourceData = List(
+        Row(1, null),
+        Row(null, null),
+        Row(3, 30),
+        Row(10, 20)
+      )
+
+      val sourceSchema = List(
+        StructField("num1", IntegerType, true),
+        StructField("num2", IntegerType, true)
+      )
+
+      val sourceDf = spark.createDataFrame(
+        spark.sparkContext.parallelize(sourceData),
+        StructType(sourceSchema)
+      )
+
+      val actualDf = sourceDf.na.fill(77)
+
+      val expectedData = List(
+        Row(1, 77), 
+        Row(77, 77),
+        Row(3, 30),
+        Row(10, 20)
+      )
+
+      val expectedSchema = List(
+        StructField("num1", IntegerType, true),
+        StructField("num2", IntegerType, true)
+      )
+
+      val expectedDf = spark.createDataFrame(
+        spark.sparkContext.parallelize(expectedData),
+        StructType(expectedSchema)
+      )
+
+      assertDataFrameEquals(actualDf, expectedDf)
+
+    }
+
+  }
+  
 }

@@ -125,4 +125,21 @@ class RDDSpec extends FunSpec with DataFrameSuiteBase with RDDComparisons {
 
   }
 
+  describe("#zip") {
+
+    it("return key-value pairs with the first element in each RDD, second element in each RDD") {
+
+      val xRDD = sc.parallelize(List(1, 2, 3))
+
+      val yRDD = sc.parallelize(List("a", "b", "c"))
+
+      val actualRDD = xRDD.zip(yRDD)
+
+      val expectedRDD = sc.parallelize(List((1,"a"), (2,"b"), (3,"c")))
+
+      assertRDDEquals(actualRDD, expectedRDD)
+    }
+
+  }
+
 }

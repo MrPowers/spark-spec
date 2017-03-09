@@ -245,6 +245,53 @@ class FunctionsSpec extends FunSpec with DataFrameSuiteBase {
 
   }
 
+  describe("#cos") {
+
+    it("calculates the cosine of the given value") {
+
+      val sourceData = List(
+        Row(1),
+        Row(2),
+        Row(3)
+      )
+
+      val sourceSchema = List(
+        StructField("num1", IntegerType, true)
+      )
+
+      val sourceDf = spark.createDataFrame(
+        spark.sparkContext.parallelize(sourceData),
+        StructType(sourceSchema)
+      )
+
+      sourceDf.show()
+
+      val actualDf = sourceDf.withColumn("i_am_scared", cos("num1"))
+
+      actualDf.show()
+
+      val expectedData = List(
+        Row(1, 0.5403023058681398),
+        Row(2, -0.4161468365471424),
+        Row(3, -0.9899924966004454)
+      )
+
+      val expectedSchema = List(
+        StructField("num1", IntegerType, true),
+        StructField("i_am_scared", DoubleType, true)
+      )
+
+      val expectedDf = spark.createDataFrame(
+        spark.sparkContext.parallelize(expectedData),
+        StructType(expectedSchema)
+      )
+
+      assertDataFrameEquals(actualDf, expectedDf)
+
+    }
+
+  }
+
   describe("#desc") {
 
     it("sorts a column in descending order") {

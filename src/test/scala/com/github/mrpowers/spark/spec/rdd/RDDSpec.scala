@@ -142,4 +142,22 @@ class RDDSpec extends FunSpec with DataFrameSuiteBase with RDDComparisons {
 
   }
 
+  describe("#randomSplit") {
+
+    it("Randomly splits this RDD with the provided weights") {
+
+      val xRDD = sc.parallelize(List.range(1, 101))
+
+      val splits = xRDD.randomSplit(Array(0.7, 0.3), seed = 4567)
+
+      val (trainingData, testData) = (splits(0), splits(1))
+
+      val trainingDataSize = trainingData.count()
+
+      //It doesn't split the data exactly 7:3
+      assert(trainingDataSize===73)
+    }
+
+  }
+
 }

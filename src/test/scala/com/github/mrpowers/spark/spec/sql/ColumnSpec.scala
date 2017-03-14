@@ -301,5 +301,23 @@ class ColumnSpec extends FunSpec with DataFrameSuiteBase {
 
   }
 
+  describe("#rlike") {
+    it("pattern match of a string pattern against pattern") {
 
+      val sourceDf = Seq(
+        ("A", "bbbbba11111xy"),
+        ("B", "aaaab11111xy"),
+        ("C", "aaaab22111xy"))
+        .toDF("id", "text")
+
+    val actualDf = sourceDf.filter($"text".rlike("b{5}.[1]{5}(x|y){2}"))
+
+    val expectedDf = Seq(
+      ("A", "bbbbba11111xy"))
+      .toDF("id", "text")
+
+    assertDataFrameEquals(actualDf, expectedDf)
+
+    }
+  }
 }

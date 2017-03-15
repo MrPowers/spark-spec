@@ -37,7 +37,7 @@ class ColumnSpec extends FunSpec with DataFrameSuiteBase {
     }
     
   }
-  
+
   describe("#gt") { 
     
     it("keeps rows greater than a certain number") { 
@@ -319,5 +319,35 @@ class ColumnSpec extends FunSpec with DataFrameSuiteBase {
     assertDataFrameEquals(actualDf, expectedDf)
 
     }
+
   }
+
+  describe("#mod") {
+    it("return modulo, remainder") {
+
+      val sourceDf = Seq(
+        ("A", "1990"),
+        ("B", "1998"),
+        ("C", "2011"),
+        ("D", "2014"),
+        ("E", "2017"),
+        ("F", "2016"),
+        ("G", "1993"))
+        .toDF("id", "year")
+
+      val actualDf = sourceDf.filter(col("year").mod(2) === 0)
+
+      val expectedDf = Seq(
+        ("A", "1990"),
+        ("B", "1998"),
+        ("D", "2014"),
+        ("F", "2016"))
+        .toDF("id", "year")
+
+      assertDataFrameEquals(actualDf, expectedDf)
+
+    }
+
+  }
+
 }

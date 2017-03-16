@@ -55,6 +55,10 @@ class FunctionsSpec extends FunSpec with DataFrameSuiteBase {
 
   }
 
+  describe("acos") {
+    pending
+  }
+
   describe("#add_months") {
 
     it("returns the date that is numMonths after startDate") {
@@ -81,6 +85,26 @@ class FunctionsSpec extends FunSpec with DataFrameSuiteBase {
 
     }
 
+  }
+
+  describe("approx_count_distinct") {
+    pending
+  }
+
+  describe("array_contains") {
+    pending
+  }
+
+  describe("array") {
+    pending
+  }
+
+  describe("asc_nulls_first") {
+    pending
+  }
+
+  describe("asc_nulls_last") {
+    pending
   }
 
   describe("#asc") {
@@ -123,6 +147,26 @@ class FunctionsSpec extends FunSpec with DataFrameSuiteBase {
 
     }
 
+  }
+
+  describe("ascii") {
+    pending
+  }
+
+  describe("asin") {
+    pending
+  }
+
+  describe("atan") {
+    pending
+  }
+
+  describe("atan2") {
+    pending
+  }
+
+  describe("avg") {
+    pending
   }
 
   describe("#ceil") {

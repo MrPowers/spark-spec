@@ -529,7 +529,7 @@ class FunctionsSpec extends FunSpec with DataFrameSuiteBase {
     pending
   }
 
-  describe("decode") {
+  describe("#decode") {
     pending
   }
 
@@ -537,15 +537,15 @@ class FunctionsSpec extends FunSpec with DataFrameSuiteBase {
     pending
   }
 
-  describe("dense_rank") {
+  describe("#dense_rank") {
     pending
   }
 
-  describe("desc_nulls_first") {
+  describe("#desc_nulls_first") {
     pending
   }
 
-  describe("desc_nulls_last") {
+  describe("#desc_nulls_last") {
     pending
   }
 
@@ -590,11 +590,11 @@ class FunctionsSpec extends FunSpec with DataFrameSuiteBase {
 
   }
 
-  describe("encode") {
+  describe("#encode") {
     pending
   }
 
-  describe("exp") {
+  describe("#exp") {
     pending
   }
 
@@ -628,11 +628,11 @@ class FunctionsSpec extends FunSpec with DataFrameSuiteBase {
 
   }
 
-  describe("expm1") {
+  describe("#expm1") {
     pending
   }
 
-  describe("expr") {
+  describe("#expr") {
     pending
   }
 
@@ -679,7 +679,59 @@ class FunctionsSpec extends FunSpec with DataFrameSuiteBase {
 
   }
 
-  describe("first") {
+  describe("#first") {
+    pending
+  }
+
+  describe("#floor") {
+    pending
+  }
+
+  describe("#format_number") {
+    pending
+  }
+
+  describe("#format_string") {
+    pending
+  }
+
+  describe("#from_json") {
+    pending
+  }
+
+  describe("#from_unixtime") {
+    pending
+  }
+
+  describe("#get_json_object") {
+    pending
+  }
+
+  describe("#greatest") {
+    pending
+  }
+
+  describe("#grouping_id") {
+    pending
+  }
+
+  describe("#grouping") {
+    pending
+  }
+
+  describe("#hash") {
+    pending
+  }
+
+  describe("#hex") {
+    pending
+  }
+
+  describe("#hour") {
+    pending
+  }
+
+  describe("#hypot") {
     pending
   }
 
@@ -707,6 +759,18 @@ class FunctionsSpec extends FunSpec with DataFrameSuiteBase {
 
   }
 
+  describe("#input_file_name") {
+    pending
+  }
+
+  describe("#instr") {
+    pending
+  }
+
+  describe("#isnan") {
+    pending
+  }
+
   describe("#isnull") {
 
     it("checks column values for null") {
@@ -732,6 +796,34 @@ class FunctionsSpec extends FunSpec with DataFrameSuiteBase {
       assertDataFrameEquals(actualDf, expectedDf)
     }
 
+  }
+
+  describe("#json_tuple") {
+    pending
+  }
+
+  describe("#kurtosis") {
+    pending
+  }
+
+  describe("#lag") {
+    pending
+  }
+
+  describe("#last_day") {
+    pending
+  }
+
+  describe("#last") {
+    pending
+  }
+
+  describe("#lead") {
+    pending
+  }
+
+  describe("#least") {
+    pending
   }
 
   describe("#length") {
@@ -768,6 +860,14 @@ class FunctionsSpec extends FunSpec with DataFrameSuiteBase {
 
   }
 
+  describe("#levenshtein") {
+    pending
+  }
+
+  describe("#lit") {
+    pending
+  }
+
   describe("#locate") {
 
     it("returns index of first occurrence of search string") {
@@ -802,6 +902,22 @@ class FunctionsSpec extends FunSpec with DataFrameSuiteBase {
 
   }
 
+  describe("#log") {
+    pending
+  }
+
+  describe("#log10") {
+    pending
+  }
+
+  describe("#log1p") {
+    pending
+  }
+
+  describe("#log2") {
+    pending
+  }
+
   describe("#lower") {
 
     it("converts a string to lower case") {
@@ -824,6 +940,86 @@ class FunctionsSpec extends FunSpec with DataFrameSuiteBase {
 
     }
 
+  }
+
+  describe("#lpad") {
+    pending
+  }
+
+  describe("#ltrim") {
+    pending
+  }
+
+  describe("#map") {
+    pending
+  }
+
+  describe("#max") {
+    pending
+  }
+
+  describe("#md5") {
+    pending
+  }
+
+  describe("#mean") {
+    pending
+  }
+
+  describe("#min") {
+    pending
+  }
+
+  describe("#minute") {
+    pending
+  }
+
+  describe("#monotonically_increasing_id") {
+    pending
+  }
+
+  describe("#month") {
+    pending
+  }
+
+  describe("#months_between") {
+    pending
+  }
+
+  describe("#nanv1") {
+    pending
+  }
+
+  describe("#negate") {
+    pending
+  }
+
+  describe("#next_day") {
+    pending
+  }
+
+  describe("#not") {
+    pending
+  }
+
+  describe("#ntile") {
+    pending
+  }
+
+  describe("#percent_rank") {
+    pending
+  }
+
+  describe("#pmod") {
+    pending
+  }
+
+  describe("#least") {
+    pending
+  }
+
+  describe("#posexplode") {
+    pending
   }
 
   describe("#pow") {
@@ -860,6 +1056,54 @@ class FunctionsSpec extends FunSpec with DataFrameSuiteBase {
 
   }
 
+  describe("#quarter") {
+    pending
+  }
+
+  describe("#radians") {
+    pending
+  }
+
+  describe("#rand") {
+    pending
+  }
+
+  describe("#randn") {
+    pending
+  }
+
+  describe("#rank") {
+    pending
+  }
+
+  describe("#regexp_extract") {
+    pending
+  }
+
+  describe("#regexp_replace") {
+    pending
+  }
+
+  describe("#repeat") {
+    pending
+  }
+
+  describe("#reverse") {
+    pending
+  }
+
+  describe("#rint") {
+    pending
+  }
+
+  describe("#round") {
+    pending
+  }
+
+  describe("#row_number") {
+    pending
+  }
+
   describe("#rpad") {
 
     it("Right-padded with pad to a length of len") {
@@ -886,6 +1130,70 @@ class FunctionsSpec extends FunSpec with DataFrameSuiteBase {
 
     }
 
+  }
+
+  describe("#rtrim") {
+    pending
+  }
+
+  describe("#second") {
+    pending
+  }
+
+  describe("#sha1") {
+    pending
+  }
+
+  describe("#sha2") {
+    pending
+  }
+
+  describe("#shiftLeft") {
+    pending
+  }
+
+  describe("#shiftRight") {
+    pending
+  }
+
+  describe("#shiftRightUnsigned") {
+    pending
+  }
+
+  describe("#signum") {
+    pending
+  }
+
+  describe("#sin") {
+    pending
+  }
+
+  describe("#sinh") {
+    pending
+  }
+
+  describe("#size") {
+    pending
+  }
+
+  describe("#skewness") {
+    pending
+  }
+
+  describe("#sort_array") {
+    pending
+  }
+
+  describe("#soundex") {
+    pending
+  }
+
+  describe("#spark_partition_id") {
+    pending
+  }
+
+  describe("#split") {
+    pending
   }
 
   describe("#sqrt") {
@@ -922,6 +1230,62 @@ class FunctionsSpec extends FunSpec with DataFrameSuiteBase {
 
   }
 
+  describe("#stddev_pop") {
+    pending
+  }
+
+  describe("#stddev_samp") {
+    pending
+  }
+
+  describe("#stddev") {
+    pending
+  }
+
+  describe("#struct") {
+    pending
+  }
+
+  describe("#substring_index") {
+    pending
+  }
+
+  describe("#substring") {
+    pending
+  }
+
+  describe("#sum") {
+    pending
+  }
+
+  describe("#sumDistinct") {
+    pending
+  }
+
+  describe("#tan") {
+    pending
+  }
+
+  describe("#tanh") {
+    pending
+  }
+
+  describe("#to_date") {
+    pending
+  }
+
+  describe("#to_json") {
+    pending
+  }
+
+  describe("#to_utc_timestamp") {
+    pending
+  }
+
+  describe("#translate") {
+    pending
+  }
+
   describe("#trim") {
 
     it("converts a string to lower case") {
@@ -942,6 +1306,26 @@ class FunctionsSpec extends FunSpec with DataFrameSuiteBase {
 
     }
 
+  }
+
+  describe("#trunc") {
+    pending
+  }
+
+  describe("#udf") {
+    pending
+  }
+
+  describe("#unbase64") {
+    pending
+  }
+
+  describe("#unhex") {
+    pending
+  }
+
+  describe("#unix_timestamp") {
+    pending
   }
 
   describe("#upper") {
@@ -966,6 +1350,34 @@ class FunctionsSpec extends FunSpec with DataFrameSuiteBase {
 
     }
 
+  }
+
+  describe("#var_pop") {
+    pending
+  }
+
+  describe("#var_samp") {
+    pending
+  }
+
+  describe("#variance") {
+    pending
+  }
+
+  describe("#weekofyear") {
+    pending
+  }
+
+  describe("#when") {
+    pending
+  }
+
+  describe("#window") {
+    pending
+  }
+
+  describe("#year") {
+    pending
   }
 
 }

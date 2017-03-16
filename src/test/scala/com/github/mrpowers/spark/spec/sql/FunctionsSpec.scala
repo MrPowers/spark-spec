@@ -169,6 +169,34 @@ class FunctionsSpec extends FunSpec with DataFrameSuiteBase {
     pending
   }
 
+  describe("base64") {
+    pending
+  }
+
+  describe("bin") {
+    pending
+  }
+
+  describe("bitwiseNOT") {
+    pending
+  }
+
+  describe("broadcast") {
+    pending
+  }
+
+  describe("bround") {
+    pending
+  }
+
+  describe("callUDF") {
+    pending
+  }
+
+  describe("cbrt") {
+    pending
+  }
+
   describe("#ceil") {
 
     it("rounds the number up to the nearest integer") {
@@ -237,38 +265,20 @@ class FunctionsSpec extends FunSpec with DataFrameSuiteBase {
 
   }
 
-  describe("#concat") {
+  describe("col") {
+    pending
+  }
 
-    it("concatenates multiple input string columns together into a single string column") {
+  describe("collect_list") {
+    pending
+  }
 
-      val wordsDf = Seq(
-        ("banh", "mi"),
-        ("pho", "ga"),
-        (null, "cheese"),
-        ("pizza", null),
-        (null, null)
-      ).toDF("word1", "word2")
+  describe("collect_set") {
+    pending
+  }
 
-      val actualDf = wordsDf.withColumn(
-        "yummy",
-        concat(
-          col("word1"),
-          col("word2")
-        )
-      )
-
-      val expectedDf = Seq(
-        ("banh", "mi", "banhmi"),
-        ("pho", "ga", "phoga"),
-        (null, "cheese", null),
-        ("pizza", null, null),
-        (null, null, null)
-      ).toDF("word1", "word2", "yummy")
-
-      assertDataFrameEquals(actualDf, expectedDf)
-
-    }
-
+  describe("column") {
+    pending
   }
 
   describe("#concat_ws") {
@@ -317,6 +327,48 @@ class FunctionsSpec extends FunSpec with DataFrameSuiteBase {
 
   }
 
+  describe("#concat") {
+
+    it("concatenates multiple input string columns together into a single string column") {
+
+      val wordsDf = Seq(
+        ("banh", "mi"),
+        ("pho", "ga"),
+        (null, "cheese"),
+        ("pizza", null),
+        (null, null)
+      ).toDF("word1", "word2")
+
+      val actualDf = wordsDf.withColumn(
+        "yummy",
+        concat(
+          col("word1"),
+          col("word2")
+        )
+      )
+
+      val expectedDf = Seq(
+        ("banh", "mi", "banhmi"),
+        ("pho", "ga", "phoga"),
+        (null, "cheese", null),
+        ("pizza", null, null),
+        (null, null, null)
+      ).toDF("word1", "word2", "yummy")
+
+      assertDataFrameEquals(actualDf, expectedDf)
+
+    }
+
+  }
+
+  describe("conv") {
+    pending
+  }
+
+  describe("corr") {
+    pending
+  }
+
   describe("#cos") {
 
     it("calculates the cosine of the given value") {
@@ -360,6 +412,143 @@ class FunctionsSpec extends FunSpec with DataFrameSuiteBase {
 
   }
 
+  describe("cosh") {
+    pending
+  }
+
+  describe("count") {
+    pending
+  }
+
+  describe("#countDistinct") {
+
+    it("aggregate function: returns the number of distinct items in a group") {
+
+      val sourceDf = Seq(
+        ("A", 1),
+        ("B", 1),
+        ("A", 2),
+        ("A", 2),
+        ("B", 3),
+        ("A", 3)
+      ).toDF("id", "foo")
+
+      val actualDf = sourceDf.groupBy($"id").agg(countDistinct($"foo") as "distinctCountFoo").orderBy($"id")
+
+      val expectedData = List(
+        Row("A", 3L),
+        Row("B", 2L)
+      )
+
+      val expectedSchema = List(
+        StructField("id", StringType, true),
+        StructField("distinctCountFoo", LongType, false)
+      )
+
+      val expectedDf = spark.createDataFrame(
+        spark.sparkContext.parallelize(expectedData),
+        StructType(expectedSchema)
+      )
+
+      assertDataFrameEquals(actualDf, expectedDf)
+
+    }
+
+  }
+
+  describe("covar_pop") {
+    pending
+  }
+
+  describe("covar_samp") {
+    pending
+  }
+
+  describe("crc32") {
+    pending
+  }
+
+  describe("cume_dist") {
+    pending
+  }
+
+  describe("current_date") {
+    pending
+  }
+
+  describe("current_timestamp") {
+    pending
+  }
+
+
+  describe("#date_add") {
+
+    it("returns the date that is days days after start") {
+
+      val sourceDF = Seq(
+        ("1", "2016-01-01 00:00:00"),
+        ("2", "2016-12-01 00:00:00")
+      ).toDF("person_id", "birth_date")
+        .withColumn("birth_date", col("birth_date").cast("timestamp"))
+
+      val actualDF = sourceDF.withColumn(
+        "future_date",
+        date_add(col("birth_date"), 4)
+      )
+
+      val expectedDF = Seq(
+        ("1", "2016-01-01 00:00:00", "2016-01-05"),
+        ("2", "2016-12-01 00:00:00", "2016-12-05")
+      ).toDF("person_id", "birth_date", "future_date")
+        .withColumn("birth_date", col("birth_date").cast("timestamp"))
+        .withColumn("future_date", col("future_date").cast("date"))
+
+      assertDataFrameEquals(actualDF, expectedDF)
+
+    }
+
+  }
+
+  describe("date_format") {
+    pending
+  }
+
+  describe("date_sub") {
+    pending
+  }
+
+  describe("datediff") {
+    pending
+  }
+
+  describe("dayofmonth") {
+    pending
+  }
+
+  describe("dayofyear") {
+    pending
+  }
+
+  describe("decode") {
+    pending
+  }
+
+  describe("degrees") {
+    pending
+  }
+
+  describe("dense_rank") {
+    pending
+  }
+
+  describe("desc_nulls_first") {
+    pending
+  }
+
+  describe("desc_nulls_last") {
+    pending
+  }
+
   describe("#desc") {
 
     it("sorts a column in descending order") {
@@ -401,6 +590,14 @@ class FunctionsSpec extends FunSpec with DataFrameSuiteBase {
 
   }
 
+  describe("encode") {
+    pending
+  }
+
+  describe("exp") {
+    pending
+  }
+
   describe("#explode") {
 
     it("returns a new DataFrame where each row has been expanded to zero or more rows by the provided function") {
@@ -429,6 +626,14 @@ class FunctionsSpec extends FunSpec with DataFrameSuiteBase {
 
     }
 
+  }
+
+  describe("expm1") {
+    pending
+  }
+
+  describe("expr") {
+    pending
   }
 
   describe("#factorial"){
@@ -474,6 +679,34 @@ class FunctionsSpec extends FunSpec with DataFrameSuiteBase {
 
   }
 
+  describe("first") {
+    pending
+  }
+
+  describe("#initcap") {
+
+    it("converts the first letter of each word to upper case, returns a new column") {
+
+      val wordsDf = Seq(
+        ("bat man"),
+        ("cat woman"),
+        ("spider man")
+      ).toDF("no_upper_words")
+
+      val actualDf = wordsDf.withColumn("first_upper", initcap(col("no_upper_words")))
+
+      val expectedDf = Seq(
+        ("bat man", "Bat Man"),
+        ("cat woman", "Cat Woman"),
+        ("spider man", "Spider Man")
+      ).toDF("no_upper_words", "first_upper")
+
+      assertDataFrameEquals(actualDf, expectedDf)
+
+    }
+
+  }
+
   describe("#isnull") {
 
     it("checks column values for null") {
@@ -497,6 +730,74 @@ class FunctionsSpec extends FunSpec with DataFrameSuiteBase {
       ).toDF("word", "nullCheck")
 
       assertDataFrameEquals(actualDf, expectedDf)
+    }
+
+  }
+
+  describe("#length") {
+
+    it("returns the length of the column") {
+
+      val expectedSchema = List(
+        StructField("word", StringType, true),
+        StructField("length", IntegerType, true)
+      )
+
+      val expectedData = List(
+        Row("banh", 4),
+        Row("delilah", 7),
+        Row(null, null)
+      )
+
+      val expectedDf = spark.createDataFrame(
+        spark.sparkContext.parallelize(expectedData),
+        StructType(expectedSchema)
+      )
+
+      val wordsDf = Seq(
+        ("banh"),
+        ("delilah"),
+        (null)
+      ).toDF("word")
+
+      val actualDf = wordsDf.withColumn("length", length(col("word")))
+
+      assertDataFrameEquals(actualDf, expectedDf)
+
+    }
+
+  }
+
+  describe("#locate") {
+
+    it("returns index of first occurrence of search string") {
+
+      val wordsDf = Seq(
+        ("Spider-man"),
+        ("Batman")
+      ).toDF("word")
+
+      val actualDf = wordsDf.withColumn("short_word", locate("man", col("word")))
+
+      val expectedData = Seq(
+        Row("Spider-man", 8),
+        Row("Batman", 4)
+      )
+
+      val expectedSchema = List(
+        StructField("word", StringType, true),
+        StructField("short_word",IntegerType,true)
+      )
+
+
+      val expectedDf = spark.createDataFrame(
+        spark.sparkContext.parallelize(expectedData),
+        StructType(expectedSchema)
+      )
+
+
+      assertDataFrameEquals(actualDf, expectedDf)
+
     }
 
   }
@@ -525,6 +826,40 @@ class FunctionsSpec extends FunSpec with DataFrameSuiteBase {
 
   }
 
+  describe("#pow") {
+
+    it("returns the value of the first argument raised to the power of the second argument") {
+
+      val numsDF = Seq (
+        (2),
+        (3),
+        (1)
+      ).toDF("num")
+
+      val actualDF = numsDF.withColumn("power", pow(col("num"), 3))
+
+      val expectedData = List(
+        Row(2, 8.0),
+        Row(3, 27.0),
+        Row(1, 1.0)
+      )
+
+      val expectedSchema = List(
+        StructField("num", IntegerType, false),
+        StructField("power", DoubleType, false)
+      )
+
+      val expectedDf = spark.createDataFrame(
+        spark.sparkContext.parallelize(expectedData),
+        StructType(expectedSchema)
+      )
+
+      assertDataFrameEquals(actualDF, expectedDf)
+
+    }
+
+  }
+
   describe("#rpad") {
 
     it("Right-padded with pad to a length of len") {
@@ -548,6 +883,40 @@ class FunctionsSpec extends FunSpec with DataFrameSuiteBase {
 
       assertDataFrameEquals(actualDf, expectedDf)
 
+
+    }
+
+  }
+
+  describe("#sqrt") {
+
+    it("Computes the square root of the specified float value") {
+
+      val numsDF = Seq (
+        (49),
+        (144),
+        (89)
+      ).toDF("num1")
+
+      val sqrtDF = numsDF.withColumn("sqrt_num", sqrt(col("num1")))
+
+      val expectedData = List(
+        Row(49, 7.0),
+        Row(144, 12.0),
+        Row(89, 9.4339)
+      )
+
+      val expectedSchema = List(
+        StructField("num1", IntegerType, false),
+        StructField("sqrt_num", DoubleType, true)
+      )
+
+      val expectedDf = spark.createDataFrame(
+        spark.sparkContext.parallelize(expectedData),
+        StructType(expectedSchema)
+      )
+
+      assertDataFrameApproximateEquals(sqrtDF, expectedDf, 0.01)
 
     }
 
@@ -597,201 +966,6 @@ class FunctionsSpec extends FunSpec with DataFrameSuiteBase {
 
     }
 
-  }
-
-  describe("#initcap") {
-
-    it("converts the first letter of each word to upper case, returns a new column") {
-
-      val wordsDf = Seq(
-        ("bat man"),
-        ("cat woman"),
-        ("spider man")
-      ).toDF("no_upper_words")
-
-      val actualDf = wordsDf.withColumn("first_upper", initcap(col("no_upper_words")))
-
-      val expectedDf = Seq(
-        ("bat man", "Bat Man"),
-        ("cat woman", "Cat Woman"),
-        ("spider man", "Spider Man")
-      ).toDF("no_upper_words", "first_upper")
-
-      assertDataFrameEquals(actualDf, expectedDf)
-
-    }
-
-  }
-
-  describe("#sqrt") {
-
-    it("Computes the square root of the specified float value") {
-
-      val numsDF = Seq (
-        (49),
-        (144),
-        (89)
-      ).toDF("num1")
-
-      val sqrtDF = numsDF.withColumn("sqrt_num", sqrt(col("num1")))
-
-      val expectedData = List(
-        Row(49, 7.0),
-        Row(144, 12.0),
-        Row(89, 9.4339)
-      )
-
-      val expectedSchema = List(
-        StructField("num1", IntegerType, false),
-        StructField("sqrt_num", DoubleType, true)
-      )
-
-      val expectedDf = spark.createDataFrame(
-        spark.sparkContext.parallelize(expectedData),
-        StructType(expectedSchema)
-      )
-
-      assertDataFrameApproximateEquals(sqrtDF, expectedDf, 0.01)
-
-    }
-
-  }
-
-  describe("#pow") {
-
-    it("returns the value of the first argument raised to the power of the second argument") {
-
-      val numsDF = Seq (
-        (2),
-        (3),
-        (1)
-      ).toDF("num")
-
-      val actualDF = numsDF.withColumn("power", pow(col("num"), 3))
-
-      val expectedData = List(
-        Row(2, 8.0),
-        Row(3, 27.0),
-        Row(1, 1.0)
-      )
-
-      val expectedSchema = List(
-        StructField("num", IntegerType, false),
-        StructField("power", DoubleType, false)
-      )
-
-      val expectedDf = spark.createDataFrame(
-        spark.sparkContext.parallelize(expectedData),
-        StructType(expectedSchema)
-      )
-
-      assertDataFrameEquals(actualDF, expectedDf)
-
-    }
-
-  }
-
-  describe("#length") {
-
-    it("returns the length of the column") {
-
-      val expectedSchema = List(
-        StructField("word", StringType, true),
-        StructField("length", IntegerType, true)
-      )
-
-      val expectedData = List(
-        Row("banh", 4),
-        Row("delilah", 7),
-        Row(null, null)
-      )
-
-      val expectedDf = spark.createDataFrame(
-        spark.sparkContext.parallelize(expectedData),
-        StructType(expectedSchema)
-      )
-
-      val wordsDf = Seq(
-        ("banh"),
-        ("delilah"),
-        (null)
-      ).toDF("word")
-
-      val actualDf = wordsDf.withColumn("length", length(col("word")))
-
-      assertDataFrameEquals(actualDf, expectedDf)
-
-    }
-
-  }
-
-  describe("#countDistinct") {
-
-    it("aggregate function: returns the number of distinct items in a group") {
-
-      val sourceDf = Seq(
-        ("A", 1),
-        ("B", 1),
-        ("A", 2),
-        ("A", 2),
-        ("B", 3),
-        ("A", 3)
-      ).toDF("id", "foo")
-
-      val actualDf = sourceDf.groupBy($"id").agg(countDistinct($"foo") as "distinctCountFoo").orderBy($"id")
-
-      val expectedData = List(
-        Row("A", 3L),
-        Row("B", 2L)
-      )
-
-      val expectedSchema = List(
-        StructField("id", StringType, true),
-        StructField("distinctCountFoo", LongType, false)
-      )
-
-      val expectedDf = spark.createDataFrame(
-        spark.sparkContext.parallelize(expectedData),
-        StructType(expectedSchema)
-      )
-
-      assertDataFrameEquals(actualDf, expectedDf)
-
-    }
-
-  }
-
-  describe("#locate") {
-
-    it("returns index of first occurrence of search string") {
-
-      val wordsDf = Seq(
-        ("Spider-man"),
-        ("Batman")
-      ).toDF("word")
-
-      val actualDf = wordsDf.withColumn("short_word", locate("man", col("word")))
-
-      val expectedData = Seq(
-        Row("Spider-man", 8),
-        Row("Batman", 4)
-      )
-
-      val expectedSchema = List(
-        StructField("word", StringType, true),
-        StructField("short_word",IntegerType,true)
-      )
-
-
-      val expectedDf = spark.createDataFrame(
-        spark.sparkContext.parallelize(expectedData),
-        StructType(expectedSchema)
-      )
-
-
-      assertDataFrameEquals(actualDf, expectedDf)
-
-    }
   }
 
 }

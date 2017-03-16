@@ -10,6 +10,29 @@ class ColumnSpec extends FunSpec with DataFrameSuiteBase {
 
   import spark.implicits._
 
+  describe("#and") {
+
+    it ("returns true if both columns are true") {
+
+      val sourceDf = Seq(
+        ("ted", true, false),
+        ("mary", true, true),
+        ("brian", false, true)
+      ).toDF("name", "like_cheese", "is_tall")
+
+      val actualDf = sourceDf.where(col("like_cheese").and(col("is_tall")))
+
+      val expectedDf = Seq(
+        ("mary", true, true)
+      ).toDF("name", "like_cheese", "is_tall")
+
+      assertDataFrameEquals(actualDf, expectedDf)
+
+    }
+
+  }
+
+
   describe("#geq") {
 
     it("matches for greater than or equal to an expression") {

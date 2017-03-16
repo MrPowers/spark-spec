@@ -694,16 +694,16 @@ class FunctionsSpec extends FunSpec with DataFrameSuiteBase {
     it("returns index of first occurrence of search string") {
 
       val wordsDf = Seq(
-        ("bat"),
-        ("cat")
+        ("Spider-man"),
+        ("Batman")
       ).toDF("word")
 
-      val actualDf = wordsDf.withColumn("short_word", locate("at", col("word")))
+      val actualDf = wordsDf.withColumn("short_word", locate("man", col("word")))
 
       val expectedData = Seq(
-        Row("bat", 2),
-        Row("cat", 2)
-      )//.toDF("word", "short_word")
+        Row("Spider-man", 8),
+        Row("Batman", 4)
+      )
 
       val expectedSchema = List(
         StructField("word", StringType, true),

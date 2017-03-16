@@ -264,11 +264,7 @@ class FunctionsSpec extends FunSpec with DataFrameSuiteBase {
         StructType(sourceSchema)
       )
 
-      sourceDf.show()
-
       val actualDf = sourceDf.withColumn("i_am_scared", cos("num1"))
-
-      actualDf.show()
 
       val expectedData = List(
         Row(1, 0.5403023058681398),

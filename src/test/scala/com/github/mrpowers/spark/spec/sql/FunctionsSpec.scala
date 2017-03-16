@@ -55,6 +55,34 @@ class FunctionsSpec extends FunSpec with DataFrameSuiteBase {
 
   }
 
+  describe("#add_months") {
+
+    it("returns the date that is numMonths after startDate") {
+
+      val sourceDF = Seq(
+        ("1", "2016-01-01 00:00:00"),
+        ("2", "2016-12-01 00:00:00")
+      ).toDF("person_id", "birth_date")
+        .withColumn("birth_date", col("birth_date").cast("timestamp"))
+
+      val actualDF = sourceDF.withColumn(
+        "future_date",
+        add_months(col("birth_date"), 2)
+      )
+
+      val expectedDF = Seq(
+        ("1", "2016-01-01 00:00:00", "2016-03-01"),
+        ("2", "2016-12-01 00:00:00", "2017-02-01")
+      ).toDF("person_id", "birth_date", "future_date")
+        .withColumn("birth_date", col("birth_date").cast("timestamp"))
+        .withColumn("future_date", col("future_date").cast("date"))
+
+      assertDataFrameEquals(actualDF, expectedDF)
+
+    }
+
+  }
+
   describe("#asc") {
 
     it("sorts a DataFrame in ascending order") {

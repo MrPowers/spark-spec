@@ -1099,7 +1099,43 @@ class DatasetSpec extends FunSpec with DataFrameSuiteBase with RDDComparisons {
   }
 
   describe("#withColumnRenamed") {
-    pending
+
+    it("renames a column") {
+
+      val sourceDF = Seq(1).toDF("foo")
+
+      val actualDF = sourceDF.withColumnRenamed("foo", "bar")
+
+      val expectedDF = Seq(1).toDF("bar")
+
+      assertDataFrameEquals(actualDF, expectedDF)
+
+    }
+
+    it("is case insensitive") {
+
+      val sourceDF = Seq(1).toDF("foo")
+
+      val actualDF = sourceDF.withColumnRenamed("FOO", "bar")
+
+      val expectedDF = Seq(1).toDF("bar")
+
+      assertDataFrameEquals(actualDF, expectedDF)
+
+    }
+
+    it("performs a no op if the column does not exists"){
+
+      val sourceDF = Seq(1).toDF("foo")
+
+      val actualDF = sourceDF.withColumnRenamed("somethingElse", "bar")
+
+      val expectedDF = Seq(1).toDF("foo")
+
+      assertDataFrameEquals(actualDF, expectedDF)
+
+    }
+
   }
 
   describe("#withWatermark") {

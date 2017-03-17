@@ -55,7 +55,7 @@ class FunctionsSpec extends FunSpec with DataFrameSuiteBase {
 
   }
 
-  describe("acos") {
+  describe("#acos") {
     pending
   }
 
@@ -87,23 +87,23 @@ class FunctionsSpec extends FunSpec with DataFrameSuiteBase {
 
   }
 
-  describe("approx_count_distinct") {
+  describe("#approx_count_distinct") {
     pending
   }
 
-  describe("array_contains") {
+  describe("#array_contains") {
     pending
   }
 
-  describe("array") {
+  describe("#array") {
     pending
   }
 
-  describe("asc_nulls_first") {
+  describe("#asc_nulls_first") {
     pending
   }
 
-  describe("asc_nulls_last") {
+  describe("#asc_nulls_last") {
     pending
   }
 
@@ -149,51 +149,51 @@ class FunctionsSpec extends FunSpec with DataFrameSuiteBase {
 
   }
 
-  describe("ascii") {
+  describe("#ascii") {
     pending
   }
 
-  describe("asin") {
+  describe("#asin") {
     pending
   }
 
-  describe("atan") {
+  describe("#atan") {
     pending
   }
 
-  describe("atan2") {
+  describe("#atan2") {
     pending
   }
 
-  describe("avg") {
+  describe("#avg") {
     pending
   }
 
-  describe("base64") {
+  describe("#base64") {
     pending
   }
 
-  describe("bin") {
+  describe("#bin") {
     pending
   }
 
-  describe("bitwiseNOT") {
+  describe("#bitwiseNOT") {
     pending
   }
 
-  describe("broadcast") {
+  describe("#broadcast") {
     pending
   }
 
-  describe("bround") {
+  describe("#bround") {
     pending
   }
 
-  describe("callUDF") {
+  describe("#callUDF") {
     pending
   }
 
-  describe("cbrt") {
+  describe("#cbrt") {
     pending
   }
 
@@ -265,19 +265,19 @@ class FunctionsSpec extends FunSpec with DataFrameSuiteBase {
 
   }
 
-  describe("col") {
+  describe("#col") {
     pending
   }
 
-  describe("collect_list") {
+  describe("#collect_list") {
     pending
   }
 
-  describe("collect_set") {
+  describe("#collect_set") {
     pending
   }
 
-  describe("column") {
+  describe("#column") {
     pending
   }
 
@@ -361,11 +361,11 @@ class FunctionsSpec extends FunSpec with DataFrameSuiteBase {
 
   }
 
-  describe("conv") {
+  describe("#conv") {
     pending
   }
 
-  describe("corr") {
+  describe("#corr") {
     pending
   }
 
@@ -412,11 +412,11 @@ class FunctionsSpec extends FunSpec with DataFrameSuiteBase {
 
   }
 
-  describe("cosh") {
+  describe("#cosh") {
     pending
   }
 
-  describe("count") {
+  describe("#count") {
     pending
   }
 
@@ -456,27 +456,27 @@ class FunctionsSpec extends FunSpec with DataFrameSuiteBase {
 
   }
 
-  describe("covar_pop") {
+  describe("#covar_pop") {
     pending
   }
 
-  describe("covar_samp") {
+  describe("#covar_samp") {
     pending
   }
 
-  describe("crc32") {
+  describe("#crc32") {
     pending
   }
 
-  describe("cume_dist") {
+  describe("#cume_dist") {
     pending
   }
 
-  describe("current_date") {
+  describe("#current_date") {
     pending
   }
 
-  describe("current_timestamp") {
+  describe("#current_timestamp") {
     pending
   }
 
@@ -509,23 +509,23 @@ class FunctionsSpec extends FunSpec with DataFrameSuiteBase {
 
   }
 
-  describe("date_format") {
+  describe("#date_format") {
     pending
   }
 
-  describe("date_sub") {
+  describe("#date_sub") {
     pending
   }
 
-  describe("datediff") {
+  describe("#datediff") {
     pending
   }
 
-  describe("dayofmonth") {
+  describe("#dayofmonth") {
     pending
   }
 
-  describe("dayofyear") {
+  describe("#dayofyear") {
     pending
   }
 
@@ -533,7 +533,7 @@ class FunctionsSpec extends FunSpec with DataFrameSuiteBase {
     pending
   }
 
-  describe("degrees") {
+  describe("#degrees") {
     pending
   }
 

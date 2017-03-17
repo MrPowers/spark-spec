@@ -38,7 +38,7 @@ class DatasetSpec extends FunSpec with DataFrameSuiteBase with RDDComparisons {
 
   }
 
-  describe("apply") {
+  describe("#apply") {
     pending
   }
 
@@ -66,23 +66,23 @@ class DatasetSpec extends FunSpec with DataFrameSuiteBase with RDDComparisons {
 
   }
 
-  describe("cache") {
+  describe("#cache") {
     pending
   }
 
-  describe("checkpoint") {
+  describe("#checkpoint") {
     pending
   }
 
-  describe("classTag") {
+  describe("#classTag") {
     pending
   }
 
-  describe("coalesce") {
+  describe("#coalesce") {
     pending
   }
 
-  describe("col") {
+  describe("#col") {
     pending
   }
 
@@ -115,7 +115,7 @@ class DatasetSpec extends FunSpec with DataFrameSuiteBase with RDDComparisons {
 
   }
 
-  describe("collectAsList") {
+  describe("#collectAsList") {
     pending
   }
 
@@ -151,15 +151,15 @@ class DatasetSpec extends FunSpec with DataFrameSuiteBase with RDDComparisons {
 
   }
 
-  describe("createGlobalTempView") {
+  describe("#createGlobalTempView") {
     pending
   }
 
-  describe("createOrReplaceTempView") {
+  describe("#createOrReplaceTempView") {
     pending
   }
 
-  describe("createTempView") {
+  describe("#createTempView") {
     pending
   }
 
@@ -192,7 +192,7 @@ class DatasetSpec extends FunSpec with DataFrameSuiteBase with RDDComparisons {
 
   }
 
-  describe("cube") {
+  describe("#cube") {
     pending
   }
 
@@ -269,7 +269,7 @@ class DatasetSpec extends FunSpec with DataFrameSuiteBase with RDDComparisons {
 
   }
 
-  describe("drop") {
+  describe("#drop") {
 
     it("drops a column from a DataFrame") {
 
@@ -404,7 +404,7 @@ class DatasetSpec extends FunSpec with DataFrameSuiteBase with RDDComparisons {
 
   }
 
-  describe("explain") {
+  describe("#explain") {
     pending
   }
 
@@ -511,11 +511,11 @@ class DatasetSpec extends FunSpec with DataFrameSuiteBase with RDDComparisons {
 
   }
 
-  describe("foreach") {
+  describe("#foreach") {
     pending
   }
 
-  describe("foreachPartition") {
+  describe("#foreachPartition") {
     pending
   }
 
@@ -553,7 +553,7 @@ class DatasetSpec extends FunSpec with DataFrameSuiteBase with RDDComparisons {
 
   }
 
-  describe("groupByKey") {
+  describe("#groupByKey") {
     pending
   }
 
@@ -608,7 +608,7 @@ class DatasetSpec extends FunSpec with DataFrameSuiteBase with RDDComparisons {
 
   }
 
-  describe("inputFiles") {
+  describe("#inputFiles") {
     pending
   }
 
@@ -642,15 +642,15 @@ class DatasetSpec extends FunSpec with DataFrameSuiteBase with RDDComparisons {
 
   }
 
-  describe("isLocal") {
+  describe("#isLocal") {
     pending
   }
 
-  describe("isStreaming") {
+  describe("#isStreaming") {
     pending
   }
 
-  describe("javaRDD") {
+  describe("#javaRDD") {
     pending
   }
 
@@ -768,11 +768,11 @@ class DatasetSpec extends FunSpec with DataFrameSuiteBase with RDDComparisons {
 
   }
 
-  describe("map") {
+  describe("#map") {
     pending
   }
 
-  describe("mapPartitions") {
+  describe("#mapPartitions") {
     pending
   }
 
@@ -820,7 +820,7 @@ class DatasetSpec extends FunSpec with DataFrameSuiteBase with RDDComparisons {
 
   }
 
-  describe("ofRows") {
+  describe("#ofRows") {
     pending
   }
 
@@ -850,15 +850,15 @@ class DatasetSpec extends FunSpec with DataFrameSuiteBase with RDDComparisons {
 
   }
 
-  describe("persist") {
+  describe("#persist") {
     pending
   }
 
-  describe("printSchema") {
+  describe("#printSchema") {
     pending
   }
 
-  describe("queryExecution") {
+  describe("#queryExecution") {
     pending
   }
 
@@ -1014,39 +1014,39 @@ class DatasetSpec extends FunSpec with DataFrameSuiteBase with RDDComparisons {
 
   }
 
-  describe("select") {
+  describe("#select") {
     pending
   }
 
-  describe("selectExpr") {
+  describe("#selectExpr") {
     pending
   }
 
-  describe("show") {
+  describe("#show") {
     pending
   }
 
-  describe("sort") {
+  describe("#sort") {
     pending
   }
 
-  describe("sortWithinPartitions") {
+  describe("#sortWithinPartitions") {
     pending
   }
 
-  describe("sparkSession") {
+  describe("#sparkSession") {
     pending
   }
 
-  describe("sqlContext") {
+  describe("#sqlContext") {
     pending
   }
 
-  describe("stat") {
+  describe("#stat") {
     pending
   }
 
-  describe("storageLevel") {
+  describe("#storageLevel") {
     pending
   }
 
@@ -1090,27 +1090,27 @@ class DatasetSpec extends FunSpec with DataFrameSuiteBase with RDDComparisons {
     pending
   }
 
-  describe("where") {
+  describe("#where") {
     pending
   }
 
-  describe("withColumn") {
+  describe("#withColumn") {
     pending
   }
 
-  describe("withColumnRenamed") {
+  describe("#withColumnRenamed") {
     pending
   }
 
-  describe("withWatermark") {
+  describe("#withWatermark") {
     pending
   }
 
-  describe("write") {
+  describe("#write") {
     pending
   }
 
-  describe("writeStream") {
+  describe("#writeStream") {
     pending
   }
 

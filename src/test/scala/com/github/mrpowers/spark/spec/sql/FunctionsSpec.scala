@@ -889,12 +889,10 @@ class FunctionsSpec extends FunSpec with DataFrameSuiteBase {
         StructField("short_word",IntegerType,true)
       )
 
-
       val expectedDf = spark.createDataFrame(
         spark.sparkContext.parallelize(expectedData),
         StructType(expectedSchema)
       )
-
 
       assertDataFrameEquals(actualDf, expectedDf)
 

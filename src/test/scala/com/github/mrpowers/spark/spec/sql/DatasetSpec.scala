@@ -11,22 +11,7 @@ class DatasetSpec extends FunSpec with DataFrameSuiteBase with RDDComparisons {
   import spark.implicits._
 
   describe("#agg") {
-
-    it("HACK - don't know what this does") {
-
-      val sourceDf = Seq(
-        ("jose", "blue"),
-        ("li", "blue"),
-        ("luisa", "red")
-      ).toDF("name", "color")
-
-      val df = sourceDf.agg(max(col("color")))
-
-      // HACK - this isn't getting me what I want
-      // might need to ask Milin for help
-
-    }
-
+    pending
   }
 
   describe("#alias") {
@@ -53,7 +38,9 @@ class DatasetSpec extends FunSpec with DataFrameSuiteBase with RDDComparisons {
 
   }
 
-  // MISSING - #apply
+  describe("apply") {
+    pending
+  }
 
   describe("#as") {
 
@@ -79,11 +66,25 @@ class DatasetSpec extends FunSpec with DataFrameSuiteBase with RDDComparisons {
 
   }
 
-  // MISSING - cache
-  // MISSING - checkpoint
-  // MISSING - classTag
-  // MISSING - coalesce
-  // MISSING - col
+  describe("cache") {
+    pending
+  }
+
+  describe("checkpoint") {
+    pending
+  }
+
+  describe("classTag") {
+    pending
+  }
+
+  describe("coalesce") {
+    pending
+  }
+
+  describe("col") {
+    pending
+  }
 
   describe("#collect") {
 
@@ -114,7 +115,9 @@ class DatasetSpec extends FunSpec with DataFrameSuiteBase with RDDComparisons {
 
   }
 
-  // MISSING - collectAsList
+  describe("collectAsList") {
+    pending
+  }
 
   describe("#columns") {
 
@@ -148,9 +151,17 @@ class DatasetSpec extends FunSpec with DataFrameSuiteBase with RDDComparisons {
 
   }
 
-  // MISSING - createGlobalTempView
-  // MISSING - createOrReplaceTempView
-  // MISSING - createTempView
+  describe("createGlobalTempView") {
+    pending
+  }
+
+  describe("createOrReplaceTempView") {
+    pending
+  }
+
+  describe("createTempView") {
+    pending
+  }
 
   describe("#crossJoin") {
 
@@ -181,7 +192,9 @@ class DatasetSpec extends FunSpec with DataFrameSuiteBase with RDDComparisons {
 
   }
 
-  // MISSING - cube
+  describe("cube") {
+    pending
+  }
 
   describe("#describe") {
 
@@ -352,6 +365,7 @@ class DatasetSpec extends FunSpec with DataFrameSuiteBase with RDDComparisons {
       val actual = abcDf.dtypes
       val expected = Array(("letter", StringType), ("number", IntegerType))
 
+      pending
       // HACK - couldn't get this to work
       // Don't know how to do Array equality with Scala
 
@@ -390,7 +404,9 @@ class DatasetSpec extends FunSpec with DataFrameSuiteBase with RDDComparisons {
 
   }
 
-  // MISSING - explain
+  describe("explain") {
+    pending
+  }
 
   describe("#filter") {
 
@@ -460,7 +476,6 @@ class DatasetSpec extends FunSpec with DataFrameSuiteBase with RDDComparisons {
 
   }
 
-
   describe("#first") {
 
     it("returns the first row of a DataFrame") {
@@ -491,32 +506,18 @@ class DatasetSpec extends FunSpec with DataFrameSuiteBase with RDDComparisons {
   describe("#flatMap") {
 
     it("replaces explode and provides flexibility") {
-
-//       HACK - can't figure out how this works :(
-
-//      val wordsDf = Seq(
-//        ("the people like to do the stuff"),
-//        ("farmers like the rain")
-//      ).toDF("sentence")
-//
-//      wordsDf.flatMap(_.sentence.split(" "))
-//      wordsDf.flatMap(_.size)
-//
-//      case class Sentence(words: String)
-//
-//      val ds = Seq(
-//        Sentence("the people like to do the stuff"),
-//        Sentence("farmers like the rain")
-//      ).toDS()
-//
-//      ds.flatMap(_.sentence.split(" ")).show()
-
+      pending
     }
 
   }
 
-  // MISSING - foreach
-  // MISSING - foreachPartition
+  describe("foreach") {
+    pending
+  }
+
+  describe("foreachPartition") {
+    pending
+  }
 
   describe("#groupBy") {
 
@@ -552,7 +553,9 @@ class DatasetSpec extends FunSpec with DataFrameSuiteBase with RDDComparisons {
 
   }
 
-  // MISSING - groupByKey
+  describe("groupByKey") {
+    pending
+  }
 
   describe("#head") {
 
@@ -605,7 +608,9 @@ class DatasetSpec extends FunSpec with DataFrameSuiteBase with RDDComparisons {
 
   }
 
-  // MISSING - inputFiles
+  describe("inputFiles") {
+    pending
+  }
 
   describe("#intersect") {
 
@@ -637,9 +642,17 @@ class DatasetSpec extends FunSpec with DataFrameSuiteBase with RDDComparisons {
 
   }
 
-  // MISSING - isLocal
-  // MISSING - isStreaming
-  // MISSING - javaRDD
+  describe("isLocal") {
+    pending
+  }
+
+  describe("isStreaming") {
+    pending
+  }
+
+  describe("javaRDD") {
+    pending
+  }
 
   describe("#join") {
 
@@ -692,6 +705,8 @@ class DatasetSpec extends FunSpec with DataFrameSuiteBase with RDDComparisons {
       val actualDf = peopleDf.joinWith(
         birthplaceDf, peopleDf("id") <=> birthplaceDf("person_id")
       )
+
+      pending
 
 //      val sourceData = List(
 //        Row(("larry", "1"),("new york", "1")),
@@ -753,8 +768,13 @@ class DatasetSpec extends FunSpec with DataFrameSuiteBase with RDDComparisons {
 
   }
 
-  // #map
-  // #mapPartitions
+  describe("map") {
+    pending
+  }
+
+  describe("mapPartitions") {
+    pending
+  }
 
   describe("#na") {
 
@@ -800,7 +820,9 @@ class DatasetSpec extends FunSpec with DataFrameSuiteBase with RDDComparisons {
 
   }
 
-  // ofRows - I have no idea what this meathos is for, looks weird
+  describe("ofRows") {
+    pending
+  }
 
   describe("#orderBy") {
 
@@ -828,9 +850,17 @@ class DatasetSpec extends FunSpec with DataFrameSuiteBase with RDDComparisons {
 
   }
 
-  // persist
-  // printSchema
-  // queryExecution - don't think we'll be able to write a test, but looks like this would make for an interesting blog post
+  describe("persist") {
+    pending
+  }
+
+  describe("printSchema") {
+    pending
+  }
+
+  describe("queryExecution") {
+    pending
+  }
 
   describe("#randomSplit") {
 
@@ -849,6 +879,10 @@ class DatasetSpec extends FunSpec with DataFrameSuiteBase with RDDComparisons {
 
     }
 
+  }
+
+  describe("#randomSplitAsList") {
+    pending
   }
 
   describe("#rdd") {
@@ -875,7 +909,9 @@ class DatasetSpec extends FunSpec with DataFrameSuiteBase with RDDComparisons {
 
   }
 
-  // reduce
+  describe("#reduce") {
+    pending
+  }
 
   describe("#repartition") {
 
@@ -976,6 +1012,106 @@ class DatasetSpec extends FunSpec with DataFrameSuiteBase with RDDComparisons {
 
     }
 
+  }
+
+  describe("select") {
+    pending
+  }
+
+  describe("selectExpr") {
+    pending
+  }
+
+  describe("show") {
+    pending
+  }
+
+  describe("sort") {
+    pending
+  }
+
+  describe("sortWithinPartitions") {
+    pending
+  }
+
+  describe("sparkSession") {
+    pending
+  }
+
+  describe("sqlContext") {
+    pending
+  }
+
+  describe("stat") {
+    pending
+  }
+
+  describe("storageLevel") {
+    pending
+  }
+
+  describe("#take") {
+    pending
+  }
+
+  describe("#takeAsList") {
+    pending
+  }
+
+  describe("#toDF") {
+    pending
+  }
+
+  describe("#toJavaRDD") {
+    pending
+  }
+
+  describe("#toJSON") {
+    pending
+  }
+
+  describe("#toLocalIterator") {
+    pending
+  }
+
+  describe("#toString") {
+    pending
+  }
+
+  describe("#transform") {
+    pending
+  }
+
+  describe("#union") {
+    pending
+  }
+
+  describe("#unpersist") {
+    pending
+  }
+
+  describe("where") {
+    pending
+  }
+
+  describe("withColumn") {
+    pending
+  }
+
+  describe("withColumnRenamed") {
+    pending
+  }
+
+  describe("withWatermark") {
+    pending
+  }
+
+  describe("write") {
+    pending
+  }
+
+  describe("writeStream") {
+    pending
   }
 
 }

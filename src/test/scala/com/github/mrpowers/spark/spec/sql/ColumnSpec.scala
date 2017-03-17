@@ -11,7 +11,28 @@ class ColumnSpec extends FunSpec with DataFrameSuiteBase {
   import spark.implicits._
 
   describe("#alias") {
-    pending
+
+    it("gives the column an alias") {
+
+      val sourceDF = Seq(
+        ("gary", 42),
+        ("bristol", 12)
+      ).toDF("name", "age")
+
+      val actualDF = sourceDF.select(
+        col("name").alias("city"),
+        col("age").alias("num_people")
+      )
+
+      val expectedDF = Seq(
+        ("gary", 42),
+        ("bristol", 12)
+      ).toDF("city", "num_people")
+
+      assertDataFrameEquals(actualDF, expectedDF)
+
+    }
+
   }
 
   describe("#and") {

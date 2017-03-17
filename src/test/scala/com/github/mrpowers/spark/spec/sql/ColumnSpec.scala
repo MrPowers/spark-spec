@@ -10,6 +10,10 @@ class ColumnSpec extends FunSpec with DataFrameSuiteBase {
 
   import spark.implicits._
 
+  describe("#alias") {
+    pending
+  }
+
   describe("#and") {
 
     it ("returns true if both columns are true") {
@@ -30,6 +34,58 @@ class ColumnSpec extends FunSpec with DataFrameSuiteBase {
 
     }
 
+  }
+
+  describe("#apply") {
+    pending
+  }
+
+  describe("#as") {
+    pending
+  }
+
+  describe("#asc_nulls_first") {
+    pending
+  }
+
+  describe("#asc") {
+    pending
+  }
+
+  describe("#between") {
+    pending
+  }
+
+  describe("#bitwiseAND") {
+    pending
+  }
+
+  describe("#bitwiseOR") {
+    pending
+  }
+
+  describe("#cast") {
+    pending
+  }
+
+  describe("#contains") {
+    pending
+  }
+
+  describe("#desc_nulls_first") {
+    pending
+  }
+
+  describe("#desc_nulls_last") {
+    pending
+  }
+
+  describe("#desc") {
+    pending
+  }
+
+  describe("#divide") {
+    pending
   }
 
   describe("#endsWith") {
@@ -59,25 +115,47 @@ class ColumnSpec extends FunSpec with DataFrameSuiteBase {
 
   }
 
-  describe("#isin") {
+  describe("#eqNullSafe") {
+    pending
+  }
 
-    it("A boolean expression that is evaluated to true if the value of this expression is contained by the evaluated values of the arguments") {
+  describe("#equals") {
+    pending
+  }
+
+  describe("#equalTo") {
+    pending
+  }
+
+  describe("#explain") {
+    pending
+  }
+
+  describe("#expr") {
+    pending
+  }
+
+  describe("#geq") {
+
+    it("matches for greater than or equal to an expression") {
 
       val sourceDf = Seq(
-        ("nate"),
-        ("tim"),
-        ("Tim"),
-        ("miller"),
-        ("jackson"),
-        ("andrew")
-      ).toDF("some_name")
+        ("1980-09-10"),
+        ("1990-04-18"),
+        ("2000-04-18"),
+        ("2010-04-18"),
+        ("2016-01-10")
+      ).toDF("some_date")
+        .withColumn("some_date", $"some_date".cast("timestamp"))
 
-      val actualDf = sourceDf.where(col("some_name").isin("tim","andrew","noname"))
+      val actualDf = sourceDf.where(col("some_date").geq("1995-04-18"))
 
       val expectedDf = Seq(
-        ("tim"),
-        ("andrew")
-      ).toDF("some_name")
+        ("2000-04-18"),
+        ("2010-04-18"),
+        ("2016-01-10")
+      ).toDF("some_date")
+        .withColumn("some_date", $"some_date".cast("timestamp"))
 
       assertDataFrameEquals(actualDf, expectedDf)
 
@@ -85,6 +163,9 @@ class ColumnSpec extends FunSpec with DataFrameSuiteBase {
 
   }
 
+  describe("#getField") {
+    pending
+  }
 
   describe("#getItem") {
 
@@ -115,35 +196,6 @@ class ColumnSpec extends FunSpec with DataFrameSuiteBase {
 
   }
 
-
-  describe("#geq") {
-
-    it("matches for greater than or equal to an expression") {
-
-      val sourceDf = Seq(
-        ("1980-09-10"),
-        ("1990-04-18"),
-        ("2000-04-18"),
-        ("2010-04-18"),
-        ("2016-01-10")
-      ).toDF("some_date")
-      .withColumn("some_date", $"some_date".cast("timestamp"))
-
-      val actualDf = sourceDf.where(col("some_date").geq("1995-04-18"))
-
-      val expectedDf = Seq(
-        ("2000-04-18"),
-        ("2010-04-18"),
-        ("2016-01-10")
-      ).toDF("some_date")
-      .withColumn("some_date", $"some_date".cast("timestamp"))
-
-      assertDataFrameEquals(actualDf, expectedDf)
-
-    }
-
-  }
-
   describe("#gt") {
 
     it("keeps rows greater than a certain number") {
@@ -167,6 +219,60 @@ class ColumnSpec extends FunSpec with DataFrameSuiteBase {
 
     }
 
+  }
+
+  describe("#hashCode") {
+    pending
+  }
+
+  describe("#isin") {
+
+    it("A boolean expression that is evaluated to true if the value of this expression is contained by the evaluated values of the arguments") {
+
+      val sourceDf = Seq(
+        ("nate"),
+        ("tim"),
+        ("Tim"),
+        ("miller"),
+        ("jackson"),
+        ("andrew")
+      ).toDF("some_name")
+
+      val actualDf = sourceDf.where(col("some_name").isin("tim","andrew","noname"))
+
+      val expectedDf = Seq(
+        ("tim"),
+        ("andrew")
+      ).toDF("some_name")
+
+      assertDataFrameEquals(actualDf, expectedDf)
+
+    }
+
+  }
+
+  describe("#isNaN") {
+    pending
+  }
+
+  describe("#isNotNull") {
+    pending
+  }
+
+  describe("#isNull") {
+    pending
+  }
+
+  describe("#leq") {
+    pending
+  }
+
+  describe("#like") {
+    pending
+  }
+
+  describe("#lt") {
+    pending
   }
 
   describe("#minus") {
@@ -275,6 +381,26 @@ class ColumnSpec extends FunSpec with DataFrameSuiteBase {
 
   }
 
+  describe("#name") {
+    pending
+  }
+
+  describe("#notEqual") {
+    pending
+  }
+
+  describe("#or") {
+    pending
+  }
+
+  describe("#otherwise") {
+    pending
+  }
+
+  describe("#over") {
+    pending
+  }
+
   describe("#plus") {
 
     it("sum of this expression and another expression") {
@@ -335,6 +461,10 @@ class ColumnSpec extends FunSpec with DataFrameSuiteBase {
 
   }
 
+  describe("#startsWith") {
+    pending
+  }
+
   describe("#substr") {
 
     it("An expression that returns a substring. substr(startPos: Int, len: Int): Column") {
@@ -372,6 +502,18 @@ class ColumnSpec extends FunSpec with DataFrameSuiteBase {
 
     }
 
+  }
+
+  describe("#toString") {
+    pending
+  }
+
+  describe("#unapply") {
+    pending
+  }
+
+  describe("#when") {
+    pending
   }
 
 }

@@ -4,11 +4,11 @@ A test suite to document the behavior of the Spark engine.
 
 ## Goals
 
-1. Create a test suite that's easier to read than the Spark source code.
+1. Augment the official documentation with working code snippets.
 
-2. Make it easier to identify what breaks when Spark versions change.
+2. Document unexpected behavior in the Spark engine.
 
-3. Augment the official documentation with working code snippets.
+3. Make it easier to identify what breaks when Spark versions change.
 
 4. Create a ton of drama, [like the RubySpec project](https://news.ycombinator.com/item?id=8821015).  Just kidding!
 
@@ -20,7 +20,7 @@ You can run a single tests file with `sbt "test-only *DatasetSpec"`.
 
 ## Example
 
-Here's a simple example that documents the behvior of the `Dataset#count` method:
+Here's a simple example that documents the behavior of the `Dataset#count` method:
 
 ```scala
 describe("#count") {
@@ -43,7 +43,7 @@ describe("#count") {
 
 We are actively looking for contributors to add tests for new methods and augment existing tests to cover edge cases.
 
-To get started, fork the project and submit a pull request.
+To get started, fork the project and submit a pull request.  Methods that aren't documented yet are marked as `pending` and are a good place to start.
 
 After submitting a couple of good pull requests, you'll be added as a contributor to the project.
 

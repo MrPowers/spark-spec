@@ -62,7 +62,28 @@ class ColumnSpec extends FunSpec with DataFrameSuiteBase {
   }
 
   describe("#as") {
-    pending
+
+    it("gives the column an alias with metadata") {
+
+      val sourceDF = Seq(
+        ("gary", 42),
+        ("bristol", 12)
+      ).toDF("name", "age")
+
+      val actualDF = sourceDF.select(
+        col("name").as("city"),
+        col("age").as("num_people")
+      )
+
+      val expectedDF = Seq(
+        ("gary", 42),
+        ("bristol", 12)
+      ).toDF("city", "num_people")
+
+      assertDataFrameEquals(actualDF, expectedDF)
+
+    }
+
   }
 
   describe("#asc_nulls_first") {

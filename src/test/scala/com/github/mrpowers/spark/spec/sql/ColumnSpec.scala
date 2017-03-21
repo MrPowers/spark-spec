@@ -87,7 +87,54 @@ class ColumnSpec extends FunSpec with DataFrameSuiteBase {
   }
 
   describe("#asc_nulls_first") {
-    pending
+
+    it("sorts a column in ascending order with the null values first") {
+
+      val sourceData = Seq(
+        Row(null, null),
+        Row("gary", 42),
+        Row("bristol", 12),
+        Row("frank", 60),
+        Row("abdul", 14),
+        Row(null, 99)
+      )
+
+      val sourceSchema = List(
+        StructField("first_name", StringType, true),
+        StructField("age", IntegerType, true)
+      )
+
+      val sourceDF = spark.createDataFrame(
+        spark.sparkContext.parallelize(sourceData),
+        StructType(sourceSchema)
+      )
+
+      val actualDF = sourceDF.sort(
+        asc_nulls_first("first_name")
+      )
+
+      val expectedData = Seq(
+        Row(null, null),
+        Row(null, 99),
+        Row("abdul", 14),
+        Row("bristol", 12),
+        Row("frank", 60),
+        Row("gary", 42)
+      )
+
+      val expectedSchema = List(
+        StructField("first_name", StringType, true),
+        StructField("age", IntegerType, true)
+      )
+
+      val expectedDF = spark.createDataFrame(
+        spark.sparkContext.parallelize(expectedData),
+        StructType(expectedSchema)
+      )
+
+      assertDataFrameEquals(actualDF, expectedDF)
+
+    }
   }
 
   describe("#asc") {

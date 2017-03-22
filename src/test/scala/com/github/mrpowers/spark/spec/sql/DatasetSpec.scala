@@ -18,21 +18,21 @@ class DatasetSpec extends FunSpec with DataFrameSuiteBase with RDDComparisons {
 
     it("aliases a DataFrame") {
 
-      val sourceDf = Seq(
+      val sourceDF = Seq(
         ("jose"),
         ("li"),
         ("luisa")
       ).toDF("name")
 
-      val actualDf = sourceDf.select(col("name").alias("student"))
+      val actualDF = sourceDF.select(col("name").alias("student"))
 
-      val expectedDf = Seq(
+      val expectedDF = Seq(
         ("jose"),
         ("li"),
         ("luisa")
       ).toDF("student")
 
-      assertDataFrameEquals(actualDf, expectedDf)
+      assertDataFrameEquals(actualDF, expectedDF)
 
     }
 
@@ -46,21 +46,21 @@ class DatasetSpec extends FunSpec with DataFrameSuiteBase with RDDComparisons {
 
     it("does the same thing as alias") {
 
-      val sourceDf = Seq(
+      val sourceDF = Seq(
         ("jose"),
         ("li"),
         ("luisa")
       ).toDF("name")
 
-      val actualDf = sourceDf.select(col("name").as("student"))
+      val actualDF = sourceDF.select(col("name").as("student"))
 
-      val expectedDf = Seq(
+      val expectedDF = Seq(
         ("jose"),
         ("li"),
         ("luisa")
       ).toDF("student")
 
-      assertDataFrameEquals(actualDf, expectedDf)
+      assertDataFrameEquals(actualDF, expectedDF)
 
     }
 
@@ -102,12 +102,12 @@ class DatasetSpec extends FunSpec with DataFrameSuiteBase with RDDComparisons {
         StructField("animal", StringType, true)
       )
 
-      val sourceDf = spark.createDataFrame(
+      val sourceDF = spark.createDataFrame(
         spark.sparkContext.parallelize(sourceData),
         StructType(sourceSchema)
       )
 
-      val s = sourceDf.collect()
+      val s = sourceDF.collect()
 
       assert(s === Array(row1, row2))
 
@@ -123,14 +123,14 @@ class DatasetSpec extends FunSpec with DataFrameSuiteBase with RDDComparisons {
 
     it("returns all the column names as an array") {
 
-      val sourceDf = Seq(
+      val sourceDF = Seq(
         ("jets", "football"),
         ("nacional", "soccer")
       ).toDF("team", "sport")
 
       val expected = Array("team", "sport")
 
-      assert(sourceDf.columns === expected)
+      assert(sourceDF.columns === expected)
 
     }
 
@@ -140,12 +140,12 @@ class DatasetSpec extends FunSpec with DataFrameSuiteBase with RDDComparisons {
 
     it("returns a count of all the rows in a DataFrame") {
 
-      val sourceDf = Seq(
+      val sourceDF = Seq(
         ("jets"),
         ("barcelona")
       ).toDF("team")
 
-      assert(sourceDf.count === 2)
+      assert(sourceDF.count === 2)
 
     }
 
@@ -167,26 +167,26 @@ class DatasetSpec extends FunSpec with DataFrameSuiteBase with RDDComparisons {
 
     it("cross joins two DataFrames") {
 
-      val letterDf = Seq(
+      val letterDF = Seq(
         ("a"),
         ("b")
       ).toDF("letter")
 
-      val numberDf = Seq(
+      val numberDF = Seq(
         ("1"),
         ("2")
       ).toDF("number")
 
-      val actualDf = letterDf.crossJoin(numberDf)
+      val actualDF = letterDF.crossJoin(numberDF)
 
-      val expectedDf = Seq(
+      val expectedDF = Seq(
         ("a", "1"),
         ("a", "2"),
         ("b", "1"),
         ("b", "2")
       ).toDF("letter", "number")
 
-      assertDataFrameEquals(actualDf, expectedDf)
+      assertDataFrameEquals(actualDF, expectedDF)
 
     }
 
@@ -200,15 +200,15 @@ class DatasetSpec extends FunSpec with DataFrameSuiteBase with RDDComparisons {
 
     it("provides analytic statistics for a numeric column") {
 
-      val numbersDf = Seq(
+      val numbersDF = Seq(
         (1),
         (8),
         (5)
       ).toDF("num1")
 
-      val actualDf = numbersDf.describe()
+      val actualDF = numbersDF.describe()
 
-      val expectedDf = Seq(
+      val expectedDF = Seq(
         ("count", "3"),
         ("mean", "4.666666666666667"),
         ("stddev", "3.5118845842842465"),
@@ -216,20 +216,20 @@ class DatasetSpec extends FunSpec with DataFrameSuiteBase with RDDComparisons {
         ("max", "8")
       ).toDF("summary", "num1")
 
-      assertDataFrameEquals(actualDf, expectedDf)
+      assertDataFrameEquals(actualDF, expectedDF)
 
     }
 
     it("only provides certain descriptive stats for a string column") {
 
-      val letterDf = Seq(
+      val letterDF = Seq(
         ("a"),
         ("b")
       ).toDF("letter")
 
-      val actualDf = letterDf.describe()
+      val actualDF = letterDF.describe()
 
-      val expectedDf = Seq(
+      val expectedDF = Seq(
         ("count", "2"),
         ("mean", null),
         ("stddev", null),
@@ -237,7 +237,7 @@ class DatasetSpec extends FunSpec with DataFrameSuiteBase with RDDComparisons {
         ("max", "b")
       ).toDF("summary", "letter")
 
-      assertDataFrameEquals(actualDf, expectedDf)
+      assertDataFrameEquals(actualDF, expectedDF)
 
     }
 
@@ -247,7 +247,7 @@ class DatasetSpec extends FunSpec with DataFrameSuiteBase with RDDComparisons {
 
     it("returns the unique rows in a DataFrame") {
 
-      val numbersDf = Seq(
+      val numbersDF = Seq(
         (1, 2),
         (8, 8),
         (1, 2),
@@ -255,15 +255,15 @@ class DatasetSpec extends FunSpec with DataFrameSuiteBase with RDDComparisons {
         (8, 8)
       ).toDF("num1", "num2")
 
-      val actualDf = numbersDf.distinct()
+      val actualDF = numbersDF.distinct()
 
-      val expectedDf = Seq(
+      val expectedDF = Seq(
         (1, 2),
         (5, 6),
         (8, 8)
       ).toDF("num1", "num2")
 
-      assertDataFrameEquals(actualDf, expectedDf)
+      assertDataFrameEquals(actualDF, expectedDF)
 
     }
 
@@ -273,21 +273,21 @@ class DatasetSpec extends FunSpec with DataFrameSuiteBase with RDDComparisons {
 
     it("drops a column from a DataFrame") {
 
-      val peopleDf = Seq(
+      val peopleDF = Seq(
         ("larry", true),
         ("jeff", false),
         ("susy", false)
       ).toDF("person", "wearGlasses")
 
-      val actualDf = peopleDf.drop("wearGlasses")
+      val actualDF = peopleDF.drop("wearGlasses")
 
-      val expectedDf = Seq(
+      val expectedDF = Seq(
         ("larry"),
         ("jeff"),
         ("susy")
       ).toDF("person")
 
-      assertDataFrameEquals(actualDf, expectedDf)
+      assertDataFrameEquals(actualDF, expectedDF)
 
     }
 
@@ -297,7 +297,7 @@ class DatasetSpec extends FunSpec with DataFrameSuiteBase with RDDComparisons {
 
     it("drops the duplicate rows from a DataFrame") {
 
-      val numbersDf = Seq(
+      val numbersDF = Seq(
         (1, 2),
         (8, 8),
         (1, 2),
@@ -305,21 +305,21 @@ class DatasetSpec extends FunSpec with DataFrameSuiteBase with RDDComparisons {
         (8, 8)
       ).toDF("num1", "num2")
 
-      val actualDf = numbersDf.dropDuplicates()
+      val actualDF = numbersDF.dropDuplicates()
 
-      val expectedDf = Seq(
+      val expectedDF = Seq(
         (1, 2),
         (5, 6),
         (8, 8)
       ).toDF("num1", "num2")
 
-      assertDataFrameEquals(actualDf, expectedDf)
+      assertDataFrameEquals(actualDF, expectedDF)
 
     }
 
     it("drops duplicate rows based on certain columns") {
 
-      val numbersDf = Seq(
+      val numbersDF = Seq(
         (1, 2, 100),
         (8, 8, 100),
         (1, 2, 200),
@@ -327,7 +327,7 @@ class DatasetSpec extends FunSpec with DataFrameSuiteBase with RDDComparisons {
         (8, 8, 50)
       ).toDF("num1", "num2", "num3")
 
-      val actualDf = numbersDf.dropDuplicates("num1", "num2")
+      val actualDF = numbersDF.dropDuplicates("num1", "num2")
 
       val sourceData = List(
         Row(1, 2, 100),
@@ -341,12 +341,12 @@ class DatasetSpec extends FunSpec with DataFrameSuiteBase with RDDComparisons {
         StructField("num3", IntegerType, true)
       )
 
-      val expectedDf = spark.createDataFrame(
+      val expectedDF = spark.createDataFrame(
         spark.sparkContext.parallelize(sourceData),
         StructType(sourceSchema)
       )
 
-      assertDataFrameEquals(actualDf, expectedDf)
+      assertDataFrameEquals(actualDF, expectedDF)
 
     }
 
@@ -356,13 +356,13 @@ class DatasetSpec extends FunSpec with DataFrameSuiteBase with RDDComparisons {
 
     it("returns the column names and their data types as an array") {
 
-      val abcDf = Seq(
+      val abcDF = Seq(
         ("a", 1),
         ("b", 2),
         ("c", 3)
       ).toDF("letter", "number")
 
-      val actual = abcDf.dtypes
+      val actual = abcDF.dtypes
       val expected = Array(("letter", StringType), ("number", IntegerType))
 
       pending
@@ -379,26 +379,26 @@ class DatasetSpec extends FunSpec with DataFrameSuiteBase with RDDComparisons {
 
     it("returns a new Dataset with the rows in this Dataset but not in another Dataset") {
 
-      val numbersDf = Seq(
+      val numbersDF = Seq(
         (1, 2),
         (4, 5),
         (8, 9)
       ).toDF("num1", "num2")
 
-      val moreDf = Seq(
+      val moreDF = Seq(
         (100, 200),
         (4, 5),
         (800, 900)
       ).toDF("num1", "num2")
 
-      val actualDf = numbersDf.except(moreDf)
+      val actualDF = numbersDF.except(moreDF)
 
-      val expectedDf = Seq(
+      val expectedDF = Seq(
         (8, 9),
         (1, 2)
       ).toDF("num1", "num2")
 
-      assertDataFrameEquals(actualDf, expectedDf)
+      assertDataFrameEquals(actualDF, expectedDF)
 
     }
 
@@ -412,48 +412,48 @@ class DatasetSpec extends FunSpec with DataFrameSuiteBase with RDDComparisons {
 
     it("filters rows based on a given condition") {
 
-      val numbersDf = Seq(
+      val numbersDF = Seq(
         (1),
         (4),
         (8),
         (42)
       ).toDF("num1")
 
-      val actualDf = numbersDf.filter(col("num1") > 5)
+      val actualDF = numbersDF.filter(col("num1") > 5)
 
-      val expectedDf = Seq(
+      val expectedDF = Seq(
         (8),
         (42)
       ).toDF("num1")
 
-      assertDataFrameEquals(actualDf, expectedDf)
+      assertDataFrameEquals(actualDF, expectedDF)
 
     }
 
     it("filters rows based on a SQL condition") {
 
-      val numbersDf = Seq(
+      val numbersDF = Seq(
         (1),
         (4),
         (8),
         (42)
       ).toDF("num1")
 
-      val actualDf = numbersDf.filter("num1 != 8")
+      val actualDF = numbersDF.filter("num1 != 8")
 
-      val expectedDf = Seq(
+      val expectedDF = Seq(
         (1),
         (4),
         (42)
       ).toDF("num1")
 
-      assertDataFrameEquals(actualDf, expectedDf)
+      assertDataFrameEquals(actualDF, expectedDF)
 
     }
 
     it("returns a new Dataset that only contains elements where func returns true") {
 
-      val numbersDf = Seq(
+      val numbersDF = Seq(
         (1),
         (4),
         (8),
@@ -462,15 +462,15 @@ class DatasetSpec extends FunSpec with DataFrameSuiteBase with RDDComparisons {
 
       val x: Row => Boolean = (r: Row) => r(0) != 8
 
-      val actualDf = numbersDf.filter(x)
+      val actualDF = numbersDF.filter(x)
 
-      val expectedDf = Seq(
+      val expectedDF = Seq(
         (1),
         (4),
         (42)
       ).toDF("num1")
 
-      assertDataFrameEquals(actualDf, expectedDf)
+      assertDataFrameEquals(actualDF, expectedDF)
 
     }
 
@@ -492,12 +492,12 @@ class DatasetSpec extends FunSpec with DataFrameSuiteBase with RDDComparisons {
         StructField("character", StringType, true)
       )
 
-      val sourceDf = spark.createDataFrame(
+      val sourceDF = spark.createDataFrame(
         spark.sparkContext.parallelize(sourceData),
         StructType(sourceSchema)
       )
 
-      assert(sourceDf.first() === row1)
+      assert(sourceDF.first() === row1)
 
     }
 
@@ -523,14 +523,14 @@ class DatasetSpec extends FunSpec with DataFrameSuiteBase with RDDComparisons {
 
     it("groups columns for aggregations") {
 
-      val playersDf = Seq(
+      val playersDF = Seq(
         (1, "boston"),
         (4, "boston"),
         (8, "detroit"),
         (42, "detroit")
       ).toDF("score", "team")
 
-      val actualDf = playersDf.groupBy("team").sum("score")
+      val actualDF = playersDF.groupBy("team").sum("score")
 
       val expectedData = List(
         Row("boston", 5.toLong),
@@ -542,12 +542,12 @@ class DatasetSpec extends FunSpec with DataFrameSuiteBase with RDDComparisons {
         StructField("sum(score)", LongType, true)
       )
 
-      val expectedDf = spark.createDataFrame(
+      val expectedDF = spark.createDataFrame(
         spark.sparkContext.parallelize(expectedData),
         StructType(expectedSchema)
       )
 
-      assertDataFrameEquals(actualDf, expectedDf)
+      assertDataFrameEquals(actualDF, expectedDF)
 
     }
 
@@ -573,12 +573,12 @@ class DatasetSpec extends FunSpec with DataFrameSuiteBase with RDDComparisons {
         StructField("character", StringType, true)
       )
 
-      val sourceDf = spark.createDataFrame(
+      val sourceDF = spark.createDataFrame(
         spark.sparkContext.parallelize(sourceData),
         StructType(sourceSchema)
       )
 
-      assert(sourceDf.head() === row1)
+      assert(sourceDF.head() === row1)
 
     }
 
@@ -597,12 +597,12 @@ class DatasetSpec extends FunSpec with DataFrameSuiteBase with RDDComparisons {
         StructField("character", StringType, true)
       )
 
-      val sourceDf = spark.createDataFrame(
+      val sourceDF = spark.createDataFrame(
         spark.sparkContext.parallelize(sourceData),
         StructType(sourceSchema)
       )
 
-      assert(sourceDf.head(2) === Array(row1, row2))
+      assert(sourceDF.head(2) === Array(row1, row2))
 
     }
 
@@ -616,27 +616,27 @@ class DatasetSpec extends FunSpec with DataFrameSuiteBase with RDDComparisons {
 
     it("returns a DataFrames that contains the rows in both the DataFrames") {
 
-      val numbersDf = Seq(
+      val numbersDF = Seq(
         (1, 2),
         (4, 5),
         (8, 9)
       ).toDF("num1", "num2")
 
-      val moreDf = Seq(
+      val moreDF = Seq(
         (100, 200),
         (4, 5),
         (800, 900),
         (1, 2)
       ).toDF("num1", "num2")
 
-      val actualDf = numbersDf.intersect(moreDf)
+      val actualDF = numbersDF.intersect(moreDF)
 
-      val expectedDf = Seq(
+      val expectedDF = Seq(
         (1, 2),
         (4, 5)
       ).toDF("num1", "num2")
 
-      assertDataFrameEquals(actualDf, expectedDf)
+      assertDataFrameEquals(actualDF, expectedDF)
 
     }
 
@@ -658,29 +658,29 @@ class DatasetSpec extends FunSpec with DataFrameSuiteBase with RDDComparisons {
 
     it("joins two DataFrames") {
 
-      val peopleDf = Seq(
+      val peopleDF = Seq(
         ("larry", "1"),
         ("jeff", "2"),
         ("susy", "3")
       ).toDF("person", "id")
 
-      val birthplaceDf = Seq(
+      val birthplaceDF = Seq(
         ("new york", "1"),
         ("ohio", "2"),
         ("los angeles", "3")
       ).toDF("city", "person_id")
 
-      val actualDf = peopleDf.join(
-        birthplaceDf, peopleDf("id") <=> birthplaceDf("person_id")
+      val actualDF = peopleDF.join(
+        birthplaceDF, peopleDF("id") <=> birthplaceDF("person_id")
       )
 
-      val expectedDf = Seq(
+      val expectedDF = Seq(
         ("larry", "1", "new york", "1"),
         ("jeff", "2", "ohio", "2"),
         ("susy", "3", "los angeles", "3")
       ).toDF("person", "id", "city", "person_id")
 
-      assertDataFrameEquals(actualDf, expectedDf)
+      assertDataFrameEquals(actualDF, expectedDF)
 
     }
 
@@ -690,20 +690,20 @@ class DatasetSpec extends FunSpec with DataFrameSuiteBase with RDDComparisons {
 
     it("joins two DataFrames") {
 
-      val peopleDf = Seq(
+      val peopleDF = Seq(
         ("larry", "1"),
         ("jeff", "2"),
         ("susy", "3")
       ).toDF("person", "id")
 
-      val birthplaceDf = Seq(
+      val birthplaceDF = Seq(
         ("new york", "1"),
         ("ohio", "2"),
         ("los angeles", "3")
       ).toDF("city", "person_id")
 
-      val actualDf = peopleDf.joinWith(
-        birthplaceDf, peopleDf("id") <=> birthplaceDf("person_id")
+      val actualDF = peopleDF.joinWith(
+        birthplaceDF, peopleDF("id") <=> birthplaceDF("person_id")
       )
 
       pending
@@ -730,12 +730,12 @@ class DatasetSpec extends FunSpec with DataFrameSuiteBase with RDDComparisons {
 //      )
 //
 //
-//      val sourceDf = spark.createDataFrame(
+//      val sourceDF = spark.createDataFrame(
 //        spark.sparkContext.parallelize(sourceData),
 //        StructType(sourceSchema)
 //      )
 //
-//      sourceDf.show()
+//      sourceDF.show()
 
       // HACK - FAIL
       // This Stackoverflow question might help: http://stackoverflow.com/questions/36731674/re-using-a-schema-from-json-within-a-spark-dataframe-using-scala
@@ -748,21 +748,21 @@ class DatasetSpec extends FunSpec with DataFrameSuiteBase with RDDComparisons {
 
     it("takes the first n rows of a Dataset") {
 
-      val citiesDf = Seq(
+      val citiesDF = Seq(
         (true, "boston"),
         (true, "bangalore"),
         (true, "bogota"),
         (false, "dubai")
       ).toDF("have_visited", "city")
 
-      val actualDf = citiesDf.limit(2)
+      val actualDF = citiesDF.limit(2)
 
-      val expectedDf = Seq(
+      val expectedDF = Seq(
         (true, "boston"),
         (true, "bangalore")
       ).toDF("have_visited", "city")
 
-      assertDataFrameEquals(actualDf, expectedDf)
+      assertDataFrameEquals(actualDF, expectedDF)
 
     }
 
@@ -792,12 +792,12 @@ class DatasetSpec extends FunSpec with DataFrameSuiteBase with RDDComparisons {
         StructField("city", StringType, true)
       )
 
-      val sourceDf = spark.createDataFrame(
+      val sourceDF = spark.createDataFrame(
         spark.sparkContext.parallelize(sourceData),
         StructType(sourceSchema)
       )
 
-      val actualDf = sourceDf.na.drop()
+      val actualDF = sourceDF.na.drop()
 
       val expectedData = List(
         Row(true, "bogota"),
@@ -809,12 +809,12 @@ class DatasetSpec extends FunSpec with DataFrameSuiteBase with RDDComparisons {
         StructField("city", StringType, true)
       )
 
-      val expectedDf = spark.createDataFrame(
+      val expectedDF = spark.createDataFrame(
         spark.sparkContext.parallelize(expectedData),
         StructType(expectedSchema)
       )
 
-      assertDataFrameEquals(actualDf, expectedDf)
+      assertDataFrameEquals(actualDF, expectedDF)
 
     }
 
@@ -828,23 +828,23 @@ class DatasetSpec extends FunSpec with DataFrameSuiteBase with RDDComparisons {
 
     it("orders the numbers in a DataFrame") {
 
-      val numbersDf = Seq(
+      val numbersDF = Seq(
         99,
         4,
         55,
         42
       ).toDF("num1")
 
-      val actualDf = numbersDf.orderBy("num1")
+      val actualDF = numbersDF.orderBy("num1")
 
-      val expectedDf = Seq(
+      val expectedDF = Seq(
         4,
         42,
         55,
         99
       ).toDF("num1")
 
-      assertDataFrameEquals(actualDf, expectedDf)
+      assertDataFrameEquals(actualDF, expectedDF)
 
     }
 
@@ -866,14 +866,14 @@ class DatasetSpec extends FunSpec with DataFrameSuiteBase with RDDComparisons {
 
     it("splits a DataFrame into n different DataFrames with specified weights") {
 
-      val numbersDf = Seq(
+      val numbersDF = Seq(
         99,
         4,
         55,
         42
       ).toDF("num1")
 
-      val actual = numbersDf.randomSplit(Array(0.5, 0.5))
+      val actual = numbersDF.randomSplit(Array(0.5, 0.5))
 
       assert(actual.size === 2)
 
@@ -889,12 +889,12 @@ class DatasetSpec extends FunSpec with DataFrameSuiteBase with RDDComparisons {
 
     it("converts a DataFrame to a RDD") {
 
-      val stuffDf = Seq(
+      val stuffDF = Seq(
         "bag",
         "shirt"
       ).toDF("thing")
 
-      val stuffRdd = stuffDf.rdd
+      val stuffRdd = stuffDF.rdd
 
       val l: List[org.apache.spark.sql.Row] = List(
         Row("bag"),
@@ -917,16 +917,16 @@ class DatasetSpec extends FunSpec with DataFrameSuiteBase with RDDComparisons {
 
     it("changes the number of partitions in a DataFrame") {
 
-      val stuffDf = Seq(
+      val stuffDF = Seq(
         "bag",
         "shirt"
       ).toDF("thing")
 
-      assert(stuffDf.rdd.partitions.length != 1)
+      assert(stuffDF.rdd.partitions.length != 1)
 
-      val processedDf = stuffDf.repartition(1)
+      val processedDF = stuffDF.repartition(1)
 
-      assert(processedDf.rdd.partitions.length === 1)
+      assert(processedDF.rdd.partitions.length === 1)
 
     }
 
@@ -945,7 +945,7 @@ class DatasetSpec extends FunSpec with DataFrameSuiteBase with RDDComparisons {
         ("bar", 2)
       ).toDF("x", "y")
 
-      val actualDf = df.rollup($"x", $"y").count()
+      val actualDF = df.rollup($"x", $"y").count()
 
       val expectedData = List(
         Row("bar", 2, 2L),
@@ -962,12 +962,12 @@ class DatasetSpec extends FunSpec with DataFrameSuiteBase with RDDComparisons {
         StructField("count", LongType, false)
       )
 
-      val expectedDf = spark.createDataFrame(
+      val expectedDF = spark.createDataFrame(
         spark.sparkContext.parallelize(expectedData),
         StructType(expectedSchema)
       )
 
-      assertDataFrameEquals(actualDf, expectedDf)
+      assertDataFrameEquals(actualDF, expectedDF)
 
     }
 
@@ -984,9 +984,9 @@ class DatasetSpec extends FunSpec with DataFrameSuiteBase with RDDComparisons {
         ("bar", 2)
       ).toDF("x", "y")
 
-      val actualDf = df.sample(true, 0.25)
+      val actualDF = df.sample(true, 0.25)
 
-      assert(actualDf.count < 4)
+      assert(actualDF.count < 4)
 
     }
 

@@ -25,12 +25,12 @@ class DataFrameNaFunctionsSpec extends FunSpec with DataFrameSuiteBase {
         StructField("num2", IntegerType, true)
       )
 
-      val sourceDf = spark.createDataFrame(
+      val sourceDF = spark.createDataFrame(
         spark.sparkContext.parallelize(sourceData),
         StructType(sourceSchema)
       )
 
-      val actualDf = sourceDf.na.drop()
+      val actualDF = sourceDF.na.drop()
 
       val expectedData = List(
         Row(3, 30),
@@ -42,12 +42,12 @@ class DataFrameNaFunctionsSpec extends FunSpec with DataFrameSuiteBase {
         StructField("num2", IntegerType, true)
       )
 
-      val expectedDf = spark.createDataFrame(
+      val expectedDF = spark.createDataFrame(
         spark.sparkContext.parallelize(expectedData),
         StructType(expectedSchema)
       )
 
-      assertDataFrameEquals(actualDf, expectedDf)
+      assertDataFrameEquals(actualDF, expectedDF)
 
     }
 
@@ -69,12 +69,12 @@ class DataFrameNaFunctionsSpec extends FunSpec with DataFrameSuiteBase {
         StructField("num2", IntegerType, true)
       )
 
-      val sourceDf = spark.createDataFrame(
+      val sourceDF = spark.createDataFrame(
         spark.sparkContext.parallelize(sourceData),
         StructType(sourceSchema)
       )
 
-      val actualDf = sourceDf.na.fill(77)
+      val actualDF = sourceDF.na.fill(77)
 
       val expectedData = List(
         Row(1, 77), 
@@ -88,12 +88,12 @@ class DataFrameNaFunctionsSpec extends FunSpec with DataFrameSuiteBase {
         StructField("num2", IntegerType, true)
       )
 
-      val expectedDf = spark.createDataFrame(
+      val expectedDF = spark.createDataFrame(
         spark.sparkContext.parallelize(expectedData),
         StructType(expectedSchema)
       )
 
-      assertDataFrameEquals(actualDf, expectedDf)
+      assertDataFrameEquals(actualDF, expectedDF)
 
     }
 

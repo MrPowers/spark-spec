@@ -30,12 +30,12 @@ class BugsSpec extends FunSpec with DataFrameSuiteBase {
 
     it("does not use zero indexing") {
 
-      val wordsDf = Seq(
+      val wordsDF = Seq(
         ("Spider-man"),
         ("Batman")
       ).toDF("word")
 
-      val actualDf = wordsDf.withColumn("short_word", locate("man", col("word")))
+      val actualDF = wordsDF.withColumn("short_word", locate("man", col("word")))
 
       val expectedData = Seq(
         Row("Spider-man", 8),
@@ -47,12 +47,12 @@ class BugsSpec extends FunSpec with DataFrameSuiteBase {
         StructField("short_word",IntegerType,true)
       )
 
-      val expectedDf = spark.createDataFrame(
+      val expectedDF = spark.createDataFrame(
         spark.sparkContext.parallelize(expectedData),
         StructType(expectedSchema)
       )
 
-      assertDataFrameEquals(actualDf, expectedDf)
+      assertDataFrameEquals(actualDF, expectedDF)
 
     }
 

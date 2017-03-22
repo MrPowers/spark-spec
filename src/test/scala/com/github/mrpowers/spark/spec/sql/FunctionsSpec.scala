@@ -25,12 +25,12 @@ class FunctionsSpec extends FunSpec with DataFrameSuiteBase {
         StructField("num1", IntegerType, true)
       )
 
-      val sourceDf = spark.createDataFrame(
+      val sourceDF = spark.createDataFrame(
         spark.sparkContext.parallelize(sourceData),
         StructType(sourceSchema)
       )
 
-      val actualDf = sourceDf.withColumn("num1abs", abs(col("num1")))
+      val actualDF = sourceDF.withColumn("num1abs", abs(col("num1")))
 
       val expectedData = List(
         Row(1, 1),
@@ -44,12 +44,12 @@ class FunctionsSpec extends FunSpec with DataFrameSuiteBase {
         StructField("num1abs", IntegerType, true)
       )
 
-      val expectedDf = spark.createDataFrame(
+      val expectedDF = spark.createDataFrame(
         spark.sparkContext.parallelize(expectedData),
         StructType(expectedSchema)
       )
 
-      assertDataFrameEquals(actualDf, expectedDf)
+      assertDataFrameEquals(actualDF, expectedDF)
 
     }
 
@@ -121,12 +121,12 @@ class FunctionsSpec extends FunSpec with DataFrameSuiteBase {
         StructField("num1", IntegerType, true)
       )
 
-      val sourceDf = spark.createDataFrame(
+      val sourceDF = spark.createDataFrame(
         spark.sparkContext.parallelize(sourceData),
         StructType(sourceSchema)
       )
 
-      val actualDf = sourceDf.sort(asc("num1"))
+      val actualDF = sourceDF.sort(asc("num1"))
 
       val expectedData = List(
         Row(-8),
@@ -138,12 +138,12 @@ class FunctionsSpec extends FunSpec with DataFrameSuiteBase {
         StructField("num1", IntegerType, true)
       )
 
-      val expectedDf = spark.createDataFrame(
+      val expectedDF = spark.createDataFrame(
         spark.sparkContext.parallelize(expectedData),
         StructType(expectedSchema)
       )
 
-      assertDataFrameEquals(actualDf, expectedDf)
+      assertDataFrameEquals(actualDF, expectedDF)
 
     }
 
@@ -201,13 +201,13 @@ class FunctionsSpec extends FunSpec with DataFrameSuiteBase {
 
     it("rounds the number up to the nearest integer") {
 
-      val numbersDf = Seq(
+      val numbersDF = Seq(
         (1.5),
         (-8.1),
         (5.9)
       ).toDF("num1")
 
-      val actualDf = numbersDf.withColumn("upper", ceil(col("num1")))
+      val actualDF = numbersDF.withColumn("upper", ceil(col("num1")))
 
       val expectedData = List(
         Row(1.5, 2L),
@@ -220,12 +220,12 @@ class FunctionsSpec extends FunSpec with DataFrameSuiteBase {
         StructField("upper", LongType, true)
       )
 
-      val expectedDf = spark.createDataFrame(
+      val expectedDF = spark.createDataFrame(
         spark.sparkContext.parallelize(expectedData),
         StructType(expectedSchema)
       )
 
-      assertDataFrameEquals(actualDf, expectedDf)
+      assertDataFrameEquals(actualDF, expectedDF)
 
     }
 
@@ -235,7 +235,7 @@ class FunctionsSpec extends FunSpec with DataFrameSuiteBase {
 
     it("returns the first column that is not null, or null if all inputs are null.") {
 
-      val wordsDf = Seq(
+      val wordsDF = Seq(
         ("banh", "mi"),
         ("pho", "ga"),
         (null, "cheese"),
@@ -243,7 +243,7 @@ class FunctionsSpec extends FunSpec with DataFrameSuiteBase {
         (null, null)
       ).toDF("word1", "word2")
 
-      val actualDf = wordsDf.withColumn(
+      val actualDF = wordsDF.withColumn(
         "yummy",
         coalesce(
           col("word1"),
@@ -251,7 +251,7 @@ class FunctionsSpec extends FunSpec with DataFrameSuiteBase {
         )
       )
 
-      val expectedDf = Seq(
+      val expectedDF = Seq(
         ("banh", "mi", "banh"),
         ("pho", "ga", "pho"),
         (null, "cheese", "cheese"),
@@ -259,7 +259,7 @@ class FunctionsSpec extends FunSpec with DataFrameSuiteBase {
         (null, null, null)
       ).toDF("word1", "word2", "yummy")
 
-      assertDataFrameEquals(actualDf, expectedDf)
+      assertDataFrameEquals(actualDF, expectedDF)
 
     }
 
@@ -285,7 +285,7 @@ class FunctionsSpec extends FunSpec with DataFrameSuiteBase {
 
     it("concatenates multiple input string columns with separator") {
 
-      val wordsDf = Seq(
+      val wordsDF = Seq(
         ("banh", "mi"),
         ("pho", "ga"),
         (null, "cheese"),
@@ -293,7 +293,7 @@ class FunctionsSpec extends FunSpec with DataFrameSuiteBase {
         (null, null)
       ).toDF("word1", "word2")
 
-      val actualDf = wordsDf.withColumn(
+      val actualDF = wordsDF.withColumn(
         "yummy",
         concat_ws(
           "_",
@@ -316,12 +316,12 @@ class FunctionsSpec extends FunSpec with DataFrameSuiteBase {
         StructField("yummy", StringType, false)
       )
 
-      val expectedDf = spark.createDataFrame(
+      val expectedDF = spark.createDataFrame(
         spark.sparkContext.parallelize(expectedData),
         StructType(expectedSchema)
       )
 
-      assertDataFrameEquals(actualDf, expectedDf)
+      assertDataFrameEquals(actualDF, expectedDF)
 
     }
 
@@ -331,7 +331,7 @@ class FunctionsSpec extends FunSpec with DataFrameSuiteBase {
 
     it("concatenates multiple input string columns together into a single string column") {
 
-      val wordsDf = Seq(
+      val wordsDF = Seq(
         ("banh", "mi"),
         ("pho", "ga"),
         (null, "cheese"),
@@ -339,7 +339,7 @@ class FunctionsSpec extends FunSpec with DataFrameSuiteBase {
         (null, null)
       ).toDF("word1", "word2")
 
-      val actualDf = wordsDf.withColumn(
+      val actualDF = wordsDF.withColumn(
         "yummy",
         concat(
           col("word1"),
@@ -347,7 +347,7 @@ class FunctionsSpec extends FunSpec with DataFrameSuiteBase {
         )
       )
 
-      val expectedDf = Seq(
+      val expectedDF = Seq(
         ("banh", "mi", "banhmi"),
         ("pho", "ga", "phoga"),
         (null, "cheese", null),
@@ -355,7 +355,7 @@ class FunctionsSpec extends FunSpec with DataFrameSuiteBase {
         (null, null, null)
       ).toDF("word1", "word2", "yummy")
 
-      assertDataFrameEquals(actualDf, expectedDf)
+      assertDataFrameEquals(actualDF, expectedDF)
 
     }
 
@@ -383,12 +383,12 @@ class FunctionsSpec extends FunSpec with DataFrameSuiteBase {
         StructField("num1", IntegerType, true)
       )
 
-      val sourceDf = spark.createDataFrame(
+      val sourceDF = spark.createDataFrame(
         spark.sparkContext.parallelize(sourceData),
         StructType(sourceSchema)
       )
 
-      val actualDf = sourceDf.withColumn("i_am_scared", cos("num1"))
+      val actualDF = sourceDF.withColumn("i_am_scared", cos("num1"))
 
       val expectedData = List(
         Row(1, 0.5403023058681398),
@@ -401,12 +401,12 @@ class FunctionsSpec extends FunSpec with DataFrameSuiteBase {
         StructField("i_am_scared", DoubleType, true)
       )
 
-      val expectedDf = spark.createDataFrame(
+      val expectedDF = spark.createDataFrame(
         spark.sparkContext.parallelize(expectedData),
         StructType(expectedSchema)
       )
 
-      assertDataFrameEquals(actualDf, expectedDf)
+      assertDataFrameEquals(actualDF, expectedDF)
 
     }
 
@@ -424,7 +424,7 @@ class FunctionsSpec extends FunSpec with DataFrameSuiteBase {
 
     it("aggregate function: returns the number of distinct items in a group") {
 
-      val sourceDf = Seq(
+      val sourceDF = Seq(
         ("A", 1),
         ("B", 1),
         ("A", 2),
@@ -433,7 +433,7 @@ class FunctionsSpec extends FunSpec with DataFrameSuiteBase {
         ("A", 3)
       ).toDF("id", "foo")
 
-      val actualDf = sourceDf.groupBy($"id").agg(countDistinct($"foo") as "distinctCountFoo").orderBy($"id")
+      val actualDF = sourceDF.groupBy($"id").agg(countDistinct($"foo") as "distinctCountFoo").orderBy($"id")
 
       val expectedData = List(
         Row("A", 3L),
@@ -445,12 +445,12 @@ class FunctionsSpec extends FunSpec with DataFrameSuiteBase {
         StructField("distinctCountFoo", LongType, false)
       )
 
-      val expectedDf = spark.createDataFrame(
+      val expectedDF = spark.createDataFrame(
         spark.sparkContext.parallelize(expectedData),
         StructType(expectedSchema)
       )
 
-      assertDataFrameEquals(actualDf, expectedDf)
+      assertDataFrameEquals(actualDF, expectedDF)
 
     }
 
@@ -563,12 +563,12 @@ class FunctionsSpec extends FunSpec with DataFrameSuiteBase {
         StructField("num1", IntegerType, true)
       )
 
-      val sourceDf = spark.createDataFrame(
+      val sourceDF = spark.createDataFrame(
         spark.sparkContext.parallelize(sourceData),
         StructType(sourceSchema)
       )
 
-      val actualDf = sourceDf.sort(desc("num1"))
+      val actualDF = sourceDF.sort(desc("num1"))
 
       val expectedData = List(
         Row(1),
@@ -580,12 +580,12 @@ class FunctionsSpec extends FunSpec with DataFrameSuiteBase {
         StructField("num1", IntegerType, true)
       )
 
-      val expectedDf = spark.createDataFrame(
+      val expectedDF = spark.createDataFrame(
         spark.sparkContext.parallelize(expectedData),
         StructType(expectedSchema)
       )
 
-      assertDataFrameEquals(actualDf, expectedDf)
+      assertDataFrameEquals(actualDF, expectedDF)
     }
 
   }
@@ -607,13 +607,13 @@ class FunctionsSpec extends FunSpec with DataFrameSuiteBase {
         ("B", Seq("a", "b", "c"), Seq(5, 6, 7))
       ).toDF("id", "class", "num")
 
-      val actualDf = df.select(
+      val actualDF = df.select(
         df("id"),
         explode(df("class")).alias("class"),
         df("num")
       )
 
-      val expectedDf = Seq(
+      val expectedDF = Seq(
         ("A", "a", Seq(1, 2, 3)),
         ("A", "b", Seq(1, 2, 3)),
         ("A", "c", Seq(1, 2, 3)),
@@ -622,7 +622,7 @@ class FunctionsSpec extends FunSpec with DataFrameSuiteBase {
         ("B", "c", Seq(5, 6, 7))
       ).toDF("id", "class", "num")
 
-      assertDataFrameEquals(actualDf, expectedDf)
+      assertDataFrameEquals(actualDF, expectedDF)
 
     }
 
@@ -646,7 +646,7 @@ class FunctionsSpec extends FunSpec with DataFrameSuiteBase {
         Row(0),Row(1),Row(2),Row(3),Row(4),Row(5),Row(6)
       )
 
-      val inputDf = spark.createDataFrame(
+      val inputDF = spark.createDataFrame(
         spark.sparkContext.parallelize(inputData),
         StructType(inputSchema)
       )
@@ -666,14 +666,14 @@ class FunctionsSpec extends FunSpec with DataFrameSuiteBase {
         Row(6,720L)
       )
 
-      val expectedDf = spark.createDataFrame(
+      val expectedDF = spark.createDataFrame(
         spark.sparkContext.parallelize(expectedData),
         StructType(expectedSchema)
       )
 
-      val actualDf = inputDf.withColumn("result", factorial(col("number")))
+      val actualDF = inputDF.withColumn("result", factorial(col("number")))
 
-      assertDataFrameEquals(actualDf,expectedDf)
+      assertDataFrameEquals(actualDF,expectedDF)
 
     }
 
@@ -739,21 +739,21 @@ class FunctionsSpec extends FunSpec with DataFrameSuiteBase {
 
     it("converts the first letter of each word to upper case, returns a new column") {
 
-      val wordsDf = Seq(
+      val wordsDF = Seq(
         ("bat man"),
         ("cat woman"),
         ("spider man")
       ).toDF("no_upper_words")
 
-      val actualDf = wordsDf.withColumn("first_upper", initcap(col("no_upper_words")))
+      val actualDF = wordsDF.withColumn("first_upper", initcap(col("no_upper_words")))
 
-      val expectedDf = Seq(
+      val expectedDF = Seq(
         ("bat man", "Bat Man"),
         ("cat woman", "Cat Woman"),
         ("spider man", "Spider Man")
       ).toDF("no_upper_words", "first_upper")
 
-      assertDataFrameEquals(actualDf, expectedDf)
+      assertDataFrameEquals(actualDF, expectedDF)
 
     }
 
@@ -775,7 +775,7 @@ class FunctionsSpec extends FunSpec with DataFrameSuiteBase {
 
     it("checks column values for null") {
 
-      val wordsDf = Seq(
+      val wordsDF = Seq(
         (null),
         ("hello"),
         (null),
@@ -783,9 +783,9 @@ class FunctionsSpec extends FunSpec with DataFrameSuiteBase {
         ("football")
       ).toDF("word")
 
-      val actualDf = wordsDf.withColumn("nullCheck", isnull(col("word")))
+      val actualDF = wordsDF.withColumn("nullCheck", isnull(col("word")))
 
-      val expectedDf = Seq(
+      val expectedDF = Seq(
         (null, true),
         ("hello", false),
         (null, true),
@@ -793,7 +793,7 @@ class FunctionsSpec extends FunSpec with DataFrameSuiteBase {
         ("football", false)
       ).toDF("word", "nullCheck")
 
-      assertDataFrameEquals(actualDf, expectedDf)
+      assertDataFrameEquals(actualDF, expectedDF)
     }
 
   }
@@ -841,20 +841,20 @@ class FunctionsSpec extends FunSpec with DataFrameSuiteBase {
         Row(null, null)
       )
 
-      val expectedDf = spark.createDataFrame(
+      val expectedDF = spark.createDataFrame(
         spark.sparkContext.parallelize(expectedData),
         StructType(expectedSchema)
       )
 
-      val wordsDf = Seq(
+      val wordsDF = Seq(
         ("banh"),
         ("delilah"),
         (null)
       ).toDF("word")
 
-      val actualDf = wordsDf.withColumn("length", length(col("word")))
+      val actualDF = wordsDF.withColumn("length", length(col("word")))
 
-      assertDataFrameEquals(actualDf, expectedDf)
+      assertDataFrameEquals(actualDF, expectedDF)
 
     }
 
@@ -872,12 +872,12 @@ class FunctionsSpec extends FunSpec with DataFrameSuiteBase {
 
     it("returns index of first occurrence of search string") {
 
-      val wordsDf = Seq(
+      val wordsDF = Seq(
         ("Spider-man"),
         ("Batman")
       ).toDF("word")
 
-      val actualDf = wordsDf.withColumn("short_word", locate("man", col("word")))
+      val actualDF = wordsDF.withColumn("short_word", locate("man", col("word")))
 
       val expectedData = Seq(
         Row("Spider-man", 8),
@@ -889,12 +889,12 @@ class FunctionsSpec extends FunSpec with DataFrameSuiteBase {
         StructField("short_word",IntegerType,true)
       )
 
-      val expectedDf = spark.createDataFrame(
+      val expectedDF = spark.createDataFrame(
         spark.sparkContext.parallelize(expectedData),
         StructType(expectedSchema)
       )
 
-      assertDataFrameEquals(actualDf, expectedDf)
+      assertDataFrameEquals(actualDF, expectedDF)
 
     }
 
@@ -920,21 +920,21 @@ class FunctionsSpec extends FunSpec with DataFrameSuiteBase {
 
     it("converts a string to lower case") {
 
-      val wordsDf = Seq(
+      val wordsDF = Seq(
         ("Batman"),
         ("CATWOMAN"),
         ("pikachu")
       ).toDF("word")
 
-      val actualDf = wordsDf.withColumn("lower_word", lower(col("word")))
+      val actualDF = wordsDF.withColumn("lower_word", lower(col("word")))
 
-      val expectedDf = Seq(
+      val expectedDF = Seq(
         ("Batman", "batman"),
         ("CATWOMAN", "catwoman"),
         ("pikachu", "pikachu")
       ).toDF("word", "lower_word")
 
-      assertDataFrameEquals(actualDf, expectedDf)
+      assertDataFrameEquals(actualDF, expectedDF)
 
     }
 
@@ -1043,12 +1043,12 @@ class FunctionsSpec extends FunSpec with DataFrameSuiteBase {
         StructField("power", DoubleType, false)
       )
 
-      val expectedDf = spark.createDataFrame(
+      val expectedDF = spark.createDataFrame(
         spark.sparkContext.parallelize(expectedData),
         StructType(expectedSchema)
       )
 
-      assertDataFrameEquals(actualDF, expectedDf)
+      assertDataFrameEquals(actualDF, expectedDF)
 
     }
 
@@ -1106,7 +1106,7 @@ class FunctionsSpec extends FunSpec with DataFrameSuiteBase {
 
     it("Right-padded with pad to a length of len") {
 
-      val wordsDf = Seq(
+      val wordsDF = Seq(
         ("banh"),
         ("delilah"),
         (null),
@@ -1114,16 +1114,16 @@ class FunctionsSpec extends FunSpec with DataFrameSuiteBase {
       ).toDF("word1")
 
 
-      val actualDf = wordsDf.withColumn("rpad_column", rpad(col("word1"), 5, "x"))
+      val actualDF = wordsDF.withColumn("rpad_column", rpad(col("word1"), 5, "x"))
 
-      val expectedDf = Seq(
+      val expectedDF = Seq(
         ("banh", "banhx"),
         ("delilah", "delil"),
         (null, null),
         ("c", "cxxxx")
       ).toDF("word1", "rpad_column")
 
-      assertDataFrameEquals(actualDf, expectedDf)
+      assertDataFrameEquals(actualDF, expectedDF)
 
 
     }
@@ -1217,12 +1217,12 @@ class FunctionsSpec extends FunSpec with DataFrameSuiteBase {
         StructField("sqrt_num", DoubleType, true)
       )
 
-      val expectedDf = spark.createDataFrame(
+      val expectedDF = spark.createDataFrame(
         spark.sparkContext.parallelize(expectedData),
         StructType(expectedSchema)
       )
 
-      assertDataFrameApproximateEquals(sqrtDF, expectedDf, 0.01)
+      assertDataFrameApproximateEquals(sqrtDF, expectedDF, 0.01)
 
     }
 
@@ -1288,19 +1288,19 @@ class FunctionsSpec extends FunSpec with DataFrameSuiteBase {
 
     it("converts a string to lower case") {
 
-      val wordsDf = Seq(
+      val wordsDF = Seq(
         ("bat  "),
         ("  cat")
       ).toDF("word")
 
-      val actualDf = wordsDf.withColumn("short_word", trim(col("word")))
+      val actualDF = wordsDF.withColumn("short_word", trim(col("word")))
 
-      val expectedDf = Seq(
+      val expectedDF = Seq(
         ("bat  ", "bat"),
         ("  cat", "cat")
       ).toDF("word", "short_word")
 
-      assertDataFrameEquals(actualDf, expectedDf)
+      assertDataFrameEquals(actualDF, expectedDF)
 
     }
 
@@ -1330,21 +1330,21 @@ class FunctionsSpec extends FunSpec with DataFrameSuiteBase {
 
     it("converts a string to upper case") {
 
-      val wordsDf = Seq(
+      val wordsDF = Seq(
         ("BatmaN"),
         ("boO"),
         ("piKachu")
       ).toDF("word")
 
-      val actualDf = wordsDf.withColumn("upper_word", upper(col("word")))
+      val actualDF = wordsDF.withColumn("upper_word", upper(col("word")))
 
-      val expectedDf = Seq(
+      val expectedDF = Seq(
         ("BatmaN", "BATMAN"),
         ("boO", "BOO"),
         ("piKachu", "PIKACHU")
       ).toDF("word", "upper_word")
 
-      assertDataFrameEquals(actualDf, expectedDf)
+      assertDataFrameEquals(actualDF, expectedDF)
 
     }
 

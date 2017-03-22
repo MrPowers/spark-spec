@@ -13,7 +13,7 @@ class SparkSessionSpec extends FunSpec with DataFrameSuiteBase {
 
       val path = new java.io.File("./src/test/resources/people.csv").getCanonicalPath
 
-      val actualDf = spark.read.option("header", "true").csv(path)
+      val actualDF = spark.read.option("header", "true").csv(path)
 
       val expectedSchema = List(
         StructField("name", StringType, true),
@@ -27,12 +27,12 @@ class SparkSessionSpec extends FunSpec with DataFrameSuiteBase {
         Row(null, null, "12389")
       )
 
-      val expectedDf = spark.createDataFrame(
+      val expectedDF = spark.createDataFrame(
         spark.sparkContext.parallelize(expectedData),
         StructType(expectedSchema)
       )
 
-      assertDataFrameEquals(actualDf, expectedDf)
+      assertDataFrameEquals(actualDF, expectedDF)
 
     }
 

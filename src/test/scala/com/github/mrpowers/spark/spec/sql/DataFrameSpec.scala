@@ -21,7 +21,7 @@ class DataFrameSpec extends FunSpec with DataFrameSuiteBase {
         ("2", "B", 4000)
       ).toDF("department", "group", "money")
 
-      val actualDf = sourceData.rollup(col("group")).sum().withColumnRenamed("sum(money)", "money").orderBy(col("group"))
+      val actualDF = sourceData.rollup(col("group")).sum().withColumnRenamed("sum(money)", "money").orderBy(col("group"))
 
       val expectedData = List(
         Row(null, 9000L),
@@ -34,12 +34,12 @@ class DataFrameSpec extends FunSpec with DataFrameSuiteBase {
         StructField("money", LongType, true)
       )
 
-      val expectedDf = spark.createDataFrame(
+      val expectedDF = spark.createDataFrame(
         spark.sparkContext.parallelize(expectedData),
         StructType(expectedSchema)
       )
 
-      assertDataFrameEquals(actualDf, expectedDf)
+      assertDataFrameEquals(actualDF, expectedDF)
 
     }
   }

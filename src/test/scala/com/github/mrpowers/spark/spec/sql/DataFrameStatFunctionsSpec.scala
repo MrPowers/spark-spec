@@ -11,13 +11,13 @@ class DataFrameStatFunctionsSpec extends FunSpec with DataFrameSuiteBase {
 
     it("calculates the correlation between two columns") {
 
-      val numbersDf = Seq(
+      val numbersDF = Seq(
         (1, 8),
         (2, 14),
         (3, 30)
       ).toDF("num1", "num2")
 
-      var res =  numbersDf.stat.corr("num1", "num2")
+      var res =  numbersDF.stat.corr("num1", "num2")
 
       assert(res === 0.9672471299049061)
 

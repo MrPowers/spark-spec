@@ -205,8 +205,7 @@ class ColumnSpec extends FunSpec with DataFrameSuiteBase {
         ("C", "1990"),
         ("D", "2000"),
         ("E", "2012")
-      )
-        .toDF("id", "year")
+      ).toDF("id", "year")
 
       val actualDf = sourceDf.where(col("year").endsWith("0"))
 
@@ -214,8 +213,7 @@ class ColumnSpec extends FunSpec with DataFrameSuiteBase {
         ("A", "1970"),
         ("C", "1990"),
         ("D", "2000")
-      )
-        .toDF("id", "year")
+      ).toDF("id", "year")
 
       assertDataFrameEquals(actualDf, expectedDf)
 
@@ -285,8 +283,7 @@ class ColumnSpec extends FunSpec with DataFrameSuiteBase {
         ("C", "1990-12-03"),
         ("D", "2000-04-22"),
         ("E", "2012-09-09")
-      )
-        .toDF("id", "birthday")
+      ).toDF("id", "birthday")
 
       val actualDf = sourceDf.withColumn("month", split(col("birthday"), "-").getItem(1))
 
@@ -296,8 +293,7 @@ class ColumnSpec extends FunSpec with DataFrameSuiteBase {
         ("C", "1990-12-03", "12"),
         ("D", "2000-04-22", "04"),
         ("E", "2012-09-09", "09")
-      )
-        .toDF("id", "birthday", "month")
+      ).toDF("id", "birthday", "month")
 
       assertDataFrameEquals(actualDf, expectedDf)
 
@@ -434,8 +430,7 @@ class ColumnSpec extends FunSpec with DataFrameSuiteBase {
         ("E", "2017"),
         ("F", "2016"),
         ("G", "1993")
-      )
-        .toDF("id", "year")
+      ).toDF("id", "year")
 
       val actualDf = sourceDf.filter(col("year").mod(2) === 0)
 
@@ -444,8 +439,7 @@ class ColumnSpec extends FunSpec with DataFrameSuiteBase {
         ("B", "1998"),
         ("D", "2014"),
         ("F", "2016")
-      )
-        .toDF("id", "year")
+      ).toDF("id", "year")
 
       assertDataFrameEquals(actualDf, expectedDf)
 
@@ -558,15 +552,13 @@ class ColumnSpec extends FunSpec with DataFrameSuiteBase {
         ("A", "bbbbba11111xy"),
         ("B", "aaaab11111xy"),
         ("C", "aaaab22111xy")
-      )
-        .toDF("id", "text")
+      ).toDF("id", "text")
 
       val actualDf = sourceDf.filter($"text".rlike("b{5}.[1]{5}(x|y){2}"))
 
       val expectedDf = Seq(
         ("A", "bbbbba11111xy")
-      )
-        .toDF("id", "text")
+      ).toDF("id", "text")
 
       assertDataFrameEquals(actualDf, expectedDf)
 

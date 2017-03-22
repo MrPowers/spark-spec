@@ -44,7 +44,7 @@ class BugsSpec extends FunSpec with DataFrameSuiteBase {
 
       val expectedSchema = List(
         StructField("word", StringType, true),
-        StructField("short_word",IntegerType,true)
+        StructField("short_word", IntegerType, true)
       )
 
       val expectedDF = spark.createDataFrame(

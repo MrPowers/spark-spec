@@ -894,16 +894,16 @@ class DatasetSpec extends FunSpec with DataFrameSuiteBase with RDDComparisons {
         "shirt"
       ).toDF("thing")
 
-      val stuffRdd = stuffDF.rdd
+      val stuffRDD = stuffDF.rdd
 
       val l: List[org.apache.spark.sql.Row] = List(
         Row("bag"),
         Row("shirt")
       )
 
-      val expectedRdd = sc.parallelize(l)
+      val expectedRDD = sc.parallelize(l)
 
-      assertRDDEquals(stuffRdd, expectedRdd)
+      assertRDDEquals(stuffRDD, expectedRDD)
 
     }
 

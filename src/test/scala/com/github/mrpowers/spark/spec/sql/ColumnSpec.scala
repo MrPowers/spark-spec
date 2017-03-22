@@ -192,7 +192,37 @@ class ColumnSpec extends FunSpec with DataFrameSuiteBase {
   }
 
   describe("#divide") {
-    pending
+
+    it("divides a column by a value") {
+
+      val sourceDF = Seq(
+        (9),
+        (3),
+        (27)
+      ).toDF("num1")
+
+      val actualDF = sourceDF.withColumn("num2", col("num1").divide(3))
+
+      val expectedData = Seq(
+        Row(9, 3.0),
+        Row(3, 1.0),
+        Row(27, 9.0)
+      )
+
+      val expectedSchema = List(
+        StructField("num1", IntegerType, false),
+        StructField("num2", DoubleType, true)
+      )
+
+      val expectedDF = spark.createDataFrame(
+        spark.sparkContext.parallelize(expectedData),
+        StructType(expectedSchema)
+      )
+
+      assertDataFrameEquals(actualDF, expectedDF)
+
+    }
+
   }
 
   describe("#endsWith") {

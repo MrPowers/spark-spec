@@ -32,7 +32,7 @@ class LinearRegressionWithSGDSpec extends FunSpec with DataFrameSuiteBase {
       val prediction = model.predict(point.features)
       (point.label, prediction)
     }
-    val MSE = valuesAndPreds.map{ case(v, p) => math.pow((v - p), 2) }.mean()
+    val MSE = valuesAndPreds.map { case (v, p) => math.pow((v - p), 2) }.mean()
 
     assert(MSE === 7.4510328101026015)
 

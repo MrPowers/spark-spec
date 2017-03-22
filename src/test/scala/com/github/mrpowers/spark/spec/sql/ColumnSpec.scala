@@ -157,20 +157,26 @@ class ColumnSpec extends FunSpec with DataFrameSuiteBase {
     pending
   }
 
-  describe("#contains")
-  {
-    it("To check if an element is present in a sequence ")
-    {
+  describe("#contains") {
 
-      val sourceDf = Seq(("Scala is scalable and cool")).toDF("text")
+    it("To check if an element is present in a sequence ") {
+
+      val sourceDf = Seq(
+        ("Scala is scalable and cool"),
+        ("I like peanuts"),
+        (null)
+      ).toDF("text")
 
       val actualDf = sourceDf.filter($"text".contains("Scala"))
 
-      val expectedDf = Seq(("Scala is scalable and cool")).toDF("text")
+      val expectedDf = Seq(
+        ("Scala is scalable and cool")
+      ).toDF("text")
 
       assertDataFrameEquals(actualDf, expectedDf)
 
     }
+
   }
 
   describe("#desc_nulls_first") {

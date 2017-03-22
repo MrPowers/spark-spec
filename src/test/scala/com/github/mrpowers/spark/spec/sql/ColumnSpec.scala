@@ -159,7 +159,7 @@ class ColumnSpec extends FunSpec with DataFrameSuiteBase {
 
   describe("#contains")
   {
-    it("To check if an element is present in a sequence")
+    it("To check if an element is present in a sequence ")
     {
 
       val sourceDf = Seq(("Scala is scalable and cool")).toDF("text")

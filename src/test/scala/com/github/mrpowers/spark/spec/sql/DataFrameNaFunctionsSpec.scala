@@ -99,4 +99,8 @@ class DataFrameNaFunctionsSpec extends FunSpec with DataFrameSuiteBase {
 
   }
 
+  describe("#replace"){
+    pending
+  }
+
 }

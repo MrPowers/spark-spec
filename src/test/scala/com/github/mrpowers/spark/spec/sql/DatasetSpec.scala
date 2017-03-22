@@ -934,6 +934,37 @@ class DatasetSpec extends FunSpec with DataFrameSuiteBase with RDDComparisons {
 
   describe("#rollup") {
 
+    it("creates a rollup with one variable") {
+
+      val sourceData = Seq(
+        ("1", "A", 1000),
+        ("2", "A", 2000),
+        ("1", "B", 2000),
+        ("2", "B", 4000)
+      ).toDF("department", "group", "money")
+
+      val actualDF = sourceData.rollup(col("group")).sum().withColumnRenamed("sum(money)", "money").orderBy(col("group"))
+
+      val expectedData = List(
+        Row(null, 9000L),
+        Row("A", 3000L),
+        Row("B", 6000L)
+      )
+
+      val expectedSchema = List(
+        StructField("group", StringType, true),
+        StructField("money", LongType, true)
+      )
+
+      val expectedDF = spark.createDataFrame(
+        spark.sparkContext.parallelize(expectedData),
+        StructType(expectedSchema)
+      )
+
+      assertDataFrameEquals(actualDF, expectedDF)
+
+    }
+
     it("creates a multi-dimensional rollup") {
 
       // stole example from this question: http://stackoverflow.com/questions/37975227/what-is-the-difference-between-cube-and-groupby-for-operating-on-dataframes

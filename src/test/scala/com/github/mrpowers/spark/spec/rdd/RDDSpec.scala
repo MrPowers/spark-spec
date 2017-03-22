@@ -20,6 +20,21 @@ class RDDSpec extends FunSpec with DataFrameSuiteBase with RDDComparisons {
 
   }
 
+  describe("#corr") {
+
+    it("returns the correlation between arrays") {
+
+      val seriesX: RDD[Double] = sc.parallelize(Array(1, 2, 3, 3, 5))
+      val seriesY: RDD[Double] = sc.parallelize(Array(11, 22, 33, 33, 555))
+      val correlationPearson: Double = Statistics.corr(seriesX, seriesY, "pearson")
+      val correlationSpearman: Double = Statistics.corr(seriesX, seriesY, "spearman")
+
+      assert(correlationPearson === 0.8500286768773001)
+      assert(correlationSpearman === 1.0000000000000002)
+    }
+
+  }
+
   describe("#filter") {
 
     it("returns a new RDD containing only the elements that satisfy a predicate") {
@@ -109,17 +124,20 @@ class RDDSpec extends FunSpec with DataFrameSuiteBase with RDDComparisons {
 
   }
 
-  describe("#corr") {
+  describe("#randomSplit") {
 
-    it("returns the correlation between arrays") {
+    it("Randomly splits this RDD with the provided weights") {
 
-      val seriesX: RDD[Double] = sc.parallelize(Array(1, 2, 3, 3, 5))
-      val seriesY: RDD[Double] = sc.parallelize(Array(11, 22, 33, 33, 555))
-      val correlationPearson: Double = Statistics.corr(seriesX, seriesY, "pearson")
-      val correlationSpearman: Double = Statistics.corr(seriesX, seriesY, "spearman")
+      val xRDD = sc.parallelize(List.range(1, 101))
 
-      assert(correlationPearson === 0.8500286768773001)
-      assert(correlationSpearman === 1.0000000000000002)
+      val splits = xRDD.randomSplit(Array(0.7, 0.3), seed = 4567)
+
+      val (trainingData, testData) = (splits(0), splits(1))
+
+      val trainingDataSize = trainingData.count()
+
+      //It doesn't split the data exactly 7:3
+      assert(trainingDataSize === 73)
     }
 
   }
@@ -139,24 +157,6 @@ class RDDSpec extends FunSpec with DataFrameSuiteBase with RDDComparisons {
       )
 
       assertRDDEquals(actualRDD, expectedRDD)
-    }
-
-  }
-
-  describe("#randomSplit") {
-
-    it("Randomly splits this RDD with the provided weights") {
-
-      val xRDD = sc.parallelize(List.range(1, 101))
-
-      val splits = xRDD.randomSplit(Array(0.7, 0.3), seed = 4567)
-
-      val (trainingData, testData) = (splits(0), splits(1))
-
-      val trainingDataSize = trainingData.count()
-
-      //It doesn't split the data exactly 7:3
-      assert(trainingDataSize === 73)
     }
 
   }

@@ -37,7 +37,7 @@ class ColumnSpec extends FunSpec with DataFrameSuiteBase {
 
   describe("#and") {
 
-    it ("returns true if both columns are true") {
+    it("returns true if both columns are true") {
 
       val sourceDf = Seq(
         ("ted", true, false),
@@ -200,20 +200,21 @@ class ColumnSpec extends FunSpec with DataFrameSuiteBase {
     it("string ends with") {
 
       val sourceDf = Seq(
-        ("A","1970"),
-        ("B","1986"),
-        ("C","1990"),
-        ("D","2000"),
-        ("E","2012"))
+        ("A", "1970"),
+        ("B", "1986"),
+        ("C", "1990"),
+        ("D", "2000"),
+        ("E", "2012")
+      )
         .toDF("id", "year")
-
 
       val actualDf = sourceDf.where(col("year").endsWith("0"))
 
       val expectedDf = Seq(
-        ("A","1970"),
-        ("C","1990"),
-        ("D","2000"))
+        ("A", "1970"),
+        ("C", "1990"),
+        ("D", "2000")
+      )
         .toDF("id", "year")
 
       assertDataFrameEquals(actualDf, expectedDf)
@@ -279,22 +280,23 @@ class ColumnSpec extends FunSpec with DataFrameSuiteBase {
     it("An expression that gets an item at position ordinal out of an array, or gets a value by key key in a MapType") {
 
       val sourceDf = Seq(
-        ("A","1970-10-02"),
-        ("B","1986-12-30"),
-        ("C","1990-12-03"),
-        ("D","2000-04-22"),
-        ("E","2012-09-09"))
+        ("A", "1970-10-02"),
+        ("B", "1986-12-30"),
+        ("C", "1990-12-03"),
+        ("D", "2000-04-22"),
+        ("E", "2012-09-09")
+      )
         .toDF("id", "birthday")
-
 
       val actualDf = sourceDf.withColumn("month", split(col("birthday"), "-").getItem(1))
 
       val expectedDf = Seq(
-        ("A","1970-10-02", "10"),
-        ("B","1986-12-30", "12"),
-        ("C","1990-12-03", "12"),
-        ("D","2000-04-22", "04"),
-        ("E","2012-09-09", "09"))
+        ("A", "1970-10-02", "10"),
+        ("B", "1986-12-30", "12"),
+        ("C", "1990-12-03", "12"),
+        ("D", "2000-04-22", "04"),
+        ("E", "2012-09-09", "09")
+      )
         .toDF("id", "birthday", "month")
 
       assertDataFrameEquals(actualDf, expectedDf)
@@ -345,7 +347,7 @@ class ColumnSpec extends FunSpec with DataFrameSuiteBase {
         ("andrew")
       ).toDF("some_name")
 
-      val actualDf = sourceDf.where(col("some_name").isin("tim","andrew","noname"))
+      val actualDf = sourceDf.where(col("some_name").isin("tim", "andrew", "noname"))
 
       val expectedDf = Seq(
         ("tim"),
@@ -431,7 +433,8 @@ class ColumnSpec extends FunSpec with DataFrameSuiteBase {
         ("D", "2014"),
         ("E", "2017"),
         ("F", "2016"),
-        ("G", "1993"))
+        ("G", "1993")
+      )
         .toDF("id", "year")
 
       val actualDf = sourceDf.filter(col("year").mod(2) === 0)
@@ -440,7 +443,8 @@ class ColumnSpec extends FunSpec with DataFrameSuiteBase {
         ("A", "1990"),
         ("B", "1998"),
         ("D", "2014"),
-        ("F", "2016"))
+        ("F", "2016")
+      )
         .toDF("id", "year")
 
       assertDataFrameEquals(actualDf, expectedDf)
@@ -553,13 +557,15 @@ class ColumnSpec extends FunSpec with DataFrameSuiteBase {
       val sourceDf = Seq(
         ("A", "bbbbba11111xy"),
         ("B", "aaaab11111xy"),
-        ("C", "aaaab22111xy"))
+        ("C", "aaaab22111xy")
+      )
         .toDF("id", "text")
 
       val actualDf = sourceDf.filter($"text".rlike("b{5}.[1]{5}(x|y){2}"))
 
       val expectedDf = Seq(
-        ("A", "bbbbba11111xy"))
+        ("A", "bbbbba11111xy")
+      )
         .toDF("id", "text")
 
       assertDataFrameEquals(actualDf, expectedDf)
@@ -611,13 +617,10 @@ class ColumnSpec extends FunSpec with DataFrameSuiteBase {
 
   }
 
-
-
   describe("#replaceFirstIn") {
     pending
 
   }
-
 
   describe("#toString") {
     pending

@@ -16,7 +16,7 @@ class SparseMatrixSpec extends FunSpec {
 
   }
 
-  describe("creates a dense matrix from a given sparse matrix") {
+  describe("#toDense") {
 
     it("creates a Dense Matrix from a Sparse Matrix") {
 

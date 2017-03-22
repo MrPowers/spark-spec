@@ -6,7 +6,6 @@ import org.apache.spark.sql.Row
 import org.apache.spark.rdd.RDD
 import org.apache.spark.mllib.stat.Statistics
 
-
 class RDDSpec extends FunSpec with DataFrameSuiteBase with RDDComparisons {
 
   describe("#collect") {
@@ -26,14 +25,14 @@ class RDDSpec extends FunSpec with DataFrameSuiteBase with RDDComparisons {
     it("returns a new RDD containing only the elements that satisfy a predicate") {
 
       val xs = (1 to 5).toList
-      val sourceRdd = sc.parallelize(xs)
-      val actualRdd = sourceRdd.filter{ n => n >= 3}
+      val sourceRDD = sc.parallelize(xs)
+      val actualRDD = sourceRDD.filter { n => n >= 3 }
 
-      val expectedRdd = sc.parallelize(
+      val expectedRDD = sc.parallelize(
         (3 to 5).toList
       )
 
-      assertRDDEquals(actualRdd, expectedRdd)
+      assertRDDEquals(actualRDD, expectedRDD)
 
     }
 
@@ -44,14 +43,14 @@ class RDDSpec extends FunSpec with DataFrameSuiteBase with RDDComparisons {
     it("return a new RDD by first applying a function to all elements of this RDD, and then flattening the results") {
 
       val xs = List("this is something long")
-      val sourceRdd = sc.parallelize(xs)
-      val actualRdd = sourceRdd.flatMap{ l => l.split(" ") }
+      val sourceRDD = sc.parallelize(xs)
+      val actualRDD = sourceRDD.flatMap { l => l.split(" ") }
 
-      val expectedRdd = sc.parallelize(
+      val expectedRDD = sc.parallelize(
         List("this", "is", "something", "long")
       )
 
-      assertRDDEquals(actualRdd, expectedRdd)
+      assertRDDEquals(actualRDD, expectedRDD)
 
     }
 
@@ -82,18 +81,18 @@ class RDDSpec extends FunSpec with DataFrameSuiteBase with RDDComparisons {
         ("dog"),
         ("frog")
       )
-      val sourceRdd: RDD[String] = sc.parallelize(sourceData)
+      val sourceRDD: RDD[String] = sc.parallelize(sourceData)
 
-      val actualRdd: RDD[Int] = sourceRdd.map{ l => l.length }
+      val actualRDD: RDD[Int] = sourceRDD.map { l => l.length }
 
       val expectedData = List(
         (3),
         (3),
         (4)
       )
-      val expectedRdd: RDD[Int] = sc.parallelize(expectedData)
+      val expectedRDD: RDD[Int] = sc.parallelize(expectedData)
 
-      assertRDDEquals(actualRdd, expectedRdd)
+      assertRDDEquals(actualRDD, expectedRDD)
     }
 
   }
@@ -135,7 +134,9 @@ class RDDSpec extends FunSpec with DataFrameSuiteBase with RDDComparisons {
 
       val actualRDD = xRDD.zip(yRDD)
 
-      val expectedRDD = sc.parallelize(List((1,"a"), (2,"b"), (3,"c")))
+      val expectedRDD = sc.parallelize(
+        List((1, "a"), (2, "b"), (3, "c"))
+      )
 
       assertRDDEquals(actualRDD, expectedRDD)
     }
@@ -155,7 +156,7 @@ class RDDSpec extends FunSpec with DataFrameSuiteBase with RDDComparisons {
       val trainingDataSize = trainingData.count()
 
       //It doesn't split the data exactly 7:3
-      assert(trainingDataSize===73)
+      assert(trainingDataSize === 73)
     }
 
   }

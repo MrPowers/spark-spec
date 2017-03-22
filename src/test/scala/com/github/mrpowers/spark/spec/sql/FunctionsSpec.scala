@@ -480,7 +480,6 @@ class FunctionsSpec extends FunSpec with DataFrameSuiteBase {
     pending
   }
 
-
   describe("#date_add") {
 
     it("returns the date that is days days after start") {
@@ -636,14 +635,14 @@ class FunctionsSpec extends FunSpec with DataFrameSuiteBase {
     pending
   }
 
-  describe("#factorial"){
+  describe("#factorial") {
 
-    it("calculates the product of an integer and all the integers below"){
+    it("calculates the product of an integer and all the integers below") {
 
-      val inputSchema = List(StructField("number",IntegerType,false))
+      val inputSchema = List(StructField("number", IntegerType, false))
 
       val inputData = List(
-        Row(0),Row(1),Row(2),Row(3),Row(4),Row(5),Row(6)
+        Row(0), Row(1), Row(2), Row(3), Row(4), Row(5), Row(6)
       )
 
       val inputDF = spark.createDataFrame(
@@ -652,18 +651,18 @@ class FunctionsSpec extends FunSpec with DataFrameSuiteBase {
       )
 
       val expectedSchema = List(
-        StructField("number",IntegerType,false),
-        StructField("result",LongType,true)
+        StructField("number", IntegerType, false),
+        StructField("result", LongType, true)
       )
 
       val expectedData = List(
-        Row(0,1L),
-        Row(1,1L),
-        Row(2,2L),
-        Row(3,6L),
-        Row(4,24L),
-        Row(5,120L),
-        Row(6,720L)
+        Row(0, 1L),
+        Row(1, 1L),
+        Row(2, 2L),
+        Row(3, 6L),
+        Row(4, 24L),
+        Row(5, 120L),
+        Row(6, 720L)
       )
 
       val expectedDF = spark.createDataFrame(
@@ -673,7 +672,7 @@ class FunctionsSpec extends FunSpec with DataFrameSuiteBase {
 
       val actualDF = inputDF.withColumn("result", factorial(col("number")))
 
-      assertDataFrameEquals(actualDF,expectedDF)
+      assertDataFrameEquals(actualDF, expectedDF)
 
     }
 
@@ -886,7 +885,7 @@ class FunctionsSpec extends FunSpec with DataFrameSuiteBase {
 
       val expectedSchema = List(
         StructField("word", StringType, true),
-        StructField("short_word",IntegerType,true)
+        StructField("short_word", IntegerType, true)
       )
 
       val expectedDF = spark.createDataFrame(
@@ -1024,7 +1023,7 @@ class FunctionsSpec extends FunSpec with DataFrameSuiteBase {
 
     it("returns the value of the first argument raised to the power of the second argument") {
 
-      val numsDF = Seq (
+      val numsDF = Seq(
         (2),
         (3),
         (1)
@@ -1113,7 +1112,6 @@ class FunctionsSpec extends FunSpec with DataFrameSuiteBase {
         ("c")
       ).toDF("word1")
 
-
       val actualDF = wordsDF.withColumn("rpad_column", rpad(col("word1"), 5, "x"))
 
       val expectedDF = Seq(
@@ -1124,7 +1122,6 @@ class FunctionsSpec extends FunSpec with DataFrameSuiteBase {
       ).toDF("word1", "rpad_column")
 
       assertDataFrameEquals(actualDF, expectedDF)
-
 
     }
 
@@ -1198,7 +1195,7 @@ class FunctionsSpec extends FunSpec with DataFrameSuiteBase {
 
     it("Computes the square root of the specified float value") {
 
-      val numsDF = Seq (
+      val numsDF = Seq(
         (49),
         (144),
         (89)

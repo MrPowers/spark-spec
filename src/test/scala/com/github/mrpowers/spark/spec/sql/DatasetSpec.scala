@@ -708,34 +708,34 @@ class DatasetSpec extends FunSpec with DataFrameSuiteBase with RDDComparisons {
 
       pending
 
-//      val sourceData = List(
-//        Row(("larry", "1"),("new york", "1")),
-//        Row(("jeff", "2"),("ohio", "2")),
-//        Row(("susy", "3"),("los angeles", "3"))
-//      )
-//
-//      val peopleSchema = List(
-//        StructField("person", StringType, true),
-//        StructField("id", StringType, true)
-//      )
-//
-//      val birthplaceSchema = List(
-//        StructField("city", StringType, true),
-//        StructField("person_id", StringType, true)
-//      )
-//
-//      val sourceSchema = List(
-//        StructType(peopleSchema),
-//        StructType(birthplaceSchema)
-//      )
-//
-//
-//      val sourceDF = spark.createDataFrame(
-//        spark.sparkContext.parallelize(sourceData),
-//        StructType(sourceSchema)
-//      )
-//
-//      sourceDF.show()
+      //      val sourceData = List(
+      //        Row(("larry", "1"),("new york", "1")),
+      //        Row(("jeff", "2"),("ohio", "2")),
+      //        Row(("susy", "3"),("los angeles", "3"))
+      //      )
+      //
+      //      val peopleSchema = List(
+      //        StructField("person", StringType, true),
+      //        StructField("id", StringType, true)
+      //      )
+      //
+      //      val birthplaceSchema = List(
+      //        StructField("city", StringType, true),
+      //        StructField("person_id", StringType, true)
+      //      )
+      //
+      //      val sourceSchema = List(
+      //        StructType(peopleSchema),
+      //        StructType(birthplaceSchema)
+      //      )
+      //
+      //
+      //      val sourceDF = spark.createDataFrame(
+      //        spark.sparkContext.parallelize(sourceData),
+      //        StructType(sourceSchema)
+      //      )
+      //
+      //      sourceDF.show()
 
       // HACK - FAIL
       // This Stackoverflow question might help: http://stackoverflow.com/questions/36731674/re-using-a-schema-from-json-within-a-spark-dataframe-using-scala
@@ -1112,7 +1112,7 @@ class DatasetSpec extends FunSpec with DataFrameSuiteBase with RDDComparisons {
 
     }
 
-    it("does nothing if the column does not exists"){
+    it("does nothing if the column does not exists") {
 
       val sourceDF = Seq(1).toDF("foo")
 

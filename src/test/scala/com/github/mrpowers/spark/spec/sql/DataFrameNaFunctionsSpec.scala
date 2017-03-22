@@ -52,7 +52,7 @@ class DataFrameNaFunctionsSpec extends FunSpec with DataFrameSuiteBase {
     }
 
   }
-  
+
   describe("#fill") {
 
     it("Returns a new DataFrame that replaces null or NaN values in numeric columns with value") {
@@ -77,7 +77,7 @@ class DataFrameNaFunctionsSpec extends FunSpec with DataFrameSuiteBase {
       val actualDF = sourceDF.na.fill(77)
 
       val expectedData = List(
-        Row(1, 77), 
+        Row(1, 77),
         Row(77, 77),
         Row(3, 30),
         Row(10, 20)
@@ -98,5 +98,5 @@ class DataFrameNaFunctionsSpec extends FunSpec with DataFrameSuiteBase {
     }
 
   }
-  
+
 }

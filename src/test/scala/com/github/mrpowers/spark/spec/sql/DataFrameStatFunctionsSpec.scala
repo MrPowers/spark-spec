@@ -17,7 +17,7 @@ class DataFrameStatFunctionsSpec extends FunSpec with DataFrameSuiteBase {
         (3, 30)
       ).toDF("num1", "num2")
 
-      var res =  numbersDF.stat.corr("num1", "num2")
+      var res = numbersDF.stat.corr("num1", "num2")
 
       assert(res === 0.9672471299049061)
 

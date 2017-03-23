@@ -7,11 +7,11 @@ class DataFrameStatFunctionsSpec extends FunSpec with DataFrameSuiteBase {
 
   import spark.implicits._
 
-  describe("#approxQuantile"){
+  describe("#approxQuantile") {
     pending
   }
 
-  describe("#bloomFilter"){
+  describe("#bloomFilter") {
     pending
   }
 
@@ -33,23 +33,23 @@ class DataFrameStatFunctionsSpec extends FunSpec with DataFrameSuiteBase {
 
   }
 
-  describe("#countMinSketch"){
+  describe("#countMinSketch") {
     pending
   }
 
-  describe("#cov"){
+  describe("#cov") {
     pending
   }
 
-  describe("#crosstab"){
+  describe("#crosstab") {
     pending
   }
 
-  describe("#freqItems"){
+  describe("#freqItems") {
     pending
   }
 
-  describe("#sampleBy"){
+  describe("#sampleBy") {
     pending
   }
 

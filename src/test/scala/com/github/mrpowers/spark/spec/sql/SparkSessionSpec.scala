@@ -7,6 +7,70 @@ import org.scalatest._
 
 class SparkSessionSpec extends FunSpec with DataFrameSuiteBase {
 
+  describe("#baseRelationToDataFrame") {
+    pending
+  }
+
+  describe("#builder") {
+    pending
+  }
+
+  describe("#catalog") {
+    pending
+  }
+
+  describe("#clearActiveSession") {
+    pending
+  }
+
+  describe("#clearDefaultSession") {
+    pending
+  }
+
+  describe("#close") {
+    pending
+  }
+
+  describe("#conf") {
+    pending
+  }
+
+  describe("#createDataFrame") {
+    pending
+  }
+
+  describe("#createDataset") {
+    pending
+  }
+
+  describe("#emptyDataFrame") {
+    pending
+  }
+
+  describe("#emptyDataset") {
+    pending
+  }
+
+  describe("#experimental") {
+    pending
+  }
+
+  describe("#implicits") {
+    pending
+  }
+
+  describe("#listenerManager") {
+    pending
+  }
+
+  describe("#newSession") {
+    pending
+  }
+
+  describe("#range") {
+    pending
+  }
+
   describe("#read") {
 
     it("reads a CSV file into a DataFrame") {
@@ -36,6 +100,42 @@ class SparkSessionSpec extends FunSpec with DataFrameSuiteBase {
 
     }
 
+  }
+
+  describe("#readStream") {
+    pending
+  }
+
+  describe("#setActiveSession") {
+    pending
+  }
+
+  describe("#sql") {
+    pending
+  }
+
+  describe("#sqlContext") {
+    pending
+  }
+
+  describe("#stop") {
+    pending
+  }
+
+  describe("#streams") {
+    pending
+  }
+
+  describe("#table") {
+    pending
+  }
+
+  describe("#time") {
+    pending
+  }
+
+  describe("#udf") {
+    pending
   }
 
   describe("version") {

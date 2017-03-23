@@ -7,6 +7,14 @@ class DataFrameStatFunctionsSpec extends FunSpec with DataFrameSuiteBase {
 
   import spark.implicits._
 
+  describe("#approxQuantile"){
+    pending
+  }
+
+  describe("#bloomFilter"){
+    pending
+  }
+
   describe("#corr") {
 
     it("calculates the correlation between two columns") {
@@ -23,6 +31,26 @@ class DataFrameStatFunctionsSpec extends FunSpec with DataFrameSuiteBase {
 
     }
 
+  }
+
+  describe("#countMinSketch"){
+    pending
+  }
+
+  describe("#cov"){
+    pending
+  }
+
+  describe("#crosstab"){
+    pending
+  }
+
+  describe("#freqItems"){
+    pending
+  }
+
+  describe("#sampleBy"){
+    pending
   }
 
 }

@@ -8,6 +8,26 @@ import org.apache.spark.mllib.stat.Statistics
 
 class RDDSpec extends FunSpec with DataFrameSuiteBase with RDDComparisons {
 
+  describe("#aggregate") {
+    pending
+  }
+
+  describe("#cache") {
+    pending
+  }
+
+  describe("#cartesian") {
+    pending
+  }
+
+  describe("#checkpoint") {
+    pending
+  }
+
+  describe("#coalesce") {
+    pending
+  }
+
   describe("#collect") {
 
     it("return an array that contains all of the elements in this RDD") {
@@ -20,19 +40,44 @@ class RDDSpec extends FunSpec with DataFrameSuiteBase with RDDComparisons {
 
   }
 
-  describe("#corr") {
+  describe("#compute") {
+    pending
+  }
 
-    it("returns the correlation between arrays") {
+  describe("#context") {
+    pending
+  }
 
-      val seriesX: RDD[Double] = sc.parallelize(Array(1, 2, 3, 3, 5))
-      val seriesY: RDD[Double] = sc.parallelize(Array(11, 22, 33, 33, 555))
-      val correlationPearson: Double = Statistics.corr(seriesX, seriesY, "pearson")
-      val correlationSpearman: Double = Statistics.corr(seriesX, seriesY, "spearman")
+  describe("#count") {
+    pending
+  }
 
-      assert(correlationPearson === 0.8500286768773001)
-      assert(correlationSpearman === 1.0000000000000002)
-    }
+  describe("#countApprox") {
+    pending
+  }
 
+  describe("#countApproxDistinct") {
+    pending
+  }
+
+  describe("#countByValue") {
+    pending
+  }
+
+  describe("#countByValueApprox") {
+    pending
+  }
+
+  describe("#dependencies") {
+    pending
+  }
+
+  describe("#distinct") {
+    pending
+  }
+
+  describe("#doubleRDDToDoubleRDDFunctions") {
+    pending
   }
 
   describe("#filter") {
@@ -53,6 +98,10 @@ class RDDSpec extends FunSpec with DataFrameSuiteBase with RDDComparisons {
 
   }
 
+  describe("#first") {
+    pending
+  }
+
   describe("flatMap") {
 
     it("return a new RDD by first applying a function to all elements of this RDD, and then flattening the results") {
@@ -71,6 +120,42 @@ class RDDSpec extends FunSpec with DataFrameSuiteBase with RDDComparisons {
 
   }
 
+  describe("#fold") {
+    pending
+  }
+
+  describe("#foreach") {
+    pending
+  }
+
+  describe("#foreachPartition") {
+    pending
+  }
+
+  describe("#getCheckpointFile") {
+    pending
+  }
+
+  describe("#getNumPartitions") {
+    pending
+  }
+
+  describe("#getStorageLevel") {
+    pending
+  }
+
+  describe("#glom") {
+    pending
+  }
+
+  describe("#groupBy") {
+    pending
+  }
+
+  describe("#id") {
+    pending
+  }
+
   describe("#intersect") {
 
     it("returns the intersection of this RDD and another one") {
@@ -85,6 +170,26 @@ class RDDSpec extends FunSpec with DataFrameSuiteBase with RDDComparisons {
 
     }
 
+  }
+
+  describe("#isCheckpointed") {
+    pending
+  }
+
+  describe("#isEmpty") {
+    pending
+  }
+
+  describe("#iterator") {
+    pending
+  }
+
+  describe("#keyBy") {
+    pending
+  }
+
+  describe("#localCheckpoint") {
+    pending
   }
 
   describe("#map") {
@@ -124,6 +229,50 @@ class RDDSpec extends FunSpec with DataFrameSuiteBase with RDDComparisons {
 
   }
 
+  describe("#mapPartitions") {
+    pending
+  }
+
+  describe("#mapPartitionsWithIndex") {
+    pending
+  }
+
+  describe("#max") {
+    pending
+  }
+
+  describe("#min") {
+    pending
+  }
+
+  describe("#name") {
+    pending
+  }
+
+  describe("#numericRDDToDoubleRDDFunctions") {
+    pending
+  }
+
+  describe("#partitioner") {
+    pending
+  }
+
+  describe("#partitions") {
+    pending
+  }
+
+  describe("#persist") {
+    pending
+  }
+
+  describe("#pipe") {
+    pending
+  }
+
+  describe("#preferredLocations") {
+    pending
+  }
+
   describe("#randomSplit") {
 
     it("Randomly splits this RDD with the provided weights") {
@@ -140,6 +289,106 @@ class RDDSpec extends FunSpec with DataFrameSuiteBase with RDDComparisons {
       assert(trainingDataSize === 73)
     }
 
+  }
+
+  describe("#rddToAsyncRDDActions") {
+    pending
+  }
+
+  describe("#rddToOrderedRDDFunctions") {
+    pending
+  }
+
+  describe("#rddToPairRDDFunctions") {
+    pending
+  }
+
+  describe("#rddToSequenceFileRDDFunctions") {
+    pending
+  }
+
+  describe("#reduce") {
+    pending
+  }
+
+  describe("#repartition") {
+    pending
+  }
+
+  describe("#sample") {
+    pending
+  }
+
+  describe("#saveAsObjectFile") {
+    pending
+  }
+
+  describe("#saveAsTextFile") {
+    pending
+  }
+
+  describe("#setName") {
+    pending
+  }
+
+  describe("#sortBy") {
+    pending
+  }
+
+  describe("#sparkContext") {
+    pending
+  }
+
+  describe("#subtract") {
+    pending
+  }
+
+  describe("#take") {
+    pending
+  }
+
+  describe("#takeOrdered") {
+    pending
+  }
+
+  describe("#takeSample") {
+    pending
+  }
+
+  describe("#toDebugString") {
+    pending
+  }
+
+  describe("#toJavaRDD") {
+    pending
+  }
+
+  describe("#toLocalIterator") {
+    pending
+  }
+
+  describe("#top") {
+    pending
+  }
+
+  describe("#toString") {
+    pending
+  }
+
+  describe("#treeAggregate") {
+    pending
+  }
+
+  describe("#treeReduce") {
+    pending
+  }
+
+  describe("#union") {
+    pending
+  }
+
+  describe("#unpersist") {
+    pending
   }
 
   describe("#zip") {
@@ -159,6 +408,18 @@ class RDDSpec extends FunSpec with DataFrameSuiteBase with RDDComparisons {
       assertRDDEquals(actualRDD, expectedRDD)
     }
 
+  }
+
+  describe("#zipPartitions") {
+    pending
+  }
+
+  describe("#zipWithIndex") {
+    pending
+  }
+
+  describe("#zipWithUniqueId") {
+    pending
   }
 
 }

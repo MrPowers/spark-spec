@@ -7,6 +7,18 @@ class RelationalGroupedDatasetSpec extends FunSpec with DataFrameSuiteBase {
 
   import spark.implicits._
 
+  describe("#agg") {
+    pending
+  }
+
+  describe("#apply") {
+    pending
+  }
+
+  describe("#avg") {
+    pending
+  }
+
   describe("count") {
 
     it("groups by 2 columns and returns the count in the group") {
@@ -36,6 +48,26 @@ class RelationalGroupedDatasetSpec extends FunSpec with DataFrameSuiteBase {
 
     }
 
+  }
+
+  describe("#max") {
+    pending
+  }
+
+  describe("#mean") {
+    pending
+  }
+
+  describe("#min") {
+    pending
+  }
+
+  describe("#pivot") {
+    pending
+  }
+
+  describe("#sum") {
+    pending
   }
 
 }

@@ -120,7 +120,7 @@ class FunctionsSpec extends FunSpec with DataFrameSuiteBase {
         StructType(sourceSchema)
       )
 
-      val actualDF = sourceDF.sort(asc("num1"))
+      val actualDF = sourceDF.sort(asc_nulls_first("num1"))
 
       val expectedData = List(
         Row(null),

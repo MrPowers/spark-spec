@@ -1,10 +1,9 @@
 package com.github.mrpowers.spark.spec.sql.types
 
-import com.holdenkarau.spark.testing.DataFrameSuiteBase
-import org.apache.spark.sql.types.{IntegerType, StructField}
+import org.apache.spark.sql.types.{IntegerType, MetadataBuilder, StructField}
 import org.scalatest.FunSpec
 
-class StructFieldSpec extends FunSpec with DataFrameSuiteBase {
+class StructFieldSpec extends FunSpec {
 
   describe("#new") {
 
@@ -52,19 +51,66 @@ class StructFieldSpec extends FunSpec with DataFrameSuiteBase {
   }
 
   describe("#getComment") {
-    pending
+
+    it("returns the comment from the Metadata") {
+
+      val s = StructField(
+        "cl1",
+        IntegerType,
+        nullable = false,
+        new MetadataBuilder().putString("comment", "crazy").build()
+      )
+      assert(s.getComment() === Some("crazy"))
+
+    }
+
   }
 
   describe("#metadata") {
-    pending
+
+    it("returns the metadata object") {
+
+      val m = new MetadataBuilder().putString("comment", "crazy").build()
+
+      val s = StructField(
+        "cl1",
+        IntegerType,
+        nullable = false,
+        m
+      )
+      assert(s.metadata === m)
+
+    }
+
   }
 
   describe("#name") {
-    pending
+
+    it("returns the name of a StructField") {
+
+      val s = StructField("num1", IntegerType, true)
+      assert(s.name === "num1")
+
+    }
+
   }
 
   describe("#nullable") {
-    pending
+
+    it("returns true if the StructField is nullable") {
+
+      val s = StructField("num1", IntegerType, true)
+      assert(s.nullable === true)
+
+    }
+
+    it("returns false if the StructField is not nullable") {
+
+      val s = StructField("num1", IntegerType, false)
+      assert(s.nullable === false)
+
+    }
+
   }
 
   describe("#productArity") {

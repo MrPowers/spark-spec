@@ -100,7 +100,49 @@ class FunctionsSpec extends FunSpec with DataFrameSuiteBase {
   }
 
   describe("#asc_nulls_first") {
-    pending
+
+    it("sorts a DataFrame with null values first") {
+
+      val sourceData = List(
+        Row(null),
+        Row(1),
+        Row(-8),
+        Row(null),
+        Row(-5)
+      )
+
+      val sourceSchema = List(
+        StructField("num1", IntegerType, true)
+      )
+
+      val sourceDF = spark.createDataFrame(
+        spark.sparkContext.parallelize(sourceData),
+        StructType(sourceSchema)
+      )
+
+      val actualDF = sourceDF.sort(asc("num1"))
+
+      val expectedData = List(
+        Row(null),
+        Row(null),
+        Row(-8),
+        Row(-5),
+        Row(1)
+      )
+
+      val expectedSchema = List(
+        StructField("num1", IntegerType, true)
+      )
+
+      val expectedDF = spark.createDataFrame(
+        spark.sparkContext.parallelize(expectedData),
+        StructType(expectedSchema)
+      )
+
+      assertDataFrameEquals(actualDF, expectedDF)
+
+    }
+
   }
 
   describe("#asc_nulls_last") {

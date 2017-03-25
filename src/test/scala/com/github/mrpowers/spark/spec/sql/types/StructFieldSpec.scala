@@ -29,11 +29,26 @@ class StructFieldSpec extends FunSpec with DataFrameSuiteBase {
   }
 
   describe("#dataType") {
-    pending
+
+    it("returns the dataType") {
+
+      val s = StructField("num1", IntegerType, true)
+      assert(s.dataType === IntegerType)
+
+    }
+
   }
 
   describe("#equals") {
-    pending
+
+    it("returns true if two StructFields are equal") {
+
+      val s1 = StructField("num1", IntegerType, true)
+      val s2 = StructField("num1", IntegerType, true)
+      assert(s1.equals(s2) === true)
+
+    }
+
   }
 
   describe("#getComment") {
@@ -69,11 +84,26 @@ class StructFieldSpec extends FunSpec with DataFrameSuiteBase {
   }
 
   describe("#toString") {
-    pending
+
+    it("converts a StructField to a string") {
+
+      val s = StructField("num1", IntegerType, true)
+      assert(s.toString() === "StructField(num1,IntegerType,true)")
+
+    }
+
   }
 
   describe("#withComment") {
-    pending
+
+    it("adds a comment to the metadata") {
+
+      val s = StructField("num1", IntegerType, true)
+      val c = s.withComment("boo")
+      assert(c.getComment() === Some("boo"))
+
+    }
+
   }
 
 }

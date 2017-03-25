@@ -2,130 +2,129 @@ package com.github.mrpowers.spark.spec.ml.feature
 
 import org.scalatest.FunSpec
 
-
-class BinarizerSpec extends FunSpec{
+class BinarizerSpec extends FunSpec {
 
   describe("#clear") {
     pending
   }
 
-  describe ("#copy") {
+  describe("#copy") {
     pending
   }
 
-  describe ("#explainParam") {
+  describe("#explainParam") {
     pending
   }
 
-  describe ("#explainParams") {
+  describe("#explainParams") {
     pending
   }
 
-  describe ("#extractParamMap") {
+  describe("#extractParamMap") {
     pending
   }
 
-  describe ("#get") {
+  describe("#get") {
     pending
   }
 
-  describe ("#getDefault") {
+  describe("#getDefault") {
     pending
   }
 
-  describe ("#getInputCol") {
+  describe("#getInputCol") {
     pending
   }
 
-  describe ("#getOrDefault") {
+  describe("#getOrDefault") {
     pending
   }
 
-  describe ("#getOutputCol") {
+  describe("#getOutputCol") {
     pending
   }
 
-  describe ("#getParam") {
+  describe("#getParam") {
     pending
   }
 
-  describe ("#getThereshold") {
+  describe("#getThereshold") {
     pending
   }
 
-  describe ("#hasDefault") {
+  describe("#hasDefault") {
     pending
   }
 
-  describe ("#hasParam") {
+  describe("#hasParam") {
     pending
   }
 
-  describe ("#inputCol") {
+  describe("#inputCol") {
     pending
   }
 
-  describe ("#isDefined") {
+  describe("#isDefined") {
     pending
   }
 
-  describe ("#isSet") {
+  describe("#isSet") {
     pending
   }
 
-  describe ("#load") {
+  describe("#load") {
     pending
   }
 
-  describe ("#outputCol") {
+  describe("#outputCol") {
     pending
   }
 
-  describe ("#params") {
+  describe("#params") {
     pending
   }
 
-  describe ("#save") {
+  describe("#save") {
     pending
   }
 
-  describe ("#set") {
+  describe("#set") {
     pending
   }
 
-  describe ("#setInputCol") {
+  describe("#setInputCol") {
     pending
   }
 
-  describe ("#setOutputCol") {
+  describe("#setOutputCol") {
     pending
   }
 
-  describe ("#setThreshold") {
+  describe("#setThreshold") {
     pending
   }
 
-  describe ("#threshold") {
+  describe("#threshold") {
     pending
   }
 
-  describe ("#toString") {
+  describe("#toString") {
     pending
   }
 
-  describe ("#transform") {
+  describe("#transform") {
     pending
   }
 
-  describe ("#transformSchema") {
+  describe("#transformSchema") {
     pending
   }
 
-  describe ("#uid") {
+  describe("#uid") {
     pending
   }
 
-  describe ("#write") {
+  describe("#write") {
     pending
   }
 

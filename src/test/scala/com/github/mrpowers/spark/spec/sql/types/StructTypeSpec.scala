@@ -150,7 +150,33 @@ class StructTypeSpec extends FunSpec {
   }
 
   describe("#diff") {
-    pending
+
+    it("returns the StructFields included in the receiver, but not in the argument") {
+
+      val a = StructField("a", IntegerType, true)
+      val b = StructField("b", StringType, false)
+      val c = StructField("c", StringType, false)
+
+      val s1 = StructType(List(a, b, c))
+      val s2 = StructType(List(a, b))
+
+      assert(s1.diff(s2) === List(c))
+
+    }
+
+    it("works differently when the receiver is switched") {
+
+      val a = StructField("a", IntegerType, true)
+      val b = StructField("b", StringType, false)
+      val c = StructField("c", StringType, false)
+
+      val s1 = StructType(List(a, b, c))
+      val s2 = StructType(List(a, b))
+
+      assert(s2.diff(s1) === List())
+
+    }
+
   }
 
   describe("#distinct") {

@@ -21,14 +21,13 @@ class StructTypeSpec extends FunSpec {
 
     it("can be instantiated with an explicit list of StructField arguments") {
 
-      val s =
-        StructType(
-          List(
-            StructField("a", IntegerType, true),
-            StructField("b", StringType, false),
-            StructField("c", StringType, false)
-          )
+      val s = StructType(
+        List(
+          StructField("a", IntegerType, true),
+          StructField("b", StringType, false),
+          StructField("c", StringType, false)
         )
+      )
       assert(s.getClass().getName() === "org.apache.spark.sql.types.StructType")
 
     }
@@ -109,7 +108,21 @@ class StructTypeSpec extends FunSpec {
   }
 
   describe("contains") {
-    pending
+
+    it("returns true if a StructType contains a StructField") {
+
+      val a = StructField("a", IntegerType, true)
+      val s = StructType(
+        List(
+          a,
+          StructField("b", StringType, false),
+          StructField("c", StringType, false)
+        )
+      )
+      assert(s.contains(a) === true)
+
+    }
+
   }
 
   describe("containsSlice") {

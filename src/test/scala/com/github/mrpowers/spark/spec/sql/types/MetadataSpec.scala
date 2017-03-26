@@ -10,14 +10,14 @@ class MetadataSpec extends FunSpec {
     it("returns true if the Metadata object contains a key") {
 
       val m = new MetadataBuilder().putString("comment", "crazy").build()
-      assert(m.contains("comment"), true)
+      assert(m.contains("comment") === true)
 
     }
 
-    it("returns false if the Metadata object doesn't contain a key") {
+    it("should not error out if the Metadata object doesn't contain a key") {
 
       val m = new MetadataBuilder().putString("comment", "crazy").build()
-      assert(m.contains("bulbasaur"), false)
+      assert(m.contains("bulbasaur") === false)
 
     }
 
@@ -36,7 +36,14 @@ class MetadataSpec extends FunSpec {
   }
 
   describe("#getBoolean") {
-    pending
+
+    it("gets a boolean metadata value") {
+
+      val m = new MetadataBuilder().putBoolean("isFun", true).build()
+      assert(m.getBoolean("isFun"), true)
+
+    }
+
   }
 
   describe("#getBooleanArray") {

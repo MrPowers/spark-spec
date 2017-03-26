@@ -126,7 +126,14 @@ class StructFieldSpec extends FunSpec {
   }
 
   describe("#productPrefix") {
-    pending
+
+    it("???") {
+
+      val s = StructField("num1", IntegerType, true)
+      assert(s.productPrefix === "StructField")
+
+    }
+
   }
 
   describe("#toString") {

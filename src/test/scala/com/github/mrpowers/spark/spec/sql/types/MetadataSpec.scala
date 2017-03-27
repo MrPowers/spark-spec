@@ -47,7 +47,14 @@ class MetadataSpec extends FunSpec {
   }
 
   describe("#getBooleanArray") {
-    pending
+
+    it("gets a boolean array") {
+
+      val m = new MetadataBuilder().putBooleanArray("theTruth", Array(true, false)).build()
+      assert(m.getBooleanArray("theTruth") === Array(true, false))
+
+    }
+
   }
 
   describe("#getDouble") {
@@ -84,7 +91,14 @@ class MetadataSpec extends FunSpec {
   }
 
   describe("#getLongArray") {
-    pending
+
+    it("gets a long array") {
+
+      val m = new MetadataBuilder().putLongArray("bigNums", Array(2L, 3L)).build()
+      assert(m.getLongArray("bigNums") === Array(2L, 3L))
+
+    }
+
   }
 
   describe("#getMetadata") {
@@ -100,7 +114,16 @@ class MetadataSpec extends FunSpec {
   }
 
   describe("#getMetadataArray") {
-    pending
+
+    it("gets a metadata value") {
+
+      val m = new MetadataBuilder().putLong("bigNumber", 8989L).build()
+      val m2 = new MetadataBuilder().putString("mood", "sleepy").build()
+      val m3 = new MetadataBuilder().putMetadataArray("metadatas", Array(m, m2)).build()
+      assert(m3.getMetadataArray("metadatas") === Array(m, m2))
+
+    }
+
   }
 
   describe("#getString") {
@@ -115,7 +138,14 @@ class MetadataSpec extends FunSpec {
   }
 
   describe("#getStringArray") {
-    pending
+
+    it("gets a string array") {
+
+      val m = new MetadataBuilder().putStringArray("names", Array("clem", "bill")).build()
+      assert(m.getStringArray("names") === Array("clem", "bill"))
+
+    }
+
   }
 
   describe("#hashCode") {

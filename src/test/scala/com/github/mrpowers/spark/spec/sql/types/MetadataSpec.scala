@@ -40,7 +40,7 @@ class MetadataSpec extends FunSpec {
     it("gets a boolean metadata value") {
 
       val m = new MetadataBuilder().putBoolean("isFun", true).build()
-      assert(m.getBoolean("isFun"), true)
+      assert(m.getBoolean("isFun") === true)
 
     }
 
@@ -51,15 +51,36 @@ class MetadataSpec extends FunSpec {
   }
 
   describe("#getDouble") {
-    pending
+
+    it("gets a double metadata value") {
+
+      val m = new MetadataBuilder().putDouble("coolNum", 3.14).build()
+      assert(m.getDouble("coolNum") === 3.14)
+
+    }
+
   }
 
   describe("#getDoubleArray") {
-    pending
+
+    it("gets a double array") {
+
+      val m = new MetadataBuilder().putDoubleArray("coolNums", Array(3.14, 8.0)).build()
+      assert(m.getDoubleArray("coolNums") === Array(3.14, 8.0))
+
+    }
+
   }
 
   describe("#getLong") {
-    pending
+
+    it("gets a long metadata value") {
+
+      val m = new MetadataBuilder().putLong("bigNumber", 8989L).build()
+      assert(m.getLong("bigNumber") === 8989L)
+
+    }
+
   }
 
   describe("#getLongArray") {
@@ -67,7 +88,15 @@ class MetadataSpec extends FunSpec {
   }
 
   describe("#getMetadata") {
-    pending
+
+    it("gets a metadata value") {
+
+      val m = new MetadataBuilder().putLong("bigNumber", 8989L).build()
+      val m2 = new MetadataBuilder().putMetadata("nestedMeta", m).build()
+      assert(m2.getMetadata("nestedMeta") === m)
+
+    }
+
   }
 
   describe("#getMetadataArray") {
@@ -75,23 +104,44 @@ class MetadataSpec extends FunSpec {
   }
 
   describe("#getString") {
-    pending
+
+    it("gets a string value") {
+
+      val m = new MetadataBuilder().putString("mood", "sleepy").build()
+      assert(m.getString("mood") === "sleepy")
+
+    }
+
   }
 
   describe("#getStringArray") {
     pending
   }
 
-  describe("#hastCode") {
+  describe("#hashCode") {
     pending
   }
 
   describe("#json") {
-    pending
+
+    it("converts a metadata object to JSON") {
+
+      val m = new MetadataBuilder().putString("mood", "sleepy").build()
+      assert(m.json === """{"mood":"sleepy"}""")
+
+    }
+
   }
 
   describe("#toString") {
-    pending
+
+    it("converts a metadata object to a string") {
+
+      val m = new MetadataBuilder().putString("mood", "sleepy").build()
+      assert(m.toString() === """{"mood":"sleepy"}""")
+
+    }
+
   }
 
 }

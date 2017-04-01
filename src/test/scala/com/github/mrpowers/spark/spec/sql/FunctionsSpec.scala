@@ -1546,6 +1546,7 @@ class FunctionsSpec extends FunSpec with DataFrameSuiteBase {
       assertDataFrameEquals(actualDF, expectedDF)
 
     }
+
   }
 
 }

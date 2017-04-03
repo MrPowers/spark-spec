@@ -234,7 +234,45 @@ class FunctionsSpec extends FunSpec with DataFrameSuiteBase {
   }
 
   describe("#ascii") {
-    pending
+
+    it("Computes the numeric value of the first character of the string column, and returns the result as an int column") {
+
+      val sourceDF = Seq(
+        ("A"),
+        ("AB"),
+        ("B"),
+        ("C"),
+        ("1"),
+        ("2"),
+        ("3")
+      ).toDF("Chr")
+
+      val actualDF = sourceDF.withColumn("ASCII", ascii(col("Chr")))
+
+      val expectedData = List(
+        Row("A", 65),
+        Row("AB", 65),
+        Row("B", 66),
+        Row("C", 67),
+        Row("1", 49),
+        Row("2", 50),
+        Row("3", 51)
+      )
+
+      val expectedSchema = List(
+        StructField("Chr", StringType, true),
+        StructField("ASCII", IntegerType, true)
+      )
+
+      val expectedDF = spark.createDataFrame(
+        spark.sparkContext.parallelize(expectedData),
+        StructType(expectedSchema)
+      )
+
+      assertDataFrameEquals(actualDF, expectedDF)
+
+    }
+
   }
 
   describe("#asin") {

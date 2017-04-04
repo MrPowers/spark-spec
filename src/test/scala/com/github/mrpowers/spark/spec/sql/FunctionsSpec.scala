@@ -56,7 +56,48 @@ class FunctionsSpec extends FunSpec with DataFrameSuiteBase {
   }
 
   describe("acos") {
-    pending
+    it("calculates the cosine inverse of the given value") {
+
+      val sourceData = List(
+        Row(-1.0),
+        Row(-0.5),
+        Row(0.5),
+        Row(1.0)
+      )
+
+      val sourceSchema = List(
+        StructField("num1", DoubleType, false)
+      )
+
+      val sourceDf = spark.createDataFrame(
+        spark.sparkContext.parallelize(sourceData),
+        StructType(sourceSchema)
+      )
+
+
+      val actualDf = sourceDf.withColumn("acos_value", acos(col("num1")))
+
+      val expectedData = List(
+        Row(-1.0, 3.141592653589793),
+        Row(-0.5, 2.0943951023931957),
+        Row(0.5, 1.0471975511965979),
+        Row(1.0, 0.0)
+      )
+
+      val expectedSchema = List(
+        StructField("num1", DoubleType, false),
+        StructField("acos_value", DoubleType, true)
+      )
+
+      val expectedDf = spark.createDataFrame(
+        spark.sparkContext.parallelize(expectedData),
+        StructType(expectedSchema)
+      )
+
+
+      assertDataFrameEquals(actualDf, expectedDf)
+
+    }
   }
 
   describe("#add_months") {
@@ -178,6 +219,7 @@ class FunctionsSpec extends FunSpec with DataFrameSuiteBase {
         (-8.1),
         (5.9)
       ).toDF("num1")
+
 
       val actualDf = numbersDf.withColumn("upper", ceil(col("num1")))
 
@@ -793,5 +835,4 @@ class FunctionsSpec extends FunSpec with DataFrameSuiteBase {
 
     }
   }
-
 }

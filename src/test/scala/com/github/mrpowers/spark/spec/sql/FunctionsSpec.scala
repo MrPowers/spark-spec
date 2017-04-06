@@ -56,6 +56,7 @@ class FunctionsSpec extends FunSpec with DataFrameSuiteBase {
   }
 
   describe("#acos") {
+
     it("calculates the cosine inverse of the given value") {
 
       val sourceData = List(
@@ -73,7 +74,6 @@ class FunctionsSpec extends FunSpec with DataFrameSuiteBase {
         spark.sparkContext.parallelize(sourceData),
         StructType(sourceSchema)
       )
-
 
       val actualDf = sourceDf.withColumn("acos_value", acos(col("num1")))
 
@@ -94,10 +94,10 @@ class FunctionsSpec extends FunSpec with DataFrameSuiteBase {
         StructType(expectedSchema)
       )
 
-
       assertDataFrameEquals(actualDf, expectedDf)
 
     }
+
   }
 
   describe("#add_months") {

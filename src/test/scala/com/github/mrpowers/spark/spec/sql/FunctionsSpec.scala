@@ -6,7 +6,9 @@ import org.apache.spark.sql.functions._
 import org.apache.spark.sql.Row
 import org.apache.spark.sql.types.{StructType, _}
 
-class FunctionsSpec extends FunSpec with DataFrameSuiteBase {
+import com.github.mrpowers.spark.fast.tests.DataFrameComparer
+
+class FunctionsSpec extends FunSpec with DataFrameSuiteBase with DataFrameComparer {
 
   import spark.implicits._
 
@@ -49,7 +51,7 @@ class FunctionsSpec extends FunSpec with DataFrameSuiteBase {
         StructType(expectedSchema)
       )
 
-      assertDataFrameEquals(actualDF, expectedDF)
+      assertSmallDataFrameEquality(actualDF, expectedDF)
 
     }
 
@@ -94,7 +96,7 @@ class FunctionsSpec extends FunSpec with DataFrameSuiteBase {
         StructType(expectedSchema)
       )
 
-      assertDataFrameEquals(actualDf, expectedDf)
+      assertSmallDataFrameEquality(actualDf, expectedDf)
 
     }
 

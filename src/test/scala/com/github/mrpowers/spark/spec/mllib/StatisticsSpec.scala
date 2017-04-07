@@ -1,18 +1,18 @@
 package com.github.mrpowers.spark.spec.mllib
 
-import com.holdenkarau.spark.testing.{DataFrameSuiteBase, RDDComparisons}
+import com.github.mrpowers.spark.spec.SparkSessionTestWrapper
 import org.apache.spark.mllib.stat.Statistics
 import org.apache.spark.rdd.RDD
 import org.scalatest.FunSpec
 
-class StatisticsSpec extends FunSpec with DataFrameSuiteBase with RDDComparisons {
+class StatisticsSpec extends FunSpec with SparkSessionTestWrapper {
 
   describe("#corr") {
 
     it("returns the correlation between arrays") {
 
-      val seriesX: RDD[Double] = sc.parallelize(Array(1, 2, 3, 3, 5))
-      val seriesY: RDD[Double] = sc.parallelize(Array(11, 22, 33, 33, 555))
+      val seriesX: RDD[Double] = spark.sparkContext.parallelize(Array(1, 2, 3, 3, 5))
+      val seriesY: RDD[Double] = spark.sparkContext.parallelize(Array(11, 22, 33, 33, 555))
       val correlationPearson: Double = Statistics.corr(seriesX, seriesY, "pearson")
       val correlationSpearman: Double = Statistics.corr(seriesX, seriesY, "spearman")
 

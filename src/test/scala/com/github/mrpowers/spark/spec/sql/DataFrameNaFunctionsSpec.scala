@@ -1,11 +1,14 @@
 package com.github.mrpowers.spark.spec.sql
 
-import com.holdenkarau.spark.testing.DataFrameSuiteBase
 import org.apache.spark.sql.types.{IntegerType, StructField, StructType}
 import org.apache.spark.sql.Row
 import org.scalatest._
 
-class DataFrameNaFunctionsSpec extends FunSpec with DataFrameSuiteBase {
+import com.github.mrpowers.spark.spec.SparkSessionTestWrapper
+
+import com.github.mrpowers.spark.fast.tests.DataFrameComparer
+
+class DataFrameNaFunctionsSpec extends FunSpec with SparkSessionTestWrapper with DataFrameComparer {
 
   import spark.implicits._
 
@@ -47,7 +50,7 @@ class DataFrameNaFunctionsSpec extends FunSpec with DataFrameSuiteBase {
         StructType(expectedSchema)
       )
 
-      assertDataFrameEquals(actualDF, expectedDF)
+      assertSmallDataFrameEquality(actualDF, expectedDF)
 
     }
 
@@ -93,7 +96,7 @@ class DataFrameNaFunctionsSpec extends FunSpec with DataFrameSuiteBase {
         StructType(expectedSchema)
       )
 
-      assertDataFrameEquals(actualDF, expectedDF)
+      assertSmallDataFrameEquality(actualDF, expectedDF)
 
     }
 

@@ -1,11 +1,11 @@
 package com.github.mrpowers.spark.spec.ml.classification
 
-import com.holdenkarau.spark.testing.DataFrameSuiteBase
+import com.github.mrpowers.spark.spec.SparkSessionTestWrapper
 import org.scalatest.FunSpec
 import org.apache.spark.ml.classification.LogisticRegression
 import org.apache.spark.ml.linalg.{DenseMatrix, DenseVector, SparseVector}
 
-class LogisticRegressionSpec extends FunSpec with DataFrameSuiteBase {
+class LogisticRegressionSpec extends FunSpec with SparkSessionTestWrapper {
 
   it("can train a model and run a logistic regression") {
 

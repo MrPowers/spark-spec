@@ -1,14 +1,15 @@
 package com.github.mrpowers.spark.spec.sql
 
-import com.holdenkarau.spark.testing.DataFrameSuiteBase
 import org.scalatest._
 import org.apache.spark.sql.functions._
 import org.apache.spark.sql.Row
 import org.apache.spark.sql.types.{StructType, _}
 
+import com.github.mrpowers.spark.spec.SparkSessionTestWrapper
+
 import com.github.mrpowers.spark.fast.tests.DataFrameComparer
 
-class FunctionsSpec extends FunSpec with DataFrameSuiteBase with DataFrameComparer {
+class FunctionsSpec extends FunSpec with SparkSessionTestWrapper with DataFrameComparer {
 
   import spark.implicits._
 
@@ -124,7 +125,7 @@ class FunctionsSpec extends FunSpec with DataFrameSuiteBase with DataFrameCompar
         .withColumn("birth_date", col("birth_date").cast("timestamp"))
         .withColumn("future_date", col("future_date").cast("date"))
 
-      assertDataFrameEquals(actualDF, expectedDF)
+      assertSmallDataFrameEquality(actualDF, expectedDF)
 
     }
 
@@ -182,7 +183,7 @@ class FunctionsSpec extends FunSpec with DataFrameSuiteBase with DataFrameCompar
         StructType(expectedSchema)
       )
 
-      assertDataFrameEquals(actualDF, expectedDF)
+      assertSmallDataFrameEquality(actualDF, expectedDF)
 
     }
 
@@ -228,7 +229,7 @@ class FunctionsSpec extends FunSpec with DataFrameSuiteBase with DataFrameCompar
         StructType(expectedSchema)
       )
 
-      assertDataFrameEquals(actualDF, expectedDF)
+      assertSmallDataFrameEquality(actualDF, expectedDF)
 
     }
 
@@ -270,7 +271,7 @@ class FunctionsSpec extends FunSpec with DataFrameSuiteBase with DataFrameCompar
         StructType(expectedSchema)
       )
 
-      assertDataFrameEquals(actualDF, expectedDF)
+      assertSmallDataFrameEquality(actualDF, expectedDF)
 
     }
 
@@ -312,7 +313,7 @@ class FunctionsSpec extends FunSpec with DataFrameSuiteBase with DataFrameCompar
         StructType(expectedSchema)
       )
 
-      assertDataFrameEquals(actualDF, expectedDF)
+      assertSmallDataFrameEquality(actualDF, expectedDF)
 
     }
 
@@ -390,7 +391,7 @@ class FunctionsSpec extends FunSpec with DataFrameSuiteBase with DataFrameCompar
         StructType(expectedSchema)
       )
 
-      assertDataFrameEquals(actualDF, expectedDF)
+      assertSmallDataFrameEquality(actualDF, expectedDF)
 
     }
 
@@ -424,7 +425,7 @@ class FunctionsSpec extends FunSpec with DataFrameSuiteBase with DataFrameCompar
         (null, null, null)
       ).toDF("word1", "word2", "yummy")
 
-      assertDataFrameEquals(actualDF, expectedDF)
+      assertSmallDataFrameEquality(actualDF, expectedDF)
 
     }
 
@@ -486,7 +487,7 @@ class FunctionsSpec extends FunSpec with DataFrameSuiteBase with DataFrameCompar
         StructType(expectedSchema)
       )
 
-      assertDataFrameEquals(actualDF, expectedDF)
+      assertSmallDataFrameEquality(actualDF, expectedDF)
 
     }
 
@@ -520,7 +521,7 @@ class FunctionsSpec extends FunSpec with DataFrameSuiteBase with DataFrameCompar
         (null, null, null)
       ).toDF("word1", "word2", "yummy")
 
-      assertDataFrameEquals(actualDF, expectedDF)
+      assertSmallDataFrameEquality(actualDF, expectedDF)
 
     }
 
@@ -571,7 +572,7 @@ class FunctionsSpec extends FunSpec with DataFrameSuiteBase with DataFrameCompar
         StructType(expectedSchema)
       )
 
-      assertDataFrameEquals(actualDF, expectedDF)
+      assertSmallDataFrameEquality(actualDF, expectedDF)
 
     }
 
@@ -615,7 +616,7 @@ class FunctionsSpec extends FunSpec with DataFrameSuiteBase with DataFrameCompar
         StructType(expectedSchema)
       )
 
-      assertDataFrameEquals(actualDF, expectedDF)
+      assertSmallDataFrameEquality(actualDF, expectedDF)
 
     }
 
@@ -667,7 +668,7 @@ class FunctionsSpec extends FunSpec with DataFrameSuiteBase with DataFrameCompar
         .withColumn("birth_date", col("birth_date").cast("timestamp"))
         .withColumn("future_date", col("future_date").cast("date"))
 
-      assertDataFrameEquals(actualDF, expectedDF)
+      assertSmallDataFrameEquality(actualDF, expectedDF)
 
     }
 
@@ -749,7 +750,7 @@ class FunctionsSpec extends FunSpec with DataFrameSuiteBase with DataFrameCompar
         StructType(expectedSchema)
       )
 
-      assertDataFrameEquals(actualDF, expectedDF)
+      assertSmallDataFrameEquality(actualDF, expectedDF)
     }
 
   }
@@ -786,7 +787,7 @@ class FunctionsSpec extends FunSpec with DataFrameSuiteBase with DataFrameCompar
         ("B", "c", Seq(5, 6, 7))
       ).toDF("id", "class", "num")
 
-      assertDataFrameEquals(actualDF, expectedDF)
+      assertSmallDataFrameEquality(actualDF, expectedDF)
 
     }
 
@@ -837,7 +838,7 @@ class FunctionsSpec extends FunSpec with DataFrameSuiteBase with DataFrameCompar
 
       val actualDF = inputDF.withColumn("result", factorial(col("number")))
 
-      assertDataFrameEquals(actualDF, expectedDF)
+      assertSmallDataFrameEquality(actualDF, expectedDF)
 
     }
 
@@ -917,7 +918,7 @@ class FunctionsSpec extends FunSpec with DataFrameSuiteBase with DataFrameCompar
         ("spider man", "Spider Man")
       ).toDF("no_upper_words", "first_upper")
 
-      assertDataFrameEquals(actualDF, expectedDF)
+      assertSmallDataFrameEquality(actualDF, expectedDF)
 
     }
 
@@ -957,7 +958,7 @@ class FunctionsSpec extends FunSpec with DataFrameSuiteBase with DataFrameCompar
         ("football", false)
       ).toDF("word", "nullCheck")
 
-      assertDataFrameEquals(actualDF, expectedDF)
+      assertSmallDataFrameEquality(actualDF, expectedDF)
     }
 
   }
@@ -1018,7 +1019,7 @@ class FunctionsSpec extends FunSpec with DataFrameSuiteBase with DataFrameCompar
 
       val actualDF = wordsDF.withColumn("length", length(col("word")))
 
-      assertDataFrameEquals(actualDF, expectedDF)
+      assertSmallDataFrameEquality(actualDF, expectedDF)
 
     }
 
@@ -1058,7 +1059,7 @@ class FunctionsSpec extends FunSpec with DataFrameSuiteBase with DataFrameCompar
         StructType(expectedSchema)
       )
 
-      assertDataFrameEquals(actualDF, expectedDF)
+      assertSmallDataFrameEquality(actualDF, expectedDF)
 
     }
 
@@ -1098,7 +1099,7 @@ class FunctionsSpec extends FunSpec with DataFrameSuiteBase with DataFrameCompar
         ("pikachu", "pikachu")
       ).toDF("word", "lower_word")
 
-      assertDataFrameEquals(actualDF, expectedDF)
+      assertSmallDataFrameEquality(actualDF, expectedDF)
 
     }
 
@@ -1160,7 +1161,7 @@ class FunctionsSpec extends FunSpec with DataFrameSuiteBase with DataFrameCompar
         StructType(expectedSchema)
       ).withColumn("birth_date", col("birth_date").cast("timestamp"))
 
-      assertDataFrameEquals(actualDF, expectedDF)
+      assertSmallDataFrameEquality(actualDF, expectedDF)
 
     }
 
@@ -1242,7 +1243,7 @@ class FunctionsSpec extends FunSpec with DataFrameSuiteBase with DataFrameCompar
         StructType(expectedSchema)
       )
 
-      assertDataFrameEquals(actualDF, expectedDF)
+      assertSmallDataFrameEquality(actualDF, expectedDF)
 
     }
 
@@ -1316,7 +1317,7 @@ class FunctionsSpec extends FunSpec with DataFrameSuiteBase with DataFrameCompar
         ("c", "cxxxx")
       ).toDF("word1", "rpad_column")
 
-      assertDataFrameEquals(actualDF, expectedDF)
+      assertSmallDataFrameEquality(actualDF, expectedDF)
 
     }
 
@@ -1401,7 +1402,7 @@ class FunctionsSpec extends FunSpec with DataFrameSuiteBase with DataFrameCompar
       val expectedData = List(
         Row(49, 7.0),
         Row(144, 12.0),
-        Row(89, 9.4339)
+        Row(89, 9.433981132056603)
       )
 
       val expectedSchema = List(
@@ -1414,7 +1415,7 @@ class FunctionsSpec extends FunSpec with DataFrameSuiteBase with DataFrameCompar
         StructType(expectedSchema)
       )
 
-      assertDataFrameApproximateEquals(sqrtDF, expectedDF, 0.01)
+      assertSmallDataFrameEquality(sqrtDF, expectedDF)
 
     }
 
@@ -1492,7 +1493,7 @@ class FunctionsSpec extends FunSpec with DataFrameSuiteBase with DataFrameCompar
         ("  cat", "cat")
       ).toDF("word", "short_word")
 
-      assertDataFrameEquals(actualDF, expectedDF)
+      assertSmallDataFrameEquality(actualDF, expectedDF)
 
     }
 
@@ -1536,7 +1537,7 @@ class FunctionsSpec extends FunSpec with DataFrameSuiteBase with DataFrameCompar
         ("piKachu", "PIKACHU")
       ).toDF("word", "upper_word")
 
-      assertDataFrameEquals(actualDF, expectedDF)
+      assertSmallDataFrameEquality(actualDF, expectedDF)
 
     }
 
@@ -1594,7 +1595,7 @@ class FunctionsSpec extends FunSpec with DataFrameSuiteBase with DataFrameCompar
         StructType(expectedSchema)
       ).withColumn("birth_date", col("birth_date").cast("timestamp"))
 
-      assertDataFrameEquals(actualDF, expectedDF)
+      assertSmallDataFrameEquality(actualDF, expectedDF)
 
     }
 
@@ -1624,7 +1625,7 @@ class FunctionsSpec extends FunSpec with DataFrameSuiteBase with DataFrameCompar
         StructType(expectedSchema)
       ).withColumn("birth_date", col("birth_date").cast("date"))
 
-      assertDataFrameEquals(actualDF, expectedDF)
+      assertSmallDataFrameEquality(actualDF, expectedDF)
 
     }
 

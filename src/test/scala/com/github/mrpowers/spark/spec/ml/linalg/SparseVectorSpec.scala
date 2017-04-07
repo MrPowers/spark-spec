@@ -1,10 +1,9 @@
 package com.github.mrpowers.spark.spec.ml.linalg
 
-import com.holdenkarau.spark.testing.DataFrameSuiteBase
 import org.scalatest.FunSpec
 import org.apache.spark.ml.linalg.SparseVector
 
-class SparseVectorSpec extends FunSpec with DataFrameSuiteBase {
+class SparseVectorSpec extends FunSpec {
 
   describe("new") {
 

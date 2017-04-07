@@ -1,12 +1,15 @@
 package com.github.mrpowers.spark.spec.sql
 
-import com.holdenkarau.spark.testing.DataFrameSuiteBase
 import org.apache.spark.sql.Row
 import org.apache.spark.sql.functions._
 import org.apache.spark.sql.types._
 import org.scalatest.FunSpec
 
-class BugsSpec extends FunSpec with DataFrameSuiteBase {
+import com.github.mrpowers.spark.spec.SparkSessionTestWrapper
+
+import com.github.mrpowers.spark.fast.tests.DataFrameComparer
+
+class BugsSpec extends FunSpec with SparkSessionTestWrapper with DataFrameComparer {
 
   import spark.implicits._
 
@@ -20,7 +23,7 @@ class BugsSpec extends FunSpec with DataFrameSuiteBase {
 
       val expectedDF = Seq(1).toDF("bar")
 
-      assertDataFrameEquals(actualDF, expectedDF)
+      assertSmallDataFrameEquality(actualDF, expectedDF)
 
     }
 
@@ -52,7 +55,7 @@ class BugsSpec extends FunSpec with DataFrameSuiteBase {
         StructType(expectedSchema)
       )
 
-      assertDataFrameEquals(actualDF, expectedDF)
+      assertSmallDataFrameEquality(actualDF, expectedDF)
 
     }
 

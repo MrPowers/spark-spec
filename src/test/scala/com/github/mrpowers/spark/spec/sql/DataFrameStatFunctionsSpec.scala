@@ -1,9 +1,11 @@
 package com.github.mrpowers.spark.spec.sql
 
-import com.holdenkarau.spark.testing.DataFrameSuiteBase
 import org.scalatest._
+import com.github.mrpowers.spark.spec.SparkSessionTestWrapper
 
-class DataFrameStatFunctionsSpec extends FunSpec with DataFrameSuiteBase {
+import com.github.mrpowers.spark.fast.tests.DataFrameComparer
+
+class DataFrameStatFunctionsSpec extends FunSpec with SparkSessionTestWrapper with DataFrameComparer {
 
   import spark.implicits._
 

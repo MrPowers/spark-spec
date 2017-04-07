@@ -1,12 +1,15 @@
 package com.github.mrpowers.spark.spec.sql
 
-import com.holdenkarau.spark.testing.DataFrameSuiteBase
 import org.scalatest._
 import org.apache.spark.sql.functions._
 import org.apache.spark.sql.Row
 import org.apache.spark.sql.types.{StructType, _}
 
-class ColumnSpec extends FunSpec with DataFrameSuiteBase {
+import com.github.mrpowers.spark.spec.SparkSessionTestWrapper
+
+import com.github.mrpowers.spark.fast.tests.DataFrameComparer
+
+class ColumnSpec extends FunSpec with SparkSessionTestWrapper with DataFrameComparer {
 
   import spark.implicits._
 
@@ -29,7 +32,7 @@ class ColumnSpec extends FunSpec with DataFrameSuiteBase {
         ("bristol", 12)
       ).toDF("city", "num_people")
 
-      assertDataFrameEquals(actualDF, expectedDF)
+      assertSmallDataFrameEquality(actualDF, expectedDF)
 
     }
 
@@ -51,7 +54,7 @@ class ColumnSpec extends FunSpec with DataFrameSuiteBase {
         ("mary", true, true)
       ).toDF("name", "like_cheese", "is_tall")
 
-      assertDataFrameEquals(actualDF, expectedDF)
+      assertSmallDataFrameEquality(actualDF, expectedDF)
 
     }
 
@@ -80,7 +83,7 @@ class ColumnSpec extends FunSpec with DataFrameSuiteBase {
         ("bristol", 12)
       ).toDF("city", "num_people")
 
-      assertDataFrameEquals(actualDF, expectedDF)
+      assertSmallDataFrameEquality(actualDF, expectedDF)
 
     }
 
@@ -132,7 +135,7 @@ class ColumnSpec extends FunSpec with DataFrameSuiteBase {
         StructType(expectedSchema)
       )
 
-      assertDataFrameEquals(actualDF, expectedDF)
+      assertSmallDataFrameEquality(actualDF, expectedDF)
 
     }
   }
@@ -173,7 +176,7 @@ class ColumnSpec extends FunSpec with DataFrameSuiteBase {
         ("Scala is scalable and cool")
       ).toDF("text")
 
-      assertDataFrameEquals(actualDF, expectedDF)
+      assertSmallDataFrameEquality(actualDF, expectedDF)
 
     }
 
@@ -219,7 +222,7 @@ class ColumnSpec extends FunSpec with DataFrameSuiteBase {
         StructType(expectedSchema)
       )
 
-      assertDataFrameEquals(actualDF, expectedDF)
+      assertSmallDataFrameEquality(actualDF, expectedDF)
 
     }
 
@@ -245,7 +248,7 @@ class ColumnSpec extends FunSpec with DataFrameSuiteBase {
         ("D", "2000")
       ).toDF("id", "year")
 
-      assertDataFrameEquals(actualDF, expectedDF)
+      assertSmallDataFrameEquality(actualDF, expectedDF)
 
     }
 
@@ -293,7 +296,7 @@ class ColumnSpec extends FunSpec with DataFrameSuiteBase {
       ).toDF("some_date")
         .withColumn("some_date", $"some_date".cast("timestamp"))
 
-      assertDataFrameEquals(actualDF, expectedDF)
+      assertSmallDataFrameEquality(actualDF, expectedDF)
 
     }
 
@@ -325,7 +328,7 @@ class ColumnSpec extends FunSpec with DataFrameSuiteBase {
         ("E", "2012-09-09", "09")
       ).toDF("id", "birthday", "month")
 
-      assertDataFrameEquals(actualDF, expectedDF)
+      assertSmallDataFrameEquality(actualDF, expectedDF)
 
     }
 
@@ -350,7 +353,7 @@ class ColumnSpec extends FunSpec with DataFrameSuiteBase {
         (257)
       ).toDF("num1")
 
-      assertDataFrameEquals(actualDF, expectedDF)
+      assertSmallDataFrameEquality(actualDF, expectedDF)
 
     }
 
@@ -380,7 +383,7 @@ class ColumnSpec extends FunSpec with DataFrameSuiteBase {
         ("andrew")
       ).toDF("some_name")
 
-      assertDataFrameEquals(actualDF, expectedDF)
+      assertSmallDataFrameEquality(actualDF, expectedDF)
 
     }
 
@@ -443,7 +446,7 @@ class ColumnSpec extends FunSpec with DataFrameSuiteBase {
         StructType(expectedSchema)
       )
 
-      assertDataFrameEquals(actualDF, expectedDF)
+      assertSmallDataFrameEquality(actualDF, expectedDF)
 
     }
 
@@ -471,7 +474,7 @@ class ColumnSpec extends FunSpec with DataFrameSuiteBase {
         ("F", "2016")
       ).toDF("id", "year")
 
-      assertDataFrameEquals(actualDF, expectedDF)
+      assertSmallDataFrameEquality(actualDF, expectedDF)
 
     }
 
@@ -510,7 +513,7 @@ class ColumnSpec extends FunSpec with DataFrameSuiteBase {
         StructType(expectedSchema)
       )
 
-      assertDataFrameEquals(actualDF, expectedDF)
+      assertSmallDataFrameEquality(actualDF, expectedDF)
 
     }
 
@@ -569,7 +572,7 @@ class ColumnSpec extends FunSpec with DataFrameSuiteBase {
         StructType(expectedSchema)
       )
 
-      assertDataFrameEquals(actualDF, expectedDF)
+      assertSmallDataFrameEquality(actualDF, expectedDF)
 
     }
 
@@ -590,7 +593,7 @@ class ColumnSpec extends FunSpec with DataFrameSuiteBase {
         ("A", "bbbbba11111xy")
       ).toDF("id", "text")
 
-      assertDataFrameEquals(actualDF, expectedDF)
+      assertSmallDataFrameEquality(actualDF, expectedDF)
 
     }
 
@@ -633,7 +636,7 @@ class ColumnSpec extends FunSpec with DataFrameSuiteBase {
         StructType(expectedSchema)
       )
 
-      assertDataFrameEquals(actualDF, expectedDF)
+      assertSmallDataFrameEquality(actualDF, expectedDF)
 
     }
 

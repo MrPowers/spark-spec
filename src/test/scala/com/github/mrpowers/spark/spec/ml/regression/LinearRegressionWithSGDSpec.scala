@@ -1,13 +1,13 @@
 package com.github.mrpowers.spark.spec.ml.classification
 
-import com.holdenkarau.spark.testing.DataFrameSuiteBase
+import com.github.mrpowers.spark.spec.SparkSessionTestWrapper
 import org.scalatest.FunSpec
 import org.apache.spark.mllib.linalg.Vectors
 import org.apache.spark.mllib.regression.LabeledPoint
 import org.apache.spark.mllib.regression.LinearRegressionModel
 import org.apache.spark.mllib.regression.LinearRegressionWithSGD
 
-class LinearRegressionWithSGDSpec extends FunSpec with DataFrameSuiteBase {
+class LinearRegressionWithSGDSpec extends FunSpec with SparkSessionTestWrapper {
 
   it("can train a model and run a linear regression with SGD") {
 
@@ -15,7 +15,7 @@ class LinearRegressionWithSGDSpec extends FunSpec with DataFrameSuiteBase {
 
     val path = new java.io.File("./src/test/resources/lpsa.data").getCanonicalPath
 
-    val training = sc.textFile(path)
+    val training = spark.sparkContext.textFile(path)
 
     val parsedData = training.map { line =>
       val parts = line.split(',')
@@ -32,9 +32,10 @@ class LinearRegressionWithSGDSpec extends FunSpec with DataFrameSuiteBase {
       val prediction = model.predict(point.features)
       (point.label, prediction)
     }
+
     val MSE = valuesAndPreds.map { case (v, p) => math.pow((v - p), 2) }.mean()
 
-    assert(MSE === 7.4510328101026015)
+    assert(MSE === 7.4510328101026)
 
   }
 

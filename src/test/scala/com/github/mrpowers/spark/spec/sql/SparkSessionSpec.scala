@@ -1,11 +1,13 @@
 package com.github.mrpowers.spark.spec.sql
 
-import com.holdenkarau.spark.testing.DataFrameSuiteBase
 import org.apache.spark.sql.Row
 import org.apache.spark.sql.types.{StringType, StructField, StructType}
 import org.scalatest._
+import com.github.mrpowers.spark.spec.SparkSessionTestWrapper
 
-class SparkSessionSpec extends FunSpec with DataFrameSuiteBase {
+import com.github.mrpowers.spark.fast.tests.DataFrameComparer
+
+class SparkSessionSpec extends FunSpec with SparkSessionTestWrapper with DataFrameComparer {
 
   describe("#baseRelationToDataFrame") {
     pending
@@ -96,7 +98,7 @@ class SparkSessionSpec extends FunSpec with DataFrameSuiteBase {
         StructType(expectedSchema)
       )
 
-      assertDataFrameEquals(actualDF, expectedDF)
+      assertSmallDataFrameEquality(actualDF, expectedDF)
 
     }
 

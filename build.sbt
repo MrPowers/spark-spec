@@ -18,10 +18,10 @@ spDescription := "Test suite for the behavior of Spark"
 
 version := "0.0.1"
 
-scalaVersion := "2.11.7"
+scalaVersion := "2.11.8"
 sparkVersion := "2.1.0"
 
-spDependencies += "MrPowers/spark-fast-tests:0.0.1"
+spDependencies += "MrPowers/spark-fast-tests:0.1.0"
 
 sparkComponents ++= Seq("sql", "mllib")
 

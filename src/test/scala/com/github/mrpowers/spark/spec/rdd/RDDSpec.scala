@@ -1,13 +1,11 @@
 package com.github.mrpowers.spark.spec.rdd
 
+import com.github.mrpowers.spark.fast.tests.RDDComparer
 import org.scalatest.FunSpec
-import org.apache.spark.sql.Row
 import org.apache.spark.rdd.RDD
-import org.apache.spark.mllib.stat.Statistics
-
 import com.github.mrpowers.spark.spec.SparkSessionTestWrapper
 
-class RDDSpec extends FunSpec with SparkSessionTestWrapper {
+class RDDSpec extends FunSpec with RDDComparer with SparkSessionTestWrapper {
 
   describe("#aggregate") {
     pending
@@ -33,11 +31,9 @@ class RDDSpec extends FunSpec with SparkSessionTestWrapper {
 
     it("return an array that contains all of the elements in this RDD") {
 
-      pending
-
-      //      val xs = (1 to 3).toList
-      //      val rdd = sc.parallelize(xs)
-      //      assert(rdd.collect().deep === Array(1, 2, 3).deep)
+      val xs = (1 to 3).toList
+      val rdd = spark.sparkContext.parallelize(xs)
+      assert(rdd.collect().deep === Array(1, 2, 3).deep)
 
     }
 
@@ -87,17 +83,15 @@ class RDDSpec extends FunSpec with SparkSessionTestWrapper {
 
     it("returns a new RDD containing only the elements that satisfy a predicate") {
 
-      pending
+      val xs = (1 to 5).toList
+      val sourceRDD = spark.sparkContext.parallelize(xs)
+      val actualRDD = sourceRDD.filter { n => n >= 3 }
 
-      //      val xs = (1 to 5).toList
-      //      val sourceRDD = sc.parallelize(xs)
-      //      val actualRDD = sourceRDD.filter { n => n >= 3 }
-      //
-      //      val expectedRDD = sc.parallelize(
-      //        (3 to 5).toList
-      //      )
-      //
-      //      assertRDDEquals(actualRDD, expectedRDD)
+      val expectedRDD = spark.sparkContext.parallelize(
+        (3 to 5).toList
+      )
+
+      assertSmallRDDEquality(actualRDD, expectedRDD)
 
     }
 
@@ -111,17 +105,15 @@ class RDDSpec extends FunSpec with SparkSessionTestWrapper {
 
     it("return a new RDD by first applying a function to all elements of this RDD, and then flattening the results") {
 
-      pending
+      val xs = List("this is something long")
+      val sourceRDD = spark.sparkContext.parallelize(xs)
+      val actualRDD = sourceRDD.flatMap { l => l.split(" ") }
 
-      //      val xs = List("this is something long")
-      //      val sourceRDD = sc.parallelize(xs)
-      //      val actualRDD = sourceRDD.flatMap { l => l.split(" ") }
-      //
-      //      val expectedRDD = sc.parallelize(
-      //        List("this", "is", "something", "long")
-      //      )
-      //
-      //      assertRDDEquals(actualRDD, expectedRDD)
+      val expectedRDD = spark.sparkContext.parallelize(
+        List("this", "is", "something", "long")
+      )
+
+      assertSmallRDDEquality(actualRDD, expectedRDD)
 
     }
 
@@ -203,25 +195,24 @@ class RDDSpec extends FunSpec with SparkSessionTestWrapper {
 
     it("returns a new RDD by applying a function to all elements of this RDD") {
 
-      pending
+      val sourceData = List(
+        ("cat"),
+        ("dog"),
+        ("frog")
+      )
+      val sourceRDD: RDD[String] = spark.sparkContext.parallelize(sourceData)
 
-      //      val sourceData = List(
-      //        ("cat"),
-      //        ("dog"),
-      //        ("frog")
-      //      )
-      //      val sourceRDD: RDD[String] = sc.parallelize(sourceData)
-      //
-      //      val actualRDD: RDD[Int] = sourceRDD.map { l => l.length }
-      //
-      //      val expectedData = List(
-      //        (3),
-      //        (3),
-      //        (4)
-      //      )
-      //      val expectedRDD: RDD[Int] = sc.parallelize(expectedData)
-      //
-      //      assertRDDEquals(actualRDD, expectedRDD)
+      val actualRDD: RDD[Int] = sourceRDD.map { l => l.length }
+
+      val expectedData = List(
+        (3),
+        (3),
+        (4)
+      )
+      val expectedRDD: RDD[Int] = spark.sparkContext.parallelize(expectedData)
+
+      assertSmallRDDEquality(actualRDD, expectedRDD)
+
     }
 
   }
@@ -286,18 +277,17 @@ class RDDSpec extends FunSpec with SparkSessionTestWrapper {
 
     it("Randomly splits this RDD with the provided weights") {
 
-      pending
+      val xRDD = spark.sparkContext.parallelize(List.range(1, 101))
 
-      //      val xRDD = spark.sparkContext.parallelize(List.range(1, 101))
-      //
-      //      val splits = xRDD.randomSplit(Array(0.7, 0.3), seed = 4567)
-      //
-      //      val (trainingData, testData) = (splits(0), splits(1))
-      //
-      //      val trainingDataSize = trainingData.count()
-      //
-      //      //It doesn't split the data exactly 7:3
-      //      assert(trainingDataSize === 73)
+      val splits = xRDD.randomSplit(Array(0.7, 0.3), seed = 4567)
+
+      val (trainingData, testData) = (splits(0), splits(1))
+
+      val trainingDataSize = trainingData.count()
+
+      //It doesn't split the data exactly 7:3
+      assert(trainingDataSize > 70 && trainingDataSize < 75)
+
     }
 
   }
@@ -406,19 +396,22 @@ class RDDSpec extends FunSpec with SparkSessionTestWrapper {
 
     it("return key-value pairs with the first element in each RDD, second element in each RDD") {
 
-      pending
+      val xRDD = spark.sparkContext.parallelize(List(1, 2, 3))
 
-      //      val xRDD = sc.parallelize(List(1, 2, 3))
-      //
-      //      val yRDD = sc.parallelize(List("a", "b", "c"))
-      //
-      //      val actualRDD = xRDD.zip(yRDD)
-      //
-      //      val expectedRDD = sc.parallelize(
-      //        List((1, "a"), (2, "b"), (3, "c"))
-      //      )
-      //
-      //      assertRDDEquals(actualRDD, expectedRDD)
+      val yRDD = spark.sparkContext.parallelize(List("a", "b", "c"))
+
+      val actualRDD = xRDD.zip(yRDD)
+
+      val expectedRDD = spark.sparkContext.parallelize(
+        List(
+          (1, "a"),
+          (2, "b"),
+          (3, "c")
+        )
+      )
+
+      assertSmallRDDEquality(actualRDD, expectedRDD)
+
     }
 
   }

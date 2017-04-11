@@ -50,7 +50,7 @@ class DataFrameNaFunctionsSpec extends FunSpec with SparkSessionTestWrapper with
         StructType(expectedSchema)
       )
 
-      assertSmallDataFrameEquality(actualDF, expectedDF)
+      assertDataFrameEquality(actualDF, expectedDF)
 
     }
 
@@ -96,7 +96,7 @@ class DataFrameNaFunctionsSpec extends FunSpec with SparkSessionTestWrapper with
         StructType(expectedSchema)
       )
 
-      assertSmallDataFrameEquality(actualDF, expectedDF)
+      assertDataFrameEquality(actualDF, expectedDF)
 
     }
 

@@ -46,7 +46,7 @@ class RelationalGroupedDatasetSpec extends FunSpec with SparkSessionTestWrapper 
 
       val aRelationalGroupedDataSet = sourceDF.groupBy("position", "team")
       val actualDF = aRelationalGroupedDataSet.count
-      assertDataFrameEquality(expectedDF, actualDF)
+      assertSmallDataFrameEquality(expectedDF, actualDF)
 
     }
 

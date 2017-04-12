@@ -34,7 +34,7 @@ class DatasetSpec extends FunSpec with SparkSessionTestWrapper with DataFrameCom
         ("luisa")
       ).toDF("student")
 
-      assertDataFrameEquality(actualDF, expectedDF)
+      assertSmallDataFrameEquality(actualDF, expectedDF)
 
     }
 
@@ -62,7 +62,7 @@ class DatasetSpec extends FunSpec with SparkSessionTestWrapper with DataFrameCom
         ("luisa")
       ).toDF("student")
 
-      assertDataFrameEquality(actualDF, expectedDF)
+      assertSmallDataFrameEquality(actualDF, expectedDF)
 
     }
 
@@ -188,7 +188,7 @@ class DatasetSpec extends FunSpec with SparkSessionTestWrapper with DataFrameCom
         ("b", "2")
       ).toDF("letter", "number")
 
-      assertDataFrameEquality(actualDF, expectedDF)
+      assertSmallDataFrameEquality(actualDF, expectedDF)
 
     }
 
@@ -218,7 +218,7 @@ class DatasetSpec extends FunSpec with SparkSessionTestWrapper with DataFrameCom
         ("max", "8")
       ).toDF("summary", "num1")
 
-      assertDataFrameEquality(actualDF, expectedDF)
+      assertSmallDataFrameEquality(actualDF, expectedDF)
 
     }
 
@@ -239,7 +239,7 @@ class DatasetSpec extends FunSpec with SparkSessionTestWrapper with DataFrameCom
         ("max", "b")
       ).toDF("summary", "letter")
 
-      assertDataFrameEquality(actualDF, expectedDF)
+      assertSmallDataFrameEquality(actualDF, expectedDF)
 
     }
 
@@ -265,7 +265,7 @@ class DatasetSpec extends FunSpec with SparkSessionTestWrapper with DataFrameCom
         (8, 8)
       ).toDF("num1", "num2")
 
-      assertDataFrameEquality(actualDF, expectedDF)
+      assertSmallDataFrameEquality(actualDF, expectedDF)
 
     }
 
@@ -289,7 +289,7 @@ class DatasetSpec extends FunSpec with SparkSessionTestWrapper with DataFrameCom
         ("susy")
       ).toDF("person")
 
-      assertDataFrameEquality(actualDF, expectedDF)
+      assertSmallDataFrameEquality(actualDF, expectedDF)
 
     }
 
@@ -315,7 +315,7 @@ class DatasetSpec extends FunSpec with SparkSessionTestWrapper with DataFrameCom
         (8, 8)
       ).toDF("num1", "num2")
 
-      assertDataFrameEquality(actualDF, expectedDF)
+      assertSmallDataFrameEquality(actualDF, expectedDF)
 
     }
 
@@ -348,7 +348,7 @@ class DatasetSpec extends FunSpec with SparkSessionTestWrapper with DataFrameCom
         StructType(sourceSchema)
       )
 
-      assertDataFrameEquality(actualDF, expectedDF)
+      assertSmallDataFrameEquality(actualDF, expectedDF)
 
     }
 
@@ -400,7 +400,7 @@ class DatasetSpec extends FunSpec with SparkSessionTestWrapper with DataFrameCom
         (1, 2)
       ).toDF("num1", "num2")
 
-      assertDataFrameEquality(actualDF, expectedDF)
+      assertSmallDataFrameEquality(actualDF, expectedDF)
 
     }
 
@@ -428,7 +428,7 @@ class DatasetSpec extends FunSpec with SparkSessionTestWrapper with DataFrameCom
         (42)
       ).toDF("num1")
 
-      assertDataFrameEquality(actualDF, expectedDF)
+      assertSmallDataFrameEquality(actualDF, expectedDF)
 
     }
 
@@ -449,7 +449,7 @@ class DatasetSpec extends FunSpec with SparkSessionTestWrapper with DataFrameCom
         (42)
       ).toDF("num1")
 
-      assertDataFrameEquality(actualDF, expectedDF)
+      assertSmallDataFrameEquality(actualDF, expectedDF)
 
     }
 
@@ -472,7 +472,7 @@ class DatasetSpec extends FunSpec with SparkSessionTestWrapper with DataFrameCom
         (42)
       ).toDF("num1")
 
-      assertDataFrameEquality(actualDF, expectedDF)
+      assertSmallDataFrameEquality(actualDF, expectedDF)
 
     }
 
@@ -549,7 +549,7 @@ class DatasetSpec extends FunSpec with SparkSessionTestWrapper with DataFrameCom
         StructType(expectedSchema)
       )
 
-      assertDataFrameEquality(actualDF, expectedDF)
+      assertSmallDataFrameEquality(actualDF, expectedDF)
 
     }
 
@@ -638,7 +638,7 @@ class DatasetSpec extends FunSpec with SparkSessionTestWrapper with DataFrameCom
         (4, 5)
       ).toDF("num1", "num2")
 
-      assertDataFrameEquality(actualDF, expectedDF)
+      assertSmallDataFrameEquality(actualDF, expectedDF)
 
     }
 
@@ -682,7 +682,7 @@ class DatasetSpec extends FunSpec with SparkSessionTestWrapper with DataFrameCom
         ("susy", "3", "los angeles", "3")
       ).toDF("person", "id", "city", "person_id")
 
-      assertDataFrameEquality(actualDF, expectedDF)
+      assertSmallDataFrameEquality(actualDF, expectedDF)
 
     }
 
@@ -764,7 +764,7 @@ class DatasetSpec extends FunSpec with SparkSessionTestWrapper with DataFrameCom
         (true, "bangalore")
       ).toDF("have_visited", "city")
 
-      assertDataFrameEquality(actualDF, expectedDF)
+      assertSmallDataFrameEquality(actualDF, expectedDF)
 
     }
 
@@ -816,7 +816,7 @@ class DatasetSpec extends FunSpec with SparkSessionTestWrapper with DataFrameCom
         StructType(expectedSchema)
       )
 
-      assertDataFrameEquality(actualDF, expectedDF)
+      assertSmallDataFrameEquality(actualDF, expectedDF)
 
     }
 
@@ -846,7 +846,7 @@ class DatasetSpec extends FunSpec with SparkSessionTestWrapper with DataFrameCom
         99
       ).toDF("num1")
 
-      assertDataFrameEquality(actualDF, expectedDF)
+      assertSmallDataFrameEquality(actualDF, expectedDF)
 
     }
 
@@ -963,7 +963,7 @@ class DatasetSpec extends FunSpec with SparkSessionTestWrapper with DataFrameCom
         StructType(expectedSchema)
       )
 
-      assertDataFrameEquality(actualDF, expectedDF)
+      assertSmallDataFrameEquality(actualDF, expectedDF)
 
     }
 
@@ -1000,7 +1000,7 @@ class DatasetSpec extends FunSpec with SparkSessionTestWrapper with DataFrameCom
         StructType(expectedSchema)
       )
 
-      assertDataFrameEquality(actualDF, expectedDF)
+      assertSmallDataFrameEquality(actualDF, expectedDF)
 
     }
 
@@ -1141,7 +1141,7 @@ class DatasetSpec extends FunSpec with SparkSessionTestWrapper with DataFrameCom
 
       val expectedDF = Seq(1).toDF("bar")
 
-      assertDataFrameEquality(actualDF, expectedDF)
+      assertSmallDataFrameEquality(actualDF, expectedDF)
 
     }
 
@@ -1153,7 +1153,7 @@ class DatasetSpec extends FunSpec with SparkSessionTestWrapper with DataFrameCom
 
       val expectedDF = Seq(1).toDF("foo")
 
-      assertDataFrameEquality(actualDF, expectedDF)
+      assertSmallDataFrameEquality(actualDF, expectedDF)
 
     }
 

@@ -23,7 +23,7 @@ class BugsSpec extends FunSpec with SparkSessionTestWrapper with DataFrameCompar
 
       val expectedDF = Seq(1).toDF("bar")
 
-      assertDataFrameEquality(actualDF, expectedDF)
+      assertSmallDataFrameEquality(actualDF, expectedDF)
 
     }
 
@@ -55,7 +55,7 @@ class BugsSpec extends FunSpec with SparkSessionTestWrapper with DataFrameCompar
         StructType(expectedSchema)
       )
 
-      assertDataFrameEquality(actualDF, expectedDF)
+      assertSmallDataFrameEquality(actualDF, expectedDF)
 
     }
 

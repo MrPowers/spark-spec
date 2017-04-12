@@ -98,7 +98,7 @@ class SparkSessionSpec extends FunSpec with SparkSessionTestWrapper with DataFra
         StructType(expectedSchema)
       )
 
-      assertDataFrameEquality(actualDF, expectedDF)
+      assertSmallDataFrameEquality(actualDF, expectedDF)
 
     }
 

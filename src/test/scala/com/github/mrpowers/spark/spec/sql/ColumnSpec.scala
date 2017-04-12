@@ -32,7 +32,7 @@ class ColumnSpec extends FunSpec with SparkSessionTestWrapper with DataFrameComp
         ("bristol", 12)
       ).toDF("city", "num_people")
 
-      assertDataFrameEquality(actualDF, expectedDF)
+      assertSmallDataFrameEquality(actualDF, expectedDF)
 
     }
 
@@ -54,7 +54,7 @@ class ColumnSpec extends FunSpec with SparkSessionTestWrapper with DataFrameComp
         ("mary", true, true)
       ).toDF("name", "like_cheese", "is_tall")
 
-      assertDataFrameEquality(actualDF, expectedDF)
+      assertSmallDataFrameEquality(actualDF, expectedDF)
 
     }
 
@@ -83,7 +83,7 @@ class ColumnSpec extends FunSpec with SparkSessionTestWrapper with DataFrameComp
         ("bristol", 12)
       ).toDF("city", "num_people")
 
-      assertDataFrameEquality(actualDF, expectedDF)
+      assertSmallDataFrameEquality(actualDF, expectedDF)
 
     }
 
@@ -135,7 +135,7 @@ class ColumnSpec extends FunSpec with SparkSessionTestWrapper with DataFrameComp
         StructType(expectedSchema)
       )
 
-      assertDataFrameEquality(actualDF, expectedDF)
+      assertSmallDataFrameEquality(actualDF, expectedDF)
 
     }
   }
@@ -176,7 +176,7 @@ class ColumnSpec extends FunSpec with SparkSessionTestWrapper with DataFrameComp
         ("Scala is scalable and cool")
       ).toDF("text")
 
-      assertDataFrameEquality(actualDF, expectedDF)
+      assertSmallDataFrameEquality(actualDF, expectedDF)
 
     }
 
@@ -222,7 +222,7 @@ class ColumnSpec extends FunSpec with SparkSessionTestWrapper with DataFrameComp
         StructType(expectedSchema)
       )
 
-      assertDataFrameEquality(actualDF, expectedDF)
+      assertSmallDataFrameEquality(actualDF, expectedDF)
 
     }
 
@@ -248,7 +248,7 @@ class ColumnSpec extends FunSpec with SparkSessionTestWrapper with DataFrameComp
         ("D", "2000")
       ).toDF("id", "year")
 
-      assertDataFrameEquality(actualDF, expectedDF)
+      assertSmallDataFrameEquality(actualDF, expectedDF)
 
     }
 
@@ -296,7 +296,7 @@ class ColumnSpec extends FunSpec with SparkSessionTestWrapper with DataFrameComp
       ).toDF("some_date")
         .withColumn("some_date", $"some_date".cast("timestamp"))
 
-      assertDataFrameEquality(actualDF, expectedDF)
+      assertSmallDataFrameEquality(actualDF, expectedDF)
 
     }
 
@@ -328,7 +328,7 @@ class ColumnSpec extends FunSpec with SparkSessionTestWrapper with DataFrameComp
         ("E", "2012-09-09", "09")
       ).toDF("id", "birthday", "month")
 
-      assertDataFrameEquality(actualDF, expectedDF)
+      assertSmallDataFrameEquality(actualDF, expectedDF)
 
     }
 
@@ -353,7 +353,7 @@ class ColumnSpec extends FunSpec with SparkSessionTestWrapper with DataFrameComp
         (257)
       ).toDF("num1")
 
-      assertDataFrameEquality(actualDF, expectedDF)
+      assertSmallDataFrameEquality(actualDF, expectedDF)
 
     }
 
@@ -383,7 +383,7 @@ class ColumnSpec extends FunSpec with SparkSessionTestWrapper with DataFrameComp
         ("andrew")
       ).toDF("some_name")
 
-      assertDataFrameEquality(actualDF, expectedDF)
+      assertSmallDataFrameEquality(actualDF, expectedDF)
 
     }
 
@@ -446,7 +446,7 @@ class ColumnSpec extends FunSpec with SparkSessionTestWrapper with DataFrameComp
         StructType(expectedSchema)
       )
 
-      assertDataFrameEquality(actualDF, expectedDF)
+      assertSmallDataFrameEquality(actualDF, expectedDF)
 
     }
 
@@ -474,7 +474,7 @@ class ColumnSpec extends FunSpec with SparkSessionTestWrapper with DataFrameComp
         ("F", "2016")
       ).toDF("id", "year")
 
-      assertDataFrameEquality(actualDF, expectedDF)
+      assertSmallDataFrameEquality(actualDF, expectedDF)
 
     }
 
@@ -513,7 +513,7 @@ class ColumnSpec extends FunSpec with SparkSessionTestWrapper with DataFrameComp
         StructType(expectedSchema)
       )
 
-      assertDataFrameEquality(actualDF, expectedDF)
+      assertSmallDataFrameEquality(actualDF, expectedDF)
 
     }
 
@@ -572,7 +572,7 @@ class ColumnSpec extends FunSpec with SparkSessionTestWrapper with DataFrameComp
         StructType(expectedSchema)
       )
 
-      assertDataFrameEquality(actualDF, expectedDF)
+      assertSmallDataFrameEquality(actualDF, expectedDF)
 
     }
 
@@ -593,7 +593,7 @@ class ColumnSpec extends FunSpec with SparkSessionTestWrapper with DataFrameComp
         ("A", "bbbbba11111xy")
       ).toDF("id", "text")
 
-      assertDataFrameEquality(actualDF, expectedDF)
+      assertSmallDataFrameEquality(actualDF, expectedDF)
 
     }
 
@@ -636,7 +636,7 @@ class ColumnSpec extends FunSpec with SparkSessionTestWrapper with DataFrameComp
         StructType(expectedSchema)
       )
 
-      assertDataFrameEquality(actualDF, expectedDF)
+      assertSmallDataFrameEquality(actualDF, expectedDF)
 
     }
 

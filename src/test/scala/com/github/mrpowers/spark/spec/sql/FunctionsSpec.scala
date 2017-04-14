@@ -1442,8 +1442,8 @@ class FunctionsSpec extends FunSpec with SparkSessionTestWrapper with DataFrameC
   }
 
   describe("#substring") {
-
-    it("Slices a string, starts at position pos of length len.") {
+    
+     it("Slices a string, starts at position pos of length len.") {
 
       val wordsDF = Seq(
         ("Batman"),
@@ -1451,7 +1451,7 @@ class FunctionsSpec extends FunSpec with SparkSessionTestWrapper with DataFrameC
         ("pikachu")
       ).toDF("word")
 
-      val actualDF = wordsDF.withColumn("substring_word", substring(col("word"), 0, 3))
+      val actualDF = wordsDF.withColumn("substring_word", substring(col("word"), 0,3))
 
       val expectedDF = Seq(
         ("Batman", "Bat"),
@@ -1461,8 +1461,8 @@ class FunctionsSpec extends FunSpec with SparkSessionTestWrapper with DataFrameC
 
       assertDataFrameEquality(actualDF, expectedDF)
 
-    }
-
+    } 
+    
   }
 
   describe("#sum") {

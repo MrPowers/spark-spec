@@ -5,10 +5,13 @@ import org.apache.spark.sql.functions._
 import org.apache.spark.sql.Row
 import org.apache.spark.sql.types.{StructType, _}
 import com.github.mrpowers.spark.spec.SparkSessionTestWrapper
+import com.github.mrpowers.spark.fast.tests.{DataFrameComparer, RDDComparer}
 
-import com.github.mrpowers.spark.fast.tests.DataFrameComparer
-
-class DatasetSpec extends FunSpec with SparkSessionTestWrapper with DataFrameComparer {
+class DatasetSpec
+    extends FunSpec
+    with SparkSessionTestWrapper
+    with DataFrameComparer
+    with RDDComparer {
 
   import spark.implicits._
 
@@ -891,23 +894,21 @@ class DatasetSpec extends FunSpec with SparkSessionTestWrapper with DataFrameCom
 
     it("converts a DataFrame to a RDD") {
 
-      pending
+      val stuffDF = Seq(
+        "bag",
+        "shirt"
+      ).toDF("thing")
 
-      //      val stuffDF = Seq(
-      //        "bag",
-      //        "shirt"
-      //      ).toDF("thing")
-      //
-      //      val stuffRDD = stuffDF.rdd
-      //
-      //      val l: List[org.apache.spark.sql.Row] = List(
-      //        Row("bag"),
-      //        Row("shirt")
-      //      )
-      //
-      //      val expectedRDD = sc.parallelize(l)
-      //
-      //      assertRDDEquals(stuffRDD, expectedRDD)
+      val stuffRDD = stuffDF.rdd
+
+      val l: List[org.apache.spark.sql.Row] = List(
+        Row("bag"),
+        Row("shirt")
+      )
+
+      val expectedRDD = spark.sparkContext.parallelize(l)
+
+      assertSmallRDDEquality(stuffRDD, expectedRDD)
 
     }
 

@@ -29,3 +29,6 @@ sparkComponents ++= Seq("sql", "mllib")
 licenses := Seq("MIT" -> url("http://opensource.org/licenses/MIT"))
 
 credentials += Credentials(Path.userHome / ".ivy2" / ".sbtcredentials")
+
+fork in Test := true
+javaOptions ++= Seq("-Xms512M", "-Xmx2048M", "-XX:MaxPermSize=2048M", "-XX:+CMSClassUnloadingEnabled")

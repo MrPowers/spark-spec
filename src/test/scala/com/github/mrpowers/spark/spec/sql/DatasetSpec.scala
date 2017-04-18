@@ -2,7 +2,7 @@ package com.github.mrpowers.spark.spec.sql
 
 import org.scalatest._
 import org.apache.spark.sql.functions._
-import org.apache.spark.sql.Row
+import org.apache.spark.sql.{Column, Row}
 import org.apache.spark.sql.types.{StructType, _}
 import com.github.mrpowers.spark.spec.SparkSessionTestWrapper
 import com.github.mrpowers.spark.fast.tests.{DataFrameComparer, RDDComparer}
@@ -1061,7 +1061,45 @@ class DatasetSpec
   }
 
   describe("#sort") {
-    pending
+
+    it("sorts a DataFrame with one column") {
+
+      val sourceDF = Seq(
+        (5),
+        (1)
+      ).toDF("number")
+
+      val actualDF = sourceDF.sort("number")
+
+      val expectedDF = Seq(
+        (1),
+        (5)
+      ).toDF("number")
+
+      assertSmallDataFrameEquality(actualDF, expectedDF)
+
+    }
+
+    it("sorts a DataFrame with multiple columns") {
+
+      val sourceDF = Seq(
+        (5, "bob"),
+        (1, "phil"),
+        (5, "anne")
+      ).toDF("number", "name")
+
+      val cols: List[Column] = List(col("number"), col("name"))
+      val actualDF = sourceDF.sort(cols: _*)
+
+      val expectedDF = Seq(
+        (1, "phil"),
+        (5, "anne"),
+        (5, "bob")
+      ).toDF("number", "name")
+
+      assertSmallDataFrameEquality(actualDF, expectedDF)
+
+    }
   }
 
   describe("#sortWithinPartitions") {

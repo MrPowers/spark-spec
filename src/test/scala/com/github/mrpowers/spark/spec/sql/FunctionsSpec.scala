@@ -1324,7 +1324,31 @@ class FunctionsSpec extends FunSpec with SparkSessionTestWrapper with DataFrameC
   }
 
   describe("#rtrim") {
-    pending
+
+    it("trims the spaces from right end for the specified string value") {
+
+      val wordsDF = Seq(
+        ("nice   "),
+        ("cat"),
+        (null),
+        ("  person         ")
+      ).toDF("word1")
+
+      val actualDF = wordsDF.withColumn(
+        "rtrim_column", rtrim(col("word1"))
+      )
+
+      val expectedDF = Seq(
+        ("nice   ", "nice"),
+        ("cat", "cat"),
+        (null, null),
+        ("  person         ", "  person")
+      ).toDF("word1", "rtrim_column")
+
+      assertSmallDataFrameEquality(actualDF, expectedDF)
+
+    }
+
   }
 
   describe("#second") {

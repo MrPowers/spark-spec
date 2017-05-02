@@ -332,7 +332,43 @@ class FunctionsSpec extends FunSpec with SparkSessionTestWrapper with DataFrameC
   }
 
   describe("#avg") {
-    pending
+    it("Computes the average(an average is the sum of a list of numbers divided by the number of numbers in the list) of a column skipping the null values") {
+
+      val sourceSchema = List(
+        StructField("Double", DoubleType, true)
+      )
+      val sourceData = Seq(
+        Row(7.793357934),
+        Row(167.7902098),
+        Row(-26.26209048),
+        Row(113.8381503),
+        Row(18.01957295),
+        Row(-7.266169154),
+        Row(10.20120724),
+        Row(-658.5405405),
+        Row(-6.702617801),
+        Row(35.99217221),
+        Row(0.0),
+        Row(null)
+      )
+      val sourceDF = spark.createDataFrame(
+        spark.sparkContext.parallelize(sourceData),
+        StructType(sourceSchema)
+      )
+
+      val expectedData = Seq(Row(-31.37606795463637))
+      val expectedSchema = List(
+        StructField("average", DoubleType, true)
+      )
+      val expectedDF = spark.createDataFrame(
+        spark.sparkContext.parallelize(expectedData),
+        StructType(expectedSchema)
+      )
+
+      val actualDF = sourceDF.agg(avg("Double").as("average"))
+
+      assertSmallDataFrameEquality(actualDF, expectedDF)
+    }
   }
 
   describe("#base64") {

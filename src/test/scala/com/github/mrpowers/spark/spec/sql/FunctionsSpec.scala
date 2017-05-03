@@ -1,13 +1,12 @@
 package com.github.mrpowers.spark.spec.sql
 
-import org.scalatest._
-import org.apache.spark.sql.functions._
-import org.apache.spark.sql.Row
-import org.apache.spark.sql.types.{StructType, _}
-
-import com.github.mrpowers.spark.spec.SparkSessionTestWrapper
-
 import com.github.mrpowers.spark.fast.tests.DataFrameComparer
+import com.github.mrpowers.spark.models._
+import com.github.mrpowers.spark.spec.SparkSessionTestWrapper
+import org.apache.spark.sql.Row
+import org.apache.spark.sql.functions._
+import org.apache.spark.sql.types.{StructType, _}
+import org.scalatest._
 
 class FunctionsSpec extends FunSpec with SparkSessionTestWrapper with DataFrameComparer {
 
@@ -1526,7 +1525,24 @@ class FunctionsSpec extends FunSpec with SparkSessionTestWrapper with DataFrameC
   }
 
   describe("#sum") {
-    pending
+    describe("(when column has only null values)") {
+      it("returns null") {
+        val sourceDF = Seq(SumNumericInput(None), SumNumericInput(None)).toDF
+        val actualDF = sourceDF.agg(sum("colA") as "sum")
+        val expectedDF = Seq(SumNumericOutput(None)).toDF
+
+        assertSmallDataFrameEquality(actualDF, expectedDF)
+      }
+    }
+    describe("(when column has at-least one non null value)") {
+      it("returns the sum of a real numbers") {
+        val sourceDF = Seq(SumNumericInput(Some(200.50)), SumNumericInput(Some(-10.0)), SumNumericInput(Some(10)), SumNumericInput(Some(-30)), SumNumericInput(None)).toDF
+        val actualDF = sourceDF.agg(sum("colA") as "sum")
+        val expectedDF = Seq(SumNumericOutput(Some(170.5))).toDF
+
+        assertSmallDataFrameEquality(actualDF, expectedDF)
+      }
+    }
   }
 
   describe("#sumDistinct") {

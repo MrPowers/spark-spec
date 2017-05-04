@@ -1,11 +1,12 @@
 package com.github.mrpowers.spark.spec.sql
 
-import org.scalatest._
-import org.apache.spark.sql.functions._
-import org.apache.spark.sql.{Column, Row}
-import org.apache.spark.sql.types.{StructType, _}
-import com.github.mrpowers.spark.spec.SparkSessionTestWrapper
 import com.github.mrpowers.spark.fast.tests.{DataFrameComparer, RDDComparer}
+import com.github.mrpowers.spark.models._
+import com.github.mrpowers.spark.spec.SparkSessionTestWrapper
+import org.apache.spark.sql.functions._
+import org.apache.spark.sql.types.{StructType, _}
+import org.apache.spark.sql.{Column, Row}
+import org.scalatest._
 
 class DatasetSpec
     extends FunSpec
@@ -1155,7 +1156,16 @@ class DatasetSpec
   }
 
   describe("#union") {
-    pending
+    it("combines entries of datasets with same schema") {
+      val juniorParticipants = Seq(UnionAnyInput("Alice Jr", 12, Some("Good game")), UnionAnyInput("Bob Jr", 17, None)).toDS
+      val seniorParticipants = Seq(UnionAnyInput("Alice Sr", 52, Some("Good Play")), UnionAnyInput("Bob Sr", 47, None)).toDS
+
+      val actualDS = juniorParticipants.union(seniorParticipants)
+
+      val expectedDS = Seq(UnionAnyOutput("Alice Jr", 12, Some("Good game")), UnionAnyOutput("Bob Jr", 17, None), UnionAnyOutput("Alice Sr", 52, Some("Good Play")), UnionAnyOutput("Bob Sr", 47, None)).toDS
+
+      assertSmallDataFrameEquality(actualDS.toDF, expectedDS.toDF)
+    }
   }
 
   describe("#unpersist") {

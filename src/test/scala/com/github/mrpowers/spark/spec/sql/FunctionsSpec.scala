@@ -618,8 +618,25 @@ class FunctionsSpec extends FunSpec with SparkSessionTestWrapper with DataFrameC
   }
 
   describe("#count") {
-    pending
+    it("Returns the number of rows in the DataFrame.") {
+
+      val expectedCount=5
+      val sourceDF = Seq(
+        ("Spotlight", 2015),
+        ("Birdman", 2014),
+        ("12 Years a Slave", 2013),
+        ("Argo", 2012),
+        ("Argo", 2012)
+      ).toDF("movie", "year")
+
+      val rowCount=sourceDF.count;
+
+      assert(rowCount,expectedCount)
+      // assertSmallDataFrameEquality(cnt, expectedCount)
+
+    }
   }
+
 
   describe("#countDistinct") {
 

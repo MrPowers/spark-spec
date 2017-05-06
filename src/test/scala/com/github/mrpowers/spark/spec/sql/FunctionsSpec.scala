@@ -632,7 +632,6 @@ class FunctionsSpec extends FunSpec with SparkSessionTestWrapper with DataFrameC
       val rowCount=sourceDF.count;
 
       assert(rowCount,expectedCount)
-      // assertSmallDataFrameEquality(cnt, expectedCount)
 
     }
   }

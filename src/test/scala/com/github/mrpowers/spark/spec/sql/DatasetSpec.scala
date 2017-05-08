@@ -5,7 +5,7 @@ import com.github.mrpowers.spark.models._
 import com.github.mrpowers.spark.spec.SparkSessionTestWrapper
 import org.apache.spark.sql.functions._
 import org.apache.spark.sql.types.{StructType, _}
-import org.apache.spark.sql.{Column, Row}
+import org.apache.spark.sql.{Column, Dataset, Row}
 import org.scalatest._
 import com.github.mrpowers.spark.daria.sql.SparkSessionExt._
 
@@ -1156,7 +1156,15 @@ class DatasetSpec
   }
 
   describe("#where") {
-    pending
+    it("filters rows using sql expression") {
+      val sourceDF : Dataset[WhereAny] = Seq(WhereAny("Alice", 12), WhereAny("Bob", 42),WhereAny("Cody", 10), WhereAny("Dane", 50)).toDS
+
+      val actualDF : Dataset[WhereAny] = sourceDF.where("age BETWEEN 18 AND 45")
+
+      val expectedDF : Dataset[WhereAny] = Seq(WhereAny("Bob", 42)).toDS
+
+      assertSmallDataFrameEquality(actualDF.toDF, expectedDF.toDF)
+    }
   }
 
   describe("#withColumn") {

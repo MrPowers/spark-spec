@@ -7,6 +7,7 @@ import org.apache.spark.sql.functions._
 import org.apache.spark.sql.types.{StructType, _}
 import org.apache.spark.sql.{Column, Row}
 import org.scalatest._
+import com.github.mrpowers.spark.daria.sql.SparkSessionExt._
 
 class DatasetSpec
     extends FunSpec
@@ -538,19 +539,14 @@ class DatasetSpec
 
       val actualDF = playersDF.groupBy("team").sum("score")
 
-      val expectedData = List(
-        Row("boston", 5.toLong),
-        Row("detroit", 50.toLong)
-      )
-
-      val expectedSchema = List(
-        StructField("team", StringType, true),
-        StructField("sum(score)", LongType, true)
-      )
-
-      val expectedDF = spark.createDataFrame(
-        spark.sparkContext.parallelize(expectedData),
-        StructType(expectedSchema)
+      val expectedDF = spark.createDF(
+        List(
+          Row("boston", 5.toLong),
+          Row("detroit", 50.toLong)
+        ), List(
+          StructField("team", StringType, true),
+          StructField("sum(score)", LongType, true)
+        )
       )
 
       assertSmallDataFrameEquality(actualDF, expectedDF)

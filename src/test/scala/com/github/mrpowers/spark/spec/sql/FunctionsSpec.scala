@@ -620,7 +620,7 @@ class FunctionsSpec extends FunSpec with SparkSessionTestWrapper with DataFrameC
   describe("#count") {
     it("Returns the number of rows in the DataFrame.") {
 
-      val expectedCount=5
+      val expectedCount = 5
       val sourceDF = Seq(
         ("Spotlight", 2015),
         ("Birdman", 2014),
@@ -629,13 +629,12 @@ class FunctionsSpec extends FunSpec with SparkSessionTestWrapper with DataFrameC
         ("Argo", 2012)
       ).toDF("movie", "year")
 
-      val rowCount=sourceDF.count;
+      val rowCount = sourceDF.count;
 
-      assert(rowCount,expectedCount)
+      assert(rowCount, expectedCount)
 
     }
   }
-
 
   describe("#countDistinct") {
 

@@ -2,6 +2,8 @@
 
 A test suite to document the behavior of the Spark engine.
 
+[![Build Status](https://travis-ci.org/snithish/spark-spec.svg?branch=master)](https://travis-ci.org/snithish/spark-spec)
+
 ## Goals
 
 1. Augment the official documentation with working code snippets.

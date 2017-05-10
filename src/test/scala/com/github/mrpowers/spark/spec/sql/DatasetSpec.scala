@@ -491,6 +491,16 @@ class DatasetSpec
 
     }
 
+    it("returns a new dataset using scala like filter") {
+      val sourceDS = Seq(Person("Alice", 29), Person("Bob", 17)).toDS
+
+      val actualDS = sourceDS.filter(x => x.age > 18) // Compile time type check: as x.name > 18 would fail
+
+      val expectedDS = Seq(Person("Alice", 29)).toDS
+
+      assertSmallDataFrameEquality(actualDS.toDF, expectedDS.toDF)
+    }
+
   }
 
   describe("#first") {

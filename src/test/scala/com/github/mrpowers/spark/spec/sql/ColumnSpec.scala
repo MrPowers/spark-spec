@@ -4,6 +4,7 @@ import org.scalatest._
 import org.apache.spark.sql.functions._
 import org.apache.spark.sql.Row
 import org.apache.spark.sql.types.{StructType, _}
+import com.github.mrpowers.spark.daria.sql.SparkSessionExt._
 
 import com.github.mrpowers.spark.spec.SparkSessionTestWrapper
 
@@ -145,7 +146,37 @@ class ColumnSpec extends FunSpec with SparkSessionTestWrapper with DataFrameComp
   }
 
   describe("#between") {
-    pending
+
+    it("finds the values between a lower and upper bound") {
+
+      val sourceDF = Seq(
+        (10),
+        (3),
+        (4),
+        (22)
+      ).toDF("num1")
+
+      val actualDF = sourceDF.withColumn(
+        "between_2_and_8",
+        col("num1").between(2, 8)
+      )
+
+      val expectedDF = spark.createDF(
+        List(
+          Row(10, false),
+          Row(3, true),
+          Row(4, true),
+          Row(22, false)
+        ), List(
+          StructField("num1", IntegerType, false),
+          StructField("between_2_and_8", BooleanType, false)
+        )
+      )
+
+      assertSmallDataFrameEquality(actualDF, expectedDF)
+
+    }
+
   }
 
   describe("#bitwiseAND") {

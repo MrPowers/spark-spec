@@ -910,20 +910,15 @@ class DatasetSpec
 
       val actualDF = sourceData.rollup(col("group")).sum().withColumnRenamed("sum(money)", "money").orderBy(col("group"))
 
-      val expectedData = List(
-        Row(null, 9000L),
-        Row("A", 3000L),
-        Row("B", 6000L)
-      )
-
-      val expectedSchema = List(
-        StructField("group", StringType, true),
-        StructField("money", LongType, true)
-      )
-
-      val expectedDF = spark.createDataFrame(
-        spark.sparkContext.parallelize(expectedData),
-        StructType(expectedSchema)
+      val expectedDF = spark.createDF(
+        List(
+          Row(null, 9000L),
+          Row("A", 3000L),
+          Row("B", 6000L)
+        ), List(
+          StructField("group", StringType, true),
+          StructField("money", LongType, true)
+        )
       )
 
       assertSmallDataFrameEquality(actualDF, expectedDF)
@@ -943,24 +938,19 @@ class DatasetSpec
 
       val actualDF = df.rollup($"x", $"y").count()
 
-      val expectedData = List(
-        Row("bar", 2, 2L),
-        Row(null, null, 4L),
-        Row("foo", 1, 1L),
-        Row("foo", 2, 1L),
-        Row("foo", null, 2L),
-        Row("bar", null, 2L)
-      )
-
-      val expectedSchema = List(
-        StructField("x", StringType, true),
-        StructField("y", IntegerType, true),
-        StructField("count", LongType, false)
-      )
-
-      val expectedDF = spark.createDataFrame(
-        spark.sparkContext.parallelize(expectedData),
-        StructType(expectedSchema)
+      val expectedDF = spark.createDF(
+        List(
+          Row("bar", 2, 2L),
+          Row(null, null, 4L),
+          Row("foo", 1, 1L),
+          Row("foo", 2, 1L),
+          Row("foo", null, 2L),
+          Row("bar", null, 2L)
+        ), List(
+          StructField("x", StringType, true),
+          StructField("y", IntegerType, true),
+          StructField("count", LongType, false)
+        )
       )
 
       assertSmallDataFrameEquality(actualDF, expectedDF)

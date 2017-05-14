@@ -10,7 +10,10 @@ import com.github.mrpowers.spark.spec.SparkSessionTestWrapper
 
 import com.github.mrpowers.spark.fast.tests.DataFrameComparer
 
-class ColumnSpec extends FunSpec with SparkSessionTestWrapper with DataFrameComparer {
+class ColumnSpec
+    extends FunSpec
+    with SparkSessionTestWrapper
+    with DataFrameComparer {
 
   import spark.implicits._
 

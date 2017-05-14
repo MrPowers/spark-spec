@@ -100,18 +100,13 @@ class DatasetSpec
       val row1 = Row("cat")
       val row2 = Row("dog")
 
-      val sourceData = List(
-        row1,
-        row2
-      )
-
-      val sourceSchema = List(
-        StructField("animal", StringType, true)
-      )
-
-      val sourceDF = spark.createDataFrame(
-        spark.sparkContext.parallelize(sourceData),
-        StructType(sourceSchema)
+      val sourceDF = spark.createDF(
+        List(
+          row1,
+          row2
+        ), List(
+          StructField("animal", StringType, true)
+        )
       )
 
       val s = sourceDF.collect()
@@ -326,7 +321,7 @@ class DatasetSpec
 
     it("drops duplicate rows based on certain columns") {
 
-      val numbersDF = Seq(
+      val sourceDF = Seq(
         (1, 2, 100),
         (8, 8, 100),
         (1, 2, 200),
@@ -334,23 +329,18 @@ class DatasetSpec
         (8, 8, 50)
       ).toDF("num1", "num2", "num3")
 
-      val actualDF = numbersDF.dropDuplicates("num1", "num2")
+      val actualDF = sourceDF.dropDuplicates("num1", "num2")
 
-      val sourceData = List(
-        Row(1, 2, 100),
-        Row(5, 6, 7),
-        Row(8, 8, 100)
-      )
-
-      val sourceSchema = List(
-        StructField("num1", IntegerType, false),
-        StructField("num2", IntegerType, false),
-        StructField("num3", IntegerType, true)
-      )
-
-      val expectedDF = spark.createDataFrame(
-        spark.sparkContext.parallelize(sourceData),
-        StructType(sourceSchema)
+      val expectedDF = spark.createDF(
+        List(
+          Row(1, 2, 100),
+          Row(5, 6, 7),
+          Row(8, 8, 100)
+        ), List(
+          StructField("num1", IntegerType, false),
+          StructField("num2", IntegerType, false),
+          StructField("num3", IntegerType, true)
+        )
       )
 
       assertSmallDataFrameEquality(actualDF, expectedDF)
@@ -490,18 +480,13 @@ class DatasetSpec
       val row1 = Row("doug")
       val row2 = Row("patty")
 
-      val sourceData = List(
-        row1,
-        row2
-      )
-
-      val sourceSchema = List(
-        StructField("character", StringType, true)
-      )
-
-      val sourceDF = spark.createDataFrame(
-        spark.sparkContext.parallelize(sourceData),
-        StructType(sourceSchema)
+      val sourceDF = spark.createDF(
+        List(
+          row1,
+          row2
+        ), List(
+          StructField("character", StringType, true)
+        )
       )
 
       assert(sourceDF.first() === row1)
@@ -566,18 +551,13 @@ class DatasetSpec
       val row1 = Row("doug")
       val row2 = Row("patty")
 
-      val sourceData = List(
-        row1,
-        row2
-      )
-
-      val sourceSchema = List(
-        StructField("character", StringType, true)
-      )
-
-      val sourceDF = spark.createDataFrame(
-        spark.sparkContext.parallelize(sourceData),
-        StructType(sourceSchema)
+      val sourceDF = spark.createDF(
+        List(
+          row1,
+          row2
+        ), List(
+          StructField("character", StringType, true)
+        )
       )
 
       assert(sourceDF.head() === row1)
@@ -590,18 +570,13 @@ class DatasetSpec
       val row2 = Row("patty")
       val row3 = Row("frank")
 
-      val sourceData = List(
-        row1,
-        row2
-      )
-
-      val sourceSchema = List(
-        StructField("character", StringType, true)
-      )
-
-      val sourceDF = spark.createDataFrame(
-        spark.sparkContext.parallelize(sourceData),
-        StructType(sourceSchema)
+      val sourceDF = spark.createDF(
+        List(
+          row1,
+          row2
+        ), List(
+          StructField("character", StringType, true)
+        )
       )
 
       assert(sourceDF.head(2) === Array(row1, row2))
@@ -782,38 +757,28 @@ class DatasetSpec
 
     it("provides functionality for working with missing data") {
 
-      val sourceData = List(
-        Row(null, "boston"),
-        Row(null, null),
-        Row(true, "bogota"),
-        Row(false, "dubai")
-      )
-
-      val sourceSchema = List(
-        StructField("have_visited", BooleanType, true),
-        StructField("city", StringType, true)
-      )
-
-      val sourceDF = spark.createDataFrame(
-        spark.sparkContext.parallelize(sourceData),
-        StructType(sourceSchema)
+      val sourceDF = spark.createDF(
+        List(
+          Row(null, "boston"),
+          Row(null, null),
+          Row(true, "bogota"),
+          Row(false, "dubai")
+        ), List(
+          StructField("have_visited", BooleanType, true),
+          StructField("city", StringType, true)
+        )
       )
 
       val actualDF = sourceDF.na.drop()
 
-      val expectedData = List(
-        Row(true, "bogota"),
-        Row(false, "dubai")
-      )
-
-      val expectedSchema = List(
-        StructField("have_visited", BooleanType, true),
-        StructField("city", StringType, true)
-      )
-
-      val expectedDF = spark.createDataFrame(
-        spark.sparkContext.parallelize(expectedData),
-        StructType(expectedSchema)
+      val expectedDF = spark.createDF(
+        List(
+          Row(true, "bogota"),
+          Row(false, "dubai")
+        ), List(
+          StructField("have_visited", BooleanType, true),
+          StructField("city", StringType, true)
+        )
       )
 
       assertSmallDataFrameEquality(actualDF, expectedDF)

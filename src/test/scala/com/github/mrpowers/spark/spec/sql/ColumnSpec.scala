@@ -94,46 +94,36 @@ class ColumnSpec extends FunSpec with SparkSessionTestWrapper with DataFrameComp
 
     it("sorts a column in ascending order with the null values first") {
 
-      val sourceData = Seq(
-        Row(null, null),
-        Row("gary", 42),
-        Row("bristol", 12),
-        Row("frank", 60),
-        Row("abdul", 14),
-        Row(null, 99)
-      )
-
-      val sourceSchema = List(
-        StructField("first_name", StringType, true),
-        StructField("age", IntegerType, true)
-      )
-
-      val sourceDF = spark.createDataFrame(
-        spark.sparkContext.parallelize(sourceData),
-        StructType(sourceSchema)
+      val sourceDF = spark.createDF(
+        List(
+          Row(null, null),
+          Row("gary", 42),
+          Row("bristol", 12),
+          Row("frank", 60),
+          Row("abdul", 14),
+          Row(null, 99)
+        ), List(
+          StructField("first_name", StringType, true),
+          StructField("age", IntegerType, true)
+        )
       )
 
       val actualDF = sourceDF.sort(
         asc_nulls_first("first_name")
       )
 
-      val expectedData = Seq(
-        Row(null, null),
-        Row(null, 99),
-        Row("abdul", 14),
-        Row("bristol", 12),
-        Row("frank", 60),
-        Row("gary", 42)
-      )
-
-      val expectedSchema = List(
-        StructField("first_name", StringType, true),
-        StructField("age", IntegerType, true)
-      )
-
-      val expectedDF = spark.createDataFrame(
-        spark.sparkContext.parallelize(expectedData),
-        StructType(expectedSchema)
+      val expectedDF = spark.createDF(
+        List(
+          Row(null, null),
+          Row(null, 99),
+          Row("abdul", 14),
+          Row("bristol", 12),
+          Row("frank", 60),
+          Row("gary", 42)
+        ), List(
+          StructField("first_name", StringType, true),
+          StructField("age", IntegerType, true)
+        )
       )
 
       assertSmallDataFrameEquality(actualDF, expectedDF)
@@ -237,20 +227,15 @@ class ColumnSpec extends FunSpec with SparkSessionTestWrapper with DataFrameComp
 
       val actualDF = sourceDF.withColumn("num2", col("num1").divide(3))
 
-      val expectedData = Seq(
-        Row(9, 3.0),
-        Row(3, 1.0),
-        Row(27, 9.0)
-      )
-
-      val expectedSchema = List(
-        StructField("num1", IntegerType, false),
-        StructField("num2", DoubleType, true)
-      )
-
-      val expectedDF = spark.createDataFrame(
-        spark.sparkContext.parallelize(expectedData),
-        StructType(expectedSchema)
+      val expectedDF = spark.createDF(
+        List(
+          Row(9, 3.0),
+          Row(3, 1.0),
+          Row(27, 9.0)
+        ), List(
+          StructField("num1", IntegerType, false),
+          StructField("num2", DoubleType, true)
+        )
       )
 
       assertSmallDataFrameEquality(actualDF, expectedDF)
@@ -460,21 +445,16 @@ class ColumnSpec extends FunSpec with SparkSessionTestWrapper with DataFrameComp
         sourceDF.col("num1").minus(55).as("num2")
       )
 
-      val expectedData = List(
-        Row(45, -10),
-        Row(79, 24),
-        Row(55, 0),
-        Row(124, 69)
-      )
-
-      val expectedSchema = List(
-        StructField("num1", IntegerType, false),
-        StructField("num2", IntegerType, false)
-      )
-
-      val expectedDF = spark.createDataFrame(
-        spark.sparkContext.parallelize(expectedData),
-        StructType(expectedSchema)
+      val expectedDF = spark.createDF(
+        List(
+          Row(45, -10),
+          Row(79, 24),
+          Row(55, 0),
+          Row(124, 69)
+        ), List(
+          StructField("num1", IntegerType, false),
+          StructField("num2", IntegerType, false)
+        )
       )
 
       assertSmallDataFrameEquality(actualDF, expectedDF)
@@ -527,21 +507,16 @@ class ColumnSpec extends FunSpec with SparkSessionTestWrapper with DataFrameComp
         sourceDF.col("num1").multiply(5).as("num2")
       )
 
-      val expectedData = List(
-        Row(7, 35),
-        Row(14, 70),
-        Row(23, 115),
-        Row(41, 205)
-      )
-
-      val expectedSchema = List(
-        StructField("num1", IntegerType, false),
-        StructField("num2", IntegerType, false)
-      )
-
-      val expectedDF = spark.createDataFrame(
-        spark.sparkContext.parallelize(expectedData),
-        StructType(expectedSchema)
+      val expectedDF = spark.createDF(
+        List(
+          Row(7, 35),
+          Row(14, 70),
+          Row(23, 115),
+          Row(41, 205)
+        ), List(
+          StructField("num1", IntegerType, false),
+          StructField("num2", IntegerType, false)
+        )
       )
 
       assertSmallDataFrameEquality(actualDF, expectedDF)
@@ -586,21 +561,17 @@ class ColumnSpec extends FunSpec with SparkSessionTestWrapper with DataFrameComp
         sourceDF.col("num1").plus(55).as("num2")
       )
 
-      val expectedData = List(
-        Row(45, 100),
-        Row(79, 134),
-        Row(0, 55),
-        Row(124, 179)
-      )
-
-      val expectedSchema = List(
-        StructField("num1", IntegerType, false),
-        StructField("num2", IntegerType, false)
-      )
-
-      val expectedDF = spark.createDataFrame(
-        spark.sparkContext.parallelize(expectedData),
-        StructType(expectedSchema)
+      val expectedDF = spark.createDF(
+        List(
+          Row(45, 100),
+          Row(79, 134),
+          Row(0, 55),
+          Row(124, 179)
+        ),
+        List(
+          StructField("num1", IntegerType, false),
+          StructField("num2", IntegerType, false)
+        )
       )
 
       assertSmallDataFrameEquality(actualDF, expectedDF)
@@ -650,21 +621,16 @@ class ColumnSpec extends FunSpec with SparkSessionTestWrapper with DataFrameComp
         sourceDF.col("word").substr(4, 3).as("word_part")
       )
 
-      val expectedData = List(
-        Row("mayflower", "flo"),
-        Row("nightshift", "hts"),
-        Row(null, null),
-        Row("lamplight", "pli")
-      )
-
-      val expectedSchema = List(
-        StructField("word", StringType, true),
-        StructField("word_part", StringType, true)
-      )
-
-      val expectedDF = spark.createDataFrame(
-        spark.sparkContext.parallelize(expectedData),
-        StructType(expectedSchema)
+      val expectedDF = spark.createDF(
+        List(
+          Row("mayflower", "flo"),
+          Row("nightshift", "hts"),
+          Row(null, null),
+          Row("lamplight", "pli")
+        ), List(
+          StructField("word", StringType, true),
+          StructField("word_part", StringType, true)
+        )
       )
 
       assertSmallDataFrameEquality(actualDF, expectedDF)

@@ -41,6 +41,12 @@ describe("#count") {
 }
 ```
 
+## Reading the Spark Documentation
+
+The [latest API documentation](http://spark.apache.org/docs/latest/api/scala/index.html#org.apache.spark.sql.Dataset) provides a searchable field, which is a great way to locate Spark classes in the package heirarchy.  This link also provides the best visualization of the public method signatures.
+
+The [Spark 2.1.0 documentation](https://spark.apache.org/docs/2.1.0/api/java/org/apache/spark/sql/functions.html) provides code snippets examples for certain public functions.
+
 ## Contribution
 
 We are actively looking for contributors to add tests for new methods and augment existing tests to cover edge cases.

@@ -525,37 +525,27 @@ class FunctionsSpec extends FunSpec with SparkSessionTestWrapper with DataFrameC
 
     it("calculates the cosine of the given value") {
 
-      val sourceData = List(
-        Row(1),
-        Row(2),
-        Row(3)
-      )
-
-      val sourceSchema = List(
-        StructField("num1", IntegerType, true)
-      )
-
-      val sourceDF = spark.createDataFrame(
-        spark.sparkContext.parallelize(sourceData),
-        StructType(sourceSchema)
+      val sourceDF = spark.createDF(
+        List(
+          Row(1),
+          Row(2),
+          Row(3)
+        ), List(
+          StructField("num1", IntegerType, true)
+        )
       )
 
       val actualDF = sourceDF.withColumn("i_am_scared", cos("num1"))
 
-      val expectedData = List(
-        Row(1, 0.5403023058681398),
-        Row(2, -0.4161468365471424),
-        Row(3, -0.9899924966004454)
-      )
-
-      val expectedSchema = List(
-        StructField("num1", IntegerType, true),
-        StructField("i_am_scared", DoubleType, true)
-      )
-
-      val expectedDF = spark.createDataFrame(
-        spark.sparkContext.parallelize(expectedData),
-        StructType(expectedSchema)
+      val expectedDF = spark.createDF(
+        List(
+          Row(1, 0.5403023058681398),
+          Row(2, -0.4161468365471424),
+          Row(3, -0.9899924966004454)
+        ), List(
+          StructField("num1", IntegerType, true),
+          StructField("i_am_scared", DoubleType, true)
+        )
       )
 
       assertSmallDataFrameEquality(actualDF, expectedDF)

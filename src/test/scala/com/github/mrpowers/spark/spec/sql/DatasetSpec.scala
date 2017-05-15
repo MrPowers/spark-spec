@@ -43,6 +43,26 @@ class DatasetSpec
 
     }
 
+    it("aliases a Dataset") {
+
+      val sourceDS = Seq(
+        Person("Alice Jr"),
+        Person("Bob Jr"),
+        Person("Alice Sr")
+      ).toDS
+
+      val actualDS = sourceDS.select(col("name").alias("student"))
+
+      val expectedDS = Seq(
+        Student("Alice Jr"),
+        Student("Bob Jr"),
+        Student("Alice Sr")
+      ).toDS
+
+      assertSmallDataFrameEquality(actualDS.toDF, expectedDS.toDF)
+
+    }
+
   }
 
   describe("#apply") {

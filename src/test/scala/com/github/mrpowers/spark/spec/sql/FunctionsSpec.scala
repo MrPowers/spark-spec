@@ -356,20 +356,15 @@ class FunctionsSpec extends FunSpec with SparkSessionTestWrapper with DataFrameC
 
       val actualDF = numbersDF.withColumn("upper", ceil(col("num1")))
 
-      val expectedData = List(
-        Row(1.5, 2L),
-        Row(-8.1, -8L),
-        Row(5.9, 6L)
-      )
-
-      val expectedSchema = List(
-        StructField("num1", DoubleType, false),
-        StructField("upper", LongType, true)
-      )
-
-      val expectedDF = spark.createDataFrame(
-        spark.sparkContext.parallelize(expectedData),
-        StructType(expectedSchema)
+      val expectedDF = spark.createDF(
+        List(
+          Row(1.5, 2L),
+          Row(-8.1, -8L),
+          Row(5.9, 6L)
+        ), List(
+          StructField("num1", DoubleType, false),
+          StructField("upper", LongType, true)
+        )
       )
 
       assertSmallDataFrameEquality(actualDF, expectedDF)

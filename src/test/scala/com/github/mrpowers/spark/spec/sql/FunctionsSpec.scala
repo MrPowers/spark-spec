@@ -577,19 +577,14 @@ class FunctionsSpec extends FunSpec with SparkSessionTestWrapper with DataFrameC
 
       val actualDF = sourceDF.groupBy($"id").agg(countDistinct($"foo") as "distinctCountFoo").orderBy($"id")
 
-      val expectedData = List(
-        Row("A", 3L),
-        Row("B", 2L)
-      )
-
-      val expectedSchema = List(
-        StructField("id", StringType, true),
-        StructField("distinctCountFoo", LongType, false)
-      )
-
-      val expectedDF = spark.createDataFrame(
-        spark.sparkContext.parallelize(expectedData),
-        StructType(expectedSchema)
+      val expectedDF = spark.createDF(
+        List(
+          Row("A", 3L),
+          Row("B", 2L)
+        ), List(
+          StructField("id", StringType, true),
+          StructField("distinctCountFoo", LongType, false)
+        )
       )
 
       assertSmallDataFrameEquality(actualDF, expectedDF)

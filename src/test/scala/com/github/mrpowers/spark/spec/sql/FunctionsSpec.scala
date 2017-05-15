@@ -52,42 +52,32 @@ class FunctionsSpec extends FunSpec with SparkSessionTestWrapper with DataFrameC
 
     it("calculates the cosine inverse of the given value") {
 
-      val sourceData = List(
-        Row(-1.0),
-        Row(-0.5),
-        Row(0.5),
-        Row(1.0)
+      val sourceDF = spark.createDF(
+        List(
+          Row(-1.0),
+          Row(-0.5),
+          Row(0.5),
+          Row(1.0)
+        ), List(
+          StructField("num1", DoubleType, false)
+        )
       )
 
-      val sourceSchema = List(
-        StructField("num1", DoubleType, false)
+      val actualDF = sourceDF.withColumn("acos_value", acos(col("num1")))
+
+      val expectedDF = spark.createDF(
+        List(
+          Row(-1.0, 3.141592653589793),
+          Row(-0.5, 2.0943951023931957),
+          Row(0.5, 1.0471975511965979),
+          Row(1.0, 0.0)
+        ), List(
+          StructField("num1", DoubleType, false),
+          StructField("acos_value", DoubleType, true)
+        )
       )
 
-      val sourceDf = spark.createDataFrame(
-        spark.sparkContext.parallelize(sourceData),
-        StructType(sourceSchema)
-      )
-
-      val actualDf = sourceDf.withColumn("acos_value", acos(col("num1")))
-
-      val expectedData = List(
-        Row(-1.0, 3.141592653589793),
-        Row(-0.5, 2.0943951023931957),
-        Row(0.5, 1.0471975511965979),
-        Row(1.0, 0.0)
-      )
-
-      val expectedSchema = List(
-        StructField("num1", DoubleType, false),
-        StructField("acos_value", DoubleType, true)
-      )
-
-      val expectedDf = spark.createDataFrame(
-        spark.sparkContext.parallelize(expectedData),
-        StructType(expectedSchema)
-      )
-
-      assertSmallDataFrameEquality(actualDf, expectedDf)
+      assertSmallDataFrameEquality(actualDF, expectedDF)
 
     }
 

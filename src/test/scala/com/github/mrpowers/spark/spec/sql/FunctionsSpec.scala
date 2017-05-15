@@ -17,20 +17,15 @@ class FunctionsSpec extends FunSpec with SparkSessionTestWrapper with DataFrameC
 
     it("calculates the absolute value") {
 
-      val sourceData = List(
-        Row(1),
-        Row(-8),
-        Row(-5),
-        Row(null)
-      )
-
-      val sourceSchema = List(
-        StructField("num1", IntegerType, true)
-      )
-
-      val sourceDF = spark.createDataFrame(
-        spark.sparkContext.parallelize(sourceData),
-        StructType(sourceSchema)
+      val sourceDF = spark.createDF(
+        List(
+          Row(1),
+          Row(-8),
+          Row(-5),
+          Row(null)
+        ), List(
+          StructField("num1", IntegerType, true)
+        )
       )
 
       val actualDF = sourceDF.withColumn("num1abs", abs(col("num1")))

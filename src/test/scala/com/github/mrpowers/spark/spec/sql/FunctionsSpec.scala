@@ -341,7 +341,32 @@ class FunctionsSpec extends FunSpec with SparkSessionTestWrapper with DataFrameC
   }
 
   describe("#cbrt") {
-    pending
+
+    it("computes the cube-root of the given value") {
+
+      val sourceDF = Seq(
+        (8),
+        (64),
+        (-27)
+      ).toDF("num1")
+
+      val actualDF = sourceDF.withColumn("cube_root", cbrt(col("num1")))
+
+      val expectedDF = spark.createDF(
+        List(
+          Row(8, 2.0),
+          Row(64, 4.0),
+          Row(-27, -3.0)
+        ), List(
+          StructField("num1", IntegerType, false),
+          StructField("cube_root", DoubleType, true)
+        )
+      )
+
+      assertSmallDataFrameEquality(actualDF, expectedDF)
+
+    }
+
   }
 
   describe("#ceil") {

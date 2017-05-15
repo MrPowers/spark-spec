@@ -777,24 +777,19 @@ class FunctionsSpec extends FunSpec with SparkSessionTestWrapper with DataFrameC
         StructType(inputSchema)
       )
 
-      val expectedSchema = List(
-        StructField("number", IntegerType, false),
-        StructField("result", LongType, true)
-      )
-
-      val expectedData = List(
-        Row(0, 1L),
-        Row(1, 1L),
-        Row(2, 2L),
-        Row(3, 6L),
-        Row(4, 24L),
-        Row(5, 120L),
-        Row(6, 720L)
-      )
-
-      val expectedDF = spark.createDataFrame(
-        spark.sparkContext.parallelize(expectedData),
-        StructType(expectedSchema)
+      val expectedDF = spark.createDF(
+        List(
+          Row(0, 1L),
+          Row(1, 1L),
+          Row(2, 2L),
+          Row(3, 6L),
+          Row(4, 24L),
+          Row(5, 120L),
+          Row(6, 720L)
+        ), List(
+          StructField("number", IntegerType, false),
+          StructField("result", LongType, true)
+        )
       )
 
       val actualDF = inputDF.withColumn("result", factorial(col("number")))

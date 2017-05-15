@@ -1,5 +1,6 @@
 package com.github.mrpowers.spark.spec.sql
 
+import org.apache.spark.sql.Encoders
 import org.apache.spark.sql.Row
 import org.apache.spark.sql.types.{StringType, StructField, StructType}
 import org.scalatest._
@@ -42,7 +43,25 @@ class SparkSessionSpec extends FunSpec with SparkSessionTestWrapper with DataFra
   }
 
   describe("#createDataset") {
-    pending
+
+    it("creates a Dataset from data and encoders") {
+
+      val data = Seq(
+        (("a", "b"), "c"),
+        (null, "d")
+      )
+
+      val encoders = Encoders.tuple(
+        Encoders.tuple(Encoders.STRING, Encoders.STRING),
+        Encoders.STRING
+      )
+
+      val ds = spark.createDataset(data)(encoders)
+
+      assert(ds.getClass().getName() === "org.apache.spark.sql.Dataset")
+
+    }
+
   }
 
   describe("#emptyDataFrame") {

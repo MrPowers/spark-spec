@@ -444,23 +444,18 @@ class FunctionsSpec extends FunSpec with SparkSessionTestWrapper with DataFrameC
         )
       )
 
-      val expectedData = List(
-        Row("banh", "mi", "banh_mi"),
-        Row("pho", "ga", "pho_ga"),
-        Row(null, "cheese", "cheese"), // null column will be omitted
-        Row("pizza", null, "pizza"), // null column will be omitted
-        Row(null, null, "") // all null columns give ""
-      )
-
-      val expectedSchema = List(
-        StructField("word1", StringType, true),
-        StructField("word2", StringType, true),
-        StructField("yummy", StringType, false)
-      )
-
-      val expectedDF = spark.createDataFrame(
-        spark.sparkContext.parallelize(expectedData),
-        StructType(expectedSchema)
+      val expectedDF = spark.createDF(
+        List(
+          Row("banh", "mi", "banh_mi"),
+          Row("pho", "ga", "pho_ga"),
+          Row(null, "cheese", "cheese"), // null column will be omitted
+          Row("pizza", null, "pizza"), // null column will be omitted
+          Row(null, null, "") // all null columns give ""
+        ), List(
+          StructField("word1", StringType, true),
+          StructField("word2", StringType, true),
+          StructField("yummy", StringType, false)
+        )
       )
 
       assertSmallDataFrameEquality(actualDF, expectedDF)

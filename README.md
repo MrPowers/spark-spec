@@ -2,7 +2,7 @@
 
 A test suite to document the behavior of the Spark engine.
 
-[![Build Status](https://travis-ci.org/snithish/spark-spec.svg?branch=master)](https://travis-ci.org/snithish/spark-spec)
+[![Build Status](https://travis-ci.org/MrPowers/spark-spec.svg?branch=master)](https://travis-ci.org/MrPowers/spark-spec)
 
 ## Goals
 

@@ -1156,15 +1156,26 @@ class DatasetSpec
   }
 
   describe("#where") {
+
     it("filters rows using sql expression") {
-      val sourceDF : Dataset[WhereAny] = Seq(WhereAny("Alice", 12), WhereAny("Bob", 42),WhereAny("Cody", 10), WhereAny("Dane", 50)).toDS
 
-      val actualDF : Dataset[WhereAny] = sourceDF.where("age BETWEEN 18 AND 45")
+      val sourceDF: Dataset[PersonWithAge] = Seq(
+        PersonWithAge("Alice", 12),
+        PersonWithAge("Bob", 42),
+        PersonWithAge("Cody", 10),
+        PersonWithAge("Dane", 50)
+      ).toDS
 
-      val expectedDF : Dataset[WhereAny] = Seq(WhereAny("Bob", 42)).toDS
+      val actualDF: Dataset[PersonWithAge] = sourceDF.where("age BETWEEN 18 AND 45")
+
+      val expectedDF: Dataset[PersonWithAge] = Seq(
+        PersonWithAge("Bob", 42)
+      ).toDS
 
       assertSmallDataFrameEquality(actualDF.toDF, expectedDF.toDF)
+
     }
+
   }
 
   describe("#withColumn") {

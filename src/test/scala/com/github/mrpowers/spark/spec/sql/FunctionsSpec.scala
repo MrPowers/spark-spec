@@ -199,36 +199,26 @@ class FunctionsSpec extends FunSpec with SparkSessionTestWrapper with DataFrameC
 
     it("sorts a DataFrame in ascending order") {
 
-      val sourceData = List(
-        Row(1),
-        Row(-8),
-        Row(-5)
-      )
-
-      val sourceSchema = List(
-        StructField("num1", IntegerType, true)
-      )
-
-      val sourceDF = spark.createDataFrame(
-        spark.sparkContext.parallelize(sourceData),
-        StructType(sourceSchema)
+      val sourceDF = spark.createDF(
+        List(
+          Row(1),
+          Row(-8),
+          Row(-5)
+        ), List(
+          StructField("num1", IntegerType, true)
+        )
       )
 
       val actualDF = sourceDF.sort(asc("num1"))
 
-      val expectedData = List(
-        Row(-8),
-        Row(-5),
-        Row(1)
-      )
-
-      val expectedSchema = List(
-        StructField("num1", IntegerType, true)
-      )
-
-      val expectedDF = spark.createDataFrame(
-        spark.sparkContext.parallelize(expectedData),
-        StructType(expectedSchema)
+      val expectedDF = spark.createDF(
+        List(
+          Row(-8),
+          Row(-5),
+          Row(1)
+        ), List(
+          StructField("num1", IntegerType, true)
+        )
       )
 
       assertSmallDataFrameEquality(actualDF, expectedDF)

@@ -951,20 +951,15 @@ class FunctionsSpec extends FunSpec with SparkSessionTestWrapper with DataFrameC
 
     it("returns the length of the column") {
 
-      val expectedSchema = List(
-        StructField("word", StringType, true),
-        StructField("length", IntegerType, true)
-      )
-
-      val expectedData = List(
-        Row("banh", 4),
-        Row("delilah", 7),
-        Row(null, null)
-      )
-
-      val expectedDF = spark.createDataFrame(
-        spark.sparkContext.parallelize(expectedData),
-        StructType(expectedSchema)
+      val expectedDF = spark.createDF(
+        List(
+          Row("banh", 4),
+          Row("delilah", 7),
+          Row(null, null)
+        ), List(
+          StructField("word", StringType, true),
+          StructField("length", IntegerType, true)
+        )
       )
 
       val wordsDF = Seq(

@@ -703,7 +703,39 @@ class FunctionsSpec extends FunSpec with SparkSessionTestWrapper with DataFrameC
   }
 
   describe("#desc_nulls_first") {
-    pending
+
+    it("sorts a DataFrame in a descendent order with null values first") {
+
+      val sourceDF = spark.createDF(
+        List(
+          Row(null),
+          Row(1),
+          Row(-8),
+          Row(null),
+          Row(-5)
+        ), List(
+          StructField("num1", IntegerType, true)
+        )
+      )
+
+      val actualDF = sourceDF.sort(desc_nulls_first("num1"))
+
+      val expectedDF = spark.createDF(
+        List(
+          Row(null),
+          Row(null),
+          Row(1),
+          Row(-5),
+          Row(-8)
+        ), List(
+          StructField("num1", IntegerType, true)
+        )
+      )
+
+      assertSmallDataFrameEquality(actualDF, expectedDF)
+
+    }
+
   }
 
   describe("#desc_nulls_last") {

@@ -3,10 +3,7 @@ cache:
   directories:
     - $HOME/.ivy2
     - $HOME/spark
-    - $HOME/.cache/pip
-    - $HOME/.pip-cache
     - $HOME/.sbt/launchers
 scala:
   - 2.11.8
-
 sudo: false

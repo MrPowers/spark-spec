@@ -704,7 +704,7 @@ class FunctionsSpec extends FunSpec with SparkSessionTestWrapper with DataFrameC
 
   describe("#desc_nulls_first") {
 
-    it("sorts a DataFrame in a descendent order with null values first") {
+    it("Returns a sort expression based on the descending order of the column, and null values appear before non-null values.") {
 
       val sourceDF = spark.createDF(
         List(

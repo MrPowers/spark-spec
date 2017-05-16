@@ -163,40 +163,30 @@ class FunctionsSpec extends FunSpec with SparkSessionTestWrapper with DataFrameC
 
     it("sorts a DataFrame with null values last") {
 
-      val sourceData = List(
-        Row(null),
-        Row(1),
-        Row(-8),
-        Row(null),
-        Row(-5)
-      )
-
-      val sourceSchema = List(
-        StructField("num1", IntegerType, true)
-      )
-
-      val sourceDF = spark.createDataFrame(
-        spark.sparkContext.parallelize(sourceData),
-        StructType(sourceSchema)
+      val sourceDF = spark.createDF(
+        List(
+          Row(null),
+          Row(1),
+          Row(-8),
+          Row(null),
+          Row(-5)
+        ), List(
+          StructField("num1", IntegerType, true)
+        )
       )
 
       val actualDF = sourceDF.sort(asc_nulls_last("num1"))
 
-      val expectedData = List(
-        Row(-8),
-        Row(-5),
-        Row(1),
-        Row(null),
-        Row(null)
-      )
-
-      val expectedSchema = List(
-        StructField("num1", IntegerType, true)
-      )
-
-      val expectedDF = spark.createDataFrame(
-        spark.sparkContext.parallelize(expectedData),
-        StructType(expectedSchema)
+      val expectedDF = spark.createDF(
+        List(
+          Row(-8),
+          Row(-5),
+          Row(1),
+          Row(null),
+          Row(null)
+        ), List(
+          StructField("num1", IntegerType, true)
+        )
       )
 
       assertSmallDataFrameEquality(actualDF, expectedDF)
@@ -209,36 +199,26 @@ class FunctionsSpec extends FunSpec with SparkSessionTestWrapper with DataFrameC
 
     it("sorts a DataFrame in ascending order") {
 
-      val sourceData = List(
-        Row(1),
-        Row(-8),
-        Row(-5)
-      )
-
-      val sourceSchema = List(
-        StructField("num1", IntegerType, true)
-      )
-
-      val sourceDF = spark.createDataFrame(
-        spark.sparkContext.parallelize(sourceData),
-        StructType(sourceSchema)
+      val sourceDF = spark.createDF(
+        List(
+          Row(1),
+          Row(-8),
+          Row(-5)
+        ), List(
+          StructField("num1", IntegerType, true)
+        )
       )
 
       val actualDF = sourceDF.sort(asc("num1"))
 
-      val expectedData = List(
-        Row(-8),
-        Row(-5),
-        Row(1)
-      )
-
-      val expectedSchema = List(
-        StructField("num1", IntegerType, true)
-      )
-
-      val expectedDF = spark.createDataFrame(
-        spark.sparkContext.parallelize(expectedData),
-        StructType(expectedSchema)
+      val expectedDF = spark.createDF(
+        List(
+          Row(-8),
+          Row(-5),
+          Row(1)
+        ), List(
+          StructField("num1", IntegerType, true)
+        )
       )
 
       assertSmallDataFrameEquality(actualDF, expectedDF)
@@ -263,24 +243,19 @@ class FunctionsSpec extends FunSpec with SparkSessionTestWrapper with DataFrameC
 
       val actualDF = sourceDF.withColumn("ASCII", ascii(col("Chr")))
 
-      val expectedData = List(
-        Row("A", 65),
-        Row("AB", 65),
-        Row("B", 66),
-        Row("C", 67),
-        Row("1", 49),
-        Row("2", 50),
-        Row("3", 51)
-      )
-
-      val expectedSchema = List(
-        StructField("Chr", StringType, true),
-        StructField("ASCII", IntegerType, true)
-      )
-
-      val expectedDF = spark.createDataFrame(
-        spark.sparkContext.parallelize(expectedData),
-        StructType(expectedSchema)
+      val expectedDF = spark.createDF(
+        List(
+          Row("A", 65),
+          Row("AB", 65),
+          Row("B", 66),
+          Row("C", 67),
+          Row("1", 49),
+          Row("2", 50),
+          Row("3", 51)
+        ), List(
+          StructField("Chr", StringType, true),
+          StructField("ASCII", IntegerType, true)
+        )
       )
 
       assertSmallDataFrameEquality(actualDF, expectedDF)
@@ -366,7 +341,32 @@ class FunctionsSpec extends FunSpec with SparkSessionTestWrapper with DataFrameC
   }
 
   describe("#cbrt") {
-    pending
+
+    it("computes the cube-root of the given value") {
+
+      val sourceDF = Seq(
+        (8),
+        (64),
+        (-27)
+      ).toDF("num1")
+
+      val actualDF = sourceDF.withColumn("cube_root", cbrt(col("num1")))
+
+      val expectedDF = spark.createDF(
+        List(
+          Row(8, 2.0),
+          Row(64, 4.0),
+          Row(-27, -3.0)
+        ), List(
+          StructField("num1", IntegerType, false),
+          StructField("cube_root", DoubleType, true)
+        )
+      )
+
+      assertSmallDataFrameEquality(actualDF, expectedDF)
+
+    }
+
   }
 
   describe("#ceil") {
@@ -381,20 +381,15 @@ class FunctionsSpec extends FunSpec with SparkSessionTestWrapper with DataFrameC
 
       val actualDF = numbersDF.withColumn("upper", ceil(col("num1")))
 
-      val expectedData = List(
-        Row(1.5, 2L),
-        Row(-8.1, -8L),
-        Row(5.9, 6L)
-      )
-
-      val expectedSchema = List(
-        StructField("num1", DoubleType, false),
-        StructField("upper", LongType, true)
-      )
-
-      val expectedDF = spark.createDataFrame(
-        spark.sparkContext.parallelize(expectedData),
-        StructType(expectedSchema)
+      val expectedDF = spark.createDF(
+        List(
+          Row(1.5, 2L),
+          Row(-8.1, -8L),
+          Row(5.9, 6L)
+        ), List(
+          StructField("num1", DoubleType, false),
+          StructField("upper", LongType, true)
+        )
       )
 
       assertSmallDataFrameEquality(actualDF, expectedDF)
@@ -474,23 +469,18 @@ class FunctionsSpec extends FunSpec with SparkSessionTestWrapper with DataFrameC
         )
       )
 
-      val expectedData = List(
-        Row("banh", "mi", "banh_mi"),
-        Row("pho", "ga", "pho_ga"),
-        Row(null, "cheese", "cheese"), // null column will be omitted
-        Row("pizza", null, "pizza"), // null column will be omitted
-        Row(null, null, "") // all null columns give ""
-      )
-
-      val expectedSchema = List(
-        StructField("word1", StringType, true),
-        StructField("word2", StringType, true),
-        StructField("yummy", StringType, false)
-      )
-
-      val expectedDF = spark.createDataFrame(
-        spark.sparkContext.parallelize(expectedData),
-        StructType(expectedSchema)
+      val expectedDF = spark.createDF(
+        List(
+          Row("banh", "mi", "banh_mi"),
+          Row("pho", "ga", "pho_ga"),
+          Row(null, "cheese", "cheese"), // null column will be omitted
+          Row("pizza", null, "pizza"), // null column will be omitted
+          Row(null, null, "") // all null columns give ""
+        ), List(
+          StructField("word1", StringType, true),
+          StructField("word2", StringType, true),
+          StructField("yummy", StringType, false)
+        )
       )
 
       assertSmallDataFrameEquality(actualDF, expectedDF)
@@ -545,37 +535,27 @@ class FunctionsSpec extends FunSpec with SparkSessionTestWrapper with DataFrameC
 
     it("calculates the cosine of the given value") {
 
-      val sourceData = List(
-        Row(1),
-        Row(2),
-        Row(3)
-      )
-
-      val sourceSchema = List(
-        StructField("num1", IntegerType, true)
-      )
-
-      val sourceDF = spark.createDataFrame(
-        spark.sparkContext.parallelize(sourceData),
-        StructType(sourceSchema)
+      val sourceDF = spark.createDF(
+        List(
+          Row(1),
+          Row(2),
+          Row(3)
+        ), List(
+          StructField("num1", IntegerType, true)
+        )
       )
 
       val actualDF = sourceDF.withColumn("i_am_scared", cos("num1"))
 
-      val expectedData = List(
-        Row(1, 0.5403023058681398),
-        Row(2, -0.4161468365471424),
-        Row(3, -0.9899924966004454)
-      )
-
-      val expectedSchema = List(
-        StructField("num1", IntegerType, true),
-        StructField("i_am_scared", DoubleType, true)
-      )
-
-      val expectedDF = spark.createDataFrame(
-        spark.sparkContext.parallelize(expectedData),
-        StructType(expectedSchema)
+      val expectedDF = spark.createDF(
+        List(
+          Row(1, 0.5403023058681398),
+          Row(2, -0.4161468365471424),
+          Row(3, -0.9899924966004454)
+        ), List(
+          StructField("num1", IntegerType, true),
+          StructField("i_am_scared", DoubleType, true)
+        )
       )
 
       assertSmallDataFrameEquality(actualDF, expectedDF)
@@ -622,19 +602,14 @@ class FunctionsSpec extends FunSpec with SparkSessionTestWrapper with DataFrameC
 
       val actualDF = sourceDF.groupBy($"id").agg(countDistinct($"foo") as "distinctCountFoo").orderBy($"id")
 
-      val expectedData = List(
-        Row("A", 3L),
-        Row("B", 2L)
-      )
-
-      val expectedSchema = List(
-        StructField("id", StringType, true),
-        StructField("distinctCountFoo", LongType, false)
-      )
-
-      val expectedDF = spark.createDataFrame(
-        spark.sparkContext.parallelize(expectedData),
-        StructType(expectedSchema)
+      val expectedDF = spark.createDF(
+        List(
+          Row("A", 3L),
+          Row("B", 2L)
+        ), List(
+          StructField("id", StringType, true),
+          StructField("distinctCountFoo", LongType, false)
+        )
       )
 
       assertSmallDataFrameEquality(actualDF, expectedDF)
@@ -739,36 +714,26 @@ class FunctionsSpec extends FunSpec with SparkSessionTestWrapper with DataFrameC
 
     it("sorts a column in descending order") {
 
-      val sourceData = List(
-        Row(1),
-        Row(-8),
-        Row(-5)
-      )
-
-      val sourceSchema = List(
-        StructField("num1", IntegerType, true)
-      )
-
-      val sourceDF = spark.createDataFrame(
-        spark.sparkContext.parallelize(sourceData),
-        StructType(sourceSchema)
+      val sourceDF = spark.createDF(
+        List(
+          Row(1),
+          Row(-8),
+          Row(-5)
+        ), List(
+          StructField("num1", IntegerType, true)
+        )
       )
 
       val actualDF = sourceDF.sort(desc("num1"))
 
-      val expectedData = List(
-        Row(1),
-        Row(-5),
-        Row(-8)
-      )
-
-      val expectedSchema = List(
-        StructField("num1", IntegerType, true)
-      )
-
-      val expectedDF = spark.createDataFrame(
-        spark.sparkContext.parallelize(expectedData),
-        StructType(expectedSchema)
+      val expectedDF = spark.createDF(
+        List(
+          Row(1),
+          Row(-5),
+          Row(-8)
+        ), List(
+          StructField("num1", IntegerType, true)
+        )
       )
 
       assertSmallDataFrameEquality(actualDF, expectedDF)
@@ -837,24 +802,19 @@ class FunctionsSpec extends FunSpec with SparkSessionTestWrapper with DataFrameC
         StructType(inputSchema)
       )
 
-      val expectedSchema = List(
-        StructField("number", IntegerType, false),
-        StructField("result", LongType, true)
-      )
-
-      val expectedData = List(
-        Row(0, 1L),
-        Row(1, 1L),
-        Row(2, 2L),
-        Row(3, 6L),
-        Row(4, 24L),
-        Row(5, 120L),
-        Row(6, 720L)
-      )
-
-      val expectedDF = spark.createDataFrame(
-        spark.sparkContext.parallelize(expectedData),
-        StructType(expectedSchema)
+      val expectedDF = spark.createDF(
+        List(
+          Row(0, 1L),
+          Row(1, 1L),
+          Row(2, 2L),
+          Row(3, 6L),
+          Row(4, 24L),
+          Row(5, 120L),
+          Row(6, 720L)
+        ), List(
+          StructField("number", IntegerType, false),
+          StructField("result", LongType, true)
+        )
       )
 
       val actualDF = inputDF.withColumn("result", factorial(col("number")))
@@ -1016,20 +976,15 @@ class FunctionsSpec extends FunSpec with SparkSessionTestWrapper with DataFrameC
 
     it("returns the length of the column") {
 
-      val expectedSchema = List(
-        StructField("word", StringType, true),
-        StructField("length", IntegerType, true)
-      )
-
-      val expectedData = List(
-        Row("banh", 4),
-        Row("delilah", 7),
-        Row(null, null)
-      )
-
-      val expectedDF = spark.createDataFrame(
-        spark.sparkContext.parallelize(expectedData),
-        StructType(expectedSchema)
+      val expectedDF = spark.createDF(
+        List(
+          Row("banh", 4),
+          Row("delilah", 7),
+          Row(null, null)
+        ), List(
+          StructField("word", StringType, true),
+          StructField("length", IntegerType, true)
+        )
       )
 
       val wordsDF = Seq(
@@ -1248,20 +1203,15 @@ class FunctionsSpec extends FunSpec with SparkSessionTestWrapper with DataFrameC
 
       val actualDF = numsDF.withColumn("power", pow(col("num"), 3))
 
-      val expectedData = List(
-        Row(2, 8.0),
-        Row(3, 27.0),
-        Row(1, 1.0)
-      )
-
-      val expectedSchema = List(
-        StructField("num", IntegerType, false),
-        StructField("power", DoubleType, false)
-      )
-
-      val expectedDF = spark.createDataFrame(
-        spark.sparkContext.parallelize(expectedData),
-        StructType(expectedSchema)
+      val expectedDF = spark.createDF(
+        List(
+          Row(2, 8.0),
+          Row(3, 27.0),
+          Row(1, 1.0)
+        ), List(
+          StructField("num", IntegerType, false),
+          StructField("power", DoubleType, false)
+        )
       )
 
       assertSmallDataFrameEquality(actualDF, expectedDF)
@@ -1444,20 +1394,15 @@ class FunctionsSpec extends FunSpec with SparkSessionTestWrapper with DataFrameC
 
       val sqrtDF = numsDF.withColumn("sqrt_num", sqrt(col("num1")))
 
-      val expectedData = List(
-        Row(49, 7.0),
-        Row(144, 12.0),
-        Row(89, 9.433981132056603)
-      )
-
-      val expectedSchema = List(
-        StructField("num1", IntegerType, false),
-        StructField("sqrt_num", DoubleType, true)
-      )
-
-      val expectedDF = spark.createDataFrame(
-        spark.sparkContext.parallelize(expectedData),
-        StructType(expectedSchema)
+      val expectedDF = spark.createDF(
+        List(
+          Row(49, 7.0),
+          Row(144, 12.0),
+          Row(89, 9.433981132056603)
+        ), List(
+          StructField("num1", IntegerType, false),
+          StructField("sqrt_num", DoubleType, true)
+        )
       )
 
       assertSmallDataFrameEquality(sqrtDF, expectedDF)

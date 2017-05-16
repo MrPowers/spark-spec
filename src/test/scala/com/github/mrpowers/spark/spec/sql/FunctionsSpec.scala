@@ -282,6 +282,7 @@ class FunctionsSpec extends FunSpec with SparkSessionTestWrapper with DataFrameC
       val sourceSchema = List(
         StructField("Double", DoubleType, true)
       )
+
       val sourceData = Seq(
         Row(7.793357934),
         Row(167.7902098),
@@ -296,6 +297,7 @@ class FunctionsSpec extends FunSpec with SparkSessionTestWrapper with DataFrameC
         Row(0.0),
         Row(null)
       )
+
       val sourceDF = spark.createDataFrame(
         spark.sparkContext.parallelize(sourceData),
         StructType(sourceSchema)
@@ -333,6 +335,40 @@ class FunctionsSpec extends FunSpec with SparkSessionTestWrapper with DataFrameC
   }
 
   describe("#bround") {
+
+    it("returns the value of the column e rounded to 0 decimal places with HALF_EVEN round mode") {
+
+      val sourceDF = spark.createDF(
+        List(
+          Row(8.1),
+          Row(64.8),
+          Row(3.5),
+          Row(-27.0),
+          Row(null)
+        ), List(
+          StructField("num1", DoubleType, true)
+        )
+      )
+
+      val actualDF = sourceDF.withColumn("brounded_num", bround(col("num1")))
+
+      val expectedDF = spark.createDF(
+        List(
+          Row(8.1, 8.0),
+          Row(64.8, 65.0),
+          Row(3.5, 4.0),
+          Row(-27.0, -27.0),
+          Row(null, null)
+        ), List(
+          StructField("num1", DoubleType, true),
+          StructField("brounded_num", DoubleType, true)
+        )
+      )
+
+      assertSmallDataFrameEquality(actualDF, expectedDF)
+
+    }
+
     pending
   }
 

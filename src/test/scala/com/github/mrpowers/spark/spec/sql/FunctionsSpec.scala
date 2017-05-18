@@ -887,16 +887,21 @@ class FunctionsSpec extends FunSpec with SparkSessionTestWrapper with DataFrameC
 
     it("calculates the product of an integer and all the integers below") {
 
-      val inputSchema = List(StructField("number", IntegerType, false))
-
-      val inputData = List(
-        Row(0), Row(1), Row(2), Row(3), Row(4), Row(5), Row(6)
+      val sourceDF = spark.createDF(
+        List(
+          Row(0),
+          Row(1),
+          Row(2),
+          Row(3),
+          Row(4),
+          Row(5),
+          Row(6)
+        ), List(
+          StructField("number", IntegerType, false)
+        )
       )
 
-      val inputDF = spark.createDataFrame(
-        spark.sparkContext.parallelize(inputData),
-        StructType(inputSchema)
-      )
+      val actualDF = sourceDF.withColumn("result", factorial(col("number")))
 
       val expectedDF = spark.createDF(
         List(
@@ -912,8 +917,6 @@ class FunctionsSpec extends FunSpec with SparkSessionTestWrapper with DataFrameC
           StructField("result", LongType, true)
         )
       )
-
-      val actualDF = inputDF.withColumn("result", factorial(col("number")))
 
       assertSmallDataFrameEquality(actualDF, expectedDF)
 

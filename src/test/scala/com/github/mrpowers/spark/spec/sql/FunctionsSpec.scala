@@ -1112,26 +1112,25 @@ class FunctionsSpec extends FunSpec with SparkSessionTestWrapper with DataFrameC
 
     it("returns index of first occurrence of search string") {
 
-      val wordsDF = Seq(
-        ("Spider-man"),
-        ("Batman")
-      ).toDF("word")
-
-      val actualDF = wordsDF.withColumn("short_word", locate("man", col("word")))
-
-      val expectedData = Seq(
-        Row("Spider-man", 8),
-        Row("Batman", 4)
+      val sourceDF = spark.createDF(
+        List(
+          Row("Spider-man"),
+          Row("Batman")
+        ), List(
+          StructField("word", StringType, true)
+        )
       )
 
-      val expectedSchema = List(
-        StructField("word", StringType, true),
-        StructField("short_word", IntegerType, true)
-      )
+      val actualDF = sourceDF.withColumn("short_word", locate("man", col("word")))
 
-      val expectedDF = spark.createDataFrame(
-        spark.sparkContext.parallelize(expectedData),
-        StructType(expectedSchema)
+      val expectedDF = spark.createDF(
+        List(
+          Row("Spider-man", 8),
+          Row("Batman", 4)
+        ), List(
+          StructField("word", StringType, true),
+          StructField("short_word", IntegerType, true)
+        )
       )
 
       assertSmallDataFrameEquality(actualDF, expectedDF)

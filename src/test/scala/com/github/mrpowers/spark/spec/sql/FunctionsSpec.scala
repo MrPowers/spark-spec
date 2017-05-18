@@ -1696,29 +1696,29 @@ class FunctionsSpec extends FunSpec with SparkSessionTestWrapper with DataFrameC
 
     it("extracts the year from a timestamp") {
 
-      val sourceDF = Seq(
-        ("1", "2016-01-01 00:00:00"),
-        ("2", "1970-12-01 00:00:00")
-      ).toDF("person_id", "birth_date")
-        .withColumn("birth_date", col("birth_date").cast("timestamp"))
+      val sourceDF = spark.createDF(
+        List(
+          Row("1", "2016-01-01 00:00:00"),
+          Row("2", "1970-12-01 00:00:00")
+        ), List(
+          StructField("person_id", StringType, true),
+          StructField("birth_date", StringType, true),
+          StructField("birth_year", IntegerType, true)
+        )
+      )
 
       val actualDF = sourceDF.withColumn("birth_year", year(col("birth_date")))
 
-      val expectedData = List(
-        Row("1", "2016-01-01 00:00:00", 2016),
-        Row("2", "1970-12-01 00:00:00", 1970)
+      val expectedDF = spark.createDF(
+        List(
+          Row("1", "2016-01-01 00:00:00", 2016),
+          Row("2", "1970-12-01 00:00:00", 1970)
+        ), List(
+          StructField("person_id", StringType, true),
+          StructField("birth_date", StringType, true),
+          StructField("birth_year", IntegerType, true)
+        )
       )
-
-      val expectedSchema = List(
-        StructField("person_id", StringType, true),
-        StructField("birth_date", StringType, true),
-        StructField("birth_year", IntegerType, true)
-      )
-
-      val expectedDF = spark.createDataFrame(
-        spark.sparkContext.parallelize(expectedData),
-        StructType(expectedSchema)
-      ).withColumn("birth_date", col("birth_date").cast("timestamp"))
 
       assertSmallDataFrameEquality(actualDF, expectedDF)
 
@@ -1726,29 +1726,29 @@ class FunctionsSpec extends FunSpec with SparkSessionTestWrapper with DataFrameC
 
     it("extracts the year from a date") {
 
-      val sourceDF = Seq(
-        ("1", "2016-01-01"),
-        ("2", "1970-12-01")
-      ).toDF("person_id", "birth_date")
-        .withColumn("birth_date", col("birth_date").cast("date"))
+      val sourceDF = spark.createDF(
+        List(
+          Row("1", "2016-01-01"),
+          Row("2", "1970-12-01")
+        ), List(
+          StructField("person_id", StringType, true),
+          StructField("birth_date", StringType, true),
+          StructField("birth_year", IntegerType, true)
+        )
+      )
 
       val actualDF = sourceDF.withColumn("birth_year", year(col("birth_date")))
 
-      val expectedData = List(
-        Row("1", "2016-01-01", 2016),
-        Row("2", "1970-12-01", 1970)
+      val expectedDF = spark.createDF(
+        List(
+          Row("1", "2016-01-01", 2016),
+          Row("2", "1970-12-01", 1970)
+        ), List(
+          StructField("person_id", StringType, true),
+          StructField("birth_date", StringType, true),
+          StructField("birth_year", IntegerType, true)
+        )
       )
-
-      val expectedSchema = List(
-        StructField("person_id", StringType, true),
-        StructField("birth_date", StringType, true),
-        StructField("birth_year", IntegerType, true)
-      )
-
-      val expectedDF = spark.createDataFrame(
-        spark.sparkContext.parallelize(expectedData),
-        StructType(expectedSchema)
-      ).withColumn("birth_date", col("birth_date").cast("date"))
 
       assertSmallDataFrameEquality(actualDF, expectedDF)
 

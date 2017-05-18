@@ -771,7 +771,39 @@ class FunctionsSpec extends FunSpec with SparkSessionTestWrapper with DataFrameC
   }
 
   describe("#desc_nulls_last") {
-    pending
+
+    it("Returns a sort expression based on the descending order of the column, and null values appear after non-null values.") {
+
+      val sourceDF = spark.createDF(
+        List(
+          Row(null),
+          Row(1),
+          Row(7),
+          Row(null),
+          Row(-5)
+        ), List(
+          StructField("num1", IntegerType, true)
+        )
+      )
+
+      val actualDF = sourceDF.sort(desc_nulls_last("num1"))
+
+      val expectedDF = spark.createDF(
+        List(
+          Row(7),
+          Row(1),
+          Row(-5),
+          Row(null),
+          Row(null)
+        ), List(
+          StructField("num1", IntegerType, true)
+        )
+      )
+
+      assertSmallDataFrameEquality(actualDF, expectedDF)
+
+    }
+
   }
 
   describe("#desc") {

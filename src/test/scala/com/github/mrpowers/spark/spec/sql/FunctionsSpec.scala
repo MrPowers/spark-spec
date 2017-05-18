@@ -1211,29 +1211,29 @@ class FunctionsSpec extends FunSpec with SparkSessionTestWrapper with DataFrameC
 
     it("extracts the minute from a timestamp") {
 
-      val sourceDF = Seq(
-        ("1", "2016-01-01 00:10:00"),
-        ("2", "1970-12-01 00:06:00")
-      ).toDF("person_id", "birth_date")
-        .withColumn("birth_date", col("birth_date").cast("timestamp"))
+      val sourceDF = spark.createDF(
+        List(
+          Row("1", "2016-01-01 00:10:00"),
+          Row("2", "1970-12-01 00:06:00")
+        ), List(
+          StructField("person_id", StringType, true),
+          StructField("birth_date", StringType, true),
+          StructField("birth_minute", IntegerType, true)
+        )
+      )
 
       val actualDF = sourceDF.withColumn("birth_minute", minute(col("birth_date")))
 
-      val expectedData = List(
-        Row("1", "2016-01-01 00:10:00", 10),
-        Row("2", "1970-12-01 00:06:00", 6)
+      val expectedDF = spark.createDF(
+        List(
+          Row("1", "2016-01-01 00:10:00", 10),
+          Row("2", "1970-12-01 00:06:00", 6)
+        ), List(
+          StructField("person_id", StringType, true),
+          StructField("birth_date", StringType, true),
+          StructField("birth_minute", IntegerType, true)
+        )
       )
-
-      val expectedSchema = List(
-        StructField("person_id", StringType, true),
-        StructField("birth_date", StringType, true),
-        StructField("birth_minute", IntegerType, true)
-      )
-
-      val expectedDF = spark.createDataFrame(
-        spark.sparkContext.parallelize(expectedData),
-        StructType(expectedSchema)
-      ).withColumn("birth_date", col("birth_date").cast("timestamp"))
 
       assertSmallDataFrameEquality(actualDF, expectedDF)
 

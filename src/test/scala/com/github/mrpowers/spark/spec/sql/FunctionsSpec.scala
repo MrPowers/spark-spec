@@ -12,7 +12,10 @@ import org.apache.spark.sql.types.{StructType, _}
 import org.scalatest._
 import com.github.mrpowers.spark.daria.sql.SparkSessionExt._
 
-class FunctionsSpec extends FunSpec with SparkSessionTestWrapper with DataFrameComparer {
+class FunctionsSpec
+    extends FunSpec
+    with SparkSessionTestWrapper
+    with DataFrameComparer {
 
   import spark.implicits._
 
@@ -22,12 +25,12 @@ class FunctionsSpec extends FunSpec with SparkSessionTestWrapper with DataFrameC
 
       val sourceDF = spark.createDF(
         List(
-          Row(1),
-          Row(-8),
-          Row(-5),
-          Row(null)
+          (1),
+          (-8),
+          (-5),
+          (null)
         ), List(
-          StructField("num1", IntegerType, true)
+          ("num1", IntegerType, true)
         )
       )
 
@@ -35,13 +38,13 @@ class FunctionsSpec extends FunSpec with SparkSessionTestWrapper with DataFrameC
 
       val expectedDF = spark.createDF(
         List(
-          Row(1, 1),
-          Row(-8, 8),
-          Row(-5, 5),
-          Row(null, null)
+          (1, 1),
+          (-8, 8),
+          (-5, 5),
+          (null, null)
         ), List(
-          StructField("num1", IntegerType, true),
-          StructField("num1abs", IntegerType, true)
+          ("num1", IntegerType, true),
+          ("num1abs", IntegerType, true)
         )
       )
 
@@ -57,12 +60,12 @@ class FunctionsSpec extends FunSpec with SparkSessionTestWrapper with DataFrameC
 
       val sourceDF = spark.createDF(
         List(
-          Row(-1.0),
-          Row(-0.5),
-          Row(0.5),
-          Row(1.0)
+          (-1.0),
+          (-0.5),
+          (0.5),
+          (1.0)
         ), List(
-          StructField("num1", DoubleType, false)
+          ("num1", DoubleType, false)
         )
       )
 
@@ -70,13 +73,13 @@ class FunctionsSpec extends FunSpec with SparkSessionTestWrapper with DataFrameC
 
       val expectedDF = spark.createDF(
         List(
-          Row(-1.0, 3.141592653589793),
-          Row(-0.5, 2.0943951023931957),
-          Row(0.5, 1.0471975511965979),
-          Row(1.0, 0.0)
+          (-1.0, 3.141592653589793),
+          (-0.5, 2.0943951023931957),
+          (0.5, 1.0471975511965979),
+          (1.0, 0.0)
         ), List(
-          StructField("num1", DoubleType, false),
-          StructField("acos_value", DoubleType, true)
+          ("num1", DoubleType, false),
+          ("acos_value", DoubleType, true)
         )
       )
 
@@ -131,29 +134,15 @@ class FunctionsSpec extends FunSpec with SparkSessionTestWrapper with DataFrameC
     it("sorts a DataFrame with null values first") {
 
       val sourceDF = spark.createDF(
-        List(
-          Row(null),
-          Row(1),
-          Row(-8),
-          Row(null),
-          Row(-5)
-        ), List(
-          StructField("num1", IntegerType, true)
-        )
+        List(null, 1, -8, null, -5),
+        List(("num1", IntegerType, true))
       )
 
       val actualDF = sourceDF.sort(asc_nulls_first("num1"))
 
       val expectedDF = spark.createDF(
-        List(
-          Row(null),
-          Row(null),
-          Row(-8),
-          Row(-5),
-          Row(1)
-        ), List(
-          StructField("num1", IntegerType, true)
-        )
+        List(null, null, -8, -5, 1),
+        List(("num1", IntegerType, true))
       )
 
       assertSmallDataFrameEquality(actualDF, expectedDF)
@@ -234,15 +223,19 @@ class FunctionsSpec extends FunSpec with SparkSessionTestWrapper with DataFrameC
 
     it("Computes the numeric value of the first character of the string column, and returns the result as an int column") {
 
-      val sourceDF = Seq(
-        ("A"),
-        ("AB"),
-        ("B"),
-        ("C"),
-        ("1"),
-        ("2"),
-        ("3")
-      ).toDF("Chr")
+      val sourceDF = spark.createDF(
+        List(
+          ("A"),
+          ("AB"),
+          ("B"),
+          ("C"),
+          ("1"),
+          ("2"),
+          ("3")
+        ), List(
+          ("Chr", StringType, true)
+        )
+      )
 
       val actualDF = sourceDF.withColumn("ASCII", ascii(col("Chr")))
 

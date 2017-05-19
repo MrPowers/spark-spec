@@ -1,5 +1,8 @@
 package com.github.mrpowers.spark.spec.sql
 
+import java.sql.Timestamp
+import java.sql.Date
+
 import com.github.mrpowers.spark.fast.tests.DataFrameComparer
 import com.github.mrpowers.spark.models._
 import com.github.mrpowers.spark.spec.SparkSessionTestWrapper
@@ -1213,12 +1216,11 @@ class FunctionsSpec extends FunSpec with SparkSessionTestWrapper with DataFrameC
 
       val sourceDF = spark.createDF(
         List(
-          Row("1", "2016-01-01 00:10:00"),
-          Row("2", "1970-12-01 00:06:00")
+          Row("1", Timestamp.valueOf("2016-01-01 00:10:00")),
+          Row("2", Timestamp.valueOf("1970-12-01 00:06:00"))
         ), List(
           StructField("person_id", StringType, true),
-          StructField("birth_date", StringType, true),
-          StructField("birth_minute", IntegerType, true)
+          StructField("birth_date", TimestampType, true)
         )
       )
 
@@ -1226,11 +1228,11 @@ class FunctionsSpec extends FunSpec with SparkSessionTestWrapper with DataFrameC
 
       val expectedDF = spark.createDF(
         List(
-          Row("1", "2016-01-01 00:10:00", 10),
-          Row("2", "1970-12-01 00:06:00", 6)
+          Row("1", Timestamp.valueOf("2016-01-01 00:10:00"), 10),
+          Row("2", Timestamp.valueOf("1970-12-01 00:06:00"), 6)
         ), List(
           StructField("person_id", StringType, true),
-          StructField("birth_date", StringType, true),
+          StructField("birth_date", TimestampType, true),
           StructField("birth_minute", IntegerType, true)
         )
       )
@@ -1698,12 +1700,11 @@ class FunctionsSpec extends FunSpec with SparkSessionTestWrapper with DataFrameC
 
       val sourceDF = spark.createDF(
         List(
-          Row("1", "2016-01-01 00:00:00"),
-          Row("2", "1970-12-01 00:00:00")
+          Row("1", Timestamp.valueOf("2016-01-01 00:00:00")),
+          Row("2", Timestamp.valueOf("1970-12-01 00:00:00"))
         ), List(
           StructField("person_id", StringType, true),
-          StructField("birth_date", StringType, true),
-          StructField("birth_year", IntegerType, true)
+          StructField("birth_date", TimestampType, true)
         )
       )
 
@@ -1711,11 +1712,11 @@ class FunctionsSpec extends FunSpec with SparkSessionTestWrapper with DataFrameC
 
       val expectedDF = spark.createDF(
         List(
-          Row("1", "2016-01-01 00:00:00", 2016),
-          Row("2", "1970-12-01 00:00:00", 1970)
+          Row("1", Timestamp.valueOf("2016-01-01 00:00:00"), 2016),
+          Row("2", Timestamp.valueOf("1970-12-01 00:00:00"), 1970)
         ), List(
           StructField("person_id", StringType, true),
-          StructField("birth_date", StringType, true),
+          StructField("birth_date", TimestampType, true),
           StructField("birth_year", IntegerType, true)
         )
       )
@@ -1728,12 +1729,11 @@ class FunctionsSpec extends FunSpec with SparkSessionTestWrapper with DataFrameC
 
       val sourceDF = spark.createDF(
         List(
-          Row("1", "2016-01-01"),
-          Row("2", "1970-12-01")
+          Row("1", Date.valueOf("2016-01-01")),
+          Row("2", Date.valueOf("1970-12-01"))
         ), List(
           StructField("person_id", StringType, true),
-          StructField("birth_date", StringType, true),
-          StructField("birth_year", IntegerType, true)
+          StructField("birth_date", DateType, true)
         )
       )
 
@@ -1741,11 +1741,11 @@ class FunctionsSpec extends FunSpec with SparkSessionTestWrapper with DataFrameC
 
       val expectedDF = spark.createDF(
         List(
-          Row("1", "2016-01-01", 2016),
-          Row("2", "1970-12-01", 1970)
+          Row("1", Date.valueOf("2016-01-01"), 2016),
+          Row("2", Date.valueOf("1970-12-01"), 1970)
         ), List(
           StructField("person_id", StringType, true),
-          StructField("birth_date", StringType, true),
+          StructField("birth_date", DateType, true),
           StructField("birth_year", IntegerType, true)
         )
       )

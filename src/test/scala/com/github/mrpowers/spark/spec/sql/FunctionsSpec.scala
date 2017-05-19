@@ -381,32 +381,25 @@ class FunctionsSpec extends FunSpec with SparkSessionTestWrapper with DataFrameC
 
       val sourceDF = spark.createDF(
         List(
-          Row(155),
-          Row(162),
-          Row(233 )
+          Row("01010100")
         ), List(
-          StructField("num1", IntegerType, true)
+          StructField("bin1", StringType, true)
         )
-      )
+      ).withColumn("bin1", col("bin1").cast("binary"))
 
-      val actualDF = sourceDF.withColumn("base64", base64("num1"))
-      actualDF.show()
+      val actualDF = sourceDF.withColumn("base64", base64(col("bin1")))
 
-/*    val expectedDF = spark.createDF(
+      val expectedDF = spark.createDF(
         List(
-          Row(155, 10011011),
-          Row(162, 10100010),
-          Row(233, 11101001)
+          Row("01010100", "MDEwMTAxMDA=")
         ), List(
-          StructField("num1", DoubleType, true),
-          StructField("base64", DoubleType, true)
+          StructField("bin1", StringType, true),
+          StructField("base64", StringType, true)
         )
-      )
-
-      link of how base64 works! https://www.lifewire.com/base64-encoding-overview-1166412 (still don't get it, working on it)
+      ).withColumn("bin1", col("bin1").cast("binary"))
 
       assertSmallDataFrameEquality(actualDF, expectedDF)
-*/
+
     }
 
   }

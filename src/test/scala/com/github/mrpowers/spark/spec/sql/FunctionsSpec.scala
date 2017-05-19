@@ -265,7 +265,35 @@ class FunctionsSpec extends FunSpec with SparkSessionTestWrapper with DataFrameC
   }
 
   describe("#asin") {
-    pending
+    it("Computes the sine inverse of the given column; the returned angle is in the range -pi/2 through pi/2.") {
+
+      val sourceDF = spark.createDF(
+        List(
+          Row(1.0),
+          Row(0.2),
+          Row(0.5)
+        ), List(
+          StructField("num1", DoubleType, true)
+        )
+      )
+
+      val actualDF = sourceDF.withColumn("asin", asin("num1"))
+
+      val expectedDF = spark.createDF(
+        List(
+          Row(1.0, 1.5707963267948966),
+          Row(0.2, 0.2013579207903308),
+          Row(0.5, 0.5235987755982989)
+        ), List(
+          StructField("num1", DoubleType, true),
+          StructField("asin", DoubleType, true)
+        )
+      )
+
+      assertSmallDataFrameEquality(actualDF, expectedDF)
+
+    }
+
   }
 
   describe("#atan") {

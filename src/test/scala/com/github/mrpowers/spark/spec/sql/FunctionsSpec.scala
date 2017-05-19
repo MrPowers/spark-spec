@@ -373,7 +373,39 @@ class FunctionsSpec extends FunSpec with SparkSessionTestWrapper with DataFrameC
   }
 
   describe("#base64") {
-    pending
+
+    it("Computes the BASE64 encoding of a binary column and returns it as a string column") {
+
+      val sourceDF = spark.createDF(
+        List(
+          Row(155),
+          Row(162),
+          Row(233 )
+        ), List(
+          StructField("num1", IntegerType, true)
+        )
+      )
+
+      val actualDF = sourceDF.withColumn("base64", base64("num1"))
+      actualDF.show()
+
+/*    val expectedDF = spark.createDF(
+        List(
+          Row(155, 10011011),
+          Row(162, 10100010),
+          Row(233, 11101001)
+        ), List(
+          StructField("num1", DoubleType, true),
+          StructField("base64", DoubleType, true)
+        )
+      )
+
+      link of how base64 works! https://www.lifewire.com/base64-encoding-overview-1166412 (still don't get it, working on it)
+
+      assertSmallDataFrameEquality(actualDF, expectedDF)
+*/
+    }
+
   }
 
   describe("#bin") {

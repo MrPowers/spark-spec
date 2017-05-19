@@ -157,13 +157,13 @@ class FunctionsSpec
 
       val sourceDF = spark.createDF(
         List(
-          Row(null),
-          Row(1),
-          Row(-8),
-          Row(null),
-          Row(-5)
+          (null),
+          (1),
+          (-8),
+          (null),
+          (-5)
         ), List(
-          StructField("num1", IntegerType, true)
+          ("num1", IntegerType, true)
         )
       )
 
@@ -171,13 +171,13 @@ class FunctionsSpec
 
       val expectedDF = spark.createDF(
         List(
-          Row(-8),
-          Row(-5),
-          Row(1),
-          Row(null),
-          Row(null)
+          (-8),
+          (-5),
+          (1),
+          (null),
+          (null)
         ), List(
-          StructField("num1", IntegerType, true)
+          ("num1", IntegerType, true)
         )
       )
 
@@ -193,11 +193,11 @@ class FunctionsSpec
 
       val sourceDF = spark.createDF(
         List(
-          Row(1),
-          Row(-8),
-          Row(-5)
+          (1),
+          (-8),
+          (-5)
         ), List(
-          StructField("num1", IntegerType, true)
+          ("num1", IntegerType, true)
         )
       )
 
@@ -205,11 +205,11 @@ class FunctionsSpec
 
       val expectedDF = spark.createDF(
         List(
-          Row(-8),
-          Row(-5),
-          Row(1)
+          (-8),
+          (-5),
+          (1)
         ), List(
-          StructField("num1", IntegerType, true)
+          ("num1", IntegerType, true)
         )
       )
 
@@ -241,16 +241,16 @@ class FunctionsSpec
 
       val expectedDF = spark.createDF(
         List(
-          Row("A", 65),
-          Row("AB", 65),
-          Row("B", 66),
-          Row("C", 67),
-          Row("1", 49),
-          Row("2", 50),
-          Row("3", 51)
+          ("A", 65),
+          ("AB", 65),
+          ("B", 66),
+          ("C", 67),
+          ("1", 49),
+          ("2", 50),
+          ("3", 51)
         ), List(
-          StructField("Chr", StringType, true),
-          StructField("ASCII", IntegerType, true)
+          ("Chr", StringType, true),
+          ("ASCII", IntegerType, true)
         )
       )
 
@@ -266,11 +266,11 @@ class FunctionsSpec
 
       val sourceDF = spark.createDF(
         List(
-          Row(1.0),
-          Row(0.2),
-          Row(0.5)
+          (1.0),
+          (0.2),
+          (0.5)
         ), List(
-          StructField("num1", DoubleType, true)
+          ("num1", DoubleType, true)
         )
       )
 
@@ -278,12 +278,12 @@ class FunctionsSpec
 
       val expectedDF = spark.createDF(
         List(
-          Row(1.0, 1.5707963267948966),
-          Row(0.2, 0.2013579207903308),
-          Row(0.5, 0.5235987755982989)
+          (1.0, 1.5707963267948966),
+          (0.2, 0.2013579207903308),
+          (0.5, 0.5235987755982989)
         ), List(
-          StructField("num1", DoubleType, true),
-          StructField("asin", DoubleType, true)
+          ("num1", DoubleType, true),
+          ("asin", DoubleType, true)
         )
       )
 
@@ -299,11 +299,11 @@ class FunctionsSpec
 
       val sourceDF = spark.createDF(
         List(
-          Row(1),
-          Row(5),
-          Row(8)
+          (1),
+          (5),
+          (8)
         ), List(
-          StructField("num1", IntegerType, true)
+          ("num1", IntegerType, true)
         )
       )
 
@@ -311,12 +311,12 @@ class FunctionsSpec
 
       val expectedDF = spark.createDF(
         List(
-          Row(1, 0.7853981633974483),
-          Row(5, 1.373400766945016),
-          Row(8, 1.446441332248135)
+          (1, 0.7853981633974483),
+          (5, 1.373400766945016),
+          (8, 1.446441332248135)
         ), List(
-          StructField("num1", IntegerType, true),
-          StructField("atan", DoubleType, true)
+          ("num1", IntegerType, true),
+          ("atan", DoubleType, true)
         )
       )
 
@@ -336,28 +336,28 @@ class FunctionsSpec
 
       val sourceDF = spark.createDF(
         List(
-          Row(7.793357934),
-          Row(167.7902098),
-          Row(-26.26209048),
-          Row(113.8381503),
-          Row(18.01957295),
-          Row(-7.266169154),
-          Row(10.20120724),
-          Row(-658.5405405),
-          Row(-6.702617801),
-          Row(35.99217221),
-          Row(0.0),
-          Row(null)
+          (7.793357934),
+          (167.7902098),
+          (-26.26209048),
+          (113.8381503),
+          (18.01957295),
+          (-7.266169154),
+          (10.20120724),
+          (-658.5405405),
+          (-6.702617801),
+          (35.99217221),
+          (0.0),
+          (null)
         ), List(
-          StructField("Double", DoubleType, true)
+          ("Double", DoubleType, true)
         )
       )
 
       val expectedDF = spark.createDF(
         List(
-          Row(-31.37606795463637)
+          (-31.37606795463637)
         ), List(
-          StructField("average", DoubleType, true)
+          ("average", DoubleType, true)
         )
       )
 
@@ -374,9 +374,9 @@ class FunctionsSpec
 
       val sourceDF = spark.createDF(
         List(
-          Row("01010100")
+          ("01010100")
         ), List(
-          StructField("bin1", StringType, true)
+          ("bin1", StringType, true)
         )
       ).withColumn("bin1", col("bin1").cast("binary"))
 
@@ -384,10 +384,10 @@ class FunctionsSpec
 
       val expectedDF = spark.createDF(
         List(
-          Row("01010100", "MDEwMTAxMDA=")
+          ("01010100", "MDEwMTAxMDA=")
         ), List(
-          StructField("bin1", StringType, true),
-          StructField("base64", StringType, true)
+          ("bin1", StringType, true),
+          ("base64", StringType, true)
         )
       ).withColumn("bin1", col("bin1").cast("binary"))
 
@@ -415,13 +415,13 @@ class FunctionsSpec
 
       val sourceDF = spark.createDF(
         List(
-          Row(8.1),
-          Row(64.8),
-          Row(3.5),
-          Row(-27.0),
-          Row(null)
+          (8.1),
+          (64.8),
+          (3.5),
+          (-27.0),
+          (null)
         ), List(
-          StructField("num1", DoubleType, true)
+          ("num1", DoubleType, true)
         )
       )
 
@@ -429,14 +429,14 @@ class FunctionsSpec
 
       val expectedDF = spark.createDF(
         List(
-          Row(8.1, 8.0),
-          Row(64.8, 65.0),
-          Row(3.5, 4.0),
-          Row(-27.0, -27.0),
-          Row(null, null)
+          (8.1, 8.0),
+          (64.8, 65.0),
+          (3.5, 4.0),
+          (-27.0, -27.0),
+          (null, null)
         ), List(
-          StructField("num1", DoubleType, true),
-          StructField("brounded_num", DoubleType, true)
+          ("num1", DoubleType, true),
+          ("brounded_num", DoubleType, true)
         )
       )
 
@@ -465,12 +465,12 @@ class FunctionsSpec
 
       val expectedDF = spark.createDF(
         List(
-          Row(8, 2.0),
-          Row(64, 4.0),
-          Row(-27, -3.0)
+          (8, 2.0),
+          (64, 4.0),
+          (-27, -3.0)
         ), List(
-          StructField("num1", IntegerType, false),
-          StructField("cube_root", DoubleType, true)
+          ("num1", IntegerType, false),
+          ("cube_root", DoubleType, true)
         )
       )
 
@@ -494,12 +494,12 @@ class FunctionsSpec
 
       val expectedDF = spark.createDF(
         List(
-          Row(1.5, 2L),
-          Row(-8.1, -8L),
-          Row(5.9, 6L)
+          (1.5, 2L),
+          (-8.1, -8L),
+          (5.9, 6L)
         ), List(
-          StructField("num1", DoubleType, false),
-          StructField("upper", LongType, true)
+          ("num1", DoubleType, false),
+          ("upper", LongType, true)
         )
       )
 
@@ -582,15 +582,15 @@ class FunctionsSpec
 
       val expectedDF = spark.createDF(
         List(
-          Row("banh", "mi", "banh_mi"),
-          Row("pho", "ga", "pho_ga"),
-          Row(null, "cheese", "cheese"), // null column will be omitted
-          Row("pizza", null, "pizza"), // null column will be omitted
-          Row(null, null, "") // all null columns give ""
+          ("banh", "mi", "banh_mi"),
+          ("pho", "ga", "pho_ga"),
+          (null, "cheese", "cheese"), // null column will be omitted
+          ("pizza", null, "pizza"), // null column will be omitted
+          (null, null, "") // all null columns give ""
         ), List(
-          StructField("word1", StringType, true),
-          StructField("word2", StringType, true),
-          StructField("yummy", StringType, false)
+          ("word1", StringType, true),
+          ("word2", StringType, true),
+          ("yummy", StringType, false)
         )
       )
 
@@ -648,11 +648,11 @@ class FunctionsSpec
 
       val sourceDF = spark.createDF(
         List(
-          Row(1),
-          Row(2),
-          Row(3)
+          (1),
+          (2),
+          (3)
         ), List(
-          StructField("num1", IntegerType, true)
+          ("num1", IntegerType, true)
         )
       )
 
@@ -660,12 +660,12 @@ class FunctionsSpec
 
       val expectedDF = spark.createDF(
         List(
-          Row(1, 0.5403023058681398),
-          Row(2, -0.4161468365471424),
-          Row(3, -0.9899924966004454)
+          (1, 0.5403023058681398),
+          (2, -0.4161468365471424),
+          (3, -0.9899924966004454)
         ), List(
-          StructField("num1", IntegerType, true),
-          StructField("i_am_scared", DoubleType, true)
+          ("num1", IntegerType, true),
+          ("i_am_scared", DoubleType, true)
         )
       )
 
@@ -715,11 +715,11 @@ class FunctionsSpec
 
       val expectedDF = spark.createDF(
         List(
-          Row("A", 3L),
-          Row("B", 2L)
+          ("A", 3L),
+          ("B", 2L)
         ), List(
-          StructField("id", StringType, true),
-          StructField("distinctCountFoo", LongType, false)
+          ("id", StringType, true),
+          ("distinctCountFoo", LongType, false)
         )
       )
 
@@ -819,13 +819,13 @@ class FunctionsSpec
 
       val sourceDF = spark.createDF(
         List(
-          Row(null),
-          Row(1),
-          Row(-8),
-          Row(null),
-          Row(-5)
+          (null),
+          (1),
+          (-8),
+          (null),
+          (-5)
         ), List(
-          StructField("num1", IntegerType, true)
+          ("num1", IntegerType, true)
         )
       )
 
@@ -833,13 +833,13 @@ class FunctionsSpec
 
       val expectedDF = spark.createDF(
         List(
-          Row(null),
-          Row(null),
-          Row(1),
-          Row(-5),
-          Row(-8)
+          (null),
+          (null),
+          (1),
+          (-5),
+          (-8)
         ), List(
-          StructField("num1", IntegerType, true)
+          ("num1", IntegerType, true)
         )
       )
 
@@ -855,13 +855,13 @@ class FunctionsSpec
 
       val sourceDF = spark.createDF(
         List(
-          Row(null),
-          Row(1),
-          Row(7),
-          Row(null),
-          Row(-5)
+          (null),
+          (1),
+          (7),
+          (null),
+          (-5)
         ), List(
-          StructField("num1", IntegerType, true)
+          ("num1", IntegerType, true)
         )
       )
 
@@ -869,13 +869,13 @@ class FunctionsSpec
 
       val expectedDF = spark.createDF(
         List(
-          Row(7),
-          Row(1),
-          Row(-5),
-          Row(null),
-          Row(null)
+          (7),
+          (1),
+          (-5),
+          (null),
+          (null)
         ), List(
-          StructField("num1", IntegerType, true)
+          ("num1", IntegerType, true)
         )
       )
 
@@ -891,11 +891,11 @@ class FunctionsSpec
 
       val sourceDF = spark.createDF(
         List(
-          Row(1),
-          Row(-8),
-          Row(-5)
+          (1),
+          (-8),
+          (-5)
         ), List(
-          StructField("num1", IntegerType, true)
+          ("num1", IntegerType, true)
         )
       )
 
@@ -903,11 +903,11 @@ class FunctionsSpec
 
       val expectedDF = spark.createDF(
         List(
-          Row(1),
-          Row(-5),
-          Row(-8)
+          (1),
+          (-5),
+          (-8)
         ), List(
-          StructField("num1", IntegerType, true)
+          ("num1", IntegerType, true)
         )
       )
 
@@ -968,15 +968,15 @@ class FunctionsSpec
 
       val sourceDF = spark.createDF(
         List(
-          Row(0),
-          Row(1),
-          Row(2),
-          Row(3),
-          Row(4),
-          Row(5),
-          Row(6)
+          (0),
+          (1),
+          (2),
+          (3),
+          (4),
+          (5),
+          (6)
         ), List(
-          StructField("number", IntegerType, false)
+          ("number", IntegerType, false)
         )
       )
 
@@ -984,16 +984,16 @@ class FunctionsSpec
 
       val expectedDF = spark.createDF(
         List(
-          Row(0, 1L),
-          Row(1, 1L),
-          Row(2, 2L),
-          Row(3, 6L),
-          Row(4, 24L),
-          Row(5, 120L),
-          Row(6, 720L)
+          (0, 1L),
+          (1, 1L),
+          (2, 2L),
+          (3, 6L),
+          (4, 24L),
+          (5, 120L),
+          (6, 720L)
         ), List(
-          StructField("number", IntegerType, false),
-          StructField("result", LongType, true)
+          ("number", IntegerType, false),
+          ("result", LongType, true)
         )
       )
 
@@ -1156,12 +1156,12 @@ class FunctionsSpec
 
       val expectedDF = spark.createDF(
         List(
-          Row("banh", 4),
-          Row("delilah", 7),
-          Row(null, null)
+          ("banh", 4),
+          ("delilah", 7),
+          (null, null)
         ), List(
-          StructField("word", StringType, true),
-          StructField("length", IntegerType, true)
+          ("word", StringType, true),
+          ("length", IntegerType, true)
         )
       )
 
@@ -1193,10 +1193,10 @@ class FunctionsSpec
 
       val sourceDF = spark.createDF(
         List(
-          Row("Spider-man"),
-          Row("Batman")
+          ("Spider-man"),
+          ("Batman")
         ), List(
-          StructField("word", StringType, true)
+          ("word", StringType, true)
         )
       )
 
@@ -1204,11 +1204,11 @@ class FunctionsSpec
 
       val expectedDF = spark.createDF(
         List(
-          Row("Spider-man", 8),
-          Row("Batman", 4)
+          ("Spider-man", 8),
+          ("Batman", 4)
         ), List(
-          StructField("word", StringType, true),
-          StructField("short_word", IntegerType, true)
+          ("word", StringType, true),
+          ("short_word", IntegerType, true)
         )
       )
 
@@ -1292,11 +1292,11 @@ class FunctionsSpec
 
       val sourceDF = spark.createDF(
         List(
-          Row("1", Timestamp.valueOf("2016-01-01 00:10:00")),
-          Row("2", Timestamp.valueOf("1970-12-01 00:06:00"))
+          ("1", Timestamp.valueOf("2016-01-01 00:10:00")),
+          ("2", Timestamp.valueOf("1970-12-01 00:06:00"))
         ), List(
-          StructField("person_id", StringType, true),
-          StructField("birth_date", TimestampType, true)
+          ("person_id", StringType, true),
+          ("birth_date", TimestampType, true)
         )
       )
 
@@ -1304,12 +1304,12 @@ class FunctionsSpec
 
       val expectedDF = spark.createDF(
         List(
-          Row("1", Timestamp.valueOf("2016-01-01 00:10:00"), 10),
-          Row("2", Timestamp.valueOf("1970-12-01 00:06:00"), 6)
+          ("1", Timestamp.valueOf("2016-01-01 00:10:00"), 10),
+          ("2", Timestamp.valueOf("1970-12-01 00:06:00"), 6)
         ), List(
-          StructField("person_id", StringType, true),
-          StructField("birth_date", TimestampType, true),
-          StructField("birth_minute", IntegerType, true)
+          ("person_id", StringType, true),
+          ("birth_date", TimestampType, true),
+          ("birth_minute", IntegerType, true)
         )
       )
 
@@ -1381,12 +1381,12 @@ class FunctionsSpec
 
       val expectedDF = spark.createDF(
         List(
-          Row(2, 8.0),
-          Row(3, 27.0),
-          Row(1, 1.0)
+          (2, 8.0),
+          (3, 27.0),
+          (1, 1.0)
         ), List(
-          StructField("num", IntegerType, false),
-          StructField("power", DoubleType, false)
+          ("num", IntegerType, false),
+          ("power", DoubleType, false)
         )
       )
 
@@ -1572,12 +1572,12 @@ class FunctionsSpec
 
       val expectedDF = spark.createDF(
         List(
-          Row(49, 7.0),
-          Row(144, 12.0),
-          Row(89, 9.433981132056603)
+          (49, 7.0),
+          (144, 12.0),
+          (89, 9.433981132056603)
         ), List(
-          StructField("num1", IntegerType, false),
-          StructField("sqrt_num", DoubleType, true)
+          ("num1", IntegerType, false),
+          ("sqrt_num", DoubleType, true)
         )
       )
 
@@ -1776,11 +1776,11 @@ class FunctionsSpec
 
       val sourceDF = spark.createDF(
         List(
-          Row("1", Timestamp.valueOf("2016-01-01 00:00:00")),
-          Row("2", Timestamp.valueOf("1970-12-01 00:00:00"))
+          ("1", Timestamp.valueOf("2016-01-01 00:00:00")),
+          ("2", Timestamp.valueOf("1970-12-01 00:00:00"))
         ), List(
-          StructField("person_id", StringType, true),
-          StructField("birth_date", TimestampType, true)
+          ("person_id", StringType, true),
+          ("birth_date", TimestampType, true)
         )
       )
 
@@ -1788,12 +1788,12 @@ class FunctionsSpec
 
       val expectedDF = spark.createDF(
         List(
-          Row("1", Timestamp.valueOf("2016-01-01 00:00:00"), 2016),
-          Row("2", Timestamp.valueOf("1970-12-01 00:00:00"), 1970)
+          ("1", Timestamp.valueOf("2016-01-01 00:00:00"), 2016),
+          ("2", Timestamp.valueOf("1970-12-01 00:00:00"), 1970)
         ), List(
-          StructField("person_id", StringType, true),
-          StructField("birth_date", TimestampType, true),
-          StructField("birth_year", IntegerType, true)
+          ("person_id", StringType, true),
+          ("birth_date", TimestampType, true),
+          ("birth_year", IntegerType, true)
         )
       )
 
@@ -1805,11 +1805,11 @@ class FunctionsSpec
 
       val sourceDF = spark.createDF(
         List(
-          Row("1", Date.valueOf("2016-01-01")),
-          Row("2", Date.valueOf("1970-12-01"))
+          ("1", Date.valueOf("2016-01-01")),
+          ("2", Date.valueOf("1970-12-01"))
         ), List(
-          StructField("person_id", StringType, true),
-          StructField("birth_date", DateType, true)
+          ("person_id", StringType, true),
+          ("birth_date", DateType, true)
         )
       )
 
@@ -1817,12 +1817,12 @@ class FunctionsSpec
 
       val expectedDF = spark.createDF(
         List(
-          Row("1", Date.valueOf("2016-01-01"), 2016),
-          Row("2", Date.valueOf("1970-12-01"), 1970)
+          ("1", Date.valueOf("2016-01-01"), 2016),
+          ("2", Date.valueOf("1970-12-01"), 1970)
         ), List(
-          StructField("person_id", StringType, true),
-          StructField("birth_date", DateType, true),
-          StructField("birth_year", IntegerType, true)
+          ("person_id", StringType, true),
+          ("birth_date", DateType, true),
+          ("birth_year", IntegerType, true)
         )
       )
 

@@ -760,23 +760,31 @@ class FunctionsSpec
 
     it("returns the date that is days days after start") {
 
-      val sourceDF = Seq(
-        ("1", "2016-01-01 00:00:00"),
-        ("2", "2016-12-01 00:00:00")
-      ).toDF("person_id", "birth_date")
-        .withColumn("birth_date", col("birth_date").cast("timestamp"))
+      val sourceDF = spark.createDF(
+        List(
+          ("1", Date.valueOf("2016-01-01")),
+          ("2", Date.valueOf("2016-12-01"))
+        ), List(
+          ("person_id", StringType, true),
+          ("birth_date", DateType, true)
+        )
+      )
 
       val actualDF = sourceDF.withColumn(
         "future_date",
         date_add(col("birth_date"), 4)
       )
 
-      val expectedDF = Seq(
-        ("1", "2016-01-01 00:00:00", "2016-01-05"),
-        ("2", "2016-12-01 00:00:00", "2016-12-05")
-      ).toDF("person_id", "birth_date", "future_date")
-        .withColumn("birth_date", col("birth_date").cast("timestamp"))
-        .withColumn("future_date", col("future_date").cast("date"))
+      val expectedDF = spark.createDF(
+        List(
+          ("1", Date.valueOf("2016-01-01"), Date.valueOf("2016-01-05")),
+          ("2", Date.valueOf("2016-12-01"), Date.valueOf("2016-12-05"))
+        ), List(
+          ("person_id", StringType, true),
+          ("birth_date", DateType, true),
+          ("future_date", DateType, true)
+        )
+      )
 
       assertSmallDataFrameEquality(actualDF, expectedDF)
 

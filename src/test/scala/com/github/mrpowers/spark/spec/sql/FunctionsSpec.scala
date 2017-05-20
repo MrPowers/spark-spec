@@ -6,7 +6,6 @@ import java.sql.Date
 import com.github.mrpowers.spark.fast.tests.DataFrameComparer
 import com.github.mrpowers.spark.models._
 import com.github.mrpowers.spark.spec.SparkSessionTestWrapper
-import org.apache.spark.sql.Row
 import org.apache.spark.sql.functions._
 import org.apache.spark.sql.types.{StructType, _}
 import org.scalatest._
@@ -93,11 +92,15 @@ class FunctionsSpec
 
     it("returns the date that is numMonths after startDate") {
 
-      val sourceDF = Seq(
-        ("1", "2016-01-01 00:00:00"),
-        ("2", "2016-12-01 00:00:00")
-      ).toDF("person_id", "birth_date")
-        .withColumn("birth_date", col("birth_date").cast("timestamp"))
+      val sourceDF = spark.createDF(
+        List(
+          ("1", "2016-01-01 00:00:00"),
+          ("2", "2016-12-01 00:00:00")
+        ), List(
+          ("person_id", StringType, true),
+          ("birth_date", StringType, true)
+        )
+      ).withColumn("birth_date", col("birth_date").cast("timestamp"))
 
       val actualDF = sourceDF.withColumn(
         "future_date",

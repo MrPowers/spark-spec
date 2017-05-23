@@ -557,7 +557,35 @@ class FunctionsSpec
   }
 
   describe("#col") {
-    pending
+
+    it("Returns a Column based on the given column name.") {
+
+      val sourceDF = spark.createDF(
+        List(
+          (1),
+          (4),
+          (99)
+        ), List(
+          ("num1", IntegerType, true)
+        )
+      )
+
+      val actualDF = sourceDF.withColumn("col", col("num1"))
+
+      val expectedDF = spark.createDF(
+        List(
+          (1, 1),
+          (4, 4),
+          (99, 99)
+        ), List(
+          ("num1", IntegerType, true),
+          ("col", IntegerType, true)
+        )
+      )
+
+      assertSmallDataFrameEquality(actualDF, expectedDF)
+
+    }
   }
 
   describe("#collect_list") {

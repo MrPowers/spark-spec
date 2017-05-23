@@ -745,7 +745,36 @@ class FunctionsSpec
   }
 
   describe("#cosh") {
-    pending
+
+    it("Computes the hyperbolic cosine of the given column") {
+
+      val sourceDF = spark.createDF(
+        List(
+          (1),
+          (2),
+          (3)
+        ), List(
+          ("num1", IntegerType, true)
+        )
+      )
+
+      val actualDF = sourceDF.withColumn("cosh", cosh("num1"))
+
+      val expectedDF = spark.createDF(
+        List(
+          (1, 1.543080634815244),
+          (2, 3.7621956910836314),
+          (3, 10.067661995777765)
+        ), List(
+          ("num1", IntegerType, true),
+          ("cosh", DoubleType, true)
+        )
+      )
+
+      assertSmallDataFrameEquality(actualDF, expectedDF)
+
+    }
+
   }
 
   describe("#count") {

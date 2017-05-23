@@ -107,11 +107,14 @@ class FunctionsSpec
         add_months(col("birth_date"), 2)
       )
 
-      val expectedDF = Seq(
-        ("1", "2016-01-01 00:00:00", "2016-03-01"),
-        ("2", "2016-12-01 00:00:00", "2017-02-01")
-      ).toDF("person_id", "birth_date", "future_date")
-        .withColumn("birth_date", col("birth_date").cast("timestamp"))
+      val expectedDF = spark.createDF(
+        List(
+          ("1", "2016-01-01 00:00:00", "2016-03-01"),
+          ("2", "2016-12-01 00:00:00", "2017-02-01")
+        ), List(
+          ("person_id", "birth_date", "future_date")
+        )
+      ).withColumn("birth_date", col("birth_date").cast("timestamp"))
         .withColumn("future_date", col("future_date").cast("date"))
 
       assertSmallDataFrameEquality(actualDF, expectedDF)

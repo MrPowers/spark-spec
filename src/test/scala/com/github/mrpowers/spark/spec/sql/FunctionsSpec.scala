@@ -458,11 +458,15 @@ class FunctionsSpec
 
     it("computes the cube-root of the given value") {
 
-      val sourceDF = Seq(
-        (8),
-        (64),
-        (-27)
-      ).toDF("num1")
+      val sourceDF = spark.createDF(
+        List(
+          (8),
+          (64),
+          (-27)
+        ), List(
+          ("num1")
+        )
+      )
 
       val actualDF = sourceDF.withColumn("cube_root", cbrt(col("num1")))
 

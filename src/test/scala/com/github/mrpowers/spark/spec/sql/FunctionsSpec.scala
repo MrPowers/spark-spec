@@ -1210,19 +1210,27 @@ class FunctionsSpec
 
     it("converts the first letter of each word to upper case, returns a new column") {
 
-      val wordsDF = Seq(
-        ("bat man"),
-        ("cat woman"),
-        ("spider man")
-      ).toDF("no_upper_words")
-
+      val wordsDF = spark.createDF(
+        List(
+          ("bat man"),
+          ("cat woman"),
+          ("spider man")
+        ), List(
+          ("no_upper_words", StringType, true)
+        )
+      )
       val actualDF = wordsDF.withColumn("first_upper", initcap(col("no_upper_words")))
 
-      val expectedDF = Seq(
-        ("bat man", "Bat Man"),
-        ("cat woman", "Cat Woman"),
-        ("spider man", "Spider Man")
-      ).toDF("no_upper_words", "first_upper")
+      val expectedDF = spark.createDF(
+        List(
+          ("bat man", "Bat Man"),
+          ("cat woman", "Cat Woman"),
+          ("spider man", "Spider Man")
+        ), List(
+          ("no_upper_words", StringType, true),
+          ("first_upper", StringType, true)
+        )
+      )
 
       assertSmallDataFrameEquality(actualDF, expectedDF)
 
@@ -1246,25 +1254,35 @@ class FunctionsSpec
 
     it("checks column values for null") {
 
-      val wordsDF = Seq(
-        (null),
-        ("hello"),
-        (null),
-        (null),
-        ("football")
-      ).toDF("word")
+      val wordsDF = spark.createDF(
+        List(
+          (null),
+          ("hello"),
+          (null),
+          (null),
+          ("football")
+        ), List(
+          ("word", StringType, true)
+        )
+      )
 
       val actualDF = wordsDF.withColumn("nullCheck", isnull(col("word")))
 
-      val expectedDF = Seq(
-        (null, true),
-        ("hello", false),
-        (null, true),
-        (null, true),
-        ("football", false)
-      ).toDF("word", "nullCheck")
+      val expectedDF = spark.createDF(
+        List(
+          (null, true),
+          ("hello", false),
+          (null, true),
+          (null, true),
+          ("football", false)
+        ), List(
+          ("word", StringType, true),
+          ("nullCheck", BooleanType, false)
+        )
+      )
 
       assertSmallDataFrameEquality(actualDF, expectedDF)
+
     }
 
   }

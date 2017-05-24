@@ -464,7 +464,7 @@ class FunctionsSpec
           (64),
           (-27)
         ), List(
-          ("num1")
+          ("num1", IntegerType, true)
         )
       )
 
@@ -476,7 +476,7 @@ class FunctionsSpec
           (64, 4.0),
           (-27, -3.0)
         ), List(
-          ("num1", IntegerType, false),
+          ("num1", IntegerType, true),
           ("cube_root", DoubleType, true)
         )
       )

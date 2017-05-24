@@ -497,11 +497,15 @@ class FunctionsSpec
 
     it("rounds the number up to the nearest integer") {
 
-      val numbersDF = Seq(
-        (1.5),
-        (-8.1),
-        (5.9)
-      ).toDF("num1")
+      val numbersDF = spark.createDF(
+        List(
+          (1.5),
+          (-8.1),
+          (5.9)
+        ), List(
+          ("num1", DoubleType, true)
+        )
+      )
 
       val actualDF = numbersDF.withColumn("upper", ceil(col("num1")))
 
@@ -511,7 +515,7 @@ class FunctionsSpec
           (-8.1, -8L),
           (5.9, 6L)
         ), List(
-          ("num1", DoubleType, false),
+          ("num1", DoubleType, true),
           ("upper", LongType, true)
         )
       )

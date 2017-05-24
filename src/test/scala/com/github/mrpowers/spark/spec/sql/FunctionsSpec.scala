@@ -530,14 +530,18 @@ class FunctionsSpec
 
     it("returns the first column that is not null, or null if all inputs are null.") {
 
-      val wordsDF = Seq(
-        ("banh", "mi"),
-        ("pho", "ga"),
-        (null, "cheese"),
-        ("pizza", null),
-        (null, null)
-      ).toDF("word1", "word2")
-
+      val wordsDF = spark.createDF(
+        List(
+          ("banh", "mi"),
+          ("pho", "ga"),
+          (null, "cheese"),
+          ("pizza", null),
+          (null, null)
+        ), List(
+          ("word1", StringType, true),
+          ("word2", StringType, true)
+        )
+      )
       val actualDF = wordsDF.withColumn(
         "yummy",
         coalesce(
@@ -546,13 +550,19 @@ class FunctionsSpec
         )
       )
 
-      val expectedDF = Seq(
-        ("banh", "mi", "banh"),
-        ("pho", "ga", "pho"),
-        (null, "cheese", "cheese"),
-        ("pizza", null, "pizza"),
-        (null, null, null)
-      ).toDF("word1", "word2", "yummy")
+      val expectedDF = spark.createDF(
+        List(
+          ("banh", "mi", "banh"),
+          ("pho", "ga", "pho"),
+          (null, "cheese", "cheese"),
+          ("pizza", null, "pizza"),
+          (null, null, null)
+        ), List(
+          ("word1", StringType, true),
+          ("word2", StringType, true),
+          ("yummy", StringType, true)
+        )
+      )
 
       assertSmallDataFrameEquality(actualDF, expectedDF)
 

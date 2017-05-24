@@ -694,13 +694,18 @@ class FunctionsSpec
 
     it("concatenates multiple input string columns together into a single string column") {
 
-      val wordsDF = Seq(
-        ("banh", "mi"),
-        ("pho", "ga"),
-        (null, "cheese"),
-        ("pizza", null),
-        (null, null)
-      ).toDF("word1", "word2")
+      val wordsDF = spark.createDF(
+        List(
+          ("banh", "mi"),
+          ("pho", "ga"),
+          (null, "cheese"),
+          ("pizza", null),
+          (null, null)
+        ), List(
+          ("word1", StringType, true),
+          ("word2", StringType, true)
+        )
+      )
 
       val actualDF = wordsDF.withColumn(
         "yummy",
@@ -710,14 +715,19 @@ class FunctionsSpec
         )
       )
 
-      val expectedDF = Seq(
-        ("banh", "mi", "banhmi"),
-        ("pho", "ga", "phoga"),
-        (null, "cheese", null),
-        ("pizza", null, null),
-        (null, null, null)
-      ).toDF("word1", "word2", "yummy")
-
+      val expectedDF = spark.createDF(
+        List(
+          ("banh", "mi", "banhmi"),
+          ("pho", "ga", "phoga"),
+          (null, "cheese", null),
+          ("pizza", null, null),
+          (null, null, null)
+        ), List(
+          ("word1", StringType, true),
+          ("word2", StringType, true),
+          ("yummy", StringType, true)
+        )
+      )
       assertSmallDataFrameEquality(actualDF, expectedDF)
 
     }

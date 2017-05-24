@@ -586,6 +586,7 @@ class FunctionsSpec
       assertSmallDataFrameEquality(actualDF, expectedDF)
 
     }
+
   }
 
   describe("#collect_list") {
@@ -626,6 +627,7 @@ class FunctionsSpec
       assertSmallDataFrameEquality(actualDF, expectedDF)
 
     }
+
   }
 
   describe("#concat_ws") {

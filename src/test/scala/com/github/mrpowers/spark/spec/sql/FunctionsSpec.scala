@@ -648,13 +648,18 @@ class FunctionsSpec
 
     it("concatenates multiple input string columns with separator") {
 
-      val wordsDF = Seq(
-        ("banh", "mi"),
-        ("pho", "ga"),
-        (null, "cheese"),
-        ("pizza", null),
-        (null, null)
-      ).toDF("word1", "word2")
+      val wordsDF = spark.createDF(
+        List(
+          ("banh", "mi"),
+          ("pho", "ga"),
+          (null, "cheese"),
+          ("pizza", null),
+          (null, null)
+        ), List(
+          ("word1", StringType, true),
+          ("word2", StringType, true)
+        )
+      )
 
       val actualDF = wordsDF.withColumn(
         "yummy",

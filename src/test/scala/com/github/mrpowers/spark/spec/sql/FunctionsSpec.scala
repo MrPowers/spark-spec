@@ -836,14 +836,19 @@ class FunctionsSpec
 
     it("aggregate function: returns the number of distinct items in a group") {
 
-      val sourceDF = Seq(
-        ("A", 1),
-        ("B", 1),
-        ("A", 2),
-        ("A", 2),
-        ("B", 3),
-        ("A", 3)
-      ).toDF("id", "foo")
+      val sourceDF = spark.createDF(
+        List(
+          ("A", 1),
+          ("B", 1),
+          ("A", 2),
+          ("A", 2),
+          ("B", 3),
+          ("A", 3)
+        ), List(
+          ("id", StringType, true),
+          ("foo", IntegerType, true)
+        )
+      )
 
       val actualDF = sourceDF.groupBy($"id").agg(countDistinct($"foo") as "distinctCountFoo").orderBy($"id")
 

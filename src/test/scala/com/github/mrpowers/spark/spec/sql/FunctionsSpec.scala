@@ -112,9 +112,12 @@ class FunctionsSpec
           ("1", "2016-01-01 00:00:00", "2016-03-01"),
           ("2", "2016-12-01 00:00:00", "2017-02-01")
         ), List(
-          ("person_id", "birth_date", "future_date")
+          ("person_id", StringType, true),
+          ("birth_date", StringType, true),
+          ("future_date", StringType, true)
         )
-      ).withColumn("birth_date", col("birth_date").cast("timestamp"))
+      )
+        .withColumn("birth_date", col("birth_date").cast("timestamp"))
         .withColumn("future_date", col("future_date").cast("date"))
 
       assertSmallDataFrameEquality(actualDF, expectedDF)

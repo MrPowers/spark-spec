@@ -1075,10 +1075,16 @@ class FunctionsSpec
 
     it("returns a new DataFrame where each row has been expanded to zero or more rows by the provided function") {
 
-      val df = Seq(
-        ("A", Seq("a", "b", "c"), Seq(1, 2, 3)),
-        ("B", Seq("a", "b", "c"), Seq(5, 6, 7))
-      ).toDF("id", "class", "num")
+      val df = spark.createDF(
+        List(
+          ("A", List("a", "b", "c"), List(1, 2, 3)),
+          ("B", List("a", "b", "c"), List(5, 6, 7))
+        ), List(
+          ("id", StringType, true),
+          ("class", StringType, true),
+          ("num", IntegerType, true)
+        )
+      )
 
       val actualDF = df.select(
         df("id"),
@@ -1086,14 +1092,20 @@ class FunctionsSpec
         df("num")
       )
 
-      val expectedDF = Seq(
-        ("A", "a", Seq(1, 2, 3)),
-        ("A", "b", Seq(1, 2, 3)),
-        ("A", "c", Seq(1, 2, 3)),
-        ("B", "a", Seq(5, 6, 7)),
-        ("B", "b", Seq(5, 6, 7)),
-        ("B", "c", Seq(5, 6, 7))
-      ).toDF("id", "class", "num")
+      val expectedDF = spark.createDF(
+        List(
+          ("A", "a", Seq(1, 2, 3)),
+          ("A", "b", Seq(1, 2, 3)),
+          ("A", "c", Seq(1, 2, 3)),
+          ("B", "a", Seq(5, 6, 7)),
+          ("B", "b", Seq(5, 6, 7)),
+          ("B", "c", Seq(5, 6, 7))
+        ), List(
+          ("id", StringType, true),
+          ("class", StringType, true),
+          ("num", IntegerType, true)
+        )
+      )
 
       assertSmallDataFrameEquality(actualDF, expectedDF)
 
@@ -1846,7 +1858,7 @@ class FunctionsSpec
 
   describe("#sum") {
     describe("(when column has only null values)") {
-      it("returns null") {
+      it("returns null when column has only null values") {
         val sourceDF = Seq(SumNumericInput(None), SumNumericInput(None)).toDF
         val actualDF = sourceDF.agg(sum("colA") as "sum")
         val expectedDF = Seq(SumNumericOutput(None)).toDF

@@ -1897,17 +1897,26 @@ class FunctionsSpec
 
     it("converts a string to lower case") {
 
-      val wordsDF = Seq(
-        ("bat  "),
-        ("  cat")
-      ).toDF("word")
+      val wordsDF = spark.createDF(
+        List(
+          ("bat  "),
+          ("  cat")
+        ), List(
+          ("word", StringType, true)
+        )
+      )
 
       val actualDF = wordsDF.withColumn("short_word", trim(col("word")))
 
-      val expectedDF = Seq(
-        ("bat  ", "bat"),
-        ("  cat", "cat")
-      ).toDF("word", "short_word")
+      val expectedDF = spark.createDF(
+        List(
+          ("bat  ", "bat"),
+          ("  cat", "cat")
+        ), List(
+          ("word", StringType, true),
+          ("short_word", StringType, true)
+        )
+      )
 
       assertSmallDataFrameEquality(actualDF, expectedDF)
 
@@ -1939,19 +1948,28 @@ class FunctionsSpec
 
     it("converts a string to upper case") {
 
-      val wordsDF = Seq(
-        ("BatmaN"),
-        ("boO"),
-        ("piKachu")
-      ).toDF("word")
+      val wordsDF = spark.createDF(
+        List(
+          ("BatmaN"),
+          ("boO"),
+          ("piKachu")
+        ), List(
+          ("word", StringType, true)
+        )
+      )
 
       val actualDF = wordsDF.withColumn("upper_word", upper(col("word")))
 
-      val expectedDF = Seq(
-        ("BatmaN", "BATMAN"),
-        ("boO", "BOO"),
-        ("piKachu", "PIKACHU")
-      ).toDF("word", "upper_word")
+      val expectedDF = spark.createDF(
+        List(
+          ("BatmaN", "BATMAN"),
+          ("boO", "BOO"),
+          ("piKachu", "PIKACHU")
+        ), List(
+          ("word", StringType, true),
+          ("upper_word", StringType, true)
+        )
+      )
 
       assertSmallDataFrameEquality(actualDF, expectedDF)
 

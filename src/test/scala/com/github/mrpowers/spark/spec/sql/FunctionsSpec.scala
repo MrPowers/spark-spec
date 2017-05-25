@@ -1330,11 +1330,15 @@ class FunctionsSpec
         )
       )
 
-      val wordsDF = Seq(
-        ("banh"),
-        ("delilah"),
-        (null)
-      ).toDF("word")
+      val wordsDF = spark.createDF(
+        List(
+          ("banh"),
+          ("delilah"),
+          (null)
+        ), List(
+          ("word", StringType, true)
+        )
+      )
 
       val actualDF = wordsDF.withColumn("length", length(col("word")))
 
@@ -1403,19 +1407,28 @@ class FunctionsSpec
 
     it("converts a string to lower case") {
 
-      val wordsDF = Seq(
-        ("Batman"),
-        ("CATWOMAN"),
-        ("pikachu")
-      ).toDF("word")
+      val wordsDF = spark.createDF(
+        List(
+          ("Batman"),
+          ("CATWOMAN"),
+          ("pikachu")
+        ), List(
+          ("word", StringType, true)
+        )
+      )
 
       val actualDF = wordsDF.withColumn("lower_word", lower(col("word")))
 
-      val expectedDF = Seq(
-        ("Batman", "batman"),
-        ("CATWOMAN", "catwoman"),
-        ("pikachu", "pikachu")
-      ).toDF("word", "lower_word")
+      val expectedDF = spark.createDF(
+        List(
+          ("Batman", "batman"),
+          ("CATWOMAN", "catwoman"),
+          ("pikachu", "pikachu")
+        ), List(
+          ("word", StringType, true),
+          ("lower_word", StringType, true)
+        )
+      )
 
       assertSmallDataFrameEquality(actualDF, expectedDF)
 
@@ -1536,11 +1549,15 @@ class FunctionsSpec
 
     it("returns the value of the first argument raised to the power of the second argument") {
 
-      val numsDF = Seq(
-        (2),
-        (3),
-        (1)
-      ).toDF("num")
+      val numsDF = spark.createDF(
+        List(
+          (2),
+          (3),
+          (1)
+        ), List(
+          ("num", IntegerType, true)
+        )
+      )
 
       val actualDF = numsDF.withColumn("power", pow(col("num"), 3))
 
@@ -1550,8 +1567,8 @@ class FunctionsSpec
           (3, 27.0),
           (1, 1.0)
         ), List(
-          ("num", IntegerType, false),
-          ("power", DoubleType, false)
+          ("num", IntegerType, true),
+          ("power", DoubleType, true)
         )
       )
 
@@ -1613,21 +1630,30 @@ class FunctionsSpec
 
     it("Right-padded with pad to a length of len") {
 
-      val wordsDF = Seq(
-        ("banh"),
-        ("delilah"),
-        (null),
-        ("c")
-      ).toDF("word1")
+      val wordsDF = spark.createDF(
+        List(
+          ("banh"),
+          ("delilah"),
+          (null),
+          ("c")
+        ), List(
+          ("word1", StringType, true)
+        )
+      )
 
       val actualDF = wordsDF.withColumn("rpad_column", rpad(col("word1"), 5, "x"))
 
-      val expectedDF = Seq(
-        ("banh", "banhx"),
-        ("delilah", "delil"),
-        (null, null),
-        ("c", "cxxxx")
-      ).toDF("word1", "rpad_column")
+      val expectedDF = spark.createDF(
+        List(
+          ("banh", "banhx"),
+          ("delilah", "delil"),
+          (null, null),
+          ("c", "cxxxx")
+        ), List(
+          ("word1", StringType, true),
+          ("rpad_column", StringType, true)
+        )
+      )
 
       assertSmallDataFrameEquality(actualDF, expectedDF)
 
@@ -1639,23 +1665,32 @@ class FunctionsSpec
 
     it("trims the spaces from right end for the specified string value") {
 
-      val wordsDF = Seq(
-        ("nice   "),
-        ("cat"),
-        (null),
-        ("  person         ")
-      ).toDF("word1")
+      val wordsDF = spark.createDF(
+        List(
+          ("nice   "),
+          ("cat"),
+          (null),
+          ("  person         ")
+        ), List(
+          ("word1", StringType, true)
+        )
+      )
 
       val actualDF = wordsDF.withColumn(
         "rtrim_column", rtrim(col("word1"))
       )
 
-      val expectedDF = Seq(
-        ("nice   ", "nice"),
-        ("cat", "cat"),
-        (null, null),
-        ("  person         ", "  person")
-      ).toDF("word1", "rtrim_column")
+      val expectedDF = spark.createDF(
+        List(
+          ("nice   ", "nice"),
+          ("cat", "cat"),
+          (null, null),
+          ("  person         ", "  person")
+        ), List(
+          ("word1", StringType, true),
+          ("rtrim_column", StringType, true)
+        )
+      )
 
       assertSmallDataFrameEquality(actualDF, expectedDF)
 
@@ -1727,11 +1762,15 @@ class FunctionsSpec
 
     it("Computes the square root of the specified float value") {
 
-      val numsDF = Seq(
-        (49),
-        (144),
-        (89)
-      ).toDF("num1")
+      val numsDF = spark.createDF(
+        List(
+          (49),
+          (144),
+          (89)
+        ), List(
+          ("num1", IntegerType, true)
+        )
+      )
 
       val sqrtDF = numsDF.withColumn("sqrt_num", sqrt(col("num1")))
 
@@ -1741,7 +1780,7 @@ class FunctionsSpec
           (144, 12.0),
           (89, 9.433981132056603)
         ), List(
-          ("num1", IntegerType, false),
+          ("num1", IntegerType, true),
           ("sqrt_num", DoubleType, true)
         )
       )
@@ -1776,19 +1815,28 @@ class FunctionsSpec
 
     it("Slices a string, starts at position pos of length len.") {
 
-      val wordsDF = Seq(
-        ("Batman"),
-        ("CATWOMAN"),
-        ("pikachu")
-      ).toDF("word")
+      val wordsDF = spark.createDF(
+        List(
+          ("Batman"),
+          ("CATWOMAN"),
+          ("pikachu")
+        ), List(
+          ("word", StringType, true)
+        )
+      )
 
       val actualDF = wordsDF.withColumn("substring_word", substring(col("word"), 0, 3))
 
-      val expectedDF = Seq(
-        ("Batman", "Bat"),
-        ("CATWOMAN", "CAT"),
-        ("pikachu", "pik")
-      ).toDF("word", "substring_word")
+      val expectedDF = spark.createDF(
+        List(
+          ("Batman", "Bat"),
+          ("CATWOMAN", "CAT"),
+          ("pikachu", "pik")
+        ), List(
+          ("word", StringType, true),
+          ("substring_word", StringType, true)
+        )
+      )
 
       assertDataFrameEquality(actualDF, expectedDF)
 

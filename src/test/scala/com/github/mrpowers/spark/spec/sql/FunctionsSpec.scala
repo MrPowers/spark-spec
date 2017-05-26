@@ -1858,55 +1858,23 @@ class FunctionsSpec
 
   describe("#sum") {
     describe("(when column has only null values)") {
-
       it("returns null when column has only null values") {
-
-        val sourceDF = spark.createDF(
-          List(
-            (SumNumericInput(None)),
-            (SumNumericInput(None))
-          )
-        )
-
+        val sourceDF = Seq(SumNumericInput(None), SumNumericInput(None)).toDF
         val actualDF = sourceDF.agg(sum("colA") as "sum")
-
-        val expectedDF = spark.createDF(
-          List(
-            (SumNumericOutput(None))
-          )
-        )
+        val expectedDF = Seq(SumNumericOutput(None)).toDF
 
         assertSmallDataFrameEquality(actualDF, expectedDF)
-
       }
-
     }
     describe("(when column has at-least one non null value)") {
       it("returns the sum of a real numbers") {
-        val sourceDF = spark.createDF(
-          List(
-            (SumNumericInput(Some(200.50))),
-            (SumNumericInput(Some(-10.0))),
-            (SumNumericInput(Some(10))),
-            (SumNumericInput(Some(-30))),
-            (SumNumericInput(None))
-            )
-        )
-
+        val sourceDF = Seq(SumNumericInput(Some(200.50)), SumNumericInput(Some(-10.0)), SumNumericInput(Some(10)), SumNumericInput(Some(-30)), SumNumericInput(None)).toDF
         val actualDF = sourceDF.agg(sum("colA") as "sum")
-
-        val expectedDF = spark.createDF(
-          List(
-          (SumNumericOutput(Some(170.5)))
-          )
-        )
+        val expectedDF = Seq(SumNumericOutput(Some(170.5))).toDF
 
         assertSmallDataFrameEquality(actualDF, expectedDF)
-
       }
-
     }
-
   }
 
   describe("#sumDistinct") {

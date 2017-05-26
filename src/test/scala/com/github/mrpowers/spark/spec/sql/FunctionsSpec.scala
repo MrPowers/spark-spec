@@ -1081,8 +1081,8 @@ class FunctionsSpec
           ("B", List("a", "b", "c"), List(5, 6, 7))
         ), List(
           ("id", StringType, true),
-          ("class", StringType, true),
-          ("num", IntegerType, true)
+          ("class", ArrayType(StringType, true), true),
+          ("num", ArrayType(IntegerType, true), true)
         )
       )
 
@@ -1103,7 +1103,7 @@ class FunctionsSpec
         ), List(
           ("id", StringType, true),
           ("class", StringType, true),
-          ("num", IntegerType, true)
+          ("num", ArrayType(IntegerType, true), true)
         )
       )
 

@@ -109,16 +109,14 @@ class FunctionsSpec
 
       val expectedDF = spark.createDF(
         List(
-          ("1", "2016-01-01 00:00:00", "2016-03-01"),
-          ("2", "2016-12-01 00:00:00", "2017-02-01")
+          ("1", Timestamp.valueOf("2016-01-01 00:00:00"), Date.valueOf("2016-03-01")),
+          ("2", Timestamp.valueOf("2016-12-01 00:00:00"), Date.valueOf("2017-02-01"))
         ), List(
           ("person_id", StringType, true),
-          ("birth_date", StringType, true),
-          ("future_date", StringType, true)
+          ("birth_date", TimestampType, true),
+          ("future_date", DateType, true)
         )
       )
-        .withColumn("birth_date", col("birth_date").cast("timestamp"))
-        .withColumn("future_date", col("future_date").cast("date"))
 
       assertSmallDataFrameEquality(actualDF, expectedDF)
 

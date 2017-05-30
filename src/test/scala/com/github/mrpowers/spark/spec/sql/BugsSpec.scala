@@ -7,9 +7,9 @@ import org.scalatest.FunSpec
 
 import com.github.mrpowers.spark.spec.SparkSessionTestWrapper
 
-import com.github.mrpowers.spark.fast.tests.DataFrameComparer
+import com.github.mrpowers.spark.fast.tests.DatasetComparer
 
-class BugsSpec extends FunSpec with SparkSessionTestWrapper with DataFrameComparer {
+class BugsSpec extends FunSpec with SparkSessionTestWrapper with DatasetComparer {
 
   import spark.implicits._
 
@@ -23,7 +23,7 @@ class BugsSpec extends FunSpec with SparkSessionTestWrapper with DataFrameCompar
 
       val expectedDF = Seq(1).toDF("bar")
 
-      assertSmallDataFrameEquality(actualDF, expectedDF)
+      assertSmallDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -55,7 +55,7 @@ class BugsSpec extends FunSpec with SparkSessionTestWrapper with DataFrameCompar
         StructType(expectedSchema)
       )
 
-      assertSmallDataFrameEquality(actualDF, expectedDF)
+      assertSmallDatasetEquality(actualDF, expectedDF)
 
     }
 

@@ -1,6 +1,6 @@
 package com.github.mrpowers.spark.spec.sql
 
-import com.github.mrpowers.spark.fast.tests.{DataFrameComparer, RDDComparer}
+import com.github.mrpowers.spark.fast.tests.{DatasetComparer, RDDComparer}
 import com.github.mrpowers.spark.models._
 import com.github.mrpowers.spark.spec.SparkSessionTestWrapper
 import org.apache.spark.sql.functions._
@@ -12,7 +12,7 @@ import com.github.mrpowers.spark.daria.sql.SparkSessionExt._
 class DatasetSpec
     extends FunSpec
     with SparkSessionTestWrapper
-    with DataFrameComparer
+    with DatasetComparer
     with RDDComparer {
 
   import spark.implicits._
@@ -39,7 +39,7 @@ class DatasetSpec
         ("luisa")
       ).toDF("student")
 
-      assertSmallDataFrameEquality(actualDF, expectedDF)
+      assertSmallDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -59,7 +59,7 @@ class DatasetSpec
         Student("Alice Sr")
       ).toDS
 
-      assertSmallDataFrameEquality(actualDS.toDF, expectedDS.toDF)
+      assertSmallDatasetEquality(actualDS.toDF, expectedDS.toDF)
 
     }
 
@@ -87,7 +87,7 @@ class DatasetSpec
         ("luisa")
       ).toDF("student")
 
-      assertSmallDataFrameEquality(actualDF, expectedDF)
+      assertSmallDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -208,7 +208,7 @@ class DatasetSpec
         ("b", "2")
       ).toDF("letter", "number")
 
-      assertSmallDataFrameEquality(actualDF, expectedDF)
+      assertSmallDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -238,7 +238,7 @@ class DatasetSpec
         ("max", "8")
       ).toDF("summary", "num1")
 
-      assertSmallDataFrameEquality(actualDF, expectedDF)
+      assertSmallDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -259,7 +259,7 @@ class DatasetSpec
         ("max", "b")
       ).toDF("summary", "letter")
 
-      assertSmallDataFrameEquality(actualDF, expectedDF)
+      assertSmallDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -285,7 +285,7 @@ class DatasetSpec
         (8, 8)
       ).toDF("num1", "num2")
 
-      assertSmallDataFrameEquality(actualDF, expectedDF)
+      assertSmallDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -309,7 +309,7 @@ class DatasetSpec
         ("susy")
       ).toDF("person")
 
-      assertSmallDataFrameEquality(actualDF, expectedDF)
+      assertSmallDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -335,7 +335,7 @@ class DatasetSpec
         (8, 8)
       ).toDF("num1", "num2")
 
-      assertSmallDataFrameEquality(actualDF, expectedDF)
+      assertSmallDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -363,7 +363,7 @@ class DatasetSpec
         )
       )
 
-      assertSmallDataFrameEquality(actualDF, expectedDF)
+      assertSmallDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -415,7 +415,7 @@ class DatasetSpec
         (1, 2)
       ).toDF("num1", "num2")
 
-      assertSmallDataFrameEquality(actualDF, expectedDF)
+      assertSmallDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -443,7 +443,7 @@ class DatasetSpec
         (42)
       ).toDF("num1")
 
-      assertSmallDataFrameEquality(actualDF, expectedDF)
+      assertSmallDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -464,7 +464,7 @@ class DatasetSpec
         (42)
       ).toDF("num1")
 
-      assertSmallDataFrameEquality(actualDF, expectedDF)
+      assertSmallDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -487,7 +487,7 @@ class DatasetSpec
         (42)
       ).toDF("num1")
 
-      assertSmallDataFrameEquality(actualDF, expectedDF)
+      assertSmallDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -503,7 +503,7 @@ class DatasetSpec
         PersonWithAge("Alice", 29)
       ).toDS
 
-      assertSmallDataFrameEquality(actualDS.toDF, expectedDS.toDF)
+      assertSmallDatasetEquality(actualDS.toDF, expectedDS.toDF)
     }
 
   }
@@ -569,7 +569,7 @@ class DatasetSpec
         )
       )
 
-      assertSmallDataFrameEquality(actualDF, expectedDF)
+      assertSmallDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -648,7 +648,7 @@ class DatasetSpec
         (4, 5)
       ).toDF("num1", "num2")
 
-      assertSmallDataFrameEquality(actualDF, expectedDF)
+      assertSmallDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -692,7 +692,7 @@ class DatasetSpec
         ("susy", "3", "los angeles", "3")
       ).toDF("person", "id", "city", "person_id")
 
-      assertSmallDataFrameEquality(actualDF, expectedDF)
+      assertSmallDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -774,7 +774,7 @@ class DatasetSpec
         (true, "bangalore")
       ).toDF("have_visited", "city")
 
-      assertSmallDataFrameEquality(actualDF, expectedDF)
+      assertSmallDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -816,7 +816,7 @@ class DatasetSpec
         )
       )
 
-      assertSmallDataFrameEquality(actualDF, expectedDF)
+      assertSmallDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -846,7 +846,7 @@ class DatasetSpec
         99
       ).toDF("num1")
 
-      assertSmallDataFrameEquality(actualDF, expectedDF)
+      assertSmallDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -956,7 +956,7 @@ class DatasetSpec
         )
       )
 
-      assertSmallDataFrameEquality(actualDF, expectedDF)
+      assertSmallDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -988,7 +988,7 @@ class DatasetSpec
         )
       )
 
-      assertSmallDataFrameEquality(actualDF, expectedDF)
+      assertSmallDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -1069,7 +1069,7 @@ class DatasetSpec
         (5)
       ).toDF("number")
 
-      assertSmallDataFrameEquality(actualDF, expectedDF)
+      assertSmallDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -1090,7 +1090,7 @@ class DatasetSpec
         (5, "bob")
       ).toDF("number", "name")
 
-      assertSmallDataFrameEquality(actualDF, expectedDF)
+      assertSmallDatasetEquality(actualDF, expectedDF)
 
     }
   }
@@ -1168,7 +1168,7 @@ class DatasetSpec
         UnionAnyOutput("Bob Sr", 47, None)
       ).toDS
 
-      assertSmallDataFrameEquality(actualDS.toDF, expectedDS.toDF)
+      assertSmallDatasetEquality(actualDS.toDF, expectedDS.toDF)
     }
   }
 
@@ -1193,7 +1193,7 @@ class DatasetSpec
         PersonWithAge("Bob", 42)
       ).toDS
 
-      assertSmallDataFrameEquality(actualDF.toDF, expectedDF.toDF)
+      assertSmallDatasetEquality(actualDF.toDF, expectedDF.toDF)
 
     }
 
@@ -1213,7 +1213,7 @@ class DatasetSpec
 
       val expectedDF = Seq(1).toDF("bar")
 
-      assertSmallDataFrameEquality(actualDF, expectedDF)
+      assertSmallDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -1225,7 +1225,7 @@ class DatasetSpec
 
       val expectedDF = Seq(1).toDF("foo")
 
-      assertSmallDataFrameEquality(actualDF, expectedDF)
+      assertSmallDatasetEquality(actualDF, expectedDF)
 
     }
 

@@ -6,9 +6,9 @@ import org.apache.spark.sql.types.{StringType, StructField, StructType}
 import org.scalatest._
 import com.github.mrpowers.spark.spec.SparkSessionTestWrapper
 
-import com.github.mrpowers.spark.fast.tests.DataFrameComparer
+import com.github.mrpowers.spark.fast.tests.DatasetComparer
 
-class SparkSessionSpec extends FunSpec with SparkSessionTestWrapper with DataFrameComparer {
+class SparkSessionSpec extends FunSpec with SparkSessionTestWrapper with DatasetComparer {
 
   describe("#baseRelationToDataFrame") {
     pending
@@ -117,7 +117,7 @@ class SparkSessionSpec extends FunSpec with SparkSessionTestWrapper with DataFra
         StructType(expectedSchema)
       )
 
-      assertSmallDataFrameEquality(actualDF, expectedDF)
+      assertSmallDatasetEquality(actualDF, expectedDF)
 
     }
 

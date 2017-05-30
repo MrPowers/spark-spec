@@ -3,7 +3,7 @@ package com.github.mrpowers.spark.spec.sql
 import java.sql.Timestamp
 import java.sql.Date
 
-import com.github.mrpowers.spark.fast.tests.DataFrameComparer
+import com.github.mrpowers.spark.fast.tests.DatasetComparer
 import com.github.mrpowers.spark.models._
 import com.github.mrpowers.spark.spec.SparkSessionTestWrapper
 import org.apache.spark.sql.functions._
@@ -14,7 +14,7 @@ import com.github.mrpowers.spark.daria.sql.SparkSessionExt._
 class FunctionsSpec
     extends FunSpec
     with SparkSessionTestWrapper
-    with DataFrameComparer {
+    with DatasetComparer {
 
   import spark.implicits._
 
@@ -47,7 +47,7 @@ class FunctionsSpec
         )
       )
 
-      assertSmallDataFrameEquality(actualDF, expectedDF)
+      assertSmallDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -82,7 +82,7 @@ class FunctionsSpec
         )
       )
 
-      assertSmallDataFrameEquality(actualDF, expectedDF)
+      assertSmallDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -118,7 +118,7 @@ class FunctionsSpec
         )
       )
 
-      assertSmallDataFrameEquality(actualDF, expectedDF)
+      assertSmallDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -152,7 +152,7 @@ class FunctionsSpec
         List(("num1", IntegerType, true))
       )
 
-      assertSmallDataFrameEquality(actualDF, expectedDF)
+      assertSmallDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -188,7 +188,7 @@ class FunctionsSpec
         )
       )
 
-      assertSmallDataFrameEquality(actualDF, expectedDF)
+      assertSmallDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -220,7 +220,7 @@ class FunctionsSpec
         )
       )
 
-      assertSmallDataFrameEquality(actualDF, expectedDF)
+      assertSmallDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -261,7 +261,7 @@ class FunctionsSpec
         )
       )
 
-      assertSmallDataFrameEquality(actualDF, expectedDF)
+      assertSmallDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -294,7 +294,7 @@ class FunctionsSpec
         )
       )
 
-      assertSmallDataFrameEquality(actualDF, expectedDF)
+      assertSmallDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -327,7 +327,7 @@ class FunctionsSpec
         )
       )
 
-      assertSmallDataFrameEquality(actualDF, expectedDF)
+      assertSmallDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -370,7 +370,7 @@ class FunctionsSpec
 
       val actualDF = sourceDF.agg(avg("Double").as("average"))
 
-      assertSmallDataFrameEquality(actualDF, expectedDF)
+      assertSmallDatasetEquality(actualDF, expectedDF)
     }
 
   }
@@ -398,7 +398,7 @@ class FunctionsSpec
         )
       ).withColumn("bin1", col("bin1").cast("binary"))
 
-      assertSmallDataFrameEquality(actualDF, expectedDF)
+      assertSmallDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -447,7 +447,7 @@ class FunctionsSpec
         )
       )
 
-      assertSmallDataFrameEquality(actualDF, expectedDF)
+      assertSmallDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -485,7 +485,7 @@ class FunctionsSpec
         )
       )
 
-      assertSmallDataFrameEquality(actualDF, expectedDF)
+      assertSmallDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -518,7 +518,7 @@ class FunctionsSpec
         )
       )
 
-      assertSmallDataFrameEquality(actualDF, expectedDF)
+      assertSmallDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -562,7 +562,7 @@ class FunctionsSpec
         )
       )
 
-      assertSmallDataFrameEquality(actualDF, expectedDF)
+      assertSmallDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -595,7 +595,7 @@ class FunctionsSpec
         )
       )
 
-      assertSmallDataFrameEquality(actualDF, expectedDF)
+      assertSmallDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -636,7 +636,7 @@ class FunctionsSpec
         )
       )
 
-      assertSmallDataFrameEquality(actualDF, expectedDF)
+      assertSmallDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -682,7 +682,7 @@ class FunctionsSpec
         )
       )
 
-      assertSmallDataFrameEquality(actualDF, expectedDF)
+      assertSmallDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -726,7 +726,7 @@ class FunctionsSpec
           ("yummy", StringType, true)
         )
       )
-      assertSmallDataFrameEquality(actualDF, expectedDF)
+      assertSmallDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -767,7 +767,7 @@ class FunctionsSpec
         )
       )
 
-      assertSmallDataFrameEquality(actualDF, expectedDF)
+      assertSmallDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -800,7 +800,7 @@ class FunctionsSpec
         )
       )
 
-      assertSmallDataFrameEquality(actualDF, expectedDF)
+      assertSmallDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -860,7 +860,7 @@ class FunctionsSpec
         )
       )
 
-      assertSmallDataFrameEquality(actualDF, expectedDF)
+      assertSmallDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -920,7 +920,7 @@ class FunctionsSpec
         )
       )
 
-      assertSmallDataFrameEquality(actualDF, expectedDF)
+      assertSmallDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -988,7 +988,7 @@ class FunctionsSpec
         )
       )
 
-      assertSmallDataFrameEquality(actualDF, expectedDF)
+      assertSmallDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -1024,7 +1024,7 @@ class FunctionsSpec
         )
       )
 
-      assertSmallDataFrameEquality(actualDF, expectedDF)
+      assertSmallDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -1056,7 +1056,7 @@ class FunctionsSpec
         )
       )
 
-      assertSmallDataFrameEquality(actualDF, expectedDF)
+      assertSmallDatasetEquality(actualDF, expectedDF)
     }
 
   }
@@ -1105,7 +1105,7 @@ class FunctionsSpec
         )
       )
 
-      assertSmallDataFrameEquality(actualDF, expectedDF)
+      assertSmallDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -1154,7 +1154,7 @@ class FunctionsSpec
         )
       )
 
-      assertSmallDataFrameEquality(actualDF, expectedDF)
+      assertSmallDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -1242,7 +1242,7 @@ class FunctionsSpec
         )
       )
 
-      assertSmallDataFrameEquality(actualDF, expectedDF)
+      assertSmallDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -1291,7 +1291,7 @@ class FunctionsSpec
         )
       )
 
-      assertSmallDataFrameEquality(actualDF, expectedDF)
+      assertSmallDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -1352,7 +1352,7 @@ class FunctionsSpec
 
       val actualDF = wordsDF.withColumn("length", length(col("word")))
 
-      assertSmallDataFrameEquality(actualDF, expectedDF)
+      assertSmallDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -1391,7 +1391,7 @@ class FunctionsSpec
         )
       )
 
-      assertSmallDataFrameEquality(actualDF, expectedDF)
+      assertSmallDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -1440,7 +1440,7 @@ class FunctionsSpec
         )
       )
 
-      assertSmallDataFrameEquality(actualDF, expectedDF)
+      assertSmallDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -1501,7 +1501,7 @@ class FunctionsSpec
         )
       )
 
-      assertSmallDataFrameEquality(actualDF, expectedDF)
+      assertSmallDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -1582,7 +1582,7 @@ class FunctionsSpec
         )
       )
 
-      assertSmallDataFrameEquality(actualDF, expectedDF)
+      assertSmallDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -1665,7 +1665,7 @@ class FunctionsSpec
         )
       )
 
-      assertSmallDataFrameEquality(actualDF, expectedDF)
+      assertSmallDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -1702,7 +1702,7 @@ class FunctionsSpec
         )
       )
 
-      assertSmallDataFrameEquality(actualDF, expectedDF)
+      assertSmallDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -1795,7 +1795,7 @@ class FunctionsSpec
         )
       )
 
-      assertSmallDataFrameEquality(sqrtDF, expectedDF)
+      assertSmallDatasetEquality(sqrtDF, expectedDF)
 
     }
 
@@ -1848,7 +1848,7 @@ class FunctionsSpec
         )
       )
 
-      assertDataFrameEquality(actualDF, expectedDF)
+      assertSmallDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -1861,7 +1861,7 @@ class FunctionsSpec
         val actualDF = sourceDF.agg(sum("colA") as "sum")
         val expectedDF = Seq(SumNumericOutput(None)).toDF
 
-        assertSmallDataFrameEquality(actualDF, expectedDF)
+        assertSmallDatasetEquality(actualDF, expectedDF)
       }
     }
     describe("(when column has at-least one non null value)") {
@@ -1870,7 +1870,7 @@ class FunctionsSpec
         val actualDF = sourceDF.agg(sum("colA") as "sum")
         val expectedDF = Seq(SumNumericOutput(Some(170.5))).toDF
 
-        assertSmallDataFrameEquality(actualDF, expectedDF)
+        assertSmallDatasetEquality(actualDF, expectedDF)
       }
     }
   }
@@ -1928,7 +1928,7 @@ class FunctionsSpec
         )
       )
 
-      assertSmallDataFrameEquality(actualDF, expectedDF)
+      assertSmallDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -1981,7 +1981,7 @@ class FunctionsSpec
         )
       )
 
-      assertSmallDataFrameEquality(actualDF, expectedDF)
+      assertSmallDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -2038,7 +2038,7 @@ class FunctionsSpec
         )
       )
 
-      assertSmallDataFrameEquality(actualDF, expectedDF)
+      assertSmallDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -2067,7 +2067,7 @@ class FunctionsSpec
         )
       )
 
-      assertSmallDataFrameEquality(actualDF, expectedDF)
+      assertSmallDatasetEquality(actualDF, expectedDF)
 
     }
 

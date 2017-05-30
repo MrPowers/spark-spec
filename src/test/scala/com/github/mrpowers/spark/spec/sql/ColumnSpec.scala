@@ -8,12 +8,12 @@ import com.github.mrpowers.spark.daria.sql.SparkSessionExt._
 
 import com.github.mrpowers.spark.spec.SparkSessionTestWrapper
 
-import com.github.mrpowers.spark.fast.tests.DataFrameComparer
+import com.github.mrpowers.spark.fast.tests.DatasetComparer
 
 class ColumnSpec
     extends FunSpec
     with SparkSessionTestWrapper
-    with DataFrameComparer {
+    with DatasetComparer {
 
   import spark.implicits._
 
@@ -36,7 +36,7 @@ class ColumnSpec
         ("bristol", 12)
       ).toDF("city", "num_people")
 
-      assertSmallDataFrameEquality(actualDF, expectedDF)
+      assertSmallDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -58,7 +58,7 @@ class ColumnSpec
         ("mary", true, true)
       ).toDF("name", "like_cheese", "is_tall")
 
-      assertSmallDataFrameEquality(actualDF, expectedDF)
+      assertSmallDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -87,7 +87,7 @@ class ColumnSpec
         ("bristol", 12)
       ).toDF("city", "num_people")
 
-      assertSmallDataFrameEquality(actualDF, expectedDF)
+      assertSmallDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -129,7 +129,7 @@ class ColumnSpec
         )
       )
 
-      assertSmallDataFrameEquality(actualDF, expectedDF)
+      assertSmallDatasetEquality(actualDF, expectedDF)
 
     }
   }
@@ -166,7 +166,7 @@ class ColumnSpec
         )
       )
 
-      assertSmallDataFrameEquality(actualDF, expectedDF)
+      assertSmallDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -200,7 +200,7 @@ class ColumnSpec
         ("Scala is scalable and cool")
       ).toDF("text")
 
-      assertSmallDataFrameEquality(actualDF, expectedDF)
+      assertSmallDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -241,7 +241,7 @@ class ColumnSpec
         )
       )
 
-      assertSmallDataFrameEquality(actualDF, expectedDF)
+      assertSmallDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -267,7 +267,7 @@ class ColumnSpec
         ("D", "2000")
       ).toDF("id", "year")
 
-      assertSmallDataFrameEquality(actualDF, expectedDF)
+      assertSmallDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -315,7 +315,7 @@ class ColumnSpec
       ).toDF("some_date")
         .withColumn("some_date", $"some_date".cast("timestamp"))
 
-      assertSmallDataFrameEquality(actualDF, expectedDF)
+      assertSmallDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -347,7 +347,7 @@ class ColumnSpec
         ("E", "2012-09-09", "09")
       ).toDF("id", "birthday", "month")
 
-      assertSmallDataFrameEquality(actualDF, expectedDF)
+      assertSmallDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -372,7 +372,7 @@ class ColumnSpec
         (257)
       ).toDF("num1")
 
-      assertSmallDataFrameEquality(actualDF, expectedDF)
+      assertSmallDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -402,7 +402,7 @@ class ColumnSpec
         ("andrew")
       ).toDF("some_name")
 
-      assertSmallDataFrameEquality(actualDF, expectedDF)
+      assertSmallDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -460,7 +460,7 @@ class ColumnSpec
         )
       )
 
-      assertSmallDataFrameEquality(actualDF, expectedDF)
+      assertSmallDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -488,7 +488,7 @@ class ColumnSpec
         ("F", "2016")
       ).toDF("id", "year")
 
-      assertSmallDataFrameEquality(actualDF, expectedDF)
+      assertSmallDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -522,7 +522,7 @@ class ColumnSpec
         )
       )
 
-      assertSmallDataFrameEquality(actualDF, expectedDF)
+      assertSmallDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -577,7 +577,7 @@ class ColumnSpec
         )
       )
 
-      assertSmallDataFrameEquality(actualDF, expectedDF)
+      assertSmallDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -598,7 +598,7 @@ class ColumnSpec
         ("A", "bbbbba11111xy")
       ).toDF("id", "text")
 
-      assertSmallDataFrameEquality(actualDF, expectedDF)
+      assertSmallDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -636,7 +636,7 @@ class ColumnSpec
         )
       )
 
-      assertSmallDataFrameEquality(actualDF, expectedDF)
+      assertSmallDatasetEquality(actualDF, expectedDF)
 
     }
 

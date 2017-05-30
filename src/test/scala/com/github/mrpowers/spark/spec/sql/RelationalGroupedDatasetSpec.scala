@@ -3,9 +3,9 @@ package com.github.mrpowers.spark.spec.sql
 import org.scalatest.FunSpec
 import com.github.mrpowers.spark.spec.SparkSessionTestWrapper
 
-import com.github.mrpowers.spark.fast.tests.DataFrameComparer
+import com.github.mrpowers.spark.fast.tests.DatasetComparer
 
-class RelationalGroupedDatasetSpec extends FunSpec with SparkSessionTestWrapper with DataFrameComparer {
+class RelationalGroupedDatasetSpec extends FunSpec with SparkSessionTestWrapper with DatasetComparer {
 
   import spark.implicits._
 
@@ -46,7 +46,7 @@ class RelationalGroupedDatasetSpec extends FunSpec with SparkSessionTestWrapper 
 
       val aRelationalGroupedDataSet = sourceDF.groupBy("position", "team")
       val actualDF = aRelationalGroupedDataSet.count
-      assertSmallDataFrameEquality(expectedDF, actualDF)
+      assertSmallDatasetEquality(expectedDF, actualDF)
 
     }
 

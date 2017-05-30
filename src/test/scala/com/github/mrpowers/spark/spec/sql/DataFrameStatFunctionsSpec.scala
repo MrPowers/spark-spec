@@ -3,9 +3,9 @@ package com.github.mrpowers.spark.spec.sql
 import org.scalatest._
 import com.github.mrpowers.spark.spec.SparkSessionTestWrapper
 
-import com.github.mrpowers.spark.fast.tests.DataFrameComparer
+import com.github.mrpowers.spark.fast.tests.DatasetComparer
 
-class DataFrameStatFunctionsSpec extends FunSpec with SparkSessionTestWrapper with DataFrameComparer {
+class DataFrameStatFunctionsSpec extends FunSpec with SparkSessionTestWrapper with DatasetComparer {
 
   import spark.implicits._
 

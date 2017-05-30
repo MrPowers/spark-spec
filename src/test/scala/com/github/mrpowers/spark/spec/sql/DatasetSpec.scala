@@ -22,47 +22,7 @@ class DatasetSpec
   }
 
   describe("#alias") {
-
-    it("aliases a DataFrame") {
-
-      val sourceDF = Seq(
-        ("jose"),
-        ("li"),
-        ("luisa")
-      ).toDF("name")
-
-      val actualDF = sourceDF.select(col("name").alias("student"))
-
-      val expectedDF = Seq(
-        ("jose"),
-        ("li"),
-        ("luisa")
-      ).toDF("student")
-
-      assertSmallDatasetEquality(actualDF, expectedDF)
-
-    }
-
-    it("aliases a Dataset") {
-
-      val sourceDS = Seq(
-        Person("Alice Jr"),
-        Person("Bob Jr"),
-        Person("Alice Sr")
-      ).toDS
-
-      val actualDS = sourceDS.select(col("name").alias("student"))
-
-      val expectedDS = Seq(
-        Student("Alice Jr"),
-        Student("Bob Jr"),
-        Student("Alice Sr")
-      ).toDS
-
-      assertSmallDatasetEquality(actualDS.toDF, expectedDS.toDF)
-
-    }
-
+    pending
   }
 
   describe("#apply") {
@@ -503,7 +463,7 @@ class DatasetSpec
         PersonWithAge("Alice", 29)
       ).toDS
 
-      assertSmallDatasetEquality(actualDS.toDF, expectedDS.toDF)
+      assertSmallDatasetEquality(actualDS, expectedDS)
     }
 
   }
@@ -1162,13 +1122,13 @@ class DatasetSpec
       val actualDS = juniorParticipants.union(seniorParticipants)
 
       val expectedDS = Seq(
-        UnionAnyOutput("Alice Jr", 12, Some("Good game")),
-        UnionAnyOutput("Bob Jr", 17, None),
-        UnionAnyOutput("Alice Sr", 52, Some("Good Play")),
-        UnionAnyOutput("Bob Sr", 47, None)
+        UnionAnyInput("Alice Jr", 12, Some("Good game")),
+        UnionAnyInput("Bob Jr", 17, None),
+        UnionAnyInput("Alice Sr", 52, Some("Good Play")),
+        UnionAnyInput("Bob Sr", 47, None)
       ).toDS
 
-      assertSmallDatasetEquality(actualDS.toDF, expectedDS.toDF)
+      assertSmallDatasetEquality(actualDS, expectedDS)
     }
   }
 
@@ -1180,20 +1140,20 @@ class DatasetSpec
 
     it("filters rows using sql expression") {
 
-      val sourceDF: Dataset[PersonWithAge] = Seq(
+      val sourceDS: Dataset[PersonWithAge] = Seq(
         PersonWithAge("Alice", 12),
         PersonWithAge("Bob", 42),
         PersonWithAge("Cody", 10),
         PersonWithAge("Dane", 50)
       ).toDS
 
-      val actualDF: Dataset[PersonWithAge] = sourceDF.where("age BETWEEN 18 AND 45")
+      val actualDS: Dataset[PersonWithAge] = sourceDS.where("age BETWEEN 18 AND 45")
 
-      val expectedDF: Dataset[PersonWithAge] = Seq(
+      val expectedDS: Dataset[PersonWithAge] = Seq(
         PersonWithAge("Bob", 42)
       ).toDS
 
-      assertSmallDatasetEquality(actualDF.toDF, expectedDF.toDF)
+      assertSmallDatasetEquality(actualDS, expectedDS)
 
     }
 

@@ -1110,22 +1110,22 @@ class DatasetSpec
   describe("#union") {
     it("combines entries of datasets with same schema") {
       val juniorParticipants = Seq(
-        UnionAnyInput("Alice Jr", 12, Some("Good game")),
-        UnionAnyInput("Bob Jr", 17, None)
+        GameComment("Alice Jr", 12, Some("Good game")),
+        GameComment("Bob Jr", 17, None)
       ).toDS
 
       val seniorParticipants = Seq(
-        UnionAnyInput("Alice Sr", 52, Some("Good Play")),
-        UnionAnyInput("Bob Sr", 47, None)
+        GameComment("Alice Sr", 52, Some("Good Play")),
+        GameComment("Bob Sr", 47, None)
       ).toDS
 
       val actualDS = juniorParticipants.union(seniorParticipants)
 
       val expectedDS = Seq(
-        UnionAnyInput("Alice Jr", 12, Some("Good game")),
-        UnionAnyInput("Bob Jr", 17, None),
-        UnionAnyInput("Alice Sr", 52, Some("Good Play")),
-        UnionAnyInput("Bob Sr", 47, None)
+        GameComment("Alice Jr", 12, Some("Good game")),
+        GameComment("Bob Jr", 17, None),
+        GameComment("Alice Sr", 52, Some("Good Play")),
+        GameComment("Bob Sr", 47, None)
       ).toDS
 
       assertSmallDatasetEquality(actualDS, expectedDS)

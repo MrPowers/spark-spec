@@ -119,18 +119,7 @@ class DatasetSpec
   }
 
   describe("#count") {
-
-    it("returns a count of all the rows in a DataFrame") {
-
-      val sourceDF = Seq(
-        ("jets"),
-        ("barcelona")
-      ).toDF("team")
-
-      assert(sourceDF.count === 2)
-
-    }
-
+    pending
   }
 
   describe("#createGlobalTempView") {

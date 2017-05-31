@@ -405,7 +405,31 @@ class FunctionsSpec
   }
 
   describe("#bin") {
-    pending
+
+    it("returns the string representation of the binary value of the given long column") {
+
+      val sourceDF = spark.createDF(
+        List(
+          ("12")
+        ), List(
+          ("num1", StringType, true)
+        )
+      ).withColumn("num1", col("num1").cast("long"))
+
+      val actualDF = sourceDF.withColumn("bin", bin(col("num1")))
+
+      val expectedDF = spark.createDF(
+        List(
+          ("12", "1100")
+        ), List(
+          ("num1", StringType, true),
+          ("bin", StringType, true)
+        )
+      ).withColumn("num1", col("num1").cast("long"))
+
+      assertSmallDatasetEquality(actualDF, expectedDF)
+    }
+
   }
 
   describe("#bitwiseNOT") {

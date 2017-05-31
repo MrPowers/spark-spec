@@ -410,22 +410,24 @@ class FunctionsSpec
 
       val sourceDF = spark.createDF(
         List(
-          ("12")
+          (12L),
+          (null)
         ), List(
-          ("num1", StringType, true)
+          ("num1", LongType, true)
         )
-      ).withColumn("num1", col("num1").cast("long"))
+      )
 
       val actualDF = sourceDF.withColumn("bin", bin(col("num1")))
 
       val expectedDF = spark.createDF(
         List(
-          ("12", "1100")
+          (12L, "1100"),
+          (null, null)
         ), List(
-          ("num1", StringType, true),
+          ("num1", LongType, true),
           ("bin", StringType, true)
         )
-      ).withColumn("num1", col("num1").cast("long"))
+      )
 
       assertSmallDatasetEquality(actualDF, expectedDF)
     }

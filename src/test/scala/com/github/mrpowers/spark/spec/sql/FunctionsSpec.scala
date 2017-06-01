@@ -799,7 +799,38 @@ class FunctionsSpec
   }
 
   describe("#corr") {
-    pending
+
+    it("Aggregate function: returns the Pearson Correlation Coefficient for two columns") {
+
+      val sourceDF = spark.createDF(
+        List(
+          (1, 8),
+          (3, 6),
+          (5, 30)
+        ), List(
+          ("num1", IntegerType, true),
+          ("corr", IntegerType, true)
+        )
+      )
+
+      val actualDF = sourceDF.withColumn("corr", corr("num1"))
+      actualDF.show()
+
+/*     val expectedDF = spark.createDF(
+        List(
+          (1.0, 3),
+          (0.2, 2),
+          (0.5, 5)
+        ), List(
+          ("num1", DoubleType, true),
+          ("corr", DoubleType, true)
+        )
+      )
+
+      assertSmallDatasetEquality(actualDF, expectedDF)
+*/
+    }
+
   }
 
   describe("#cos") {

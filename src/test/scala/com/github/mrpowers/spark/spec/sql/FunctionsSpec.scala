@@ -628,7 +628,43 @@ class FunctionsSpec
   }
 
   describe("#collect_list") {
-    pending
+
+    it("Aggregate function: returns a list of objects with duplicates") {
+
+      val sourceDF = spark.createDF(
+        List(
+          ("A", 1),
+          ("B", 1),
+          ("A", 2),
+          ("C", 3),
+          ("D", 4),
+          ("B", 5)
+        ), List(
+          ("id", StringType, true),
+          ("foo", IntegerType, true)
+        )
+      )
+
+      val actualDF = sourceDF.groupBy($"id").agg(collect_list($"foo") as "collect_list_foo").orderBy($"id")
+
+      actualDF.show()
+
+      val expectedDF = spark.createDF(
+        List(
+          ("A", List(1, 2)),
+          ("B", List(1, 5)),
+          ("C", 3),
+          ("D", 4)
+        ), List(
+          ("id", StringType, true),
+          ("collect_list_foo", ArrayType(IntegerType, true), true)
+        )
+      )
+
+      assertSmallDatasetEquality(actualDF, expectedDF)
+
+    }
+
   }
 
   describe("#collect_set") {

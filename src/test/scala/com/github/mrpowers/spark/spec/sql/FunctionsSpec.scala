@@ -633,31 +633,31 @@ class FunctionsSpec
 
       val sourceDF = spark.createDF(
         List(
-          ("A", 1),
-          ("B", 1),
-          ("A", 2),
-          ("C", 3),
-          ("D", 4),
-          ("B", 5)
+          ("A", "cat"),
+          ("B", "cat"),
+          ("A", "bat"),
+          ("C", "matt"),
+          ("D", "lat"),
+          ("B", "phat")
         ), List(
           ("id", StringType, true),
-          ("foo", IntegerType, true)
+          ("foo", StringType, true)
         )
       )
 
-      val actualDF = sourceDF.groupBy($"id").agg(collect_list($"foo") as "collect_list_foo").orderBy($"id")
-
-      actualDF.show()
+      val actualDF = sourceDF
+        .groupBy("id")
+        .agg(collect_list("foo") as "collect_list_foo")
 
       val expectedDF = spark.createDF(
         List(
-          ("A", List(1, 2)),
-          ("B", List(1, 5)),
-          ("C", 3),
-          ("D", 4)
+          ("B", List("cat", "phat")),
+          ("D", List("lat")),
+          ("C", List("matt")),
+          ("A", List("cat", "bat"))
         ), List(
           ("id", StringType, true),
-          ("collect_list_foo", ArrayType(IntegerType, true), true)
+          ("collect_list_foo", ArrayType(StringType, true), true)
         )
       )
 
@@ -809,26 +809,22 @@ class FunctionsSpec
           (5, 30)
         ), List(
           ("num1", IntegerType, true),
-          ("corr", IntegerType, true)
+          ("num2", IntegerType, true)
         )
       )
 
-      val actualDF = sourceDF.withColumn("corr", corr("num1"))
-      actualDF.show()
+      val actualDF = sourceDF.agg(corr("num1", "num2"))
 
-/*     val expectedDF = spark.createDF(
+      val expectedDF = spark.createDF(
         List(
-          (1.0, 3),
-          (0.2, 2),
-          (0.5, 5)
+          (0.8260331876309022)
         ), List(
-          ("num1", DoubleType, true),
-          ("corr", DoubleType, true)
+          ("corr(num1, num2)", DoubleType, true)
         )
       )
 
       assertSmallDatasetEquality(actualDF, expectedDF)
-*/
+
     }
 
   }

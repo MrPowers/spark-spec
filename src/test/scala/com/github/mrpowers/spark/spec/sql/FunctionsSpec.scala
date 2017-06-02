@@ -1325,7 +1325,38 @@ class FunctionsSpec
   }
 
   describe("#hex") {
-    pending
+
+    it("Computes hex value of the given column") {
+
+      val sourceDF = spark.createDF(
+        List(
+          (236),
+          (469),
+          (183),
+          (728)
+        ), List(
+          ("num1", IntegerType, true)
+        )
+      )
+
+      val actualDF = sourceDF.withColumn("hex", hex(col("num1")))
+
+      val expectedDF = spark.createDF(
+        List(
+          (236, "EC"),
+          (469, "1D5"),
+          (183, "B7"),
+          (728, "2D8")
+        ), List(
+          ("num1", IntegerType, true),
+          ("hex", StringType, true)
+        )
+      )
+
+      assertSmallDatasetEquality(actualDF, expectedDF)
+
+    }
+
   }
 
   describe("#hour") {

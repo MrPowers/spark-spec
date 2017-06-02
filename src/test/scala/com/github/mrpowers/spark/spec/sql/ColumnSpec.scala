@@ -185,15 +185,19 @@ class ColumnSpec
   }
 
   describe("#count") {
+
     it("To count number of records in a column in a dataframe") {
+
       val sourceDF = Seq(
-        ("Samantha"),
-        ("Eunice"),
-        ("Cleopatra")
+        ("akka"),
+        ("scalding"),
+        ("scalaz")
       ).toDF("GitHub_lib")
 
       assert(sourceDF.count == 3)
+
     }
+
   }
 
   describe("#contains") {

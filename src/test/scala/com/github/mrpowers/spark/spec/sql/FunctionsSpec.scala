@@ -1092,7 +1092,37 @@ class FunctionsSpec
   }
 
   describe("#exp") {
-    pending
+
+    it("Computes the exponential of the given column.") {
+
+      val sourceDF = spark.createDF(
+        List(
+          (0),
+          (1),
+          (2),
+          (null)
+        ), List(
+          ("num1", IntegerType, true)
+        )
+      )
+
+      val actualDF = sourceDF.withColumn("exp", exp(col("num1")))
+
+      val expectedDF = spark.createDF(
+        List(
+          (0, 1.0),
+          (1, 2.718281828459045),
+          (2, 7.38905609893065),
+          (null, null)
+        ), List(
+          ("num1", IntegerType, true),
+          ("exp", DoubleType, true)
+        )
+      )
+
+      assertSmallDatasetEquality(actualDF, expectedDF)
+    }
+
   }
 
   describe("#explode") {

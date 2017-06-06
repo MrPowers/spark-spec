@@ -5,9 +5,7 @@ import org.apache.spark.sql.functions._
 import org.apache.spark.sql.Row
 import org.apache.spark.sql.types.{StructType, _}
 import com.github.mrpowers.spark.daria.sql.SparkSessionExt._
-
 import com.github.mrpowers.spark.spec.SparkSessionTestWrapper
-
 import com.github.mrpowers.spark.fast.tests.DatasetComparer
 
 class ColumnSpec
@@ -223,7 +221,45 @@ class ColumnSpec
   }
 
   describe("#desc_nulls_first") {
-    pending
+
+    it("sorts a column in descending order with the null values first") {
+
+      val sourceDF = spark.createDF(
+        List(
+          Row(null, null),
+          Row("gary", 23),
+          Row("brian", 27),
+          Row("fiona", 20),
+          Row("aron", 14),
+          Row(null, 80)
+        ), List(
+          StructField("name", StringType, true),
+          StructField("age", IntegerType, true)
+        )
+      )
+
+      val actualDF = sourceDF.sort(
+        desc_nulls_first("name")
+      )
+
+      val expectedDF = spark.createDF(
+        List(
+          Row(null, null),
+          Row(null, 80),
+          Row("gary", 23),
+          Row("fiona", 20),
+          Row("brian", 27),
+          Row("aron", 14)
+        ), List(
+          StructField("name", StringType, true),
+          StructField("age", IntegerType, true)
+        )
+      )
+
+      assertSmallDatasetEquality(actualDF, expectedDF)
+
+    }
+
   }
 
   describe("#desc_nulls_last") {

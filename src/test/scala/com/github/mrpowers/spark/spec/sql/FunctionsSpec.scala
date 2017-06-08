@@ -1316,7 +1316,40 @@ class FunctionsSpec
   }
 
   describe("#floor") {
-    pending
+
+    it("Computes the floor of the given value") {
+
+      val sourceDF = spark.createDF(
+        List(
+          (-43.234),
+          (0.1242),
+          (1.3251),
+          (22.235),
+          (null)
+        ), List(
+          ("num1", DoubleType, true)
+        )
+      )
+
+      val actualDF = sourceDF.withColumn("floor", floor(col("num1")))
+
+      val expectedDF = spark.createDF(
+        List(
+          (-43.234, -44L),
+          (0.1242, 0L),
+          (1.3251, 1L),
+          (22.235, 22L),
+          (null, null)
+        ), List(
+          ("num1", DoubleType, true),
+          ("floor", LongType, true)
+        )
+      )
+
+      assertSmallDatasetEquality(actualDF, expectedDF)
+
+    }
+
   }
 
   describe("#format_number") {

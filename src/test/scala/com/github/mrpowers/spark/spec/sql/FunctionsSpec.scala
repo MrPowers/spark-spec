@@ -2,6 +2,7 @@ package com.github.mrpowers.spark.spec.sql
 
 import java.sql.Timestamp
 import java.sql.Date
+import java.time.DayOfWeek
 
 import com.github.mrpowers.spark.fast.tests.DatasetComparer
 import com.github.mrpowers.spark.models._
@@ -1889,7 +1890,42 @@ class FunctionsSpec
   }
 
   describe("#next_day") {
-    pending
+
+    it("Given a date column, returns the first date which is later than the value of the date column that is on the specified day of the week") {
+
+      val sourceDF = spark.createDF(
+        List(
+          (Date.valueOf("2016-01-01"), DayOfWeek.valueOf("Friday")),
+          (Date.valueOf("2016-12-01"), DayOfWeek.valueOf("Thursday"))
+        ), List(
+          ("present_date", DateType, true),
+          ("day_of_week", DayOfWeek, true)
+        )
+      )
+
+      val actualDF = sourceDF.withColumn(
+        "next_day",
+        next_day(col("present_date"), "DayOfWeek")
+      )
+
+      actualDF.show()
+      /*
+      val expectedDF = spark.createDF(
+        List(
+          (Date.valueOf("2016-01-01"), Date.valueOf("2016-01-05")),
+          (Date.valueOf("2016-12-01"), Date.valueOf("2016-12-05"))
+        ), List(
+          ("person_id", StringType, true),
+          ("birth_date", DateType, true),
+          ("future_date", DateType, true)
+        )
+      )
+
+      assertSmallDatasetEquality(actualDF, expectedDF)
+      */
+
+    }
+
   }
 
   describe("#not") {

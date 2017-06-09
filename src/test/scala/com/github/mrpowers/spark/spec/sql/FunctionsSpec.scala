@@ -1805,7 +1805,34 @@ class FunctionsSpec
   }
 
   describe("#min") {
-    pending
+
+    it("Aggregate function: returns the maximum value of the expression in a group") {
+
+      val sourceDF = spark.createDF(
+        List(
+          (56),
+          (72),
+          (872),
+          (3)
+        ), List(
+          ("num1", IntegerType, true)
+        )
+      )
+
+      val actualDF = sourceDF.agg(min("num1"))
+
+      val expectedDF = spark.createDF(
+        List(
+          (3)
+        ), List(
+          ("min(num1)", IntegerType, true)
+        )
+      )
+
+      assertSmallDatasetEquality(actualDF, expectedDF)
+
+    }
+
   }
 
   describe("#minute") {

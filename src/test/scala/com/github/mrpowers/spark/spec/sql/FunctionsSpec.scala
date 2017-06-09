@@ -1774,7 +1774,34 @@ class FunctionsSpec
   }
 
   describe("#mean") {
-    pending
+
+    it("Aggregate function: returns the average of the values in a group. Alias for avg") {
+
+      val sourceDF = spark.createDF(
+        List(
+          (56),
+          (85),
+          (73),
+          (99)
+        ), List(
+          ("num1", IntegerType, true)
+        )
+      )
+
+      val actualDF = sourceDF.agg(mean("num1"))
+
+      val expectedDF = spark.createDF(
+        List(
+          (78.25)
+        ), List(
+          ("avg(num1)", DoubleType, true)
+        )
+      )
+
+      assertSmallDatasetEquality(actualDF, expectedDF)
+
+    }
+
   }
 
   describe("#min") {

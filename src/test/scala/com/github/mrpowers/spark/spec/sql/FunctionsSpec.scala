@@ -1650,7 +1650,40 @@ class FunctionsSpec
   }
 
   describe("#log10") {
-    pending
+
+    it("Computes the logarithm of the given value in base 10") {
+
+      val sourceDF = spark.createDF(
+        List(
+          (43.234),
+          (1.0),
+          (2.5),
+          (10.0),
+          (null)
+        ), List(
+          ("num1", DoubleType, true)
+        )
+      )
+
+      val actualDF = sourceDF.withColumn("log10", log10(col("num1")))
+
+      val expectedDF = spark.createDF(
+        List(
+          (43.234, 1.6358254182207552),
+          (1.0, 0.0),
+          (2.5, 0.3979400086720376),
+          (10.0, 1.0),
+          (null, null)
+        ), List(
+          ("num1", DoubleType, true),
+          ("log10", DoubleType, true)
+        )
+      )
+
+      assertSmallDatasetEquality(actualDF, expectedDF)
+
+    }
+
   }
 
   describe("#log1p") {

@@ -1895,34 +1895,29 @@ class FunctionsSpec
 
       val sourceDF = spark.createDF(
         List(
-          (Date.valueOf("2016-01-01"), DayOfWeek.valueOf("Friday")),
-          (Date.valueOf("2016-12-01"), DayOfWeek.valueOf("Thursday"))
+          (Date.valueOf("2016-01-01")),
+          (Date.valueOf("2016-12-01"))
         ), List(
-          ("present_date", DateType, true),
-          ("day_of_week", DayOfWeek, true)
+          ("some_date", DateType, true)
         )
       )
 
       val actualDF = sourceDF.withColumn(
         "next_day",
-        next_day(col("present_date"), "DayOfWeek")
+        next_day(col("some_date"), "Friday")
       )
 
-      actualDF.show()
-      /*
       val expectedDF = spark.createDF(
         List(
-          (Date.valueOf("2016-01-01"), Date.valueOf("2016-01-05")),
-          (Date.valueOf("2016-12-01"), Date.valueOf("2016-12-05"))
+          (Date.valueOf("2016-01-01"), Date.valueOf("2016-01-08")),
+          (Date.valueOf("2016-12-01"), Date.valueOf("2016-12-02"))
         ), List(
-          ("person_id", StringType, true),
-          ("birth_date", DateType, true),
-          ("future_date", DateType, true)
+          ("some_date", DateType, true),
+          ("next_day", DateType, true)
         )
       )
 
       assertSmallDatasetEquality(actualDF, expectedDF)
-      */
 
     }
 

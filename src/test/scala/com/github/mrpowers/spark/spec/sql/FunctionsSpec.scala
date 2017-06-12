@@ -2,7 +2,6 @@ package com.github.mrpowers.spark.spec.sql
 
 import java.sql.Timestamp
 import java.sql.Date
-import java.time.DayOfWeek
 
 import com.github.mrpowers.spark.fast.tests.DatasetComparer
 import com.github.mrpowers.spark.models._

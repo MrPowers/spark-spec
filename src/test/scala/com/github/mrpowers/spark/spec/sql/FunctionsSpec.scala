@@ -2005,7 +2005,38 @@ class FunctionsSpec
   }
 
   describe("#regexp_replace") {
-    pending
+
+    it("Replace all substrings of the specified string value that match regexp with rep.") {
+
+      val wordsDF = spark.createDF(
+        List(
+          ("E401//"),
+          ("C20.0//C20.1"),
+          (null),
+          ("124.21//")
+        ), List(
+          ("word1", StringType, true)
+        )
+      )
+
+      val actualDF = wordsDF.withColumn("new_word1", regexp_replace(col("word1"), "//", "\\,"))
+
+      val expectedDF = spark.createDF(
+        List(
+          ("E401//", "E401,"),
+          ("C20.0//C20.1", "C20.0,C20.1"),
+          (null, null),
+          ("124.21//", "124.21,")
+        ), List(
+          ("word1", StringType, true),
+          ("new_word1", StringType, true)
+        )
+      )
+
+      assertSmallDatasetEquality(actualDF, expectedDF)
+
+    }
+
   }
 
   describe("#repeat") {

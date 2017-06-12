@@ -1614,7 +1614,7 @@ class FunctionsSpec
 
   describe("#log") {
 
-    it("Computes the natural logarithm of the given value") {
+    it("Computes the natural logarithm of the given column") {
 
       val sourceDF = spark.createDF(
         List(
@@ -1687,7 +1687,39 @@ class FunctionsSpec
   }
 
   describe("#log1p") {
-    pending
+
+    it("Computes the natural logarithm of the given column plus one.") {
+
+      val sourceDF = spark.createDF(
+        List(
+          (43.234),
+          (1.0),
+          (2.5),
+          (10.0),
+          (null)
+        ), List(
+          ("num1", DoubleType, true)
+        )
+      )
+
+      val actualDF = sourceDF.withColumn("log1p", log1p(col("num1")))
+
+      val expectedDF = spark.createDF(
+        List(
+          (43.234, 3.7894937241465296),
+          (1.0, 0.6931471805599453),
+          (2.5, 1.252762968495368),
+          (10.0, 2.3978952727983707),
+          (null, null)
+        ), List(
+          ("num1", DoubleType, true),
+          ("log1p", DoubleType, true)
+        )
+      )
+
+      assertSmallDatasetEquality(actualDF, expectedDF)
+
+    }
   }
 
   describe("#log2") {

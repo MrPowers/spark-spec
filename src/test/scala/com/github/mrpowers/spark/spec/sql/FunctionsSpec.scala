@@ -2260,19 +2260,19 @@ class FunctionsSpec
       )
 
       val actualDF = patternDF.withColumn(
-        "split_column_1", split(col("pattern"), "\\^").getItem(0)
+        "split_column", split(col("pattern"), "\\^")
       )
 
       val expectedDF = spark.createDF(
         List(
-          ("0^1^0.00", "0", "1"),
-          ("0^.21", "0", ".21"),
+          ("0^1^0.00", List("0", "1", "0.00")),
+          ("0^.21", List("0", ".21")),
           (null, null),
-          ("0^.9", "0", ".9"),
-          ("0^0.22", "0", "0.22")
+          ("0^.9", List("0", ".9")),
+          ("0^0.22", List("0", "0.22"))
         ), List(
           ("pattern", StringType, true),
-          ("split_column_1", StringType, true)
+          ("split_column", ArrayType(StringType, true), true)
         )
       )
 

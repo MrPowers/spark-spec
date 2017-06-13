@@ -1,15 +1,14 @@
 package com.github.mrpowers.spark.spec.sql
 
-import java.sql.Timestamp
-import java.sql.Date
+import java.sql.{Date, Timestamp}
 
+import com.github.mrpowers.spark.daria.sql.SparkSessionExt._
 import com.github.mrpowers.spark.fast.tests.DatasetComparer
 import com.github.mrpowers.spark.models._
 import com.github.mrpowers.spark.spec.SparkSessionTestWrapper
 import org.apache.spark.sql.functions._
-import org.apache.spark.sql.types.{StructType, _}
+import org.apache.spark.sql.types._
 import org.scalatest._
-import com.github.mrpowers.spark.daria.sql.SparkSessionExt._
 
 class FunctionsSpec
     extends FunSpec
@@ -2246,7 +2245,40 @@ class FunctionsSpec
   }
 
   describe("#split") {
-    pending
+    it("Splits str around pattern (pattern is a regular expression).") {
+
+      val patternDF = spark.createDF(
+        List(
+          ("0^1^0.00"),
+          ("0^.21"),
+          (null),
+          ("0^.9"),
+          ("0^0.22")
+        ), List(
+          ("pattern", StringType, true)
+        )
+      )
+
+      val actualDF = patternDF.withColumn(
+        "split_column_1", split(col("pattern"), "\\^").getItem(0)
+      )
+
+      val expectedDF = spark.createDF(
+        List(
+          ("0^1^0.00", "0", "1"),
+          ("0^.21", "0", ".21"),
+          (null, null),
+          ("0^.9", "0", ".9"),
+          ("0^0.22", "0", "0.22")
+        ), List(
+          ("pattern", StringType, true),
+          ("split_column_1", StringType, true)
+        )
+      )
+
+      assertSmallDatasetEquality(actualDF, expectedDF)
+
+    }
   }
 
   describe("#sqrt") {

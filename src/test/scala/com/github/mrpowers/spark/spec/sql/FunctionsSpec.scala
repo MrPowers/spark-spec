@@ -1578,7 +1578,34 @@ class FunctionsSpec
   }
 
   describe("#lit") {
-    pending
+
+    it("Creates a Column of literal value.") {
+
+      val sourceDF = spark.createDF(
+        List(
+          ("Spider-man"),
+          ("Batman")
+        ), List(
+          ("word", StringType, true)
+        )
+      )
+
+      val actualDF = sourceDF.withColumn("lit", lit("sucks"))
+
+      val expectedDF = spark.createDF(
+        List(
+          ("Spider-man", "sucks"),
+          ("Batman", "sucks")
+        ), List(
+          ("word", StringType, true),
+          ("lit", StringType, false)
+        )
+      )
+
+      assertSmallDatasetEquality(actualDF, expectedDF)
+
+    }
+
   }
 
   describe("#locate") {

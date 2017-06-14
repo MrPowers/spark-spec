@@ -465,7 +465,38 @@ class ColumnSpec
   }
 
   describe("#isNotNull") {
-    pending
+
+    it("Return true if the column is not null.") {
+
+      val sourceDF = spark.createDF(
+        List(
+          Row(null),
+          Row("gary"),
+          Row("brian"),
+          Row("fiona"),
+          Row("aron"),
+          Row(null)
+        ), List(
+          StructField("name", StringType, true)
+        )
+      )
+
+      val actualDF = sourceDF.where(col("name").isNotNull)
+
+      val expectedDF = spark.createDF(
+        List(
+          Row("gary"),
+          Row("brian"),
+          Row("fiona"),
+          Row("aron")
+        ), List(
+          StructField("name", StringType, true)
+        )
+      )
+
+      assertSmallDatasetEquality(actualDF, expectedDF)
+
+    }
   }
 
   describe("#isNull") {

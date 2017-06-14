@@ -2106,7 +2106,38 @@ class FunctionsSpec
   }
 
   describe("#radians") {
-    pending
+
+    it("Converts an angle measured in degrees to an approximately equivalent angle measured in radians") {
+
+      val sourceDF = spark.createDF(
+        List(
+          ("1"),
+          ("90"),
+          ("180"),
+          ("270")
+        ), List(
+          ("num1", StringType, false)
+        )
+      )
+
+      val actualDF = sourceDF.withColumn("radians", radians(col("num1")))
+
+      val expectedDF = spark.createDF(
+        List(
+          ("1", 0.017453292519943295),
+          ("90", 1.5707963267948966),
+          ("180", 3.141592653589793),
+          ("270", 4.71238898038469)
+        ), List(
+          ("num1", StringType, false),
+          ("radians", DoubleType, true)
+        )
+      )
+
+      assertSmallDatasetEquality(actualDF, expectedDF)
+
+    }
+
   }
 
   describe("#rand") {

@@ -2020,7 +2020,44 @@ class FunctionsSpec
   }
 
   describe("#pmod") {
-    pending
+
+    it("Returns the positive value of dividend mod divisor") {
+
+      val sourceDF = spark.createDF(
+        List(
+          (27, 5),
+          (80, 21),
+          (60, 5)
+        ), List(
+          ("dividend", IntegerType, true),
+          ("divisor", IntegerType, true)
+        )
+      )
+
+      val actualDF = sourceDF.withColumn(
+        "pmod",
+        pmod(
+          col("dividend"),
+          col("divisor")
+        )
+      )
+
+      val expectedDF = spark.createDF(
+        List(
+          (27, 5, 2),
+          (80, 21, 17),
+          (60, 5, 0)
+        ), List(
+          ("dividend", IntegerType, true),
+          ("divisor", IntegerType, true),
+          ("pmod", IntegerType, true)
+        )
+      )
+
+      assertSmallDatasetEquality(actualDF, expectedDF)
+
+    }
+
   }
 
   describe("#least") {

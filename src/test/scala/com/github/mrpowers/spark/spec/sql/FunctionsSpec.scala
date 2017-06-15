@@ -1828,7 +1828,34 @@ class FunctionsSpec
   }
 
   describe("#md5") {
-    pending
+
+    it("Calculates the MD5 digest of a binary column and returns the value as a 32 character hex string") {
+
+      val sourceDF = spark.createDF(
+        List(
+          ("101001"),
+          ("100011")
+        ), List(
+          ("bin1", StringType, true)
+        )
+      )
+
+      val actualDF = sourceDF.withColumn("md5", md5(col("bin1")))
+
+      val expectedDF = spark.createDF(
+        List(
+          ("101001", "1c76fee9418816ee07f81c9d3386f754"),
+          ("100011", "09a146c8d1cfdbdb54ceb60ede93cdab")
+        ), List(
+          ("bin1", StringType, true),
+          ("md5", StringType, true)
+        )
+      )
+
+      assertSmallDatasetEquality(actualDF, expectedDF)
+
+    }
+
   }
 
   describe("#mean") {

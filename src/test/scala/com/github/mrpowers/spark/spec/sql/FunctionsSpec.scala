@@ -1004,7 +1004,35 @@ class FunctionsSpec
   }
 
   describe("#crc32") {
-    pending
+
+    it("Calculates the cyclic redundancy check value (CRC32) of a binary column and returns the value as a bigint") {
+
+      val sourceDF = spark.createDF(
+        List(
+          ("101001"),
+          ("100011")
+        ), List(
+          ("bin1", StringType, true)
+        )
+      )
+
+      val actualDF = sourceDF.withColumn("crc32", crc32(col("bin1")))
+      actualDF.show()
+
+      val expectedDF = spark.createDF(
+        List(
+          ("101001", 1033994672L),
+          ("100011", 2617694100L)
+        ), List(
+          ("bin1", StringType, true),
+          ("crc32", LongType, true)
+        )
+      )
+
+      assertSmallDatasetEquality(actualDF, expectedDF)
+
+    }
+
   }
 
   describe("#cume_dist") {

@@ -667,7 +667,43 @@ class FunctionsSpec
   }
 
   describe("#collect_set") {
-    pending
+
+    it("Aggregate function: returns a set of objects with duplicate elements eliminated") {
+
+      val sourceDF = spark.createDF(
+        List(
+          ("A", "cat"),
+          ("B", "cat"),
+          ("A", "nice"),
+          ("C", "matt"),
+          ("D", "lat"),
+          ("B", "hey")
+        ), List(
+          ("id", StringType, true),
+          ("foo", StringType, true)
+        )
+      )
+
+      val actualDF = sourceDF
+        .groupBy("id")
+        .agg(collect_set("foo") as "collect_set_foo")
+
+      val expectedDF = spark.createDF(
+        List(
+          ("B", List("cat", "hey")),
+          ("D", List("lat")),
+          ("C", List("matt")),
+          ("A", List("cat", "nice"))
+        ), List(
+          ("id", StringType, true),
+          ("collect_set_foo", ArrayType(StringType, true), true)
+        )
+      )
+
+      assertSmallDatasetEquality(actualDF, expectedDF)
+
+    }
+
   }
 
   describe("#column") {

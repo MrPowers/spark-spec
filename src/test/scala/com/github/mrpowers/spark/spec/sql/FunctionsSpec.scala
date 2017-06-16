@@ -1571,7 +1571,41 @@ class FunctionsSpec
   }
 
   describe("#isnan") {
-    pending
+
+    it("Return true if the column is NaN") {
+
+      val sourceDF = spark.createDF(
+        List(
+          (NaN),
+          (24),
+          (NaN),
+          (NaN),
+          (99)
+        ), List(
+          ("num1", IntegerType, true)
+        )
+      )
+
+      val actualDF = sourceDF.withColumn("nanCheck", isnan(col("num1")))
+      actualDF.show()
+      /*
+      val expectedDF = spark.createDF(
+        List(
+          (NaN, true),
+          ("hello",false),
+          (NaN, true),
+          (NaN, true),
+          ("football, false")
+        ), List(
+          (List"num1", IntegerType, true),
+          ("nanCheck", BooleanType, false)
+        )
+      )
+
+      assertSmallDatasetEquality(actualDF, expectedDF)
+*/
+    }
+
   }
 
   describe("#isnull") {

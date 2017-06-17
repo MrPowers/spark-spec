@@ -621,28 +621,33 @@ class ColumnSpec
 
       val sourceDF = spark.createDF(
         List(
-          Row(12, 12),
-          Row(14, 20),
-          Row(32, 35),
-          Row(46, 23),
-          Row(32, 23)
+          (12, 12),
+          (14, 20),
+          (32, 35),
+          (46, 23),
+          (32, 23)
         ), List(
-          StructField("May", IntegerType, false),
-          StructField("June", IntegerType, false)
+          ("May", IntegerType, false),
+          ("June", IntegerType, false)
         )
       )
 
-      val actualDF = sourceDF.filter(col("May").notEqual(col("June")))
+      val actualDF = sourceDF.withColumn(
+        "not_equal",
+        col("May").notEqual(col("June"))
+      )
 
       val expectedDF = spark.createDF(
         List(
-          Row(14, 20),
-          Row(32, 35),
-          Row(46, 23),
-          Row(32, 23)
+          (12, 12, false),
+          (14, 20, true),
+          (32, 35, true),
+          (46, 23, true),
+          (32, 23, true)
         ), List(
-          StructField("May", IntegerType, false),
-          StructField("June", IntegerType, false)
+          ("May", IntegerType, false),
+          ("June", IntegerType, false),
+          ("not_equal", BooleanType, false)
         )
       )
 

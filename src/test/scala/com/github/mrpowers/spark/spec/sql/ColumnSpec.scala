@@ -616,7 +616,40 @@ class ColumnSpec
   }
 
   describe("#notEqual") {
-    pending
+
+    it("Inequality test") {
+
+      val sourceDF = spark.createDF(
+        List(
+          Row(12, 12),
+          Row(14, 20),
+          Row(32, 35),
+          Row(46, 23),
+          Row(32, 23)
+        ), List(
+          StructField("May", IntegerType, false),
+          StructField("June", IntegerType, false)
+        )
+      )
+
+      val actualDF = sourceDF.filter(col("May").notEqual(col("June")))
+
+      val expectedDF = spark.createDF(
+        List(
+          Row(14, 20),
+          Row(32, 35),
+          Row(46, 23),
+          Row(32, 23)
+        ), List(
+          StructField("May", IntegerType, false),
+          StructField("June", IntegerType, false)
+        )
+      )
+
+      assertSmallDatasetEquality(actualDF, expectedDF)
+
+    }
+
   }
 
   describe("#or") {

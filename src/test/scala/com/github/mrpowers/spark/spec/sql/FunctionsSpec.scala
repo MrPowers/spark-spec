@@ -1017,7 +1017,6 @@ class FunctionsSpec
       )
 
       val actualDF = sourceDF.withColumn("crc32", crc32(col("bin1")))
-      actualDF.show()
 
       val expectedDF = spark.createDF(
         List(

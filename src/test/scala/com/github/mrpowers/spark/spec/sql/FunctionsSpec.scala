@@ -673,6 +673,11 @@ class FunctionsSpec
       val sourceDF = spark.createDF(
         List(
           ("A", "cat"),
+          ("A", "cat"),
+          ("A", "cat"),
+          ("A", "cat"),
+          ("A", "cat"),
+          ("A", "cat"),
           ("B", "cat"),
           ("A", "nice"),
           ("C", "matt"),

@@ -2767,8 +2767,95 @@ class FunctionsSpec
     pending
   }
 
-  describe("#weekofyear") {
-    pending
+  describe("#weekofygtear") {
+
+    it("Extracts the week number as an integer from a timestamp") {
+
+      val sourceDF = spark.createDF(
+        List(
+          ("1", Timestamp.valueOf("2016-09-30 00:00:00")),
+          ("2", Timestamp.valueOf("2016-12-14 00:00:00"))
+        ), List(
+          ("person_id", StringType, true),
+          ("birth_date", TimestampType, true)
+        )
+      )
+
+      val actualDF = sourceDF.withColumn("weekofyear", weekofyear(col("birth_date")))
+
+      val expectedDF = spark.createDF(
+        List(
+          ("1", Timestamp.valueOf("2016-09-30 00:00:00"), 39),
+          ("2", Timestamp.valueOf("2016-12-14 00:00:00"), 50)
+        ), List(
+          ("person_id", StringType, true),
+          ("birth_date", TimestampType, true),
+          ("weekofyear", IntegerType, true)
+        )
+      )
+
+      assertSmallDatasetEquality(actualDF, expectedDF)
+
+    }
+
+    it("Extracts the week number as an integer from a date") {
+
+      val sourceDF = spark.createDF(
+        List(
+          ("1", Date.valueOf("2016-09-30")),
+          ("2", Date.valueOf("2016-12-14"))
+        ), List(
+          ("person_id", StringType, true),
+          ("birth_date", DateType, true)
+        )
+      )
+
+      val actualDF = sourceDF.withColumn("weekofyear", weekofyear(col("birth_date")))
+
+      val expectedDF = spark.createDF(
+        List(
+          ("1", Date.valueOf("2016-09-30"), 39),
+          ("2", Date.valueOf("2016-12-14"), 50)
+        ), List(
+          ("person_id", StringType, true),
+          ("birth_date", DateType, true),
+          ("weekofyear", IntegerType, true)
+        )
+      )
+
+      assertSmallDatasetEquality(actualDF, expectedDF)
+
+    }
+
+    it("Extracts the week number as an integer from a string") {
+
+      val sourceDF = spark.createDF(
+        List(
+          ("1", "2016-09-30"),
+          ("2", "2016-12-14")
+        ), List(
+          ("person_id", StringType, true),
+          ("birth_date", StringType, true)
+        )
+      )
+
+      val actualDF = sourceDF.withColumn("weekofyear", weekofyear(col("birth_date")))
+
+      val expectedDF = spark.createDF(
+        List(
+          ("1", "2016-09-30", 39),
+          ("2", "2016-12-14", 50)
+        ), List(
+          ("person_id", StringType, true),
+          ("birth_date", StringType, true),
+          ("weekofyear", IntegerType, true)
+        )
+      )
+
+      assertSmallDatasetEquality(actualDF, expectedDF)
+
+    }
+
   }
 
   describe("#when") {

@@ -1523,7 +1523,32 @@ class FunctionsSpec
   }
 
   describe("#hour") {
-    pending
+    val sourceDF = spark.createDF(
+      List(
+        (Timestamp.valueOf("2017-04-12 12:45:60")),
+        (Timestamp.valueOf("2017-04-12 11:45:60")),
+        (Timestamp.valueOf("2017-04-12 00:45:60")),
+        (Timestamp.valueOf("2017-04-12 17:45:60"))
+      ), List(
+        ("DateTime", TimestampType, true)
+      )
+    )
+
+    val actualDF = sourceDF.withColumn("hours", hour($"DateTime"))
+
+    val expectedDF = spark.createDF(
+      List(
+        (Timestamp.valueOf("2017-04-12 12:45:60"), 12),
+        (Timestamp.valueOf("2017-04-12 11:45:60"), 11),
+        (Timestamp.valueOf("2017-04-12 00:45:60"), 0),
+        (Timestamp.valueOf("2017-04-12 17:45:60"), 17)
+      ), List(
+        ("DateTime", TimestampType, true),
+        ("hours", IntegerType, true)
+      )
+    )
+
+    assertSmallDatasetEquality(actualDF, expectedDF)
   }
 
   describe("#hypot") {

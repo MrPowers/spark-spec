@@ -1576,34 +1576,33 @@ class FunctionsSpec
 
       val sourceDF = spark.createDF(
         List(
-          (NaN),
-          (24),
-          (NaN),
-          (NaN),
-          (99)
+          (Double.NaN),
+          (24.0),
+          (Double.NaN),
+          (Double.NaN),
+          (99.0)
         ), List(
-          ("num1", IntegerType, true)
+          ("num1", DoubleType, true)
         )
       )
 
       val actualDF = sourceDF.withColumn("nanCheck", isnan(col("num1")))
-      actualDF.show()
-      /*
+
       val expectedDF = spark.createDF(
         List(
-          (NaN, true),
-          ("hello",false),
-          (NaN, true),
-          (NaN, true),
-          ("football, false")
+          (Double.NaN, true),
+          (24.0, false),
+          (Double.NaN, true),
+          (Double.NaN, true),
+          (99.0, false)
         ), List(
-          (List"num1", IntegerType, true),
+          ("num1", DoubleType, true),
           ("nanCheck", BooleanType, false)
         )
       )
 
       assertSmallDatasetEquality(actualDF, expectedDF)
-*/
+
     }
 
   }

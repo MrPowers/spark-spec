@@ -2352,7 +2352,38 @@ class FunctionsSpec
   }
 
   describe("#repeat") {
-    pending
+
+    it("Repeats a string column n times, and returns it as a new string column") {
+
+      val sourceDF = spark.createDF(
+        List(
+          ("nice"),
+          ("job"),
+          (null),
+          ("c")
+        ), List(
+          ("word1", StringType, true)
+        )
+      )
+
+      val actualDF = sourceDF.withColumn("repeat", repeat(col("word1"), 3))
+
+      val expectedDF = spark.createDF(
+        List(
+          ("nice", "nicenicenice"),
+          ("job", "jobjobjob"),
+          (null, null),
+          ("c", "ccc")
+        ), List(
+          ("word1", StringType, true),
+          ("repeat", StringType, true)
+        )
+      )
+
+      assertSmallDatasetEquality(actualDF, expectedDF)
+
+    }
+
   }
 
   describe("#reverse") {

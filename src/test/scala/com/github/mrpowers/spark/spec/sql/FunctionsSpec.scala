@@ -1528,7 +1528,8 @@ class FunctionsSpec
         (Timestamp.valueOf("2017-04-12 12:45:60")),
         (Timestamp.valueOf("2017-04-12 11:45:60")),
         (Timestamp.valueOf("2017-04-12 00:45:60")),
-        (Timestamp.valueOf("2017-04-12 17:45:60"))
+        (Timestamp.valueOf("2017-04-12 17:45:60")),
+        (null)
       ), List(
         ("DateTime", TimestampType, true)
       )
@@ -1541,7 +1542,8 @@ class FunctionsSpec
         (Timestamp.valueOf("2017-04-12 12:45:60"), 12),
         (Timestamp.valueOf("2017-04-12 11:45:60"), 11),
         (Timestamp.valueOf("2017-04-12 00:45:60"), 0),
-        (Timestamp.valueOf("2017-04-12 17:45:60"), 17)
+        (Timestamp.valueOf("2017-04-12 17:45:60"), 17),
+        (null, null)
       ), List(
         ("DateTime", TimestampType, true),
         ("hours", IntegerType, true)

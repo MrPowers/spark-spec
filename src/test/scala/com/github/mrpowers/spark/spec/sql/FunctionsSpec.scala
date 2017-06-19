@@ -1117,11 +1117,11 @@ class FunctionsSpec
           (0.05),
           (0.04)
         ), List(
-          ("num1", DoubleType, false)
+          ("radian", DoubleType, false)
         )
       )
 
-      val actualDF = sourceDF.withColumn("degrees", degrees(col("num1")))
+      val actualDF = sourceDF.withColumn("degree", degrees(col("radian")))
 
       val expectedDF = spark.createDF(
         List(
@@ -1130,8 +1130,8 @@ class FunctionsSpec
           (0.05, 2.864788975654116),
           (0.04, 2.291831180523293)
         ), List(
-          ("num1", DoubleType, false),
-          ("degrees", DoubleType, true)
+          ("radian", DoubleType, false),
+          ("degree", DoubleType, true)
         )
       )
 

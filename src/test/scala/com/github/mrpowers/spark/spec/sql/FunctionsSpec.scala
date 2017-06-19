@@ -1115,9 +1115,10 @@ class FunctionsSpec
           (1.0),
           (0.1),
           (0.05),
-          (0.04)
+          (0.04),
+          (null)
         ), List(
-          ("radian", DoubleType, false)
+          ("radian", DoubleType, true)
         )
       )
 
@@ -1128,9 +1129,10 @@ class FunctionsSpec
           (1.0, 57.29577951308232),
           (0.1, 5.729577951308232),
           (0.05, 2.864788975654116),
-          (0.04, 2.291831180523293)
+          (0.04, 2.291831180523293),
+          (null, null)
         ), List(
-          ("radian", DoubleType, false),
+          ("radian", DoubleType, true),
           ("degree", DoubleType, true)
         )
       )

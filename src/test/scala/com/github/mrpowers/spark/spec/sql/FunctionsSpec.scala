@@ -434,7 +434,36 @@ class FunctionsSpec
   }
 
   describe("#bitwiseNOT") {
-    pending
+
+    it("Computes bitwise NOT") {
+
+      val sourceDF = spark.createDF(
+        List(
+          (56),
+          (39),
+          (-99)
+        ), List(
+          ("num1", IntegerType, true)
+        )
+      )
+
+      val actualDF = sourceDF.withColumn("bitwiseNOT", bitwiseNOT(col("num1")))
+
+      val expectedDF = spark.createDF(
+        List(
+          (56, -57),
+          (39, -40),
+          (-99, 98)
+        ), List(
+          ("num1", IntegerType, true),
+          ("bitwiseNOT", IntegerType, true)
+        )
+      )
+
+      assertSmallDatasetEquality(actualDF, expectedDF)
+
+    }
+
   }
 
   describe("#broadcast") {

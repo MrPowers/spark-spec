@@ -2262,7 +2262,34 @@ class FunctionsSpec
   }
 
   describe("#quarter") {
-    pending
+
+    it("Extracts the quarter as an integer from a given date/timestamp/string") {
+
+      val sourceDF = spark.createDF(
+        List(
+          (Timestamp.valueOf("2016-01-01 00:00:00")),
+          (Timestamp.valueOf("1970-12-01 00:00:00"))
+        ), List(
+          ("birth_date", TimestampType, true)
+        )
+      )
+
+      val actualDF = sourceDF.withColumn("quarter", quarter(col("birth_date")))
+
+      val expectedDF = spark.createDF(
+        List(
+          (Timestamp.valueOf("2016-01-01 00:00:00"), 1),
+          (Timestamp.valueOf("1970-12-01 00:00:00"), 4)
+        ), List(
+          ("birth_date", TimestampType, true),
+          ("quarter", IntegerType, true)
+        )
+      )
+
+      assertSmallDatasetEquality(actualDF, expectedDF)
+
+    }
+
   }
 
   describe("#radians") {

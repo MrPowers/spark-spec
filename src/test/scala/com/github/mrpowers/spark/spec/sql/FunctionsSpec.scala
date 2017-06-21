@@ -2767,14 +2767,15 @@ class FunctionsSpec
     pending
   }
 
-  describe("#weekofygtear") {
+  describe("#weekofyear") {
 
     it("Extracts the week number as an integer from a timestamp") {
 
       val sourceDF = spark.createDF(
         List(
           ("1", Timestamp.valueOf("2016-09-30 00:00:00")),
-          ("2", Timestamp.valueOf("2016-12-14 00:00:00"))
+          ("2", Timestamp.valueOf("2016-12-14 00:00:00")),
+          ("3", null)
         ), List(
           ("person_id", StringType, true),
           ("birth_date", TimestampType, true)
@@ -2786,7 +2787,8 @@ class FunctionsSpec
       val expectedDF = spark.createDF(
         List(
           ("1", Timestamp.valueOf("2016-09-30 00:00:00"), 39),
-          ("2", Timestamp.valueOf("2016-12-14 00:00:00"), 50)
+          ("2", Timestamp.valueOf("2016-12-14 00:00:00"), 50),
+          ("3", null, null)
         ), List(
           ("person_id", StringType, true),
           ("birth_date", TimestampType, true),

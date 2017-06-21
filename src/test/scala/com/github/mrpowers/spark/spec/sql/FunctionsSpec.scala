@@ -1935,10 +1935,44 @@ class FunctionsSpec
       assertSmallDatasetEquality(actualDF, expectedDF)
 
     }
+
   }
 
   describe("#log2") {
-    pending
+
+    it("Computes the logarithm of the given value in base 2") {
+
+      val sourceDF = spark.createDF(
+        List(
+          (43.234),
+          (1.0),
+          (2.5),
+          (10.0),
+          (null)
+        ), List(
+          ("num1", DoubleType, true)
+        )
+      )
+
+      val actualDF = sourceDF.withColumn("log2", log2(col("num1")))
+
+      val expectedDF = spark.createDF(
+        List(
+          (43.234, 5.434094415118396),
+          (1.0, 0.0),
+          (2.5, 1.3219280948873624),
+          (10.0, 3.3219280948873626),
+          (null, null)
+        ), List(
+          ("num1", DoubleType, true),
+          ("log2", DoubleType, true)
+        )
+      )
+
+      assertSmallDatasetEquality(actualDF, expectedDF)
+
+    }
+
   }
 
   describe("#lower") {

@@ -2565,7 +2565,39 @@ class FunctionsSpec
   }
 
   describe("#second") {
-    pending
+
+    it("Extracts the seconds as an integer from a given date/timestamp/string") {
+
+      val sourceDF = spark.createDF(
+        List(
+          (Timestamp.valueOf("2016-01-01 12:00:17")),
+          (Timestamp.valueOf("2016-06-07 00:10:56")),
+          (Timestamp.valueOf("2016-12-05 05:05:22"))
+        ), List(
+          ("date", TimestampType, true)
+        )
+      )
+
+      val actualDF = sourceDF.withColumn(
+        "second",
+        second(col("date"))
+      )
+
+      val expectedDF = spark.createDF(
+        List(
+          (Timestamp.valueOf("2016-01-01 12:00:17"), 17),
+          (Timestamp.valueOf("2016-06-07 00:10:56"), 56),
+          (Timestamp.valueOf("2016-12-05 05:05:22"), 22)
+        ), List(
+          ("date", TimestampType, true),
+          ("second", IntegerType, true)
+        )
+      )
+
+      assertSmallDatasetEquality(actualDF, expectedDF)
+
+    }
+
   }
 
   describe("#sha1") {

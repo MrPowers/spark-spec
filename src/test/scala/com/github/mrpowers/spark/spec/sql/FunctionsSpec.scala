@@ -2481,7 +2481,38 @@ class FunctionsSpec
   }
 
   describe("#rint") {
-    pending
+
+    it("Returns the double value that is closest in value to the argument and is equal to a mathematical integer") {
+
+      val sourceDF = spark.createDF(
+        List(
+          (1.2),
+          (90.8),
+          (180.4),
+          (270.7)
+        ), List(
+          ("num1", DoubleType, false)
+        )
+      )
+
+      val actualDF = sourceDF.withColumn("rint", rint(col("num1")))
+
+      val expectedDF = spark.createDF(
+        List(
+          (1.2, 1.0),
+          (90.8, 91.0),
+          (180.4, 180.0),
+          (270.7, 271.0)
+        ), List(
+          ("num1", DoubleType, false),
+          ("rint", DoubleType, true)
+        )
+      )
+
+      assertSmallDatasetEquality(actualDF, expectedDF)
+
+    }
+
   }
 
   describe("#round") {

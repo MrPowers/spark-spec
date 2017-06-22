@@ -2013,7 +2013,40 @@ class FunctionsSpec
   }
 
   describe("#ltrim") {
-    pending
+
+    it("Trim the spaces from left end for the specified string value") {
+
+      val sourceDF = spark.createDF(
+        List(
+          ("nice   "),
+          ("     cat"),
+          (null),
+          ("    person   ")
+        ), List(
+          ("word1", StringType, true)
+        )
+      )
+
+      val actualDF = sourceDF.withColumn(
+        "ltrim_column", ltrim(col("word1"))
+      )
+
+      val expectedDF = spark.createDF(
+        List(
+          ("nice   ", "nice   "),
+          ("     cat", "cat"),
+          (null, null),
+          ("    person   ", "person   ")
+        ), List(
+          ("word1", StringType, true),
+          ("ltrim_column", StringType, true)
+        )
+      )
+
+      assertSmallDatasetEquality(actualDF, expectedDF)
+
+    }
+
   }
 
   describe("#map") {

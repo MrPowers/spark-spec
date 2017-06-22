@@ -2181,7 +2181,96 @@ class FunctionsSpec
   }
 
   describe("#month") {
-    pending
+
+    it("Extracts the month as an integer from a timestamp") {
+
+      val sourceDF = spark.createDF(
+        List(
+          ("1", Timestamp.valueOf("2016-09-30 00:00:00")),
+          ("2", Timestamp.valueOf("2016-12-14 00:00:00")),
+          ("3", null)
+        ), List(
+          ("person_id", StringType, true),
+          ("birth_date", TimestampType, true)
+        )
+      )
+
+      val actualDF = sourceDF.withColumn("month", month(col("birth_date")))
+
+      val expectedDF = spark.createDF(
+        List(
+          ("1", Timestamp.valueOf("2016-09-30 00:00:00"), 9),
+          ("2", Timestamp.valueOf("2016-12-14 00:00:00"), 12),
+          ("3", null, null)
+        ), List(
+          ("person_id", StringType, true),
+          ("birth_date", TimestampType, true),
+          ("month", IntegerType, true)
+        )
+      )
+
+      assertSmallDatasetEquality(actualDF, expectedDF)
+
+    }
+
+    it("Extracts the month as an integer from a date") {
+
+      val sourceDF = spark.createDF(
+        List(
+          ("1", Date.valueOf("2016-09-30")),
+          ("2", Date.valueOf("2016-12-14"))
+        ), List(
+          ("person_id", StringType, true),
+          ("birth_date", DateType, true)
+        )
+      )
+
+      val actualDF = sourceDF.withColumn("month", month(col("birth_date")))
+
+      val expectedDF = spark.createDF(
+        List(
+          ("1", Date.valueOf("2016-09-30"), 9),
+          ("2", Date.valueOf("2016-12-14"), 12)
+        ), List(
+          ("person_id", StringType, true),
+          ("birth_date", DateType, true),
+          ("month", IntegerType, true)
+        )
+      )
+
+      assertSmallDatasetEquality(actualDF, expectedDF)
+
+    }
+
+    it("Extracts the month as an integer from a string") {
+
+      val sourceDF = spark.createDF(
+        List(
+          ("1", "2016-09-30"),
+          ("2", "2016-12-14")
+        ), List(
+          ("person_id", StringType, true),
+          ("birth_date", StringType, true)
+        )
+      )
+
+      val actualDF = sourceDF.withColumn("month", month(col("birth_date")))
+
+      val expectedDF = spark.createDF(
+        List(
+          ("1", "2016-09-30", 9),
+          ("2", "2016-12-14", 12)
+        ), List(
+          ("person_id", StringType, true),
+          ("birth_date", StringType, true),
+          ("month", IntegerType, true)
+        )
+      )
+
+      assertSmallDatasetEquality(actualDF, expectedDF)
+
+    }
+
   }
 
   describe("#months_between") {

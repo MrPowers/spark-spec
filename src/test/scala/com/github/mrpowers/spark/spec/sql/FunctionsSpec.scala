@@ -2566,7 +2566,38 @@ class FunctionsSpec
   }
 
   describe("#reverse") {
-    pending
+
+    it("Reverses the string column and returns it as a new string column") {
+
+      val sourceDF = spark.createDF(
+        List(
+          ("nice"),
+          ("job"),
+          (null),
+          ("hannah")
+        ), List(
+          ("word1", StringType, true)
+        )
+      )
+
+      val actualDF = sourceDF.withColumn("reverse", reverse(col("word1")))
+
+      val expectedDF = spark.createDF(
+        List(
+          ("nice", "ecin"),
+          ("job", "boj"),
+          (null, null),
+          ("hannah", "hannah")
+        ), List(
+          ("word1", StringType, true),
+          ("reverse", StringType, true)
+        )
+      )
+
+      assertSmallDatasetEquality(actualDF, expectedDF)
+
+    }
+
   }
 
   describe("#rint") {

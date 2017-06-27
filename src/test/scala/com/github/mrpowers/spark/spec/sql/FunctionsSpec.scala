@@ -2181,7 +2181,39 @@ class FunctionsSpec
   }
 
   describe("#month") {
-    pending
+
+    it("Extracts the month as an integer from a given date/timestamp/string") {
+
+      val sourceDF = spark.createDF(
+        List(
+          (Timestamp.valueOf("2016-01-01 00:00:00")),
+          (Timestamp.valueOf("1991-07-23 00:00:00")),
+          (Timestamp.valueOf("2016-12-01 00:00:00"))
+        ), List(
+          ("date", TimestampType, true)
+        )
+      )
+
+      val actualDF = sourceDF.withColumn(
+        "month",
+        month(col("date"))
+      )
+
+      val expectedDF = spark.createDF(
+        List(
+          (Timestamp.valueOf("2016-01-01 00:00:00"), 1),
+          (Timestamp.valueOf("1991-07-23 00:00:00"), 7),
+          (Timestamp.valueOf("2016-12-01 00:00:00"), 12)
+        ), List(
+          ("date", TimestampType, true),
+          ("month", IntegerType, true)
+        )
+      )
+
+      assertSmallDatasetEquality(actualDF, expectedDF)
+
+    }
+
   }
 
   describe("#months_between") {

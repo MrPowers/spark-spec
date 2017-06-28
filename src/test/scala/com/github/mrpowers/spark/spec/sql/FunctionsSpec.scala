@@ -2669,7 +2669,40 @@ class FunctionsSpec
   }
 
   describe("#round") {
-    pending
+
+    it("Returns the value of the column e rounded to 0 decimal places") {
+
+      val sourceDF = spark.createDF(
+        List(
+          (8.1),
+          (64.8),
+          (3.5),
+          (-27.0),
+          (null)
+        ), List(
+          ("num1", DoubleType, true)
+        )
+      )
+
+      val actualDF = sourceDF.withColumn("rounded_num", round(col("num1")))
+
+      val expectedDF = spark.createDF(
+        List(
+          (8.1, 8.0),
+          (64.8, 65.0),
+          (3.5, 4.0),
+          (-27.0, -27.0),
+          (null, null)
+        ), List(
+          ("num1", DoubleType, true),
+          ("rounded_num", DoubleType, true)
+        )
+      )
+
+      assertSmallDatasetEquality(actualDF, expectedDF)
+
+    }
+
   }
 
   describe("#row_number") {

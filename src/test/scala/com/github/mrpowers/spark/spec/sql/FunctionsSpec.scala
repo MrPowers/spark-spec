@@ -2906,7 +2906,36 @@ class FunctionsSpec
   }
 
   describe("#sin") {
-    pending
+
+    it("Computes the sine of the given value") {
+
+      val sourceDF = spark.createDF(
+        List(
+          (1),
+          (90),
+          (270)
+        ), List(
+          ("num1", IntegerType, true)
+        )
+      )
+
+      val actualDF = sourceDF.withColumn("sin", sin("num1"))
+
+      val expectedDF = spark.createDF(
+        List(
+          (1, 0.8414709848078965),
+          (90, 0.8939966636005579),
+          (270, -0.1760459464712114)
+        ), List(
+          ("num1", IntegerType, true),
+          ("sin", DoubleType, true)
+        )
+      )
+
+      assertSmallDatasetEquality(actualDF, expectedDF)
+
+    }
+
   }
 
   describe("#sinh") {

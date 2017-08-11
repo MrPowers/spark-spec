@@ -2867,7 +2867,42 @@ class FunctionsSpec
   }
 
   describe("#signum") {
-    pending
+
+    it("Computes the signum of the given column") {
+
+      val wordsDF = spark.createDF(
+        List(
+          (27),
+          (-3),
+          (null),
+          (45),
+          (0)
+        ), List(
+          ("word1", IntegerType, true)
+        )
+      )
+
+      val actualDF = wordsDF.withColumn(
+        "signum", signum(col("word1"))
+      )
+
+      val expectedDF = spark.createDF(
+        List(
+          (27, 1.0),
+          (-3, -1.0),
+          (null, null),
+          (45, 1.0),
+          (0, 0.0)
+        ), List(
+          ("word1", IntegerType, true),
+          ("signum", DoubleType, true)
+        )
+      )
+
+      assertSmallDatasetEquality(actualDF, expectedDF)
+
+    }
+
   }
 
   describe("#sin") {

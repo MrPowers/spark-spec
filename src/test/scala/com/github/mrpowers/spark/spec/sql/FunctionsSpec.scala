@@ -333,7 +333,46 @@ class FunctionsSpec
   }
 
   describe("#atan2") {
-    pending
+
+    it("Returns the angle theta from the conversion of rectangular coordinates (x, y) to polar coordinates (r, theta)") {
+
+      val sourceDF = spark.createDF(
+        List(
+          (1, 2),
+          (2, 5),
+          (3, 4)
+        ), List(
+          ("x", IntegerType, true),
+          ("y", IntegerType, true)
+        )
+      )
+
+      val actualDF = sourceDF.withColumn(
+        "atan2",
+        atan2(
+          col("x"),
+          col("y")
+        )
+      )
+
+      actualDF.show()
+
+      val expectedDF = spark.createDF(
+        List(
+          (1, 2, 1.1071),
+          (2, 5, 1.1903),
+          (3, 4, 0.6435)
+        ), List(
+          ("x", IntegerType, true),
+          ("y", IntegerType, true)
+            ("atan2", DoubleType, true)
+        )
+      )
+
+      assertSmallDatasetEquality(actualDF, expectedDF)
+
+    }
+
   }
 
   describe("#avg") {

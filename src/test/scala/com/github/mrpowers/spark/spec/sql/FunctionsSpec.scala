@@ -2818,7 +2818,36 @@ class FunctionsSpec
   }
 
   describe("#sha1") {
-    pending
+
+    it("Calculates the SHA-1 digest of a binary column and returns the value as a 40 character hex string") {
+
+      val sourceDF = spark.createDF(
+        List(
+          ("1100"),
+          ("1011"),
+          (null)
+        ), List(
+          ("num1", StringType, true)
+        )
+      )
+
+      val actualDF = sourceDF.withColumn("sha1", sha1(col("num1")))
+
+      val expectedDF = spark.createDF(
+        List(
+          ("1100", "b124524c4b1ade45d1deecbcdef614fadb3ec205"),
+          ("1011", "dd2dfa50dc8feca1e5303a87b2c6a42db3ebe102"),
+          (null, null)
+        ), List(
+          ("num1", StringType, true),
+          ("sha1", StringType, true)
+        )
+      )
+
+      assertSmallDatasetEquality(actualDF, expectedDF)
+
+    }
+
   }
 
   describe("#sha2") {

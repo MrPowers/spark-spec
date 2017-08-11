@@ -268,21 +268,31 @@ class DatasetSpec
 
     it("drops the duplicate rows from a DataFrame") {
 
-      val numbersDF = Seq(
-        (1, 2),
-        (8, 8),
-        (1, 2),
-        (5, 6),
-        (8, 8)
-      ).toDF("num1", "num2")
+      val numbersDF = spark.createDF(
+        List(
+          (1, 2),
+          (8, 8),
+          (1, 2),
+          (5, 6),
+          (8, 8)
+        ), List(
+          ("num1", IntegerType, true),
+          ("num2", IntegerType, true)
+        )
+      )
 
       val actualDF = numbersDF.dropDuplicates()
 
-      val expectedDF = Seq(
-        (1, 2),
-        (5, 6),
-        (8, 8)
-      ).toDF("num1", "num2")
+      val expectedDF = spark.createDF(
+        List(
+          (1, 2),
+          (5, 6),
+          (8, 8)
+        ), List(
+          ("num1", IntegerType, true),
+          ("num2", IntegerType, true)
+        )
+      )
 
       assertSmallDatasetEquality(actualDF, expectedDF)
 
@@ -290,13 +300,19 @@ class DatasetSpec
 
     it("drops duplicate rows based on certain columns") {
 
-      val sourceDF = Seq(
-        (1, 2, 100),
-        (8, 8, 100),
-        (1, 2, 200),
-        (5, 6, 7),
-        (8, 8, 50)
-      ).toDF("num1", "num2", "num3")
+      val sourceDF = spark.createDF(
+        List(
+          (1, 2, 100),
+          (8, 8, 100),
+          (1, 2, 200),
+          (5, 6, 7),
+          (8, 8, 50)
+        ), List(
+          ("num1", IntegerType, true),
+          ("num2", IntegerType, true),
+          ("num3", IntegerType, true)
+        )
+      )
 
       val actualDF = sourceDF.dropDuplicates("num1", "num2")
 
@@ -306,8 +322,8 @@ class DatasetSpec
           Row(5, 6, 7),
           Row(8, 8, 100)
         ), List(
-          StructField("num1", IntegerType, false),
-          StructField("num2", IntegerType, false),
+          StructField("num1", IntegerType, true),
+          StructField("num2", IntegerType, true),
           StructField("num3", IntegerType, true)
         )
       )

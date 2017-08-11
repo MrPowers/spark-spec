@@ -2406,7 +2406,41 @@ class FunctionsSpec
   }
 
   describe("#least") {
-    pending
+
+    it("Returns the least value of the list of values, skipping null values. This function takes at least 2 parameters. " + "It will return null iff all parameters are null.") {
+
+      val sourceDF = spark.createDF(
+        List(
+          (56.1, null),
+          (72.21, 4.2),
+          (null, null),
+          (3.1, 1.05)
+        ), List(
+          ("num1", DoubleType, true),
+          ("num2", DoubleType, true)
+        )
+      )
+
+      val actualDF = sourceDF.withColumn("least", least(col("num1"), col("num2")))
+
+      val expectedDF = spark.createDF(
+        List(
+          (56.1, null, 56.1),
+          (72.21, 4.2, 4.2),
+          (null, null, null),
+          (3.1, 1.05, 1.05)
+
+        ), List(
+          ("num1", DoubleType, true),
+          ("num2", DoubleType, true),
+          ("least", DoubleType, true)
+        )
+      )
+
+      assertSmallDatasetEquality(actualDF, expectedDF)
+
+    }
+
   }
 
   describe("#posexplode") {

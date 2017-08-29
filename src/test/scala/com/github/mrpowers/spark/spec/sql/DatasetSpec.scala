@@ -1,13 +1,15 @@
 package com.github.mrpowers.spark.spec.sql
 
 import com.github.mrpowers.spark.fast.tests.{DatasetComparer, RDDComparer}
-import com.github.mrpowers.spark.models._
+import com.github.mrpowers.spark.models.{GameComment, _}
 import com.github.mrpowers.spark.spec.SparkSessionTestWrapper
 import org.apache.spark.sql.functions._
 import org.apache.spark.sql.types.{StructType, _}
 import org.apache.spark.sql.{Column, Dataset, Row}
 import org.scalatest._
 import com.github.mrpowers.spark.daria.sql.SparkSessionExt._
+import org.apache.spark.sql.catalyst.expressions.GenericRowWithSchema
+import org.apache.spark.storage.StorageLevel
 
 class DatasetSpec
     extends FunSpec
@@ -54,7 +56,16 @@ class DatasetSpec
   }
 
   describe("#cache") {
-    pending
+
+    it("Should cache in memory only"){
+      val sourceDF = Seq(("jose"),("ki"),("luisa")).toDF("name")
+
+      val cachedDF = sourceDF.cache()
+
+      assertSmallDatasetEquality(sourceDF, cachedDF)
+
+    }
+
   }
 
   describe("#checkpoint") {
@@ -683,7 +694,11 @@ class DatasetSpec
         birthplaceDF, peopleDF("id") <=> birthplaceDF("person_id")
       )
 
-      pending
+      actualDF.show
+
+      actualDF.printSchema()
+
+      //      pending
 
       //      val sourceData = List(
       //        Row(("larry", "1"),("new york", "1")),
@@ -1077,15 +1092,79 @@ class DatasetSpec
   }
 
   describe("#storageLevel") {
-    pending
+
+    it("Returns the  storage level used with persist()") {
+
+      val sourceDF = Seq(
+        (5, "bob"),
+        (1, "phil"),
+        (5, "anne")
+      ).toDF("number", "name")
+
+      assert(sourceDF.persist(StorageLevel.DISK_ONLY).storageLevel === StorageLevel.DISK_ONLY)
+      //clean up
+      sourceDF.unpersist()
+    }
+
+    it("Returns the defaiult storage level StorageLevel.NONE when not persisted") {
+
+      val sourceDF = Seq(
+        (5, "bob"),
+        (1, "phil"),
+        (5, "anne")
+      ).toDF("number", "name")
+
+      assert(sourceDF.storageLevel === StorageLevel.NONE)
+    }
+
+    it("Returns the  storage level StorageLevel.MEMORY_AND_DISK when cache or persist") {
+
+      val sourceDF = Seq(
+        (5, "bob"),
+        (1, "phil"),
+        (5, "anne")
+      ).toDF("number", "name")
+
+      assert(sourceDF.cache().storageLevel === StorageLevel.MEMORY_AND_DISK)
+      //cleanup
+      sourceDF.unpersist()
+    }
+
+
   }
 
   describe("#take") {
-    pending
+
+    it("Returns an array of the first n GenericRowWithSchema  to the driver"){
+      val sourceDF = Seq(
+        (5, "bob"),
+        (1, "phil"),
+        (5, "anne")
+      ).toDF("number", "name")
+
+      val rowsTaken  = sourceDF.take(1)
+
+      val expectedRowsTaken = Array(new GenericRowWithSchema(Array(5, "bob"),sourceDF.schema))
+
+      assert(rowsTaken === expectedRowsTaken)
+    }
   }
 
   describe("#takeAsList") {
-    pending
+    it("Returns an List of the first n GenericRowWithSchema  to the driver") {
+      val sourceDF = Seq(
+        (5, "bob"),
+        (1, "phil"),
+        (5, "anne")
+      ).toDF("number", "name")
+
+      val rowsTaken = sourceDF.takeAsList(1)
+
+      val expectedRowsTaken = new java.util.ArrayList[GenericRowWithSchema]()
+      expectedRowsTaken.add(new GenericRowWithSchema(Array(5, "bob"), sourceDF.schema))
+
+      assert(rowsTaken === expectedRowsTaken)
+    }
   }
 
   describe("#toDF") {
@@ -1133,6 +1212,32 @@ class DatasetSpec
         GameComment("Bob Sr", 47, None)
       ).toDS
 
+      assertSmallDatasetEquality(actualDS, expectedDS)
+    }
+
+    it("combines entries of datasets with same schema and keeps duplicates unlike union in sql") {
+      val juniorParticipants = Seq(
+        GameComment("Alice Jr", 12, Some("Good game")),
+        GameComment("Mindy", 22, None),
+          GameComment("Bob Jr", 17, None)
+      ).toDS
+
+      val seniorParticipants = Seq(
+        GameComment("Alice Sr", 52, Some("Good Play")),
+        GameComment("Bob Sr", 47, None),
+        GameComment("Mindy", 22, None)
+      ).toDS
+
+      val actualDS = juniorParticipants.union(seniorParticipants)
+
+      val expectedDS = Seq(
+        GameComment("Alice Jr", 12, Some("Good game")),
+        GameComment("Mindy", 22, None),
+        GameComment("Bob Jr", 17, None),
+        GameComment("Alice Sr", 52, Some("Good Play")),
+        GameComment("Bob Sr", 47, None),
+        GameComment("Mindy", 22, None)
+      ).toDS
       assertSmallDatasetEquality(actualDS, expectedDS)
     }
   }

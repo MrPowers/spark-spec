@@ -57,8 +57,8 @@ class DatasetSpec
 
   describe("#cache") {
 
-    it("Should cache in memory only"){
-      val sourceDF = Seq(("jose"),("ki"),("luisa")).toDF("name")
+    it("Should cache in memory only") {
+      val sourceDF = Seq(("jose"), ("ki"), ("luisa")).toDF("name")
 
       val cachedDF = sourceDF.cache()
 
@@ -1130,21 +1130,20 @@ class DatasetSpec
       sourceDF.unpersist()
     }
 
-
   }
 
   describe("#take") {
 
-    it("Returns an array of the first n GenericRowWithSchema  to the driver"){
+    it("Returns an array of the first n GenericRowWithSchema  to the driver") {
       val sourceDF = Seq(
         (5, "bob"),
         (1, "phil"),
         (5, "anne")
       ).toDF("number", "name")
 
-      val rowsTaken  = sourceDF.take(1)
+      val rowsTaken = sourceDF.take(1)
 
-      val expectedRowsTaken = Array(new GenericRowWithSchema(Array(5, "bob"),sourceDF.schema))
+      val expectedRowsTaken = Array(new GenericRowWithSchema(Array(5, "bob"), sourceDF.schema))
 
       assert(rowsTaken === expectedRowsTaken)
     }
@@ -1219,7 +1218,7 @@ class DatasetSpec
       val juniorParticipants = Seq(
         GameComment("Alice Jr", 12, Some("Good game")),
         GameComment("Mindy", 22, None),
-          GameComment("Bob Jr", 17, None)
+        GameComment("Bob Jr", 17, None)
       ).toDS
 
       val seniorParticipants = Seq(
@@ -1243,7 +1242,22 @@ class DatasetSpec
   }
 
   describe("#unpersist") {
-    pending
+    it("persist then unpersist") {
+
+      val sourceDS: Dataset[PersonWithAge] = Seq(
+        PersonWithAge("Alice", 12),
+        PersonWithAge("Bob", 42),
+        PersonWithAge("Cody", 10),
+        PersonWithAge("Dane", 50)
+      ).toDS
+
+      val persisted = sourceDS.persist()
+      //removes blocks from memory and disk
+      val unpersisted = sourceDS.unpersist()
+
+      assertSmallDatasetEquality(persisted, unpersisted)
+
+    }
   }
 
   describe("#where") {
@@ -1270,7 +1284,29 @@ class DatasetSpec
   }
 
   describe("#withColumn") {
-    pending
+    it("adds a column") {
+
+      val sourceDF = Seq(1).toDF("foo")
+
+      val actualDF = sourceDF.withColumn("bar", lit(2))
+
+      val expectedDF = Seq((1, 2)).toDF("foo", "bar")
+
+      assertSmallDatasetEquality(actualDF, expectedDF)
+
+    }
+
+    it("replaces an existing column") {
+
+      val sourceDF = Seq(1).toDF("foo")
+
+      val actualDF = sourceDF.withColumn("foo", lit(2))
+
+      val expectedDF = Seq(2).toDF("foo")
+
+      assertSmallDatasetEquality(actualDF, expectedDF)
+
+    }
   }
 
   describe("#withColumnRenamed") {

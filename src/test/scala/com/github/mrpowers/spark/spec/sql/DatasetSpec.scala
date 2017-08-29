@@ -64,6 +64,8 @@ class DatasetSpec
 
       assertSmallDatasetEquality(sourceDF, cachedDF)
 
+      cachedDF.unpersist()
+
     }
 
   }
@@ -678,56 +680,106 @@ class DatasetSpec
 
     it("joins two DataFrames") {
 
-      val peopleDF = Seq(
-        ("larry", "1"),
-        ("jeff", "2"),
-        ("susy", "3")
-      ).toDF("person", "id")
+      val peopleDF = spark.createDF(
+        List(
+          ("larry", "1"),
+          ("jeff", "2")
+        ), List(
+          ("person", StringType, true),
+          ("id", StringType, true)
+        )
+      )
 
-      val birthplaceDF = Seq(
-        ("new york", "1"),
-        ("ohio", "2"),
-        ("los angeles", "3")
-      ).toDF("city", "person_id")
+      val birthplaceDF = spark.createDF(
+        List(
+          ("new york", "1"),
+          ("ohio", "2")
+        ), List(
+          ("city", StringType, true),
+          ("person_id", StringType, true)
+        )
+      )
 
       val actualDF = peopleDF.joinWith(
         birthplaceDF, peopleDF("id") <=> birthplaceDF("person_id")
       )
 
-      actualDF.show
+      //      StructType(
+      //        StructField(
+      //          _1,
+      //          StructType(
+      //            StructField(person,StringType,true),
+      //            StructField(id,StringType,true)
+      //          ), false),
+      //        StructField(
+      //          _2,
+      //          StructType(
+      //            StructField(city,StringType,true),
+      //            StructField(person_id,StringType,true)
+      //          ), false
+      //        )
+      //      )
 
-      actualDF.printSchema()
+      //      val st1 = StructType(
+      //        List(
+      //          StructField("person", StringType, true),
+      //          StructField("id", StringType, true)
+      //        )
+      //      )
+      //
+      //      val st2 = StructType(
+      //        List(
+      //          StructField("city", StringType, true),
+      //          StructField("person_id", StringType, true)
+      //        )
+      //      )
+      //
+      //      val expectedSchema = StructType(
+      //        List(
+      //          StructField("_1", st1, false),
+      //          StructField("_2", st2, false)
+      //        )
+      //      )
+      //
+      //      val st1Data = Seq(
+      //        Row("larry", "1"),
+      //        Row("jeff", "2")
+      //      )
+      //
+      //      val st2Data = Seq(
+      //        Row("new york", "1"),
+      //        Row("ohio", "2")
+      //      )
+      //
+      //      val l1 = spark.createDF(
+      //        List(
+      //          ("larry", "1")
+      //        ), List(
+      //          ("person", StringType, true),
+      //          ("id", StringType, true)
+      //        )
+      //      )
+      //
+      //      val ny1 = spark.createDF(
+      //        List(
+      //          ("new york", "1")
+      //        ), List(
+      //          ("city", StringType, true),
+      //          ("person_id", StringType, true)
+      //        )
+      //      )
+      //
+      //      val expectedData = Seq(
+      //        Row(Seq(Row("larry", "1"), Row("new york", "1"))),
+      //        Row(Seq(Row("jeff", "2"), Row("ohio", "2")))
+      //      )
+      //
+      //      val expectedDF = spark.createDataFrame(
+      //        spark.sparkContext.parallelize(expectedData),
+      //        StructType(expectedSchema)
+      //      )
 
-      //      pending
-
-      //      val sourceData = List(
-      //        Row(("larry", "1"),("new york", "1")),
-      //        Row(("jeff", "2"),("ohio", "2")),
-      //        Row(("susy", "3"),("los angeles", "3"))
-      //      )
-      //
-      //      val peopleSchema = List(
-      //        StructField("person", StringType, true),
-      //        StructField("id", StringType, true)
-      //      )
-      //
-      //      val birthplaceSchema = List(
-      //        StructField("city", StringType, true),
-      //        StructField("person_id", StringType, true)
-      //      )
-      //
-      //      val sourceSchema = List(
-      //        StructType(peopleSchema),
-      //        StructType(birthplaceSchema)
-      //      )
-      //
-      //
-      //      val sourceDF = spark.createDataFrame(
-      //        spark.sparkContext.parallelize(sourceData),
-      //        StructType(sourceSchema)
-      //      )
-      //
-      //      sourceDF.show()
+      pending
 
       // HACK - FAIL
       // This Stackoverflow question might help: http://stackoverflow.com/questions/36731674/re-using-a-schema-from-json-within-a-spark-dataframe-using-scala

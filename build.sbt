@@ -24,6 +24,9 @@ sparkVersion := "2.2.0"
 spDependencies += "mrpowers/spark-daria:0.10.0"
 spDependencies += "MrPowers/spark-fast-tests:0.4.0"
 
+libraryDependencies += "org.apache.commons" % "commons-text" % "1.1"
+libraryDependencies += "org.scalatest" %% "scalatest" % "2.2.6" % "provided"
+
 sparkComponents ++= Seq("sql", "mllib")
 
 // All Spark Packages need a license

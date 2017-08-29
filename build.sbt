@@ -21,8 +21,8 @@ version := "0.0.1"
 scalaVersion := "2.11.8"
 sparkVersion := "2.2.0"
 
-spDependencies += "mrpowers/spark-daria:0.5.0"
-spDependencies += "MrPowers/spark-fast-tests:0.3.0"
+spDependencies += "mrpowers/spark-daria:0.10.0"
+spDependencies += "MrPowers/spark-fast-tests:0.4.0"
 
 sparkComponents ++= Seq("sql", "mllib")
 

@@ -9,7 +9,7 @@ import com.github.mrpowers.spark.spec.SparkSessionTestWrapper
 
 import com.github.mrpowers.spark.fast.tests.DatasetComparer
 
-class DataFrameNaFunctionsSpec extends FunSpec with SparkSessionTestWrapper with DatasetComparer {
+class DataFrameNaFSpec extends FunSpec with SparkSessionTestWrapper with DatasetComparer {
 
   import spark.implicits._
 

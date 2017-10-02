@@ -11,9 +11,9 @@ import org.apache.spark.sql.types._
 import org.scalatest._
 
 class FunctionsSpec
-    extends FunSpec
-    with SparkSessionTestWrapper
-    with DatasetComparer {
+  extends FunSpec
+  with SparkSessionTestWrapper
+  with DatasetComparer {
 
   import spark.implicits._
 

@@ -9,9 +9,9 @@ import com.github.mrpowers.spark.spec.SparkSessionTestWrapper
 import com.github.mrpowers.spark.fast.tests.DatasetComparer
 
 class ColumnSpec
-    extends FunSpec
-    with SparkSessionTestWrapper
-    with DatasetComparer {
+  extends FunSpec
+  with SparkSessionTestWrapper
+  with DatasetComparer {
 
   import spark.implicits._
 

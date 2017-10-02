@@ -12,10 +12,10 @@ import org.apache.spark.sql.catalyst.expressions.GenericRowWithSchema
 import org.apache.spark.storage.StorageLevel
 
 class DatasetSpec
-    extends FunSpec
-    with SparkSessionTestWrapper
-    with DatasetComparer
-    with RDDComparer {
+  extends FunSpec
+  with SparkSessionTestWrapper
+  with DatasetComparer
+  with RDDComparer {
 
   import spark.implicits._
 

@@ -5,8 +5,9 @@ import com.typesafe.sbt.SbtScalariform.ScalariformKeys
 SbtScalariform.scalariformSettings
 
 ScalariformKeys.preferences := ScalariformKeys.preferences.value
-  .setPreference(DoubleIndentClassDeclaration, true)
+  .setPreference(DoubleIndentConstructorArguments, true)
   .setPreference(SpacesAroundMultiImports, false)
+  .setPreference(DanglingCloseParenthesis, Force)
 
 name := "spark-spec"
 
@@ -21,11 +22,11 @@ version := "0.0.1"
 scalaVersion := "2.11.8"
 sparkVersion := "2.2.0"
 
-spDependencies += "mrpowers/spark-daria:0.10.0"
-spDependencies += "MrPowers/spark-fast-tests:0.4.0"
+libraryDependencies += "mrpowers" % "spark-daria" % "2.2.0_0.12.0"
+libraryDependencies += "MrPowers" % "spark-fast-tests" % "2.2.0_0.5.0" % "test"
 
 libraryDependencies += "org.apache.commons" % "commons-text" % "1.1"
-libraryDependencies += "org.scalatest" %% "scalatest" % "2.2.6" % "provided"
+libraryDependencies += "org.scalatest" %% "scalatest" % "3.0.1" % "test"
 
 sparkComponents ++= Seq("sql", "mllib")
 

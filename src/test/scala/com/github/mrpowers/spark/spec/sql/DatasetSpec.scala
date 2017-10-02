@@ -49,7 +49,7 @@ class DatasetSpec
         ("luisa")
       ).toDF("student")
 
-      assertSmallDatasetEquality(actualDF, expectedDF)
+      assertLargeDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -62,7 +62,7 @@ class DatasetSpec
 
       val cachedDF = sourceDF.cache()
 
-      assertSmallDatasetEquality(sourceDF, cachedDF)
+      assertLargeDatasetEquality(sourceDF, cachedDF)
 
       cachedDF.unpersist()
 
@@ -170,7 +170,7 @@ class DatasetSpec
         ("b", "2")
       ).toDF("letter", "number")
 
-      assertSmallDatasetEquality(actualDF, expectedDF)
+      assertLargeDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -200,7 +200,7 @@ class DatasetSpec
         ("max", "8")
       ).toDF("summary", "num1")
 
-      assertSmallDatasetEquality(actualDF, expectedDF)
+      assertLargeDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -221,7 +221,7 @@ class DatasetSpec
         ("max", "b")
       ).toDF("summary", "letter")
 
-      assertSmallDatasetEquality(actualDF, expectedDF)
+      assertLargeDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -247,7 +247,7 @@ class DatasetSpec
         (8, 8)
       ).toDF("num1", "num2")
 
-      assertSmallDatasetEquality(actualDF, expectedDF)
+      assertLargeDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -271,7 +271,7 @@ class DatasetSpec
         ("susy")
       ).toDF("person")
 
-      assertSmallDatasetEquality(actualDF, expectedDF)
+      assertLargeDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -307,7 +307,7 @@ class DatasetSpec
         )
       )
 
-      assertSmallDatasetEquality(actualDF, expectedDF)
+      assertLargeDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -341,7 +341,7 @@ class DatasetSpec
         )
       )
 
-      assertSmallDatasetEquality(actualDF, expectedDF)
+      assertLargeDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -393,7 +393,7 @@ class DatasetSpec
         (1, 2)
       ).toDF("num1", "num2")
 
-      assertSmallDatasetEquality(actualDF, expectedDF)
+      assertLargeDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -421,7 +421,7 @@ class DatasetSpec
         (42)
       ).toDF("num1")
 
-      assertSmallDatasetEquality(actualDF, expectedDF)
+      assertLargeDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -442,7 +442,7 @@ class DatasetSpec
         (42)
       ).toDF("num1")
 
-      assertSmallDatasetEquality(actualDF, expectedDF)
+      assertLargeDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -465,7 +465,7 @@ class DatasetSpec
         (42)
       ).toDF("num1")
 
-      assertSmallDatasetEquality(actualDF, expectedDF)
+      assertLargeDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -481,7 +481,7 @@ class DatasetSpec
         PersonWithAge("Alice", 29)
       ).toDS
 
-      assertSmallDatasetEquality(actualDS, expectedDS)
+      assertLargeDatasetEquality(actualDS, expectedDS)
     }
 
   }
@@ -547,7 +547,7 @@ class DatasetSpec
         )
       )
 
-      assertSmallDatasetEquality(actualDF, expectedDF)
+      assertLargeDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -626,7 +626,7 @@ class DatasetSpec
         (4, 5)
       ).toDF("num1", "num2")
 
-      assertSmallDatasetEquality(actualDF, expectedDF)
+      assertLargeDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -670,7 +670,7 @@ class DatasetSpec
         ("susy", "3", "los angeles", "3")
       ).toDF("person", "id", "city", "person_id")
 
-      assertSmallDatasetEquality(actualDF, expectedDF)
+      assertLargeDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -806,7 +806,7 @@ class DatasetSpec
         (true, "bangalore")
       ).toDF("have_visited", "city")
 
-      assertSmallDatasetEquality(actualDF, expectedDF)
+      assertLargeDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -848,7 +848,7 @@ class DatasetSpec
         )
       )
 
-      assertSmallDatasetEquality(actualDF, expectedDF)
+      assertLargeDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -878,7 +878,7 @@ class DatasetSpec
         99
       ).toDF("num1")
 
-      assertSmallDatasetEquality(actualDF, expectedDF)
+      assertLargeDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -988,7 +988,7 @@ class DatasetSpec
         )
       )
 
-      assertSmallDatasetEquality(actualDF, expectedDF)
+      assertLargeDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -1020,7 +1020,7 @@ class DatasetSpec
         )
       )
 
-      assertSmallDatasetEquality(actualDF, expectedDF)
+      assertLargeDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -1101,7 +1101,7 @@ class DatasetSpec
         (5)
       ).toDF("number")
 
-      assertSmallDatasetEquality(actualDF, expectedDF)
+      assertLargeDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -1122,7 +1122,7 @@ class DatasetSpec
         (5, "bob")
       ).toDF("number", "name")
 
-      assertSmallDatasetEquality(actualDF, expectedDF)
+      assertLargeDatasetEquality(actualDF, expectedDF)
 
     }
   }
@@ -1263,7 +1263,7 @@ class DatasetSpec
         GameComment("Bob Sr", 47, None)
       ).toDS
 
-      assertSmallDatasetEquality(actualDS, expectedDS)
+      assertLargeDatasetEquality(actualDS, expectedDS)
     }
 
     it("combines entries of datasets with same schema and keeps duplicates unlike union in sql") {
@@ -1289,7 +1289,7 @@ class DatasetSpec
         GameComment("Bob Sr", 47, None),
         GameComment("Mindy", 22, None)
       ).toDS
-      assertSmallDatasetEquality(actualDS, expectedDS)
+      assertLargeDatasetEquality(actualDS, expectedDS)
     }
   }
 
@@ -1307,7 +1307,7 @@ class DatasetSpec
       //removes blocks from memory and disk
       val unpersisted = sourceDS.unpersist()
 
-      assertSmallDatasetEquality(persisted, unpersisted)
+      assertLargeDatasetEquality(persisted, unpersisted)
 
     }
   }
@@ -1329,7 +1329,7 @@ class DatasetSpec
         PersonWithAge("Bob", 42)
       ).toDS
 
-      assertSmallDatasetEquality(actualDS, expectedDS)
+      assertLargeDatasetEquality(actualDS, expectedDS)
 
     }
 
@@ -1344,7 +1344,7 @@ class DatasetSpec
 
       val expectedDF = Seq((1, 2)).toDF("foo", "bar")
 
-      assertSmallDatasetEquality(actualDF, expectedDF)
+      assertLargeDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -1356,7 +1356,7 @@ class DatasetSpec
 
       val expectedDF = Seq(2).toDF("foo")
 
-      assertSmallDatasetEquality(actualDF, expectedDF)
+      assertLargeDatasetEquality(actualDF, expectedDF)
 
     }
   }
@@ -1371,7 +1371,7 @@ class DatasetSpec
 
       val expectedDF = Seq(1).toDF("bar")
 
-      assertSmallDatasetEquality(actualDF, expectedDF)
+      assertLargeDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -1383,7 +1383,7 @@ class DatasetSpec
 
       val expectedDF = Seq(1).toDF("foo")
 
-      assertSmallDatasetEquality(actualDF, expectedDF)
+      assertLargeDatasetEquality(actualDF, expectedDF)
 
     }
 

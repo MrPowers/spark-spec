@@ -46,7 +46,7 @@ class FunctionsSpec
         )
       )
 
-      assertSmallDatasetEquality(actualDF, expectedDF)
+      assertLargeDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -81,7 +81,7 @@ class FunctionsSpec
         )
       )
 
-      assertSmallDatasetEquality(actualDF, expectedDF)
+      assertLargeDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -117,7 +117,7 @@ class FunctionsSpec
         )
       )
 
-      assertSmallDatasetEquality(actualDF, expectedDF)
+      assertLargeDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -151,7 +151,7 @@ class FunctionsSpec
         List(("num1", IntegerType, true))
       )
 
-      assertSmallDatasetEquality(actualDF, expectedDF)
+      assertLargeDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -187,7 +187,7 @@ class FunctionsSpec
         )
       )
 
-      assertSmallDatasetEquality(actualDF, expectedDF)
+      assertLargeDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -219,7 +219,7 @@ class FunctionsSpec
         )
       )
 
-      assertSmallDatasetEquality(actualDF, expectedDF)
+      assertLargeDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -260,7 +260,7 @@ class FunctionsSpec
         )
       )
 
-      assertSmallDatasetEquality(actualDF, expectedDF)
+      assertLargeDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -293,7 +293,7 @@ class FunctionsSpec
         )
       )
 
-      assertSmallDatasetEquality(actualDF, expectedDF)
+      assertLargeDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -326,7 +326,7 @@ class FunctionsSpec
         )
       )
 
-      assertSmallDatasetEquality(actualDF, expectedDF)
+      assertLargeDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -369,7 +369,7 @@ class FunctionsSpec
 
       val actualDF = sourceDF.agg(avg("Double").as("average"))
 
-      assertSmallDatasetEquality(actualDF, expectedDF)
+      assertLargeDatasetEquality(actualDF, expectedDF)
     }
 
   }
@@ -397,7 +397,7 @@ class FunctionsSpec
         )
       ).withColumn("bin1", col("bin1").cast("binary"))
 
-      assertSmallDatasetEquality(actualDF, expectedDF)
+      assertLargeDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -428,7 +428,7 @@ class FunctionsSpec
         )
       )
 
-      assertSmallDatasetEquality(actualDF, expectedDF)
+      assertLargeDatasetEquality(actualDF, expectedDF)
     }
 
   }
@@ -460,7 +460,7 @@ class FunctionsSpec
         )
       )
 
-      assertSmallDatasetEquality(actualDF, expectedDF)
+      assertLargeDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -501,7 +501,7 @@ class FunctionsSpec
         )
       )
 
-      assertSmallDatasetEquality(actualDF, expectedDF)
+      assertLargeDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -539,7 +539,7 @@ class FunctionsSpec
         )
       )
 
-      assertSmallDatasetEquality(actualDF, expectedDF)
+      assertLargeDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -572,7 +572,7 @@ class FunctionsSpec
         )
       )
 
-      assertSmallDatasetEquality(actualDF, expectedDF)
+      assertLargeDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -616,7 +616,7 @@ class FunctionsSpec
         )
       )
 
-      assertSmallDatasetEquality(actualDF, expectedDF)
+      assertLargeDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -649,7 +649,7 @@ class FunctionsSpec
         )
       )
 
-      assertSmallDatasetEquality(actualDF, expectedDF)
+      assertLargeDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -689,7 +689,7 @@ class FunctionsSpec
         )
       )
 
-      assertSmallDatasetEquality(actualDF, expectedDF)
+      assertLargeDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -734,7 +734,7 @@ class FunctionsSpec
         )
       )
 
-      assertSmallDatasetEquality(actualDF, expectedDF)
+      assertLargeDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -767,7 +767,7 @@ class FunctionsSpec
         )
       )
 
-      assertSmallDatasetEquality(actualDF, expectedDF)
+      assertLargeDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -813,7 +813,7 @@ class FunctionsSpec
         )
       )
 
-      assertSmallDatasetEquality(actualDF, expectedDF)
+      assertLargeDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -857,7 +857,7 @@ class FunctionsSpec
           ("yummy", StringType, true)
         )
       )
-      assertSmallDatasetEquality(actualDF, expectedDF)
+      assertLargeDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -892,7 +892,7 @@ class FunctionsSpec
         )
       )
 
-      assertSmallDatasetEquality(actualDF, expectedDF)
+      assertLargeDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -925,7 +925,7 @@ class FunctionsSpec
         )
       )
 
-      assertSmallDatasetEquality(actualDF, expectedDF)
+      assertLargeDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -958,7 +958,7 @@ class FunctionsSpec
         )
       )
 
-      assertSmallDatasetEquality(actualDF, expectedDF)
+      assertLargeDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -1018,7 +1018,7 @@ class FunctionsSpec
         )
       )
 
-      assertSmallDatasetEquality(actualDF, expectedDF)
+      assertLargeDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -1057,7 +1057,7 @@ class FunctionsSpec
         )
       )
 
-      assertSmallDatasetEquality(actualDF, expectedDF)
+      assertLargeDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -1105,7 +1105,7 @@ class FunctionsSpec
         )
       )
 
-      assertSmallDatasetEquality(actualDF, expectedDF)
+      assertLargeDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -1166,7 +1166,7 @@ class FunctionsSpec
         )
       )
 
-      assertSmallDatasetEquality(actualDF, expectedDF)
+      assertLargeDatasetEquality(actualDF, expectedDF)
 
     }
   }
@@ -1205,7 +1205,7 @@ class FunctionsSpec
         )
       )
 
-      assertSmallDatasetEquality(actualDF, expectedDF)
+      assertLargeDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -1241,7 +1241,7 @@ class FunctionsSpec
         )
       )
 
-      assertSmallDatasetEquality(actualDF, expectedDF)
+      assertLargeDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -1273,7 +1273,7 @@ class FunctionsSpec
         )
       )
 
-      assertSmallDatasetEquality(actualDF, expectedDF)
+      assertLargeDatasetEquality(actualDF, expectedDF)
     }
 
   }
@@ -1311,7 +1311,7 @@ class FunctionsSpec
         )
       )
 
-      assertSmallDatasetEquality(actualDF, expectedDF)
+      assertLargeDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -1353,7 +1353,7 @@ class FunctionsSpec
         )
       )
 
-      assertSmallDatasetEquality(actualDF, expectedDF)
+      assertLargeDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -1388,7 +1388,7 @@ class FunctionsSpec
         )
       )
 
-      assertSmallDatasetEquality(actualDF, expectedDF)
+      assertLargeDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -1433,7 +1433,7 @@ class FunctionsSpec
         )
       )
 
-      assertSmallDatasetEquality(actualDF, expectedDF)
+      assertLargeDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -1474,7 +1474,7 @@ class FunctionsSpec
         )
       )
 
-      assertSmallDatasetEquality(actualDF, expectedDF)
+      assertLargeDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -1545,7 +1545,7 @@ class FunctionsSpec
         )
       )
 
-      assertSmallDatasetEquality(actualDF, expectedDF)
+      assertLargeDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -1579,7 +1579,7 @@ class FunctionsSpec
       )
     )
 
-    assertSmallDatasetEquality(actualDF, expectedDF)
+    assertLargeDatasetEquality(actualDF, expectedDF)
   }
 
   describe("#hypot") {
@@ -1612,7 +1612,7 @@ class FunctionsSpec
         )
       )
 
-      assertSmallDatasetEquality(actualDF, expectedDF)
+      assertLargeDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -1657,7 +1657,7 @@ class FunctionsSpec
         )
       )
 
-      assertSmallDatasetEquality(actualDF, expectedDF)
+      assertLargeDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -1694,7 +1694,7 @@ class FunctionsSpec
         )
       )
 
-      assertSmallDatasetEquality(actualDF, expectedDF)
+      assertLargeDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -1755,7 +1755,7 @@ class FunctionsSpec
 
       val actualDF = wordsDF.withColumn("length", length(col("word")))
 
-      assertSmallDatasetEquality(actualDF, expectedDF)
+      assertLargeDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -1790,7 +1790,7 @@ class FunctionsSpec
         )
       )
 
-      assertSmallDatasetEquality(actualDF, expectedDF)
+      assertLargeDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -1821,7 +1821,7 @@ class FunctionsSpec
         )
       )
 
-      assertSmallDatasetEquality(actualDF, expectedDF)
+      assertLargeDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -1858,7 +1858,7 @@ class FunctionsSpec
         )
       )
 
-      assertSmallDatasetEquality(actualDF, expectedDF)
+      assertLargeDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -1895,7 +1895,7 @@ class FunctionsSpec
         )
       )
 
-      assertSmallDatasetEquality(actualDF, expectedDF)
+      assertLargeDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -1932,7 +1932,7 @@ class FunctionsSpec
         )
       )
 
-      assertSmallDatasetEquality(actualDF, expectedDF)
+      assertLargeDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -1969,7 +1969,7 @@ class FunctionsSpec
         )
       )
 
-      assertSmallDatasetEquality(actualDF, expectedDF)
+      assertLargeDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -2002,7 +2002,7 @@ class FunctionsSpec
         )
       )
 
-      assertSmallDatasetEquality(actualDF, expectedDF)
+      assertLargeDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -2043,7 +2043,7 @@ class FunctionsSpec
         )
       )
 
-      assertSmallDatasetEquality(actualDF, expectedDF)
+      assertLargeDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -2077,7 +2077,7 @@ class FunctionsSpec
         )
       )
 
-      assertSmallDatasetEquality(actualDF, expectedDF)
+      assertLargeDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -2108,7 +2108,7 @@ class FunctionsSpec
         )
       )
 
-      assertSmallDatasetEquality(actualDF, expectedDF)
+      assertLargeDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -2139,7 +2139,7 @@ class FunctionsSpec
         )
       )
 
-      assertSmallDatasetEquality(actualDF, expectedDF)
+      assertLargeDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -2170,7 +2170,7 @@ class FunctionsSpec
         )
       )
 
-      assertSmallDatasetEquality(actualDF, expectedDF)
+      assertLargeDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -2203,7 +2203,7 @@ class FunctionsSpec
         )
       )
 
-      assertSmallDatasetEquality(actualDF, expectedDF)
+      assertLargeDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -2242,7 +2242,7 @@ class FunctionsSpec
         )
       )
 
-      assertSmallDatasetEquality(actualDF, expectedDF)
+      assertLargeDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -2271,7 +2271,7 @@ class FunctionsSpec
         )
       )
 
-      assertSmallDatasetEquality(actualDF, expectedDF)
+      assertLargeDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -2300,7 +2300,7 @@ class FunctionsSpec
         )
       )
 
-      assertSmallDatasetEquality(actualDF, expectedDF)
+      assertLargeDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -2346,7 +2346,7 @@ class FunctionsSpec
         )
       )
 
-      assertSmallDatasetEquality(actualDF, expectedDF)
+      assertLargeDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -2399,7 +2399,7 @@ class FunctionsSpec
         )
       )
 
-      assertSmallDatasetEquality(actualDF, expectedDF)
+      assertLargeDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -2437,7 +2437,7 @@ class FunctionsSpec
         )
       )
 
-      assertSmallDatasetEquality(actualDF, expectedDF)
+      assertLargeDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -2474,7 +2474,7 @@ class FunctionsSpec
         )
       )
 
-      assertSmallDatasetEquality(actualDF, expectedDF)
+      assertLargeDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -2505,7 +2505,7 @@ class FunctionsSpec
         )
       )
 
-      assertSmallDatasetEquality(actualDF, expectedDF)
+      assertLargeDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -2540,7 +2540,7 @@ class FunctionsSpec
         )
       )
 
-      assertSmallDatasetEquality(actualDF, expectedDF)
+      assertLargeDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -2591,7 +2591,7 @@ class FunctionsSpec
         )
       )
 
-      assertSmallDatasetEquality(actualDF, expectedDF)
+      assertLargeDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -2626,7 +2626,7 @@ class FunctionsSpec
         )
       )
 
-      assertSmallDatasetEquality(actualDF, expectedDF)
+      assertLargeDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -2661,7 +2661,7 @@ class FunctionsSpec
         )
       )
 
-      assertSmallDatasetEquality(actualDF, expectedDF)
+      assertLargeDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -2696,7 +2696,7 @@ class FunctionsSpec
         )
       )
 
-      assertSmallDatasetEquality(actualDF, expectedDF)
+      assertLargeDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -2733,7 +2733,7 @@ class FunctionsSpec
         )
       )
 
-      assertSmallDatasetEquality(actualDF, expectedDF)
+      assertLargeDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -2772,7 +2772,7 @@ class FunctionsSpec
         )
       )
 
-      assertSmallDatasetEquality(actualDF, expectedDF)
+      assertLargeDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -2809,7 +2809,7 @@ class FunctionsSpec
         )
       )
 
-      assertSmallDatasetEquality(actualDF, expectedDF)
+      assertLargeDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -2845,7 +2845,7 @@ class FunctionsSpec
         )
       )
 
-      assertSmallDatasetEquality(actualDF, expectedDF)
+      assertLargeDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -2878,7 +2878,7 @@ class FunctionsSpec
         )
       )
 
-      assertSmallDatasetEquality(actualDF, expectedDF)
+      assertLargeDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -2933,7 +2933,7 @@ class FunctionsSpec
         )
       )
 
-      assertSmallDatasetEquality(actualDF, expectedDF)
+      assertLargeDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -2999,7 +2999,7 @@ class FunctionsSpec
         )
       )
 
-      assertSmallDatasetEquality(actualDF, expectedDF)
+      assertLargeDatasetEquality(actualDF, expectedDF)
 
     }
   }
@@ -3031,7 +3031,7 @@ class FunctionsSpec
         )
       )
 
-      assertSmallDatasetEquality(sqrtDF, expectedDF)
+      assertLargeDatasetEquality(sqrtDF, expectedDF)
 
     }
 
@@ -3084,7 +3084,7 @@ class FunctionsSpec
         )
       )
 
-      assertSmallDatasetEquality(actualDF, expectedDF)
+      assertLargeDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -3097,7 +3097,7 @@ class FunctionsSpec
         val actualDF = sourceDF.agg(sum("colA") as "sum")
         val expectedDF = Seq(SumNumericOutput(None)).toDF
 
-        assertSmallDatasetEquality(actualDF, expectedDF)
+        assertLargeDatasetEquality(actualDF, expectedDF)
       }
     }
     describe("(when column has at-least one non null value)") {
@@ -3106,7 +3106,7 @@ class FunctionsSpec
         val actualDF = sourceDF.agg(sum("colA") as "sum")
         val expectedDF = Seq(SumNumericOutput(Some(170.5))).toDF
 
-        assertSmallDatasetEquality(actualDF, expectedDF)
+        assertLargeDatasetEquality(actualDF, expectedDF)
       }
     }
   }
@@ -3164,7 +3164,7 @@ class FunctionsSpec
         )
       )
 
-      assertSmallDatasetEquality(actualDF, expectedDF)
+      assertLargeDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -3217,7 +3217,7 @@ class FunctionsSpec
         )
       )
 
-      assertSmallDatasetEquality(actualDF, expectedDF)
+      assertLargeDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -3264,7 +3264,7 @@ class FunctionsSpec
         )
       )
 
-      assertSmallDatasetEquality(actualDF, expectedDF)
+      assertLargeDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -3293,7 +3293,7 @@ class FunctionsSpec
         )
       )
 
-      assertSmallDatasetEquality(actualDF, expectedDF)
+      assertLargeDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -3322,7 +3322,7 @@ class FunctionsSpec
         )
       )
 
-      assertSmallDatasetEquality(actualDF, expectedDF)
+      assertLargeDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -3363,7 +3363,7 @@ class FunctionsSpec
         )
       )
 
-      assertSmallDatasetEquality(actualDF, expectedDF)
+      assertLargeDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -3392,7 +3392,7 @@ class FunctionsSpec
         )
       )
 
-      assertSmallDatasetEquality(actualDF, expectedDF)
+      assertLargeDatasetEquality(actualDF, expectedDF)
 
     }
 

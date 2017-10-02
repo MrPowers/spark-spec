@@ -34,7 +34,7 @@ class ColumnSpec
         ("bristol", 12)
       ).toDF("city", "num_people")
 
-      assertSmallDatasetEquality(actualDF, expectedDF)
+      assertLargeDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -56,7 +56,7 @@ class ColumnSpec
         ("mary", true, true)
       ).toDF("name", "like_cheese", "is_tall")
 
-      assertSmallDatasetEquality(actualDF, expectedDF)
+      assertLargeDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -85,7 +85,7 @@ class ColumnSpec
         ("bristol", 12)
       ).toDF("city", "num_people")
 
-      assertSmallDatasetEquality(actualDF, expectedDF)
+      assertLargeDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -127,7 +127,7 @@ class ColumnSpec
         )
       )
 
-      assertSmallDatasetEquality(actualDF, expectedDF)
+      assertLargeDatasetEquality(actualDF, expectedDF)
 
     }
   }
@@ -164,7 +164,7 @@ class ColumnSpec
         )
       )
 
-      assertSmallDatasetEquality(actualDF, expectedDF)
+      assertLargeDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -214,7 +214,7 @@ class ColumnSpec
         ("Scala is scalable and cool")
       ).toDF("text")
 
-      assertSmallDatasetEquality(actualDF, expectedDF)
+      assertLargeDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -256,7 +256,7 @@ class ColumnSpec
         )
       )
 
-      assertSmallDatasetEquality(actualDF, expectedDF)
+      assertLargeDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -293,7 +293,7 @@ class ColumnSpec
         )
       )
 
-      assertSmallDatasetEquality(actualDF, expectedDF)
+      assertLargeDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -319,7 +319,7 @@ class ColumnSpec
         ("D", "2000")
       ).toDF("id", "year")
 
-      assertSmallDatasetEquality(actualDF, expectedDF)
+      assertLargeDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -367,7 +367,7 @@ class ColumnSpec
       ).toDF("some_date")
         .withColumn("some_date", $"some_date".cast("timestamp"))
 
-      assertSmallDatasetEquality(actualDF, expectedDF)
+      assertLargeDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -399,7 +399,7 @@ class ColumnSpec
         ("E", "2012-09-09", "09")
       ).toDF("id", "birthday", "month")
 
-      assertSmallDatasetEquality(actualDF, expectedDF)
+      assertLargeDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -424,7 +424,7 @@ class ColumnSpec
         (257)
       ).toDF("num1")
 
-      assertSmallDatasetEquality(actualDF, expectedDF)
+      assertLargeDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -454,7 +454,7 @@ class ColumnSpec
         ("andrew")
       ).toDF("some_name")
 
-      assertSmallDatasetEquality(actualDF, expectedDF)
+      assertLargeDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -494,7 +494,7 @@ class ColumnSpec
         )
       )
 
-      assertSmallDatasetEquality(actualDF, expectedDF)
+      assertLargeDatasetEquality(actualDF, expectedDF)
 
     }
   }
@@ -543,7 +543,7 @@ class ColumnSpec
         )
       )
 
-      assertSmallDatasetEquality(actualDF, expectedDF)
+      assertLargeDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -571,7 +571,7 @@ class ColumnSpec
         ("F", "2016")
       ).toDF("id", "year")
 
-      assertSmallDatasetEquality(actualDF, expectedDF)
+      assertLargeDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -605,7 +605,7 @@ class ColumnSpec
         )
       )
 
-      assertSmallDatasetEquality(actualDF, expectedDF)
+      assertLargeDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -651,7 +651,7 @@ class ColumnSpec
         )
       )
 
-      assertSmallDatasetEquality(actualDF, expectedDF)
+      assertLargeDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -698,7 +698,7 @@ class ColumnSpec
         )
       )
 
-      assertSmallDatasetEquality(actualDF, expectedDF)
+      assertLargeDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -719,7 +719,7 @@ class ColumnSpec
         ("A", "bbbbba11111xy")
       ).toDF("id", "text")
 
-      assertSmallDatasetEquality(actualDF, expectedDF)
+      assertLargeDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -757,7 +757,7 @@ class ColumnSpec
         )
       )
 
-      assertSmallDatasetEquality(actualDF, expectedDF)
+      assertLargeDatasetEquality(actualDF, expectedDF)
 
     }
 

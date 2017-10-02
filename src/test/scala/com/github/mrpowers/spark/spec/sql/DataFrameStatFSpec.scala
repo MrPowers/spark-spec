@@ -5,7 +5,7 @@ import com.github.mrpowers.spark.spec.SparkSessionTestWrapper
 
 import com.github.mrpowers.spark.fast.tests.DatasetComparer
 
-class DataFrameStatFunctionsSpec extends FunSpec with SparkSessionTestWrapper with DatasetComparer {
+class DataFrameStatFSpec extends FunSpec with SparkSessionTestWrapper with DatasetComparer {
 
   import spark.implicits._
 

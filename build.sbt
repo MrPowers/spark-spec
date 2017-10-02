@@ -35,5 +35,5 @@ licenses := Seq("MIT" -> url("http://opensource.org/licenses/MIT"))
 
 credentials += Credentials(Path.userHome / ".ivy2" / ".sbtcredentials")
 
-fork in Test := true
-javaOptions ++= Seq("-Xms4g", "-Xmx8g", "-XX:+CMSClassUnloadingEnabled")
+//fork in Test := true
+//javaOptions ++= Seq("-Xms4g", "-Xmx8g", "-XX:+CMSClassUnloadingEnabled")

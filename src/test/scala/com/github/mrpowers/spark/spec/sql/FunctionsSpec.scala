@@ -46,7 +46,7 @@ class FunctionsSpec
         )
       )
 
-      assertSmallDatasetEquality(actualDF, expectedDF)
+      assertLargeDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -81,7 +81,7 @@ class FunctionsSpec
         )
       )
 
-      assertSmallDatasetEquality(actualDF, expectedDF)
+      assertLargeDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -117,22 +117,10 @@ class FunctionsSpec
         )
       )
 
-      assertSmallDatasetEquality(actualDF, expectedDF)
+      assertLargeDatasetEquality(actualDF, expectedDF)
 
     }
 
-  }
-
-  describe("#approx_count_distinct") {
-    pending
-  }
-
-  describe("#array_contains") {
-    pending
-  }
-
-  describe("#array") {
-    pending
   }
 
   describe("#asc_nulls_first") {
@@ -151,7 +139,7 @@ class FunctionsSpec
         List(("num1", IntegerType, true))
       )
 
-      assertSmallDatasetEquality(actualDF, expectedDF)
+      assertLargeDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -187,7 +175,7 @@ class FunctionsSpec
         )
       )
 
-      assertSmallDatasetEquality(actualDF, expectedDF)
+      assertLargeDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -219,7 +207,7 @@ class FunctionsSpec
         )
       )
 
-      assertSmallDatasetEquality(actualDF, expectedDF)
+      assertLargeDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -260,7 +248,7 @@ class FunctionsSpec
         )
       )
 
-      assertSmallDatasetEquality(actualDF, expectedDF)
+      assertLargeDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -293,7 +281,7 @@ class FunctionsSpec
         )
       )
 
-      assertSmallDatasetEquality(actualDF, expectedDF)
+      assertLargeDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -326,14 +314,10 @@ class FunctionsSpec
         )
       )
 
-      assertSmallDatasetEquality(actualDF, expectedDF)
+      assertLargeDatasetEquality(actualDF, expectedDF)
 
     }
 
-  }
-
-  describe("#atan2") {
-    pending
   }
 
   describe("#avg") {
@@ -369,7 +353,7 @@ class FunctionsSpec
 
       val actualDF = sourceDF.agg(avg("Double").as("average"))
 
-      assertSmallDatasetEquality(actualDF, expectedDF)
+      assertLargeDatasetEquality(actualDF, expectedDF)
     }
 
   }
@@ -397,7 +381,7 @@ class FunctionsSpec
         )
       ).withColumn("bin1", col("bin1").cast("binary"))
 
-      assertSmallDatasetEquality(actualDF, expectedDF)
+      assertLargeDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -428,7 +412,7 @@ class FunctionsSpec
         )
       )
 
-      assertSmallDatasetEquality(actualDF, expectedDF)
+      assertLargeDatasetEquality(actualDF, expectedDF)
     }
 
   }
@@ -460,14 +444,10 @@ class FunctionsSpec
         )
       )
 
-      assertSmallDatasetEquality(actualDF, expectedDF)
+      assertLargeDatasetEquality(actualDF, expectedDF)
 
     }
 
-  }
-
-  describe("#broadcast") {
-    pending
   }
 
   describe("#bround") {
@@ -501,15 +481,10 @@ class FunctionsSpec
         )
       )
 
-      assertSmallDatasetEquality(actualDF, expectedDF)
+      assertLargeDatasetEquality(actualDF, expectedDF)
 
     }
 
-    pending
-  }
-
-  describe("#callUDF") {
-    pending
   }
 
   describe("#cbrt") {
@@ -539,7 +514,7 @@ class FunctionsSpec
         )
       )
 
-      assertSmallDatasetEquality(actualDF, expectedDF)
+      assertLargeDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -572,7 +547,7 @@ class FunctionsSpec
         )
       )
 
-      assertSmallDatasetEquality(actualDF, expectedDF)
+      assertLargeDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -616,7 +591,7 @@ class FunctionsSpec
         )
       )
 
-      assertSmallDatasetEquality(actualDF, expectedDF)
+      assertLargeDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -649,7 +624,7 @@ class FunctionsSpec
         )
       )
 
-      assertSmallDatasetEquality(actualDF, expectedDF)
+      assertLargeDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -689,7 +664,7 @@ class FunctionsSpec
         )
       )
 
-      assertSmallDatasetEquality(actualDF, expectedDF)
+      assertLargeDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -734,7 +709,7 @@ class FunctionsSpec
         )
       )
 
-      assertSmallDatasetEquality(actualDF, expectedDF)
+      assertLargeDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -767,7 +742,7 @@ class FunctionsSpec
         )
       )
 
-      assertSmallDatasetEquality(actualDF, expectedDF)
+      assertLargeDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -813,7 +788,7 @@ class FunctionsSpec
         )
       )
 
-      assertSmallDatasetEquality(actualDF, expectedDF)
+      assertLargeDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -857,14 +832,10 @@ class FunctionsSpec
           ("yummy", StringType, true)
         )
       )
-      assertSmallDatasetEquality(actualDF, expectedDF)
+      assertLargeDatasetEquality(actualDF, expectedDF)
 
     }
 
-  }
-
-  describe("#conv") {
-    pending
   }
 
   describe("#corr") {
@@ -892,7 +863,7 @@ class FunctionsSpec
         )
       )
 
-      assertSmallDatasetEquality(actualDF, expectedDF)
+      assertLargeDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -925,7 +896,7 @@ class FunctionsSpec
         )
       )
 
-      assertSmallDatasetEquality(actualDF, expectedDF)
+      assertLargeDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -958,7 +929,7 @@ class FunctionsSpec
         )
       )
 
-      assertSmallDatasetEquality(actualDF, expectedDF)
+      assertLargeDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -1018,18 +989,10 @@ class FunctionsSpec
         )
       )
 
-      assertSmallDatasetEquality(actualDF, expectedDF)
+      assertLargeDatasetEquality(actualDF, expectedDF)
 
     }
 
-  }
-
-  describe("#covar_pop") {
-    pending
-  }
-
-  describe("#covar_samp") {
-    pending
   }
 
   describe("#crc32") {
@@ -1057,22 +1020,10 @@ class FunctionsSpec
         )
       )
 
-      assertSmallDatasetEquality(actualDF, expectedDF)
+      assertLargeDatasetEquality(actualDF, expectedDF)
 
     }
 
-  }
-
-  describe("#cume_dist") {
-    pending
-  }
-
-  describe("#current_date") {
-    pending
-  }
-
-  describe("#current_timestamp") {
-    pending
   }
 
   describe("#date_add") {
@@ -1105,34 +1056,10 @@ class FunctionsSpec
         )
       )
 
-      assertSmallDatasetEquality(actualDF, expectedDF)
+      assertLargeDatasetEquality(actualDF, expectedDF)
 
     }
 
-  }
-
-  describe("#date_format") {
-    pending
-  }
-
-  describe("#date_sub") {
-    pending
-  }
-
-  describe("#datediff") {
-    pending
-  }
-
-  describe("#dayofmonth") {
-    pending
-  }
-
-  describe("#dayofyear") {
-    pending
-  }
-
-  describe("#decode") {
-    pending
   }
 
   describe("#degrees") {
@@ -1166,13 +1093,9 @@ class FunctionsSpec
         )
       )
 
-      assertSmallDatasetEquality(actualDF, expectedDF)
+      assertLargeDatasetEquality(actualDF, expectedDF)
 
     }
-  }
-
-  describe("#dense_rank") {
-    pending
   }
 
   describe("#desc_nulls_first") {
@@ -1205,7 +1128,7 @@ class FunctionsSpec
         )
       )
 
-      assertSmallDatasetEquality(actualDF, expectedDF)
+      assertLargeDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -1241,7 +1164,7 @@ class FunctionsSpec
         )
       )
 
-      assertSmallDatasetEquality(actualDF, expectedDF)
+      assertLargeDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -1273,13 +1196,9 @@ class FunctionsSpec
         )
       )
 
-      assertSmallDatasetEquality(actualDF, expectedDF)
+      assertLargeDatasetEquality(actualDF, expectedDF)
     }
 
-  }
-
-  describe("#encode") {
-    pending
   }
 
   describe("#exp") {
@@ -1311,7 +1230,7 @@ class FunctionsSpec
         )
       )
 
-      assertSmallDatasetEquality(actualDF, expectedDF)
+      assertLargeDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -1353,7 +1272,7 @@ class FunctionsSpec
         )
       )
 
-      assertSmallDatasetEquality(actualDF, expectedDF)
+      assertLargeDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -1388,14 +1307,10 @@ class FunctionsSpec
         )
       )
 
-      assertSmallDatasetEquality(actualDF, expectedDF)
+      assertLargeDatasetEquality(actualDF, expectedDF)
 
     }
 
-  }
-
-  describe("#expr") {
-    pending
   }
 
   describe("#factorial") {
@@ -1433,14 +1348,10 @@ class FunctionsSpec
         )
       )
 
-      assertSmallDatasetEquality(actualDF, expectedDF)
+      assertLargeDatasetEquality(actualDF, expectedDF)
 
     }
 
-  }
-
-  describe("#first") {
-    pending
   }
 
   describe("#floor") {
@@ -1474,46 +1385,10 @@ class FunctionsSpec
         )
       )
 
-      assertSmallDatasetEquality(actualDF, expectedDF)
+      assertLargeDatasetEquality(actualDF, expectedDF)
 
     }
 
-  }
-
-  describe("#format_number") {
-    pending
-  }
-
-  describe("#format_string") {
-    pending
-  }
-
-  describe("#from_json") {
-    pending
-  }
-
-  describe("#from_unixtime") {
-    pending
-  }
-
-  describe("#get_json_object") {
-    pending
-  }
-
-  describe("#greatest") {
-    pending
-  }
-
-  describe("#grouping_id") {
-    pending
-  }
-
-  describe("#grouping") {
-    pending
-  }
-
-  describe("#hash") {
-    pending
   }
 
   describe("#hex") {
@@ -1545,7 +1420,7 @@ class FunctionsSpec
         )
       )
 
-      assertSmallDatasetEquality(actualDF, expectedDF)
+      assertLargeDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -1579,11 +1454,7 @@ class FunctionsSpec
       )
     )
 
-    assertSmallDatasetEquality(actualDF, expectedDF)
-  }
-
-  describe("#hypot") {
-    pending
+    assertLargeDatasetEquality(actualDF, expectedDF)
   }
 
   describe("#initcap") {
@@ -1612,18 +1483,10 @@ class FunctionsSpec
         )
       )
 
-      assertSmallDatasetEquality(actualDF, expectedDF)
+      assertLargeDatasetEquality(actualDF, expectedDF)
 
     }
 
-  }
-
-  describe("#input_file_name") {
-    pending
-  }
-
-  describe("#instr") {
-    pending
   }
 
   describe("#isnan") {
@@ -1657,7 +1520,7 @@ class FunctionsSpec
         )
       )
 
-      assertSmallDatasetEquality(actualDF, expectedDF)
+      assertLargeDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -1694,38 +1557,10 @@ class FunctionsSpec
         )
       )
 
-      assertSmallDatasetEquality(actualDF, expectedDF)
+      assertLargeDatasetEquality(actualDF, expectedDF)
 
     }
 
-  }
-
-  describe("#json_tuple") {
-    pending
-  }
-
-  describe("#kurtosis") {
-    pending
-  }
-
-  describe("#lag") {
-    pending
-  }
-
-  describe("#last_day") {
-    pending
-  }
-
-  describe("#last") {
-    pending
-  }
-
-  describe("#lead") {
-    pending
-  }
-
-  describe("#least") {
-    pending
   }
 
   describe("#length") {
@@ -1755,14 +1590,10 @@ class FunctionsSpec
 
       val actualDF = wordsDF.withColumn("length", length(col("word")))
 
-      assertSmallDatasetEquality(actualDF, expectedDF)
+      assertLargeDatasetEquality(actualDF, expectedDF)
 
     }
 
-  }
-
-  describe("#levenshtein") {
-    pending
   }
 
   describe("#lit") {
@@ -1790,7 +1621,7 @@ class FunctionsSpec
         )
       )
 
-      assertSmallDatasetEquality(actualDF, expectedDF)
+      assertLargeDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -1821,7 +1652,7 @@ class FunctionsSpec
         )
       )
 
-      assertSmallDatasetEquality(actualDF, expectedDF)
+      assertLargeDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -1858,7 +1689,7 @@ class FunctionsSpec
         )
       )
 
-      assertSmallDatasetEquality(actualDF, expectedDF)
+      assertLargeDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -1895,7 +1726,7 @@ class FunctionsSpec
         )
       )
 
-      assertSmallDatasetEquality(actualDF, expectedDF)
+      assertLargeDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -1932,7 +1763,7 @@ class FunctionsSpec
         )
       )
 
-      assertSmallDatasetEquality(actualDF, expectedDF)
+      assertLargeDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -1969,7 +1800,7 @@ class FunctionsSpec
         )
       )
 
-      assertSmallDatasetEquality(actualDF, expectedDF)
+      assertLargeDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -2002,14 +1833,10 @@ class FunctionsSpec
         )
       )
 
-      assertSmallDatasetEquality(actualDF, expectedDF)
+      assertLargeDatasetEquality(actualDF, expectedDF)
 
     }
 
-  }
-
-  describe("#lpad") {
-    pending
   }
 
   describe("#ltrim") {
@@ -2043,14 +1870,10 @@ class FunctionsSpec
         )
       )
 
-      assertSmallDatasetEquality(actualDF, expectedDF)
+      assertLargeDatasetEquality(actualDF, expectedDF)
 
     }
 
-  }
-
-  describe("#map") {
-    pending
   }
 
   describe("#max") {
@@ -2077,7 +1900,7 @@ class FunctionsSpec
         )
       )
 
-      assertSmallDatasetEquality(actualDF, expectedDF)
+      assertLargeDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -2108,7 +1931,7 @@ class FunctionsSpec
         )
       )
 
-      assertSmallDatasetEquality(actualDF, expectedDF)
+      assertLargeDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -2139,7 +1962,7 @@ class FunctionsSpec
         )
       )
 
-      assertSmallDatasetEquality(actualDF, expectedDF)
+      assertLargeDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -2170,7 +1993,7 @@ class FunctionsSpec
         )
       )
 
-      assertSmallDatasetEquality(actualDF, expectedDF)
+      assertLargeDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -2203,14 +2026,10 @@ class FunctionsSpec
         )
       )
 
-      assertSmallDatasetEquality(actualDF, expectedDF)
+      assertLargeDatasetEquality(actualDF, expectedDF)
 
     }
 
-  }
-
-  describe("#monotonically_increasing_id") {
-    pending
   }
 
   describe("#month") {
@@ -2242,7 +2061,7 @@ class FunctionsSpec
         )
       )
 
-      assertSmallDatasetEquality(actualDF, expectedDF)
+      assertLargeDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -2271,7 +2090,7 @@ class FunctionsSpec
         )
       )
 
-      assertSmallDatasetEquality(actualDF, expectedDF)
+      assertLargeDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -2300,22 +2119,10 @@ class FunctionsSpec
         )
       )
 
-      assertSmallDatasetEquality(actualDF, expectedDF)
+      assertLargeDatasetEquality(actualDF, expectedDF)
 
     }
 
-  }
-
-  describe("#months_between") {
-    pending
-  }
-
-  describe("#nanv1") {
-    pending
-  }
-
-  describe("#negate") {
-    pending
   }
 
   describe("#next_day") {
@@ -2346,22 +2153,10 @@ class FunctionsSpec
         )
       )
 
-      assertSmallDatasetEquality(actualDF, expectedDF)
+      assertLargeDatasetEquality(actualDF, expectedDF)
 
     }
 
-  }
-
-  describe("#not") {
-    pending
-  }
-
-  describe("#ntile") {
-    pending
-  }
-
-  describe("#percent_rank") {
-    pending
   }
 
   describe("#pmod") {
@@ -2399,7 +2194,7 @@ class FunctionsSpec
         )
       )
 
-      assertSmallDatasetEquality(actualDF, expectedDF)
+      assertLargeDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -2437,14 +2232,10 @@ class FunctionsSpec
         )
       )
 
-      assertSmallDatasetEquality(actualDF, expectedDF)
+      assertLargeDatasetEquality(actualDF, expectedDF)
 
     }
 
-  }
-
-  describe("#posexplode") {
-    pending
   }
 
   describe("#pow") {
@@ -2474,7 +2265,7 @@ class FunctionsSpec
         )
       )
 
-      assertSmallDatasetEquality(actualDF, expectedDF)
+      assertLargeDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -2505,7 +2296,7 @@ class FunctionsSpec
         )
       )
 
-      assertSmallDatasetEquality(actualDF, expectedDF)
+      assertLargeDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -2540,26 +2331,10 @@ class FunctionsSpec
         )
       )
 
-      assertSmallDatasetEquality(actualDF, expectedDF)
+      assertLargeDatasetEquality(actualDF, expectedDF)
 
     }
 
-  }
-
-  describe("#rand") {
-    pending
-  }
-
-  describe("#randn") {
-    pending
-  }
-
-  describe("#rank") {
-    pending
-  }
-
-  describe("#regexp_extract") {
-    pending
   }
 
   describe("#regexp_replace") {
@@ -2591,7 +2366,7 @@ class FunctionsSpec
         )
       )
 
-      assertSmallDatasetEquality(actualDF, expectedDF)
+      assertLargeDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -2626,7 +2401,7 @@ class FunctionsSpec
         )
       )
 
-      assertSmallDatasetEquality(actualDF, expectedDF)
+      assertLargeDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -2661,7 +2436,7 @@ class FunctionsSpec
         )
       )
 
-      assertSmallDatasetEquality(actualDF, expectedDF)
+      assertLargeDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -2696,7 +2471,7 @@ class FunctionsSpec
         )
       )
 
-      assertSmallDatasetEquality(actualDF, expectedDF)
+      assertLargeDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -2733,14 +2508,10 @@ class FunctionsSpec
         )
       )
 
-      assertSmallDatasetEquality(actualDF, expectedDF)
+      assertLargeDatasetEquality(actualDF, expectedDF)
 
     }
 
-  }
-
-  describe("#row_number") {
-    pending
   }
 
   describe("#rpad") {
@@ -2772,7 +2543,7 @@ class FunctionsSpec
         )
       )
 
-      assertSmallDatasetEquality(actualDF, expectedDF)
+      assertLargeDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -2809,7 +2580,7 @@ class FunctionsSpec
         )
       )
 
-      assertSmallDatasetEquality(actualDF, expectedDF)
+      assertLargeDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -2845,7 +2616,7 @@ class FunctionsSpec
         )
       )
 
-      assertSmallDatasetEquality(actualDF, expectedDF)
+      assertLargeDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -2878,26 +2649,10 @@ class FunctionsSpec
         )
       )
 
-      assertSmallDatasetEquality(actualDF, expectedDF)
+      assertLargeDatasetEquality(actualDF, expectedDF)
 
     }
 
-  }
-
-  describe("#sha2") {
-    pending
-  }
-
-  describe("#shiftLeft") {
-    pending
-  }
-
-  describe("#shiftRight") {
-    pending
-  }
-
-  describe("#shiftRightUnsigned") {
-    pending
   }
 
   describe("#signum") {
@@ -2933,38 +2688,10 @@ class FunctionsSpec
         )
       )
 
-      assertSmallDatasetEquality(actualDF, expectedDF)
+      assertLargeDatasetEquality(actualDF, expectedDF)
 
     }
 
-  }
-
-  describe("#sin") {
-    pending
-  }
-
-  describe("#sinh") {
-    pending
-  }
-
-  describe("#size") {
-    pending
-  }
-
-  describe("#skewness") {
-    pending
-  }
-
-  describe("#sort_array") {
-    pending
-  }
-
-  describe("#soundex") {
-    pending
-  }
-
-  describe("#spark_partition_id") {
-    pending
   }
 
   describe("#split") {
@@ -2999,7 +2726,7 @@ class FunctionsSpec
         )
       )
 
-      assertSmallDatasetEquality(actualDF, expectedDF)
+      assertLargeDatasetEquality(actualDF, expectedDF)
 
     }
   }
@@ -3031,30 +2758,10 @@ class FunctionsSpec
         )
       )
 
-      assertSmallDatasetEquality(sqrtDF, expectedDF)
+      assertLargeDatasetEquality(sqrtDF, expectedDF)
 
     }
 
-  }
-
-  describe("#stddev_pop") {
-    pending
-  }
-
-  describe("#stddev_samp") {
-    pending
-  }
-
-  describe("#stddev") {
-    pending
-  }
-
-  describe("#struct") {
-    pending
-  }
-
-  describe("#substring_index") {
-    pending
   }
 
   describe("#substring") {
@@ -3084,7 +2791,7 @@ class FunctionsSpec
         )
       )
 
-      assertSmallDatasetEquality(actualDF, expectedDF)
+      assertLargeDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -3097,7 +2804,7 @@ class FunctionsSpec
         val actualDF = sourceDF.agg(sum("colA") as "sum")
         val expectedDF = Seq(SumNumericOutput(None)).toDF
 
-        assertSmallDatasetEquality(actualDF, expectedDF)
+        assertLargeDatasetEquality(actualDF, expectedDF)
       }
     }
     describe("(when column has at-least one non null value)") {
@@ -3106,37 +2813,9 @@ class FunctionsSpec
         val actualDF = sourceDF.agg(sum("colA") as "sum")
         val expectedDF = Seq(SumNumericOutput(Some(170.5))).toDF
 
-        assertSmallDatasetEquality(actualDF, expectedDF)
+        assertLargeDatasetEquality(actualDF, expectedDF)
       }
     }
-  }
-
-  describe("#sumDistinct") {
-    pending
-  }
-
-  describe("#tan") {
-    pending
-  }
-
-  describe("#tanh") {
-    pending
-  }
-
-  describe("#to_date") {
-    pending
-  }
-
-  describe("#to_json") {
-    pending
-  }
-
-  describe("#to_utc_timestamp") {
-    pending
-  }
-
-  describe("#translate") {
-    pending
   }
 
   describe("#trim") {
@@ -3164,30 +2843,10 @@ class FunctionsSpec
         )
       )
 
-      assertSmallDatasetEquality(actualDF, expectedDF)
+      assertLargeDatasetEquality(actualDF, expectedDF)
 
     }
 
-  }
-
-  describe("#trunc") {
-    pending
-  }
-
-  describe("#udf") {
-    pending
-  }
-
-  describe("#unbase64") {
-    pending
-  }
-
-  describe("#unhex") {
-    pending
-  }
-
-  describe("#unix_timestamp") {
-    pending
   }
 
   describe("#upper") {
@@ -3217,22 +2876,10 @@ class FunctionsSpec
         )
       )
 
-      assertSmallDatasetEquality(actualDF, expectedDF)
+      assertLargeDatasetEquality(actualDF, expectedDF)
 
     }
 
-  }
-
-  describe("#var_pop") {
-    pending
-  }
-
-  describe("#var_samp") {
-    pending
-  }
-
-  describe("#variance") {
-    pending
   }
 
   describe("#weekofyear") {
@@ -3264,7 +2911,7 @@ class FunctionsSpec
         )
       )
 
-      assertSmallDatasetEquality(actualDF, expectedDF)
+      assertLargeDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -3293,7 +2940,7 @@ class FunctionsSpec
         )
       )
 
-      assertSmallDatasetEquality(actualDF, expectedDF)
+      assertLargeDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -3322,18 +2969,10 @@ class FunctionsSpec
         )
       )
 
-      assertSmallDatasetEquality(actualDF, expectedDF)
+      assertLargeDatasetEquality(actualDF, expectedDF)
 
     }
 
-  }
-
-  describe("#when") {
-    pending
-  }
-
-  describe("#window") {
-    pending
   }
 
   describe("#year") {
@@ -3363,7 +3002,7 @@ class FunctionsSpec
         )
       )
 
-      assertSmallDatasetEquality(actualDF, expectedDF)
+      assertLargeDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -3392,7 +3031,7 @@ class FunctionsSpec
         )
       )
 
-      assertSmallDatasetEquality(actualDF, expectedDF)
+      assertLargeDatasetEquality(actualDF, expectedDF)
 
     }
 

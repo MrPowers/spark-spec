@@ -9,7 +9,7 @@ import com.github.mrpowers.spark.spec.SparkSessionTestWrapper
 
 import com.github.mrpowers.spark.fast.tests.DatasetComparer
 
-class DataFrameNaFunctionsSpec extends FunSpec with SparkSessionTestWrapper with DatasetComparer {
+class DataFrameNaFSpec extends FunSpec with SparkSessionTestWrapper with DatasetComparer {
 
   import spark.implicits._
 
@@ -51,7 +51,7 @@ class DataFrameNaFunctionsSpec extends FunSpec with SparkSessionTestWrapper with
         StructType(expectedSchema)
       )
 
-      assertSmallDatasetEquality(actualDF, expectedDF)
+      assertLargeDatasetEquality(actualDF, expectedDF)
 
     }
 
@@ -87,7 +87,7 @@ class DataFrameNaFunctionsSpec extends FunSpec with SparkSessionTestWrapper with
         )
       )
 
-      assertSmallDatasetEquality(actualDF, expectedDF)
+      assertLargeDatasetEquality(actualDF, expectedDF)
 
     }
 

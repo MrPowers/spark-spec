@@ -28,6 +28,8 @@ libraryDependencies += "MrPowers" % "spark-fast-tests" % "2.2.0_0.5.0" % "test"
 libraryDependencies += "org.apache.commons" % "commons-text" % "1.1"
 libraryDependencies += "org.scalatest" %% "scalatest" % "3.0.1" % "test"
 
+//testOptions in Test += Tests.Argument(TestFrameworks.ScalaTest, "-oNCXELOPQRM")
+
 sparkComponents ++= Seq("sql", "mllib")
 
 // All Spark Packages need a license
@@ -36,4 +38,5 @@ licenses := Seq("MIT" -> url("http://opensource.org/licenses/MIT"))
 credentials += Credentials(Path.userHome / ".ivy2" / ".sbtcredentials")
 
 fork in Test := true
-javaOptions ++= Seq("-Xms512M", "-Xmx2048M", "-XX:MaxPermSize=2048M", "-XX:+CMSClassUnloadingEnabled")
+javaOptions ++= Seq("-Xms512M", "-Xmx2048M", "-XX:+CMSClassUnloadingEnabled")
+

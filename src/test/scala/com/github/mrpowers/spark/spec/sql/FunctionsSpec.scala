@@ -123,18 +123,6 @@ class FunctionsSpec
 
   }
 
-  describe("#approx_count_distinct") {
-    pending
-  }
-
-  describe("#array_contains") {
-    pending
-  }
-
-  describe("#array") {
-    pending
-  }
-
   describe("#asc_nulls_first") {
 
     it("sorts a DataFrame with null values first") {
@@ -332,10 +320,6 @@ class FunctionsSpec
 
   }
 
-  describe("#atan2") {
-    pending
-  }
-
   describe("#avg") {
 
     it("Computes the average(an average is the sum of a list of numbers divided by the number of numbers in the list) of a column skipping the null values") {
@@ -466,10 +450,6 @@ class FunctionsSpec
 
   }
 
-  describe("#broadcast") {
-    pending
-  }
-
   describe("#bround") {
 
     it("returns the value of the column e rounded to 0 decimal places with HALF_EVEN round mode") {
@@ -505,11 +485,6 @@ class FunctionsSpec
 
     }
 
-    pending
-  }
-
-  describe("#callUDF") {
-    pending
   }
 
   describe("#cbrt") {
@@ -863,10 +838,6 @@ class FunctionsSpec
 
   }
 
-  describe("#conv") {
-    pending
-  }
-
   describe("#corr") {
 
     it("Aggregate function: returns the Pearson Correlation Coefficient for two columns") {
@@ -1024,14 +995,6 @@ class FunctionsSpec
 
   }
 
-  describe("#covar_pop") {
-    pending
-  }
-
-  describe("#covar_samp") {
-    pending
-  }
-
   describe("#crc32") {
 
     it("Calculates the cyclic redundancy check value (CRC32) of a binary column and returns the value as a bigint") {
@@ -1061,18 +1024,6 @@ class FunctionsSpec
 
     }
 
-  }
-
-  describe("#cume_dist") {
-    pending
-  }
-
-  describe("#current_date") {
-    pending
-  }
-
-  describe("#current_timestamp") {
-    pending
   }
 
   describe("#date_add") {
@@ -1111,30 +1062,6 @@ class FunctionsSpec
 
   }
 
-  describe("#date_format") {
-    pending
-  }
-
-  describe("#date_sub") {
-    pending
-  }
-
-  describe("#datediff") {
-    pending
-  }
-
-  describe("#dayofmonth") {
-    pending
-  }
-
-  describe("#dayofyear") {
-    pending
-  }
-
-  describe("#decode") {
-    pending
-  }
-
   describe("#degrees") {
 
     it("Converts an angle measured in radians to an approximately equivalent angle measured in degrees") {
@@ -1169,10 +1096,6 @@ class FunctionsSpec
       assertSmallDatasetEquality(actualDF, expectedDF)
 
     }
-  }
-
-  describe("#dense_rank") {
-    pending
   }
 
   describe("#desc_nulls_first") {
@@ -1276,10 +1199,6 @@ class FunctionsSpec
       assertSmallDatasetEquality(actualDF, expectedDF)
     }
 
-  }
-
-  describe("#encode") {
-    pending
   }
 
   describe("#exp") {
@@ -1394,10 +1313,6 @@ class FunctionsSpec
 
   }
 
-  describe("#expr") {
-    pending
-  }
-
   describe("#factorial") {
 
     it("calculates the product of an integer and all the integers below") {
@@ -1439,10 +1354,6 @@ class FunctionsSpec
 
   }
 
-  describe("#first") {
-    pending
-  }
-
   describe("#floor") {
 
     it("Computes the floor of the given value") {
@@ -1478,42 +1389,6 @@ class FunctionsSpec
 
     }
 
-  }
-
-  describe("#format_number") {
-    pending
-  }
-
-  describe("#format_string") {
-    pending
-  }
-
-  describe("#from_json") {
-    pending
-  }
-
-  describe("#from_unixtime") {
-    pending
-  }
-
-  describe("#get_json_object") {
-    pending
-  }
-
-  describe("#greatest") {
-    pending
-  }
-
-  describe("#grouping_id") {
-    pending
-  }
-
-  describe("#grouping") {
-    pending
-  }
-
-  describe("#hash") {
-    pending
   }
 
   describe("#hex") {
@@ -1582,10 +1457,6 @@ class FunctionsSpec
     assertSmallDatasetEquality(actualDF, expectedDF)
   }
 
-  describe("#hypot") {
-    pending
-  }
-
   describe("#initcap") {
 
     it("converts the first letter of each word to upper case, returns a new column") {
@@ -1616,14 +1487,6 @@ class FunctionsSpec
 
     }
 
-  }
-
-  describe("#input_file_name") {
-    pending
-  }
-
-  describe("#instr") {
-    pending
   }
 
   describe("#isnan") {
@@ -1700,34 +1563,6 @@ class FunctionsSpec
 
   }
 
-  describe("#json_tuple") {
-    pending
-  }
-
-  describe("#kurtosis") {
-    pending
-  }
-
-  describe("#lag") {
-    pending
-  }
-
-  describe("#last_day") {
-    pending
-  }
-
-  describe("#last") {
-    pending
-  }
-
-  describe("#lead") {
-    pending
-  }
-
-  describe("#least") {
-    pending
-  }
-
   describe("#length") {
 
     it("returns the length of the column") {
@@ -1759,10 +1594,6 @@ class FunctionsSpec
 
     }
 
-  }
-
-  describe("#levenshtein") {
-    pending
   }
 
   describe("#lit") {
@@ -2008,10 +1839,6 @@ class FunctionsSpec
 
   }
 
-  describe("#lpad") {
-    pending
-  }
-
   describe("#ltrim") {
 
     it("Trim the spaces from left end for the specified string value") {
@@ -2047,10 +1874,6 @@ class FunctionsSpec
 
     }
 
-  }
-
-  describe("#map") {
-    pending
   }
 
   describe("#max") {
@@ -2209,10 +2032,6 @@ class FunctionsSpec
 
   }
 
-  describe("#monotonically_increasing_id") {
-    pending
-  }
-
   describe("#month") {
 
     it("Extracts the month as an integer from a timestamp") {
@@ -2306,18 +2125,6 @@ class FunctionsSpec
 
   }
 
-  describe("#months_between") {
-    pending
-  }
-
-  describe("#nanv1") {
-    pending
-  }
-
-  describe("#negate") {
-    pending
-  }
-
   describe("#next_day") {
 
     it("Given a date column, returns the first date which is later than the value of the date column that is on the specified day of the week") {
@@ -2350,18 +2157,6 @@ class FunctionsSpec
 
     }
 
-  }
-
-  describe("#not") {
-    pending
-  }
-
-  describe("#ntile") {
-    pending
-  }
-
-  describe("#percent_rank") {
-    pending
   }
 
   describe("#pmod") {
@@ -2441,10 +2236,6 @@ class FunctionsSpec
 
     }
 
-  }
-
-  describe("#posexplode") {
-    pending
   }
 
   describe("#pow") {
@@ -2544,22 +2335,6 @@ class FunctionsSpec
 
     }
 
-  }
-
-  describe("#rand") {
-    pending
-  }
-
-  describe("#randn") {
-    pending
-  }
-
-  describe("#rank") {
-    pending
-  }
-
-  describe("#regexp_extract") {
-    pending
   }
 
   describe("#regexp_replace") {
@@ -2739,10 +2514,6 @@ class FunctionsSpec
 
   }
 
-  describe("#row_number") {
-    pending
-  }
-
   describe("#rpad") {
 
     it("Right-padded with pad to a length of len") {
@@ -2884,22 +2655,6 @@ class FunctionsSpec
 
   }
 
-  describe("#sha2") {
-    pending
-  }
-
-  describe("#shiftLeft") {
-    pending
-  }
-
-  describe("#shiftRight") {
-    pending
-  }
-
-  describe("#shiftRightUnsigned") {
-    pending
-  }
-
   describe("#signum") {
 
     it("Computes the signum of the given column") {
@@ -2937,34 +2692,6 @@ class FunctionsSpec
 
     }
 
-  }
-
-  describe("#sin") {
-    pending
-  }
-
-  describe("#sinh") {
-    pending
-  }
-
-  describe("#size") {
-    pending
-  }
-
-  describe("#skewness") {
-    pending
-  }
-
-  describe("#sort_array") {
-    pending
-  }
-
-  describe("#soundex") {
-    pending
-  }
-
-  describe("#spark_partition_id") {
-    pending
   }
 
   describe("#split") {
@@ -3037,26 +2764,6 @@ class FunctionsSpec
 
   }
 
-  describe("#stddev_pop") {
-    pending
-  }
-
-  describe("#stddev_samp") {
-    pending
-  }
-
-  describe("#stddev") {
-    pending
-  }
-
-  describe("#struct") {
-    pending
-  }
-
-  describe("#substring_index") {
-    pending
-  }
-
   describe("#substring") {
 
     it("Slices a string, starts at position pos of length len.") {
@@ -3111,34 +2818,6 @@ class FunctionsSpec
     }
   }
 
-  describe("#sumDistinct") {
-    pending
-  }
-
-  describe("#tan") {
-    pending
-  }
-
-  describe("#tanh") {
-    pending
-  }
-
-  describe("#to_date") {
-    pending
-  }
-
-  describe("#to_json") {
-    pending
-  }
-
-  describe("#to_utc_timestamp") {
-    pending
-  }
-
-  describe("#translate") {
-    pending
-  }
-
   describe("#trim") {
 
     it("converts a string to lower case") {
@@ -3168,26 +2847,6 @@ class FunctionsSpec
 
     }
 
-  }
-
-  describe("#trunc") {
-    pending
-  }
-
-  describe("#udf") {
-    pending
-  }
-
-  describe("#unbase64") {
-    pending
-  }
-
-  describe("#unhex") {
-    pending
-  }
-
-  describe("#unix_timestamp") {
-    pending
   }
 
   describe("#upper") {
@@ -3221,18 +2880,6 @@ class FunctionsSpec
 
     }
 
-  }
-
-  describe("#var_pop") {
-    pending
-  }
-
-  describe("#var_samp") {
-    pending
-  }
-
-  describe("#variance") {
-    pending
   }
 
   describe("#weekofyear") {
@@ -3326,14 +2973,6 @@ class FunctionsSpec
 
     }
 
-  }
-
-  describe("#when") {
-    pending
-  }
-
-  describe("#window") {
-    pending
   }
 
   describe("#year") {

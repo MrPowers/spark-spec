@@ -20,7 +20,7 @@ spDescription := "Test suite for the behavior of Spark"
 version := "0.0.1"
 
 scalaVersion := "2.11.8"
-sparkVersion := "2.2.0"
+sparkVersion := "2.2.1"
 
 libraryDependencies += "mrpowers" % "spark-daria" % "2.2.0_0.12.0"
 libraryDependencies += "MrPowers" % "spark-fast-tests" % "2.2.0_0.5.0" % "test"

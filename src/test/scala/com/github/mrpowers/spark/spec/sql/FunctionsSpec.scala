@@ -4,7 +4,6 @@ import java.sql.{Date, Timestamp}
 
 import com.github.mrpowers.spark.daria.sql.SparkSessionExt._
 import com.github.mrpowers.spark.fast.tests.DatasetComparer
-import com.github.mrpowers.spark.models._
 import com.github.mrpowers.spark.spec.SparkSessionTestWrapper
 import org.apache.spark.sql.functions._
 import org.apache.spark.sql.types._
@@ -981,7 +980,7 @@ class FunctionsSpec
         )
       )
 
-      val rowCount = sourceDF.count;
+      val rowCount = sourceDF.count
 
       assert(rowCount === expectedCount)
 

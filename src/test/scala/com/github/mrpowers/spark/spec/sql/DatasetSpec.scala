@@ -1,7 +1,6 @@
 package com.github.mrpowers.spark.spec.sql
 
 import com.github.mrpowers.spark.fast.tests.{DatasetComparer, RDDComparer}
-import com.github.mrpowers.spark.models._
 import com.github.mrpowers.spark.spec.SparkSessionTestWrapper
 import org.apache.spark.sql.functions._
 import org.apache.spark.sql.types.{StructType, _}

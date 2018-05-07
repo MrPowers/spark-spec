@@ -983,7 +983,7 @@ class FunctionsSpec
 
       val rowCount = sourceDF.count;
 
-      assert(rowCount, expectedCount)
+      assert(rowCount === expectedCount)
 
     }
   }

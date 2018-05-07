@@ -9,31 +9,26 @@ ScalariformKeys.preferences := ScalariformKeys.preferences.value
   .setPreference(SpacesAroundMultiImports, false)
   .setPreference(DanglingCloseParenthesis, Force)
 
+resolvers += "jitpack" at "https://jitpack.io"
+
 name := "spark-spec"
-
-spName := "mrpowers/spark-spec"
-
-spShortDescription := "Spark spec"
-
-spDescription := "Test suite for the behavior of Spark"
 
 version := "0.0.1"
 
-scalaVersion := "2.11.8"
-sparkVersion := "2.2.1"
+scalaVersion := "2.11.12"
+val sparkVersion = "2.3.0"
+val sparkFastTestsVersion = s"v${sparkVersion}_0.9.0"
+val sparkDariaVersion = s"v${sparkVersion}_0.20.3"
 
-libraryDependencies += "mrpowers" % "spark-daria" % "2.2.0_0.12.0"
-libraryDependencies += "MrPowers" % "spark-fast-tests" % "2.2.0_0.5.0" % "test"
+libraryDependencies += "org.apache.spark" %% "spark-sql" % sparkVersion % "provided"
+libraryDependencies += "org.apache.spark" %% "spark-mllib" % sparkVersion % "provided"
+
+libraryDependencies += "com.github.mrpowers" % "spark-daria" % sparkDariaVersion
+
+libraryDependencies += "com.github.mrpowers" % "spark-fast-tests" % sparkFastTestsVersion % "test"
 
 libraryDependencies += "org.apache.commons" % "commons-text" % "1.1"
 libraryDependencies += "org.scalatest" %% "scalatest" % "3.0.1" % "test"
-
-sparkComponents ++= Seq("sql", "mllib")
-
-// All Spark Packages need a license
-licenses := Seq("MIT" -> url("http://opensource.org/licenses/MIT"))
-
-credentials += Credentials(Path.userHome / ".ivy2" / ".sbtcredentials")
 
 fork in Test := true
 javaOptions ++= Seq("-Xms512M", "-Xmx2048M", "-XX:MaxPermSize=2048M", "-XX:+CMSClassUnloadingEnabled")

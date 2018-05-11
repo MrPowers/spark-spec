@@ -1,9 +1,9 @@
 package com.github.mrpowers.spark.spec.ml.classification
 
 import com.github.mrpowers.spark.spec.SparkSessionTestWrapper
-import org.scalatest.FunSpec
 import org.apache.spark.ml.classification.LogisticRegression
-import org.apache.spark.ml.linalg.{DenseMatrix, DenseVector, SparseVector}
+import org.apache.spark.ml.linalg.{DenseVector, SparseVector}
+import org.scalatest.FunSpec
 
 class LogisticRegressionSpec extends FunSpec with SparkSessionTestWrapper {
 

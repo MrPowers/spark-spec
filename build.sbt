@@ -28,4 +28,5 @@ libraryDependencies += "com.github.mrpowers" % "spark-fast-tests" % sparkFastTes
 libraryDependencies += "org.scalatest" %% "scalatest" % "3.0.1" % "test"
 
 fork in Test := true
-javaOptions ++= Seq("-Xms512M", "-Xmx2048M", "-XX:MaxPermSize=2048M", "-XX:+CMSClassUnloadingEnabled")
+envVars in Test := Map("PROJECT_ENV" -> "test")
+javaOptions ++= Seq("-Xms1g", "-Xmx2g", "-XX:+CMSClassUnloadingEnabled","-Duser.timezone=GMT")

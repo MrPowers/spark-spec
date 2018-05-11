@@ -1,6 +1,7 @@
 package com.github.mrpowers.spark.spec.ml.classification
 
 import com.github.mrpowers.spark.spec.SparkSessionTestWrapper
+import com.github.mrpowers.spark.spec.sql.Config
 import org.apache.spark.ml.classification.LogisticRegression
 import org.apache.spark.ml.linalg.{DenseVector, SparseVector}
 import org.scalatest.FunSpec
@@ -10,7 +11,25 @@ class LogisticRegressionSpec extends FunSpec with SparkSessionTestWrapper {
   it("can train a model and run a logistic regression") {
 
     val path = new java.io.File("./src/test/resources/sample_libsvm_data.txt").getCanonicalPath
-    val training = spark.read.format("libsvm").load(path)
+
+    val training = spark
+      .read
+      .format("libsvm")
+      .load(Config.get("libsvmData"))
+
+    // the evil ANTI PATTERN
+    //    var environment = sys.env.getOrElse("PROJECT_ENV", "production")
+    //    val training = if (environment == "test") {
+    //      spark
+    //        .read
+    //        .format("libsvm")
+    //        .load(new java.io.File("./src/test/resources/sample_libsvm_data.txt").getCanonicalPath)
+    //    } else {
+    //      spark
+    //        .read
+    //        .format("libsvm")
+    //        .load("s3a://my-cool-bucket/fun-data/libsvm.txt")
+    //    }
 
     val lr = new LogisticRegression()
       .setMaxIter(10)

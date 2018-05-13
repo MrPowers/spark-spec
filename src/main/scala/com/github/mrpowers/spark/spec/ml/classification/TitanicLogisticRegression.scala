@@ -1,37 +1,35 @@
 package com.github.mrpowers.spark.spec.ml.classification
 
 import com.github.mrpowers.spark.spec.sql.SparkSessionWrapper
-import org.apache.spark.ml.classification.LogisticRegression
+import org.apache.spark.ml.classification.{LogisticRegression, LogisticRegressionModel}
 import org.apache.spark.ml.feature.{StringIndexer, VectorAssembler}
+import org.apache.spark.sql.DataFrame
 
 object TitanicLogisticRegression extends SparkSessionWrapper {
 
-  // training
+  def vectorizeFeatures()(df: DataFrame): DataFrame = {
+    val featureCols: Array[String] = Array("Gender", "Age", "SibSp", "Parch", "Fare")
+    val assembler: VectorAssembler = new VectorAssembler()
+      .setInputCols(featureCols)
+      .setOutputCol("features")
+    assembler.transform(df)
+  }
 
-  val featureCols = Array("Gender", "Age", "SibSp", "Parch", "Fare")
+  def model(): LogisticRegressionModel = {
+    val trainFeatures: DataFrame = TitanicData
+      .trainingDF()
+      .transform(vectorizeFeatures())
 
-  val assembler = new VectorAssembler()
-    .setInputCols(featureCols)
-    .setOutputCol("features")
+    val labelIndexer: StringIndexer = new StringIndexer()
+      .setInputCol("Survived")
+      .setOutputCol("label")
 
-  val trainFeatures = assembler.transform(TitanicData.trainingDF())
+    val trainWithFeaturesAndLabel: DataFrame = labelIndexer
+      .fit(trainFeatures)
+      .transform(trainFeatures)
 
-  val labelIndexer = new StringIndexer()
-    .setInputCol("Survived")
-    .setOutputCol("label")
-
-  val trainWithFeaturesAndLabel = labelIndexer
-    .fit(trainFeatures)
-    .transform(trainFeatures)
-
-  val model = new LogisticRegression()
-    .fit(trainWithFeaturesAndLabel)
-
-  // test
-
-  val testFeatures = assembler.transform(TitanicData.testDF())
-
-  val predictions = model
-    .transform(testFeatures)
+    new LogisticRegression()
+      .fit(trainWithFeaturesAndLabel)
+  }
 
 }

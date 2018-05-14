@@ -7,29 +7,37 @@ import org.apache.spark.sql.DataFrame
 
 object TitanicLogisticRegression extends SparkSessionWrapper {
 
-  def vectorizeFeatures()(df: DataFrame): DataFrame = {
-    val featureCols: Array[String] = Array("Gender", "Age", "SibSp", "Parch", "Fare")
+  def withVectorizedFeatures(
+    featureColNames: Array[String] = Array("Gender", "Age", "SibSp", "Parch", "Fare"),
+    outputColName: String = "features"
+  )(df: DataFrame): DataFrame = {
     val assembler: VectorAssembler = new VectorAssembler()
-      .setInputCols(featureCols)
-      .setOutputCol("features")
+      .setInputCols(featureColNames)
+      .setOutputCol(outputColName)
     assembler.transform(df)
+  }
+
+  def withLabel(
+    inputColName: String = "Survived",
+    outputColName: String = "label"
+  )(df: DataFrame) = {
+    val labelIndexer: StringIndexer = new StringIndexer()
+      .setInputCol(inputColName)
+      .setOutputCol(outputColName)
+
+    labelIndexer
+      .fit(df)
+      .transform(df)
   }
 
   def model(): LogisticRegressionModel = {
     val trainFeatures: DataFrame = TitanicData
       .trainingDF()
-      .transform(vectorizeFeatures())
-
-    val labelIndexer: StringIndexer = new StringIndexer()
-      .setInputCol("Survived")
-      .setOutputCol("label")
-
-    val trainWithFeaturesAndLabel: DataFrame = labelIndexer
-      .fit(trainFeatures)
-      .transform(trainFeatures)
+      .transform(withVectorizedFeatures())
+      .transform(withLabel())
 
     new LogisticRegression()
-      .fit(trainWithFeaturesAndLabel)
+      .fit(trainFeatures)
   }
 
 }

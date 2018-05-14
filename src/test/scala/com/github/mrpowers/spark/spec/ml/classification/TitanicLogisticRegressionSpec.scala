@@ -12,7 +12,7 @@ class TitanicLogisticRegressionSpec
   extends FunSpec
   with SparkSessionTestWrapper {
 
-  describe("vectorizeFeatures") {
+  describe("withVectorizedFeatures") {
 
     it("converts all the features to a vector without blowing up") {
 
@@ -26,33 +26,67 @@ class TitanicLogisticRegressionSpec
           ("Parch", DoubleType, true),
           ("Fare", DoubleType, true)
         )
-      ).transform(TitanicLogisticRegression.vectorizeFeatures())
+      ).transform(TitanicLogisticRegression.withVectorizedFeatures())
+
+      df.show()
+      df.printSchema()
 
     }
 
   }
 
-  it("trains a logistic regression model that's more than 80 percent accurate") {
+  describe("withLabel") {
 
-    val testFeatures: DataFrame = TitanicData
-      .testDF()
-      .transform(
-        TitanicLogisticRegression.vectorizeFeatures()
+    it("adds a label column") {
+
+      val df = spark.createDF(
+        List(
+          (1.0, 12.0, 3.0, 4.0, 10.0, 0.0),
+          (1.0, 32.0, 3.0, 4.0, 10.0, 1.0)
+        ), List(
+          ("Gender", DoubleType, true),
+          ("Age", DoubleType, true),
+          ("SibSp", DoubleType, true),
+          ("Parch", DoubleType, true),
+          ("Fare", DoubleType, true),
+          ("Survived", DoubleType, true)
+        )
       )
+        .transform(TitanicLogisticRegression.withVectorizedFeatures())
+        .transform(TitanicLogisticRegression.withLabel())
 
-    val predictions: DataFrame = TitanicLogisticRegression
-      .model()
-      .transform(testFeatures)
-      .select(
-        col("Survived").as("label"),
-        col("rawPrediction"),
-        col("prediction")
-      )
+      df.show()
+      df.printSchema()
 
-    val res = new BinaryClassificationEvaluator()
-      .evaluate(predictions)
+    }
 
-    assert(res >= 0.80)
+  }
+
+  describe("model") {
+
+    it("trains a logistic regression model that's more than 80 percent accurate") {
+
+      val testDF: DataFrame = TitanicData
+        .testDF()
+        .transform(
+          TitanicLogisticRegression.withVectorizedFeatures()
+        )
+
+      val predictions: DataFrame = TitanicLogisticRegression
+        .model()
+        .transform(testDF)
+        .select(
+          col("Survived").as("label"),
+          col("rawPrediction"),
+          col("prediction")
+        )
+
+      val res = new BinaryClassificationEvaluator()
+        .evaluate(predictions)
+
+      assert(res >= 0.80)
+    }
+
   }
 
 }

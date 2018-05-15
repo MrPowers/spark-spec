@@ -30,14 +30,20 @@ object TitanicLogisticRegression extends SparkSessionWrapper {
       .transform(df)
   }
 
-  def model(): LogisticRegressionModel = {
-    val trainFeatures: DataFrame = TitanicData
-      .trainingDF()
+  def model(df: DataFrame = TitanicData.trainingDF()): LogisticRegressionModel = {
+    val trainFeatures: DataFrame = df
       .transform(withVectorizedFeatures())
       .transform(withLabel())
+      .select("features", "label")
 
+    // only uses the features and label columns
     new LogisticRegression()
       .fit(trainFeatures)
   }
 
+  def persistModel(): Unit = {
+    model().save("./tmp/titanic_model/")
+  }
+
 }
+

@@ -1,14 +1,13 @@
 package com.github.mrpowers.spark.spec.ml.classification
 
-import com.github.mrpowers.spark.spec.SparkSessionTestWrapper
 import com.github.mrpowers.spark.daria.sql.SparkSessionExt._
 import com.github.mrpowers.spark.fast.tests.ColumnComparer
-import org.apache.spark.ml.classification.LogisticRegressionModel
-import org.scalatest.FunSpec
+import com.github.mrpowers.spark.spec.SparkSessionTestWrapper
 import org.apache.spark.ml.evaluation.BinaryClassificationEvaluator
-import org.apache.spark.sql.{DataFrame, Row}
+import org.apache.spark.sql.DataFrame
 import org.apache.spark.sql.functions._
 import org.apache.spark.sql.types._
+import org.scalatest.FunSpec
 
 class TitanicLogisticRegressionSpec
   extends FunSpec

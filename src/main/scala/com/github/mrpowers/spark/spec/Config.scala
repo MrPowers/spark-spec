@@ -1,10 +1,11 @@
-package com.github.mrpowers.spark.spec.sql
+package com.github.mrpowers.spark.spec
 
 object Config {
 
   var test: Map[String, String] = {
     Map(
       "libsvmData" -> new java.io.File("./src/test/resources/sample_libsvm_data.txt").getCanonicalPath,
+      "irisData" -> new java.io.File("./src/test/resources/iris/iris.csv").getCanonicalPath,
       "somethingElse" -> "hi"
     )
   }

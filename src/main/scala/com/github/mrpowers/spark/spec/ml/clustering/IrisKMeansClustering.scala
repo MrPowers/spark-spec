@@ -1,5 +1,6 @@
 package com.github.mrpowers.spark.spec.ml.clustering
 
+import com.github.mrpowers.spark.spec.Config
 import com.github.mrpowers.spark.spec.sql.SparkSessionWrapper
 import org.apache.spark.ml.clustering.{KMeans, KMeansModel}
 import org.apache.spark.ml.feature.VectorAssembler
@@ -12,7 +13,7 @@ object IrisKMeansClustering
     .read
     .option("header", "true")
     .option("inferSchema", "true")
-    .csv("./src/test/resources/iris/iris.csv")
+    .csv(Config.get("irisData"))
 
   val Array(trainingDF, testDF) = irisDF.randomSplit(Array(0.7, 0.3), seed = 12345)
 

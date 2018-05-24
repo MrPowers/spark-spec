@@ -1,7 +1,6 @@
 package com.github.mrpowers.spark.spec.ml.classification
 
-import com.github.mrpowers.spark.spec.SparkSessionTestWrapper
-import com.github.mrpowers.spark.spec.sql.Config
+import com.github.mrpowers.spark.spec.{Config, SparkSessionTestWrapper}
 import org.apache.spark.ml.classification.LogisticRegression
 import org.apache.spark.ml.linalg.{DenseVector, SparseVector}
 import org.scalatest.FunSpec

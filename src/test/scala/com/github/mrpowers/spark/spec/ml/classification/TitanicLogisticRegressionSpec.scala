@@ -32,7 +32,7 @@ class TitanicLogisticRegressionSpec
       ).transform(TitanicLogisticRegression.withVectorizedFeatures())
 
       // assertColumnEquality doesn't work for vector columns
-//      assertColumnEquality(df, "expected", "features")
+      //      assertColumnEquality(df, "expected", "features")
 
     }
 

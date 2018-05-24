@@ -21,18 +21,19 @@ class TitanicLogisticRegressionSpec
 
       val df = spark.createDF(
         List(
-          (1.0, 12.0, 3.0, 4.0, 10.0)
+          (1.0, 12.0, 3.0, 4.0, 10.0, org.apache.spark.mllib.linalg.Vectors.dense(1.0, 12.0, 3.0, 4.0, 10.0))
         ), List(
           ("Gender", DoubleType, true),
           ("Age", DoubleType, true),
           ("SibSp", DoubleType, true),
           ("Parch", DoubleType, true),
-          ("Fare", DoubleType, true)
+          ("Fare", DoubleType, true),
+          ("expected", new org.apache.spark.mllib.linalg.VectorUDT, true)
         )
       ).transform(TitanicLogisticRegression.withVectorizedFeatures())
 
-      df.show()
-      df.printSchema()
+      // assertColumnEquality doesn't work for vector columns
+//      assertColumnEquality(df, "expected", "features")
 
     }
 
@@ -96,24 +97,24 @@ class TitanicLogisticRegressionSpec
         .transform(TitanicLogisticRegression.withLabel())
         .select("features", "label")
 
-            val predictions: DataFrame = TitanicLogisticRegression
-              .model()
-              .transform(testDF)
-              .select(
-                col("label"),
-                col("rawPrediction"),
-                col("prediction")
-              )
+      val predictions: DataFrame = TitanicLogisticRegression
+        .model()
+        .transform(testDF)
+        .select(
+          col("label"),
+          col("rawPrediction"),
+          col("prediction")
+        )
 
       // we can also use a model that's been persisted
-//      val predictions: DataFrame = LogisticRegressionModel
-//        .load("./tmp/titanic_model/")
-//        .transform(testDF)
-//        .select(
-//          col("label"),
-//          col("rawPrediction"),
-//          col("prediction")
-//        )
+      //      val predictions: DataFrame = LogisticRegressionModel
+      //        .load("./tmp/titanic_model/")
+      //        .transform(testDF)
+      //        .select(
+      //          col("label"),
+      //          col("rawPrediction"),
+      //          col("prediction")
+      //        )
 
       val res = new BinaryClassificationEvaluator()
         .evaluate(predictions)

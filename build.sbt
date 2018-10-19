@@ -16,15 +16,12 @@ name := "spark-spec"
 version := "0.0.1"
 
 scalaVersion := "2.11.12"
-val sparkVersion = "2.3.0"
-val sparkFastTestsVersion = s"v${sparkVersion}_0.9.0"
-val sparkDariaVersion = s"v${sparkVersion}_0.20.3"
 
-libraryDependencies += "org.apache.spark" %% "spark-sql" % sparkVersion % "provided"
-libraryDependencies += "org.apache.spark" %% "spark-mllib" % sparkVersion % "provided"
+libraryDependencies += "org.apache.spark" %% "spark-sql" % "2.3.1" % "provided"
+libraryDependencies += "org.apache.spark" %% "spark-mllib" % "2.3.1" % "provided"
 
-libraryDependencies += "com.github.mrpowers" % "spark-daria" % sparkDariaVersion % "test"
-libraryDependencies += "com.github.mrpowers" % "spark-fast-tests" % sparkFastTestsVersion % "test"
+libraryDependencies += "mrpowers" % "spark-daria" % "2.3.1_0.25.0" % "test"
+libraryDependencies += "MrPowers" % "spark-fast-tests" % "2.3.1_0.15.0" % "test"
 libraryDependencies += "org.scalatest" %% "scalatest" % "3.0.1" % "test"
 
 fork in Test := true

@@ -163,7 +163,7 @@ class SparkSessionSpec extends FunSpec with SparkSessionTestWrapper with Dataset
 
     it("returns the version of Spark on which this application is running") {
 
-      assert(spark.version === "2.3.1")
+      assert(spark.version === "2.4.4")
 
     }
 

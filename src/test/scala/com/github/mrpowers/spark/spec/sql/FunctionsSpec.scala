@@ -684,7 +684,7 @@ class FunctionsSpec
           ("A", List("cat", "bat"))
         ), List(
           ("id", StringType, true),
-          ("collect_list_foo", ArrayType(StringType, true), true)
+          ("collect_list_foo", ArrayType(StringType, false), true)
         )
       )
 
@@ -729,7 +729,7 @@ class FunctionsSpec
           ("A", List("cat", "nice"))
         ), List(
           ("id", StringType, true),
-          ("collect_set_foo", ArrayType(StringType, true), true)
+          ("collect_set_foo", ArrayType(StringType, false), true)
         )
       )
 
@@ -1310,7 +1310,7 @@ class FunctionsSpec
         )
       )
 
-      assertSmallDatasetEquality(actualDF, expectedDF)
+      assertApproximateDataFrameEquality(actualDF, expectedDF, 0.01)
 
     }
 
@@ -1894,7 +1894,7 @@ class FunctionsSpec
         )
       )
 
-      assertSmallDatasetEquality(actualDF, expectedDF)
+      assertApproximateDataFrameEquality(actualDF, expectedDF, 0.01)
 
     }
 

@@ -11,7 +11,7 @@ libraryDependencies += "org.apache.spark" %% "spark-sql" % "3.0.0-preview2" % "p
 libraryDependencies += "org.apache.spark" %% "spark-mllib" % "3.0.0-preview2" % "provided"
 
 libraryDependencies += "mrpowers" % "spark-daria" % "0.37.1-s_2.12" % "test"
-libraryDependencies += "MrPowers" % "spark-fast-tests" % "0.20.0-s_2.12" % "test"
+libraryDependencies += "MrPowers" % "spark-fast-tests" % "0.21.1-s_2.12" % "test"
 libraryDependencies += "org.scalatest" %% "scalatest" % "3.0.1" % "test"
 
 fork in Test := true

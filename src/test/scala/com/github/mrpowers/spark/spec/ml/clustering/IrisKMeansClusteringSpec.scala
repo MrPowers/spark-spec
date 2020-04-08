@@ -66,7 +66,7 @@ class IrisKMeansClusteringSpec
       val res = new ClusteringEvaluator()
         .evaluate(predictions)
 
-      assert(res >= 0.70)
+      assert(res >= 0.60)
     }
 
   }

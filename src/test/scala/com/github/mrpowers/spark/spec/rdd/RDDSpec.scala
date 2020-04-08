@@ -274,22 +274,7 @@ class RDDSpec extends FunSpec with RDDComparer with SparkSessionTestWrapper {
   }
 
   describe("#randomSplit") {
-
-    it("Randomly splits this RDD with the provided weights") {
-
-      val xRDD = spark.sparkContext.parallelize(List.range(1, 101))
-
-      val splits = xRDD.randomSplit(Array(0.7, 0.3), seed = 4567)
-
-      val (trainingData, testData) = (splits(0), splits(1))
-
-      val trainingDataSize = trainingData.count()
-
-      //It doesn't split the data exactly 7:3
-      assert(trainingDataSize > 70 && trainingDataSize < 75)
-
-    }
-
+    pending
   }
 
   describe("#rddToAsyncRDDActions") {

@@ -1,6 +1,3 @@
-resolvers += "jitpack" at "https://jitpack.io"
-resolvers += "Spark Packages Repo" at "http://dl.bintray.com/spark-packages/maven"
-
 name := "spark-spec"
 
 version := "0.0.1"
@@ -10,8 +7,8 @@ scalaVersion := "2.12.10"
 libraryDependencies += "org.apache.spark" %% "spark-sql" % "3.0.0" % "provided"
 libraryDependencies += "org.apache.spark" %% "spark-mllib" % "3.0.0" % "provided"
 
-libraryDependencies += "mrpowers" % "spark-daria" % "0.37.1-s_2.12" % "test"
-libraryDependencies += "MrPowers" % "spark-fast-tests" % "0.21.1-s_2.12" % "test"
+libraryDependencies += "com.github.mrpowers" %% "spark-daria" % "0.38.2"
+libraryDependencies += "com.github.mrpowers" %% "spark-fast-tests" % "0.21.3" % "test"
 libraryDependencies += "org.scalatest" %% "scalatest" % "3.0.1" % "test"
 
 fork in Test := true

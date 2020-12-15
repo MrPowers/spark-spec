@@ -10,6 +10,7 @@ libraryDependencies += "org.apache.spark" %% "spark-mllib" % "3.0.1" % "provided
 libraryDependencies += "com.github.mrpowers" %% "spark-daria" % "0.38.2"
 libraryDependencies += "com.github.mrpowers" %% "spark-fast-tests" % "0.21.3" % "test"
 libraryDependencies += "org.scalatest" %% "scalatest" % "3.0.1" % "test"
+libraryDependencies += "com.lihaoyi" %% "os-lib" % "0.7.1" % "test"
 
 fork in Test := true
 envVars in Test := Map("PROJECT_ENV" -> "test")

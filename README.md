@@ -2,8 +2,6 @@
 
 A test suite to document the behavior of the Spark engine.
 
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/a00f602d308a49139dbf3a92eeb8473c)](https://www.codacy.com/app/MrPowers/spark-spec?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=MrPowers/spark-spec&amp;utm_campaign=Badge_Grade)
-
 ## Goals
 
 1. Augment the official documentation with working code snippets.

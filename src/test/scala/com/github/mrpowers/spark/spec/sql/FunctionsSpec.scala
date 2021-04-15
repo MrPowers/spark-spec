@@ -1126,6 +1126,32 @@ class FunctionsSpec
     pending
   }
 
+  describe("dayofweek") {
+    it("calculates the day of the week as an integer") {
+      val df = spark.createDF(
+        List(
+          (Date.valueOf("2021-01-10")),
+          (Date.valueOf("2021-01-11")),
+          (Date.valueOf("2021-01-12")),
+          (Date.valueOf("2021-01-13")),
+          (Date.valueOf("2021-01-14")),
+          (Date.valueOf("2021-01-15")),
+          (Date.valueOf("2021-01-16")),
+          (null)
+        ),
+        List(
+          ("some_date", DateType, true)
+        )
+      )
+      df.show()
+
+      df
+        .withColumn("dayofweek", dayofweek(col("some_date")))
+        .withColumn("date_format", date_format(col("some_date"), "EEEE"))
+        .show()
+    }
+  }
+
   describe("#dayofyear") {
     pending
   }
@@ -2323,25 +2349,23 @@ class FunctionsSpec
 
       val sourceDF = spark.createDF(
         List(
-          (Date.valueOf("2016-01-01")),
-          (Date.valueOf("2016-12-01"))
+          (Date.valueOf("2021-01-11")),
+          (Date.valueOf("2021-01-23"))
         ), List(
           ("some_date", DateType, true)
         )
       )
 
-      val actualDF = sourceDF.withColumn(
-        "next_day",
-        next_day(col("some_date"), "Friday")
-      )
+      val actualDF = sourceDF
+        .withColumn("next_friday", next_day(col("some_date"), "Fri"))
 
       val expectedDF = spark.createDF(
         List(
-          (Date.valueOf("2016-01-01"), Date.valueOf("2016-01-08")),
-          (Date.valueOf("2016-12-01"), Date.valueOf("2016-12-02"))
+          (Date.valueOf("2021-01-11"), Date.valueOf("2021-01-15")),
+          (Date.valueOf("2021-01-23"), Date.valueOf("2021-01-29"))
         ), List(
           ("some_date", DateType, true),
-          ("next_day", DateType, true)
+          ("next_friday", DateType, true)
         )
       )
 
@@ -2577,6 +2601,7 @@ class FunctionsSpec
       )
 
       val actualDF = wordsDF.withColumn("new_word1", regexp_replace(col("word1"), "//", "\\,"))
+      wordsDF.withColumn("new_word1", regexp_replace(col("word1"), "//", "\\,")).show()
 
       val expectedDF = spark.createDF(
         List(
@@ -3235,6 +3260,35 @@ class FunctionsSpec
   }
 
   describe("#weekofyear") {
+
+    it("shows an example for a blog post") {
+      val df = spark.createDF(
+        List(
+          (Date.valueOf("2021-01-01")),
+          (Date.valueOf("2021-01-02")),
+          (Date.valueOf("2021-01-09")),
+          (Date.valueOf("2021-01-10")),
+          (Date.valueOf("2021-01-11")),
+          (Date.valueOf("2021-01-12")),
+          (Date.valueOf("2021-01-13")),
+          (Date.valueOf("2021-01-14")),
+          (Date.valueOf("2021-01-15")),
+          (Date.valueOf("2021-01-16")),
+          (Date.valueOf("2021-01-17")),
+          (Date.valueOf("2021-01-18")),
+          (null)
+        ),
+        List(
+          ("some_date", DateType, true)
+        )
+      )
+      df.show()
+
+      df
+        .withColumn("weekofyear", weekofyear(col("some_date")))
+        .show()
+
+    }
 
     it("Extracts the week number as an integer from a timestamp") {
 

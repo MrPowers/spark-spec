@@ -1029,22 +1029,16 @@ class DatasetSpec
 
     it("returns a sample of the new Dataset") {
 
-      pending
+      val df = Seq(
+        ("foo", 1),
+        ("foo", 2),
+        ("bar", 2),
+        ("bar", 2)
+      ).toDF("x", "y")
 
-      // COMMENTED OUT because this code is causing intermittent TravisCI failures
-      // Example: https://travis-ci.org/MrPowers/spark-spec/builds/235765200?utm_source=github_status&utm_medium=notification
-      // Need to figure out a solution
+      val actualDF = df.sample(true, 0.25)
 
-      //      val df = Seq(
-      //        ("foo", 1),
-      //        ("foo", 2),
-      //        ("bar", 2),
-      //        ("bar", 2)
-      //      ).toDF("x", "y")
-      //
-      //      val actualDF = df.sample(true, 0.25)
-      //
-      //      assert(actualDF.count < 4)
+      assert(actualDF.count < 4)
 
     }
 

@@ -7,8 +7,8 @@ scalaVersion := "2.12.12"
 libraryDependencies += "org.apache.spark" %% "spark-sql" % "3.0.1" % "provided"
 libraryDependencies += "org.apache.spark" %% "spark-mllib" % "3.0.1" % "provided"
 
-libraryDependencies += "com.github.mrpowers" %% "spark-daria" % "0.38.2"
-libraryDependencies += "com.github.mrpowers" %% "spark-fast-tests" % "0.21.3" % "test"
+libraryDependencies += "com.github.mrpowers" %% "spark-daria" % "1.0.0"
+libraryDependencies += "com.github.mrpowers" %% "spark-fast-tests" % "1.0.0" % "test"
 libraryDependencies += "org.scalatest" %% "scalatest" % "3.0.1" % "test"
 libraryDependencies += "com.lihaoyi" %% "os-lib" % "0.7.1" % "test"
 
